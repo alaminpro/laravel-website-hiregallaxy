@@ -1,0 +1,152 @@
+<form action="{{ $route }}" method="get" id="jobSearchForm">
+	<div class="sidebar-widget">
+		<div class="sidebar-list-item">
+			<h3>
+				Jobs By Positions
+			</h3>
+			<hr class="sidebar-border">
+			<div class="clearfix"></div>
+			@foreach (App\Models\Category::orderBy('name', 'asc')->get() as $cat)
+			<div class="squaredFour">
+				<input type="checkbox" value="{{ $cat->slug }}" id="category{{ $cat->id }}" name="category"
+					onchange="submitSearch()"
+					{{ isset($_GET['category']) && ($_GET['category'] == $cat->slug) ? 'checked' : '' }} />
+				<label for="category{{ $cat->id }}"></label>
+				{{ $cat->name }}
+				({{ count(App\Models\Job::where('status_id', 1)->where('category_id', $cat->id)->get()) }})
+			</div>
+			@endforeach
+		</div>
+	</div>
+
+	<!-- Location -->
+	<div class="sidebar-widget">
+		<div class="sidebar-list-item">
+			<h3>
+				Jobs By City
+			</h3>
+			<hr class="sidebar-border">
+			<div class="clearfix"></div>
+
+			<select name="country" onchange="submitSearch()" id="country" class="selectpicker" data-live-search="true">
+				<option data-icon="fa fa-map-marker" value="all">All Locations</option>
+				@foreach (App\Models\State::orderBy('name', 'asc')->get() as $state)
+				<option value="" disabled style="font-weight: bolder;font-size: 16px;">
+					{{ $state->name }}
+				</option>
+
+				@foreach ($state->cities()->orderBy('name', 'asc')->get() as $countrySingle)
+				<option value="{{ $countrySingle->name }}"
+					{{ isset($_GET['country']) && ($_GET['country'] == $countrySingle->name) ? 'selected' : '' }}>
+					&nbsp; &nbsp; {{ $countrySingle->name }}
+					({{ count(App\Models\Job::where('status_id', 1)->where('country_id', $countrySingle->id)->get()) }})
+				</option>
+				@endforeach
+
+				@endforeach
+			</select>
+		</div>
+	</div>
+
+	<!-- Team Size -->
+	<div class="sidebar-widget">
+		<div class="sidebar-list-item">
+			<h3>
+				Salary
+			</h3>
+			<hr class="sidebar-border">
+			<div class="clearfix"></div>
+
+			<div class="squaredFour">
+				<input type="checkbox" value="0-500" id="salary1" name="salary"
+					{{ isset($_GET['salary']) && ($_GET['salary'] == '0-500') ? 'checked' : '' }}
+					onchange="submitSearch()" />
+				<label for="salary1"></label>
+				$0 - $500
+			</div>
+			<div class="squaredFour">
+				<input type="checkbox" value="500-1000" id="salary2" name="salary"
+					{{ isset($_GET['salary']) && ($_GET['salary'] == '500-1000') ? 'checked' : '' }}
+					onchange="submitSearch()" />
+				<label for="salary2"></label>
+				$0.5K - $1K
+			</div>
+			<div class="squaredFour">
+				<input type="checkbox" value="1000-2000" id="salary3" name="salary"
+					{{ isset($_GET['salary']) && ($_GET['salary'] == '1000-2000') ? 'checked' : '' }}
+					onchange="submitSearch()" />
+				<label for="salary3"></label>
+				$1K - $2K
+			</div>
+			<div class="squaredFour">
+				<input type="checkbox" value="2000-3000" id="salary4" name="salary"
+					{{ isset($_GET['salary']) && ($_GET['salary'] == '2000-3000') ? 'checked' : '' }}
+					onchange="submitSearch()" />
+				<label for="salary4"></label>
+				$2K - $3K
+			</div>
+			<div class="squaredFour">
+				<input type="checkbox" value="3000-5000" id="salary5" name="salary"
+					{{ isset($_GET['salary']) && ($_GET['salary'] == '3000-5000') ? 'checked' : '' }}
+					onchange="submitSearch()" />
+				<label for="salary5"></label>
+				$3K - $5K
+			</div>
+			<div class="squaredFour">
+				<input type="checkbox" value="5000" id="salary6" name="salary"
+					{{ isset($_GET['salary']) && ($_GET['salary'] == '5000') ? 'checked' : '' }}
+					onchange="submitSearch()" />
+				<label for="salary6"></label>
+				$5K+
+			</div>
+
+		</div>
+	</div>
+
+	<div class="sidebar-widget">
+		<div class="sidebar-list-item">
+			<h3>
+				Job Type
+			</h3>
+			<hr class="sidebar-border">
+			<div class="clearfix"></div>
+
+			@foreach (App\Models\JobType::orderBy('name', 'asc')->get() as $jobTypeSingle)
+			<div class="squaredFour">
+				<input type="checkbox" value="{{ $jobTypeSingle->name }}" id="type{{ $jobTypeSingle->id }}" name="type"
+					onchange="submitSearch()"
+					{{ isset($_GET['type']) && ($_GET['type'] == $jobTypeSingle->name) ? 'checked' : '' }} />
+				<label for="type{{ $jobTypeSingle->id }}"></label>
+				{{ $jobTypeSingle->name }}
+				({{ count(App\Models\Job::where('status_id', 1)->where('type_id', $jobTypeSingle->id)->get()) }})
+			</div>
+			@endforeach
+
+		</div>
+	</div>
+
+
+	<!-- Date Posted -->
+	{{--  <div class="sidebar-widget">
+		<div class="sidebar-list-item">
+			<h3>
+				Experience Level
+			</h3>
+			<hr class="sidebar-border">
+			<div class="clearfix"></div>
+
+		
+			@foreach (App\Models\Experience::orderBy('name', 'asc')->get() as $experienceSingle)
+			<div class="squaredFour">
+				<input type="checkbox" value="{{ $experienceSingle->slug }}" id="experience{{ $experienceSingle->id }}"
+	name="experience" onchange="submitSearch()"
+	{{ isset($_GET['experience']) && ($_GET['experience'] == $experienceSingle->slug) ? 'checked' : '' }}/>
+	<label for="experience{{ $experienceSingle->id }}"></label>
+	{{ $experienceSingle->name }}
+	({{ count(App\Models\Job::where('status_id', 1)->where('experience_id', $experienceSingle->id)->get()) }})
+	</div>
+	@endforeach
+
+	</div>
+	</div> --}}
+</form>
