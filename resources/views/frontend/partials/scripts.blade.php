@@ -1,7 +1,6 @@
 <!-- Vue App JS -->
-<script src="{{ asset('js/app-copy.js') }}"></script>
-
-<!--<script src="{{ asset('js/app.js') }}"></script>-->
+{{-- <script src="{{ asset('js/app-copy.js') }}"></script> --}}
+<script src="{{ asset('js/app.js') }}"></script>
 
 <!-- Jquery -->
 <script src="{{ asset('js/jquery/jquery-3.3.1.min.js') }}"></script>

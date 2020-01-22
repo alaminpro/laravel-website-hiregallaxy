@@ -40,6 +40,13 @@ Route::group(['prefix' => 'employers'], function () {
   Route::post('/posted-jobs/delete/{slug}', 'Frontend\EmployersController@deleteJob')->name('employers.jobs.delete');
   Route::get('/applications/{slug}', 'Frontend\EmployersController@jobApplications')->name('employers.jobs.applications');
   Route::get('/messages', 'Frontend\EmployersController@messages')->name('employers.messages');
+  
+  /*
+  * start route quiz or online exam
+  */
+  Route::get('/exam', 'Frontend\ExamController@index')->name('exam');
+
+
 
 });
 

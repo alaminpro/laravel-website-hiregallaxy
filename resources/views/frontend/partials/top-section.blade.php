@@ -288,7 +288,25 @@
 		</div>
 	</div>
 </div>
+@elseif(Route::is('exam')) 
+<div class="home-top">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-10">
 
+				<h3 class="top-title wow fadeInUp mb-3">
+					Online Skill Test
+				</h3>  
+				<div class="navbar-breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Skill Test</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 @elseif(Route::is('employers.dashboard') || Route::is('candidates.dashboard') || Route::is('employers.jobs.posted') ||
 Route::is('employers.jobs.favorite') || Route::is('candidates.jobs.favorite') || Route::is('employers.messages') ||
@@ -392,6 +410,7 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 						@elseif(Route::is('employers.show'))
 						<li class="breadcrumb-item"><a href="{{ route('employers') }}">Employers</a></li>
 						<li class="breadcrumb-item active" aria-current="page">{{ $user->name }}</li>
+						 
 						@elseif(Route::is('candidates.show'))
 						<li class="breadcrumb-item"><a href="{{ route('candidates') }}">Candidates</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Candidate Details</li>
