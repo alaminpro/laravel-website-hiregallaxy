@@ -44,9 +44,14 @@ Route::group(['prefix' => 'employers'], function () {
   /*
   * start route quiz or online exam
   */
-  Route::get('/exam', 'Frontend\ExamController@index')->name('exam');
-
-
+  Route::group(['prefix' => 'exam'], function () {
+    Route::get('/', 'Frontend\ExamController@index')->name('exam'); 
+    Route::get('/questions', 'Frontend\ExamController@questions'); 
+    Route::get('/check-skill', 'Frontend\ExamController@checkSkill'); 
+    Route::get('/results', 'Frontend\ExamController@ShowResult')->name('show-result'); 
+    Route::post('/results', 'Frontend\ExamController@Results');  
+    Route::get('/check-exam-status', 'Frontend\ExamController@examStatus');  
+  });
 
 });
 
