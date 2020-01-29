@@ -13,7 +13,7 @@ Employer Exam | {{ App\Models\Setting::first()->site_title }}
 	<div class="container">
         <div class="row">
             <div class="col-lg-12">
-            <exam-component url="{{route('employers.dashboard')}}" redirect_url="{{route('show-result')}}"></exam-component> 
+            <exam-component url="{{route('jobs')}}" id="{{$id}}" ></exam-component> 
             </div>
         </div>
     </div>

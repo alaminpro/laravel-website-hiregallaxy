@@ -75,7 +75,7 @@ Employers | {{ App\Models\Setting::first()->site_title }}
 						</div>
 						<div class="clearfix"></div>
 					</div>
-					@foreach ($users as $single_user)
+					@foreach ($users as $key => $single_user)
 					@include('frontend.pages.partials.employer-single')
 					@endforeach
 

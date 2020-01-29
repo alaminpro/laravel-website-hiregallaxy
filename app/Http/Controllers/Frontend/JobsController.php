@@ -30,6 +30,7 @@ use App\Models\Sector;
 use App\Models\Segment;
 use App\Models\Setting;
 use App\Models\Template;
+use App\Models\Result;
 use App\User;
 use Auth;
 
@@ -66,7 +67,7 @@ class JobsController extends Controller
             $pageNo = 0;
         }
 
-        $jobs = Job::where('is_confirmed', 1)->orderBy('id', 'desc')->where('status_id', 1)->paginate($paginateNumber);
+        $jobs = Job::with('results')->where('is_confirmed', 1)->orderBy('id', 'desc')->where('status_id', 1)->paginate($paginateNumber);
         // if (isset($city_id) && !is_null($city_id) && $city_id != '' && $city_id != 0) {
         //     $jobs = Job::where('is_confirmed', 1)->where('status_id', 1)->orderByRaw(DB::raw("FIELD(country_id , '$city_id') DESC"))->orderBy('id', 'DESC')->paginate($paginateNumber);
         // }
@@ -76,6 +77,7 @@ class JobsController extends Controller
         $pageNo = $pageNo != 0 ? $pageNo - 1 : $pageNo;
         $pageNoText = $paginateNumber * $pageNo . ' to ' . ($pageNo * $paginateNumber + $total_jobs);
 
+        // for exam result validation 
         return view('frontend.pages.jobs.index', compact('jobs', 'categories', 'pageNoText'));
     }
 
@@ -107,7 +109,7 @@ class JobsController extends Controller
         }
 
 
-        $jobs = Job::where('is_confirmed', 1)->where('category_id', $category->id)->where('status_id', 1)->orderBy('id', 'desc')->paginate($paginateNumber);
+        $jobs = Job::with('results')->where('is_confirmed', 1)->where('category_id', $category->id)->where('status_id', 1)->orderBy('id', 'desc')->paginate($paginateNumber);
 
         // if (isset($city_id) && !is_null($city_id) && $city_id != '' && $city_id != 0) {
         //     $jobs = Job::where('is_confirmed', 1)->where('category_id', $category->id)->where('status_id', 1)->orderByRaw(DB::raw("FIELD(country_id , '$city_id') DESC"))->orderBy('id', 'DESC')->paginate($paginateNumber);
@@ -116,7 +118,7 @@ class JobsController extends Controller
         $total_jobs = count($jobs);
         $pageNo = $pageNo != 0 ? $pageNo - 1 : $pageNo;
         $pageNoText = $paginateNumber * $pageNo . ' to ' . ($pageNo * $paginateNumber + $total_jobs);
-
+        
         return view('frontend.pages.jobs.index', compact('jobs', 'categories', 'category', 'pageNoText'));
     }
 
@@ -250,7 +252,7 @@ class JobsController extends Controller
         $stmt->execute();
         $job_ids = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-        $jobs = Job::whereIn('id', $job_ids)->paginate($paginateNumber);
+        $jobs = Job::with('results')->whereIn('id', $job_ids)->paginate($paginateNumber);
         // if (isset($city_id) && !is_null($city_id) && $city_id != '' && $city_id != 0) {
         //     $jobs = Job::whereIn('id', $job_ids)->orderByRaw(DB::raw("FIELD(country_id , '$city_id') DESC"))->orderBy('id', 'DESC')->paginate($paginateNumber);
         // }
@@ -258,7 +260,7 @@ class JobsController extends Controller
         $total_jobs = count($jobs);
         $pageNo = $pageNo != 0 ? $pageNo - 1 : $pageNo;
         $pageNoText = $paginateNumber * $pageNo . ' to ' . ($pageNo * $paginateNumber + $total_jobs);
-
+   
         return view('frontend.pages.jobs.index', compact('jobs', 'categories', 'pageNoText', 'search', 'country', 'category'));
     }
 
@@ -271,9 +273,12 @@ class JobsController extends Controller
     public function show($slug)
     {
         $job = Job::where('slug', $slug)->first();
+        // for exam result validation
+        $result = Result::where('status', 1)->where('job_id', $job->id)->select('job_id')->first();
+     
         if (!is_null($job)) {
             $similar_jobs = Job::where('category_id', $job->category->id)->where('status_id', 1)->where('id', '!=', $job->id)->limit(3)->get();
-            return view('frontend.pages.jobs.show', compact('job', 'similar_jobs'));
+            return view('frontend.pages.jobs.show', compact('job', 'similar_jobs','result'));
         }
 
         session()->flash('error', 'Sorry !! No job has found !!');
@@ -335,8 +340,7 @@ class JobsController extends Controller
             'apply_type_id' => 'required',
             'location' => 'nullable',
             'deadline' => 'required'
-        ]);
-        $skill = implode(',', $request->skill);
+        ]); 
         $job = new Job();
         $template_id = $request->template_id;
         $template = Template::find($template_id);
@@ -357,8 +361,7 @@ class JobsController extends Controller
 
             $job->location = trim($request->location);
             $job->country_id = $request->country;
-            $job->job_id = $request->job_id;
-            $job->skill_id = $skill;
+            $job->job_id = $request->job_id; 
 
             if (isset($request->is_salary_negotiable)) {
                 $job->is_salary_negotiable = 1;
@@ -368,8 +371,7 @@ class JobsController extends Controller
                 $this->validate($request, [
                     'monthly_salary' => 'required',
                     'salary_currency' => 'required'
-                ]);
-
+                ]); 
                 $job->monthly_salary = $request->monthly_salary;
                 $job->salary_currency = $request->salary_currency;
             }
@@ -404,6 +406,7 @@ class JobsController extends Controller
                 $job->experience = $request->experience;
                 $job->about_company = $request->about_company;
                 $job->save();
+                $job->skills()->sync($request->skills);
             }
 
             session()->flash('success', 'Job has been posted successfully !!');

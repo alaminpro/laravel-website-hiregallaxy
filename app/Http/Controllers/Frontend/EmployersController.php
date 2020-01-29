@@ -18,6 +18,7 @@ use App\Models\Country;
 use App\Models\Experience;
 use App\Models\TeamSize;
 use App\Models\Job;
+use App\Models\Result;
 use App\Models\JobActivity;
 use App\Models\FavoriteJob;
 use Illuminate\Support\Facades\File;
@@ -54,8 +55,8 @@ class EmployersController extends Controller
         $company = CompanyProfile::where('user_id', $user->id)->first();
         $company->total_view = $company->total_view + 1;
         $company->save();
-
-        return view('frontend.pages.employers.show', compact('user'));
+        $results = Result::where('status', 1)->select('job_id')->get();
+        return view('frontend.pages.employers.show', compact('user', 'results'));
     }
 
     public function search(Request $request)

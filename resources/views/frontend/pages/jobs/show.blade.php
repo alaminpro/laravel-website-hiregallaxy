@@ -101,28 +101,37 @@
 										</div>
 									</div>
 									<div class="mt-3">
-										@if (Auth::check())
-										@if (Auth::user()->hasAppliedJob($job->id))
-										<a href="#update-apply-job-modal" data-toggle="modal"
-											class="btn btn-outline-success"
-											onclick="applyUpdateJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}')">
-											<span class="text-success"><i class="fa fa-check"></i> Already
-												Applied</span>
-										</a>
+										
+										@if (Auth::check()) 
+											@if (Auth::user()->hasAppliedJob($job->id))
+											<a href="#update-apply-job-modal" data-toggle="modal"
+												class="btn btn-outline-success"
+												onclick="applyUpdateJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}')">
+												<span class="text-success"><i class="fa fa-check"></i> Already
+													Applied</span>
+											</a>
+											@else 
+												@if (Auth::id() != $job->user_id)
+												@if($result)
+														<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button"
+															onclick="applyJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}')">
+															Apply Now
+														</a>
+													@else
+														<a href="{{route('exam', $job->id)}}" class="btn apply-now-button" >
+															Apply Now  
+														</a>
+													@endif
+												@endif
+											
+											@endif
 										@else
-										@if (Auth::id() != $job->user_id)
 										<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button"
 											onclick="applyJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}')">
 											Apply Now
 										</a>
 										@endif
-										@endif
-										@else
-										<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button"
-											onclick="applyJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}')">
-											Apply Now
-										</a>
-										@endif
+									
 
 										@if (Auth::check())
 										<favorite-component url="{{ url('/') }}" id="{{ $job->id }}"

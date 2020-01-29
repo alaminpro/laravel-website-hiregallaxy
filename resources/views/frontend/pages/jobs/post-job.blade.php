@@ -178,9 +178,8 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 								<div class="col-md-12 form-group">
 									<label for="skill">	<strong>Skill</strong></span>
 									</label>
-									<select multiple name="skill[]" id="skill" class="form-control" required>
-										<option value="">Select Skill</option>
-										@foreach ($skills as $skill)
+									<select multiple name="skills[]" id="skill" class="form-control" required>
+									  	@foreach ($skills as $skill)
 										<option value="{{ $skill->id }}">{{ $skill->name }}</option>
 										@endforeach
 									</select>

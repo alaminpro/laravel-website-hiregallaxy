@@ -17,7 +17,7 @@ Favorite Jobs | {{ App\Models\Setting::first()->site_title }}
 					<h5 class="text-theme">
 						My Applied Jobs
 					</h5>
-					@foreach ($jobs as $single_job)
+					@foreach ($jobs as $key => $single_job)
 					@include('frontend.pages.partials.single-job-search')
 					@endforeach
 

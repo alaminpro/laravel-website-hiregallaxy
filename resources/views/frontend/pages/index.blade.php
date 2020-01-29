@@ -106,7 +106,7 @@
 				aria-labelledby="featured-jobs-tab">
 				<div class="row mt-4">
 
-					@foreach ($featured_jobs as $single_job)
+					@foreach ($featured_jobs as  $key => $single_job)
 					<div class="col-md-6">
 						@include('frontend.pages.partials.single-job-search')
 					</div><!-- End Single Item -->
@@ -116,7 +116,7 @@
 			</div>
 			<div class="tab-pane fade" id="recent-jobs" role="tabpanel" aria-labelledby="recent-jobs-tab">
 				<div class="row mt-4">
-					@foreach ($recent_jobs as $single_job)
+					@foreach ($recent_jobs as  $key => $single_job)
 					<div class="col-md-6">
 						@include('frontend.pages.partials.single-job-search')
 					</div><!-- End Single Item -->

@@ -41,17 +41,7 @@ Route::group(['prefix' => 'employers'], function () {
   Route::get('/applications/{slug}', 'Frontend\EmployersController@jobApplications')->name('employers.jobs.applications');
   Route::get('/messages', 'Frontend\EmployersController@messages')->name('employers.messages');
   
-  /*
-  * start route quiz or online exam
-  */
-  Route::group(['prefix' => 'exam'], function () {
-    Route::get('/', 'Frontend\ExamController@index')->name('exam'); 
-    Route::get('/questions', 'Frontend\ExamController@questions'); 
-    Route::get('/check-skill', 'Frontend\ExamController@checkSkill'); 
-    Route::get('/results', 'Frontend\ExamController@ShowResult')->name('show-result'); 
-    Route::post('/results', 'Frontend\ExamController@Results');  
-    Route::get('/check-exam-status', 'Frontend\ExamController@examStatus');  
-  });
+
 
 });
 
@@ -120,6 +110,17 @@ Route::group(['prefix' => 'jobs'], function () {
   Route::post('/apply', 'Frontend\JobsController@apply')->name('jobs.apply');
   Route::post('/apply-update', 'Frontend\JobsController@applyUpdate')->name('jobs.apply.update');
   Route::get('/search', 'Frontend\JobsController@searchJob')->name('jobs.search');
+    /*
+  * start route quiz or online exam
+  */
+  Route::group(['prefix' => 'exam'], function () {
+    Route::get('/home/{id}', 'Frontend\ExamController@index')->name('exam'); 
+    Route::get('/questions/{id}', 'Frontend\ExamController@questions'); 
+    Route::get('/check-skill', 'Frontend\ExamController@checkSkill'); 
+    Route::get('/results', 'Frontend\ExamController@ShowResult')->name('show-result'); 
+    Route::post('/results', 'Frontend\ExamController@Results');  
+    Route::get('/check-exam-status', 'Frontend\ExamController@examStatus');  
+  });
 });
 
 Route::group(['prefix' => 'messages'], function () {

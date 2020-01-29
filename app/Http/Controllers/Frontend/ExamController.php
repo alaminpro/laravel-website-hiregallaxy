@@ -8,6 +8,7 @@ use App\Models\Question;
 use Illuminate\Support\Collection;
 use App\Models\Result;
 use App\Models\UserSkill;
+use App\Models\Job;
 use Illuminate\Support\Arr;
 class ExamController extends Controller
 {
@@ -21,38 +22,61 @@ class ExamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        return view('frontend.pages.employers.exam.exam');
+
+        return view('frontend.pages.employers.exam.exam',compact('id'));
     }
     /**
      * Display all Question that are available
      *
      * @return \Illuminate\Http\Response
      */
-    public function questions()
+    public function questions($id)
     {
-    $user_skills = UserSkill::where('user_id', auth()->user()->id)->get();
-    $collection = collect($user_skills); 
-    // $skill_id =  $collection->pluck('skill_id')->all(); 
-    $skill_id = [1,2,3,4];
-    $all_questions = Question::with('answers')->get();  
-    $all_question = []; 
-    for($d = 0; $d < count($all_questions); $d++){
-        $skills = $all_questions[$d]['skills']; 
-        for($k = 0; $k < count($skills); $k++){
-            $singles = $skills[$k];
-            for($j = 0; $j < count($skill_id); $j++){
-                if($singles == $skill_id[$j]){
-                    $all_question[] = $all_questions[$d];
+        $questions = [];
+        $job_skill = Job::with('skills')->where('id',$id)->first();
+       if(!empty($job_skill) ){ 
+            $skills = $job_skill->skills; 
+            if(count($skills) > 0){
+                $skill_id = $skills->pluck('id');
+                $all_questions = Question::with('answers')->get();  
+                    $all_question = []; 
+                    for($d = 0; $d < count($all_questions); $d++){
+                        $skills = $all_questions[$d]['skills']; 
+                        for($k = 0; $k < count($skills); $k++){
+                            $singles = $skills[$k];
+                            for($j = 0; $j < count($skill_id); $j++){
+                                if($singles == $skill_id[$j]){
+                                    $all_question[] = $all_questions[$d];
+                                } 
+                            }
+                         
+                        }
+                    } 
+                $questions = $this->array_unique_custom($all_question); 
+                $questions = collect($questions)->random(30);
+                $collection = collect($questions); 
+                $question_pluck_id = $collection->pluck('id');
+                $newQuestion = Question::with('answers')->inRandomOrder()->get();
+                $new_collection = collect($newQuestion); 
+                $final = $new_collection->whereNotIn('id', $question_pluck_id);
+                if(count($questions) < 30){
+                    $question_left = (30 - count($questions)); 
+                    $result = collect($final)->random($question_left);  
+                    $collect = collect($questions); 
+                    return $questions = $collect->merge($result);
                 } 
+            }else{
+                $questions =  Question::with('answers')->inRandomOrder()->limit(30)->get();
             }
-         
-        }
-    } 
-   $questions = $this->array_unique_custom($all_question); 
-    if(count($questions) >= 30){
-        $questions = Arr::random($questions, 30);
+     }
+
+
+
+
+ 
+    if(count($questions) >= 30){ 
             $data = [];
                 for($i = 0; $i < count($questions); $i++){
                     $data[$i]['id'] = $questions[$i]->id;
@@ -101,12 +125,8 @@ class ExamController extends Controller
      */
     public function examStatus( )
     {
-        $result = Result::where('user_id', auth()->user()->id)->first(); 
-        if($result->status == 1){
-            return [1];
-        }else{
-            return [];
-        }
+       return Result::where('user_id', auth()->user()->id)->select('job_id')->get(); 
+         
     }
 
     /**
@@ -116,8 +136,7 @@ class ExamController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function Results(Request $request)
-    {
-        
+    {  
         $collection = collect($request->answer); 
         $question_id =  $collection->pluck('id')->all();
         $questions = Question::with('answers')->whereIn('id', $question_id)->get();
@@ -153,20 +172,22 @@ class ExamController extends Controller
         }else{
            $time = gmdate("H:i:s",1800); 
         } 
-        $check_exist = Result::where('user_id', auth()->user()->id)->first();
-        if($check_exist){
-            $Result =  Result::where('user_id', auth()->user()->id)->first();
-        }else{
-            $Result = new Result();
-        }
+       
+        $Result = new Result();
         $Result->user_id = $request->user_id;
+        $Result->job_id = $request->job_id;
         $Result->result = $result_percent;
         $Result->que_answer = $total_que;
         $Result->time = $time;
         $Result->status = 1; 
         $Result->save(); 
-
-        return response()->json(['success'=> 'success']);
+        $job_id =   Job::where('id', $request->job_id)->select('slug')->first();
+        return response()->json(
+            [
+                'success'=> 'success',
+                'job_id'=> $job_id
+            ]
+        );
     
     }
 

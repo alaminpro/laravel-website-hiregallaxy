@@ -90,9 +90,16 @@ class Job extends Model
         return $this->belongsTo(Country::class);
     }
 
+    // public function skills()
+    // {
+    //     return $this->hasMany(JobSkill::class);
+    // }
+    public function results() {
+        return $this->hasMany("App\Models\Result", "job_id", "id");
+    }
     public function skills()
-    {
-        return $this->hasMany(JobSkill::class);
+    { 
+        return $this->belongsToMany('App\Models\Skill', 'job_skills', 'job_id', 'skill_id');
     }
 
     public function qualifications()

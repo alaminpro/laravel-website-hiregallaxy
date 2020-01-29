@@ -12,4 +12,8 @@ class Skill extends Model
         'description',
         'status'
     ];
+
+    public function skill_jobs() { 
+       return $this->belongsToMany('App\Models\Skill', 'job_skills')->withTimestamps(); 
+    }
 }

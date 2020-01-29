@@ -1,7 +1,7 @@
 <div class="modal animated fadeIn" id="apply-job-modal">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-
+			
 			<!-- Modal Header -->
 			<div class="modal-header">
 				<h4 class="modal-title text-theme font22 bold">Apply for this Job</h4>

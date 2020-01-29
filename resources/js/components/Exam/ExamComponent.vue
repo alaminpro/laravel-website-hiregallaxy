@@ -7,18 +7,10 @@
              <div class="hiregallaxy__start_exam py-5 d-flex flex-column align-items-center">
                  <h1 class="text-danger text-center pb-2">You are Allreay Give Your Skill Test!</h1>
                  <a :href="url" class="btn btn-info text-center text-light">
-                    Go Back
+                    Go Back & apply job
                  </a>
              </div>
-        </div>
-        <div v-if="skill_alert && !exam_status" class="d-flex justify-content-center mt-5">
-             <div class="hiregallaxy__start_exam py-5 d-flex flex-column align-items-center">
-                 <h1 class="text-danger text-center pb-2">You Don't Have add any skill yet for this skill test!</h1>
-                 <a :href="url" class="btn btn-info text-center text-light">
-                    Go Back
-                 </a>
-             </div>
-        </div>
+        </div> 
         <div v-if="error" class="d-flex justify-content-center mt-5">
              <div class="hiregallaxy__start_exam py-5 d-flex flex-column align-items-center">
                  <h1 class="text-danger text-center pb-2">Something went wrong! Please Try Again.</h1>
@@ -27,7 +19,7 @@
                  </a>
              </div>
         </div>
-        <div v-if="!isExamStart && !loading && !skill_alert && !exam_status && !error" class="d-flex justify-content-center py-5 mt-5">
+        <div v-if="!isExamStart && !loading && !exam_status && !error" class="d-flex justify-content-center py-5 mt-5">
              <div class="hiregallaxy__start_exam">
                  <button class="btn btn-success" @click="StartExam">
                      Exam Start Now
@@ -112,7 +104,7 @@
                 </div>
             </div>
             <div class="hiregallaxy__submit_result d-flex justify-content-center my-5 py-5" v-if="showResult">
-                <button @click="submitResult" class="btn btn-success">Submit Result</button>
+                <button @click="submitResult" class="btn btn-success">Submit & Apply Job</button>
             </div> 
         </div>
     </div>
@@ -143,7 +135,7 @@ let Timer = {
 	}
 }
 export default {
-    props:['url','redirect_url'],
+    props:['url','id'],
     mounted() {
         var app = this; 
     },
@@ -154,9 +146,7 @@ export default {
         return {   
             beforeunload: false,
             exam_status: false,
-            status: [], 
-            user_skill: [],
-            skill_alert: false,
+            status: [],  
             isExamStart: false,
             loading: false,
             showResult: false, 
@@ -191,15 +181,13 @@ export default {
         }
 	},
     methods: {
-        StartExam(){  
-            if(Array.isArray(this.status) && this.status.length !== 0){
-                this.exam_status = true
-                return
-            }
-            if(Array.isArray(this.user_skill) && this.user_skill.length === 0){
-             this.skill_alert = true
-              return
-            }
+        StartExam(){   
+            const status = this.status.some(el => el.job_id  == this.id)
+                if(status){
+                    this.exam_status = true
+                     return
+                } 
+              
             let result = confirm("Are You Sure To Start Test Your Skill?");
             if (result) {
                  this.loading  = true
@@ -267,7 +255,7 @@ export default {
         });
     },
     fetchData(){
-        Axios.get('/employers/exam/questions').then(async (res) =>   {  
+        Axios.get('/jobs/exam/questions/'+this.id).then(async (res) =>   {  
             if(res.data.error == 'error') {
                    this.loading = false;
                    this.error = true;
@@ -333,21 +321,17 @@ export default {
             user_id: this.quiz.id,
             total: this.quiz.questions.length,
             seconds: this.time,
-            answer: this.answer
+            answer: this.answer,
+            job_id: this.id
         } 
-         Axios.post('/employers/exam/results', data).then((res) => {
+         Axios.post('/jobs/exam/results/', data).then((res) => {
             if(res.data.success == 'success'){
-                window.location = this.redirect_url; 
-            } 
+                window.location = 'https://hiregallaxy.com/jobs/view/'+ res.data.job_id.slug; 
+            }  
         });
-    },
-    userSkill(){
-        Axios.get('/employers/exam/check-skill').then((res) => {
-            this.user_skill = res.data
-        });
-    },
+    }, 
     user_finished_exam(){
-        Axios.get('/employers/exam/check-exam-status').then((res) => {
+        Axios.get('/jobs/exam/check-exam-status').then((res) => {
             this.status = res.data
         });
     },
@@ -357,8 +341,7 @@ export default {
 },
     created(){  
         this.time = (this.minutes * 60 + this.secondes) 
-        this.user_finished_exam();
-        this.userSkill();
+        this.user_finished_exam(); 
     }
    
 };

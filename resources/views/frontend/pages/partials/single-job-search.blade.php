@@ -16,28 +16,41 @@
 		<p><i class="fa fa-clock-o time-icon"></i> {{ $single_job->type->name }} </p>
 
 		@if (Route::is('index'))
-		<p class="mt-0">
-
+		<p class="mt-0"> 
+	
 			@if (Auth::check())
-			@if (Auth::user()->hasAppliedJob($single_job->id))
-			<a href="#update-apply-job-modal" data-toggle="modal" class="btn btn-outline-success"
-				onclick="applyUpdateJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
-				<span class="text-success"><i class="fa fa-check"></i> Already Applied</span>
-			</a>
+				@if (Auth::user()->hasAppliedJob($single_job->id))
+				<a href="#update-apply-job-modal" data-toggle="modal" class="btn btn-outline-success"
+					onclick="applyUpdateJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
+					<span class="text-success"><i class="fa fa-check"></i> Already Applied</span>
+				</a>
+				@else
+				@if(count($single_job->results) > 0)
+					@foreach($single_job->results as $result)
+						@if($result->job_id === $single_job->id)
+						<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button"
+							onclick="applyJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
+							Apply Now
+						</a> 
+						@endif 
+					@endforeach
+					@else
+						<a href="{{route('exam', $single_job->id)}}" class="btn btn-outline-yellow" >
+							Apply Now  
+						</a>
+					@endif  
+				@endif  
+				@endif
 			@else
-			<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button"
-				onclick="applyJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
-				Apply Now
-			</a>
-			@endif
-			@else
-			<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button"
-				onclick="applyJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
-				Apply Now
-			</a>
+				<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button"
+					onclick="applyJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
+					Apply Now
+				</a> 
 			@endif
 		</p>
+	 
 		@endif
+		
 	</div>
 
 	<div class="float-right mb-3 text-right">
@@ -67,28 +80,39 @@
 		<favorite-component url="{{ url('/') }}" id="{{ $single_job->id }}" api_token="0"></favorite-component>
 		@endif
 		<br>
-		@if (!Route::is('index'))
+		@if (!Route::is('index')) 
+	  
 		@if (Auth::check())
-		@if (Auth::user()->hasAppliedJob($single_job->id))
-		<a href="#update-apply-job-modal" data-toggle="modal" class="btn btn-outline-success"
-			onclick="applyUpdateJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
-			<span class="text-success"><i class="fa fa-check"></i> Already Applied</span>
-		</a>
+			@if (Auth::user()->hasAppliedJob($single_job->id))
+				<a href="#update-apply-job-modal" data-toggle="modal" class="btn btn-outline-success"
+					onclick="applyUpdateJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
+					<span class="text-success"><i class="fa fa-check"></i> Already Applied</span>
+				</a>
+			@else
+			@if(count($single_job->results) > 0)
+				@foreach($single_job->results as $result)
+					@if($result->job_id === $single_job->id)
+						<a href="#apply-job-modal" data-toggle="modal" class="btn btn-outline-yellow"
+							onclick="applyJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
+							Apply Now
+						</a>  
+					@endif 
+				@endforeach
+				@else
+					<a href="{{route('exam', $single_job->id)}}" class="btn btn-outline-yellow" >
+						Apply Now  
+					</a>
+				@endif  
+			@endif
 		@else
-		<a href="#apply-job-modal" data-toggle="modal" class="btn btn-outline-yellow"
-			onclick="applyJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
-			Apply Now
-		</a>
+			<a href="#apply-job-modal" data-toggle="modal" class="btn btn-outline-yellow"
+				onclick="applyJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
+				Apply Now
+			</a>
 		@endif
-		@else
-		<a href="#apply-job-modal" data-toggle="modal" class="btn btn-outline-yellow"
-			onclick="applyJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
-			Apply Now
-		</a>
-		@endif
-
-		@endif
-		@endif
+	
+		@endif 
+		@endif 
 
 	</div>
 	<div class="clearfix"></div>

@@ -377,7 +377,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 				<div class="mt-5">
 					<div class="more-jobs">
 						<h5 class="text-theme bold">Active Jobs from {{ $user->name }}</h5>
-						@foreach ($jobs_employer = $user->jobs()->where('status_id', 1)->paginate(20) as $single_job)
+						@foreach ($jobs_employer = $user->jobs()->where('status_id', 1)->paginate(20) as $key => $single_job)
 						@include('frontend.pages.partials.single-job-search')
 						@endforeach
 						<div class="mt-2">
