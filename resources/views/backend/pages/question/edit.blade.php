@@ -34,15 +34,16 @@
       </div>
       <div class="card-body">
         @include('backend.partials.message')
-        <form class="js-validate" method="POST" action="{{url('admin/question/'.$question->id)}}">
+        <form class="js-validate" method="POST" action="{{url('admin/question/'.$question->id)}}" enctype="multipart/form-data">
             @csrf
             <input name="_method" type="hidden" value="PUT">
           <div class="row">
             <!-- Input -->
             <div class="col-sm-12 mb-6">
                 <div class="form-group">
-                  <label id="question" class="form-label">Question</label>
-                  <input type="text" class="form-control" value="{{$question->question}}" name="question" id="question" placeholder="Enter question" required>
+                  <label id="questions" class="form-label">Question</label>
+                     <textarea cols="30" rows="1" class="form-control question_editor" name="question" id="questions" placeholder="Enter question" >{{$question->question}}</textarea>
+                     <span class="text-danger">{{ $errors->has('question') ? $errors->first('question') : '' }}</span>
                 </div>
             </div>
             <!-- End Input -->
@@ -58,7 +59,6 @@
                 <div class="form-group">
                   <label id="nameLabel" class="form-label">
                     Answer 2
-                    
                   </label>
                   <input type="text" class="form-control" name="answer_2" value="{{$question->answers->answer_2}}" id="answer_2" placeholder="Enter answer" required>
                 </div>
@@ -67,7 +67,7 @@
                 <div class="form-group">
                   <label id="nameLabel" class="form-label">
                     Answer 3
-                    
+
                   </label>
                   <input type="text" class="form-control" name="answer_3" value="{{$question->answers->answer_3}}" id="answer_3" placeholder="Enter answer" required>
                 </div>
@@ -76,7 +76,7 @@
                 <div class="form-group">
                   <label id="nameLabel" class="form-label">
                     Answer 4
-                    
+
                   </label>
                   <input type="text" class="form-control" name="answer_4" value="{{$question->answers->answer_4}}" id="answer_4" placeholder="Enter answer" required>
                 </div>
@@ -89,9 +89,19 @@
                   Skills
                 </label>
                   <select name="skills[]" id="skills" required class="form-control skillselect" multiple>
-                    
+
                     @foreach($skills as $skill)
                       <option value="{{$skill->id}}" {{in_array($skill->id,$question->skills) ? 'selected' :''}}>{{$skill->name}}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label id="exparience" class="form-label">
+                    Exparience
+                  </label>
+                  <select name="expariences[]" id="exparience" required class="form-control select2exp" multiple>
+                    @foreach($experiences as $experience)
+                        <option value="{{$experience->id}}" {{in_array($experience->id, explode(',',$question->exparience)) ? 'selected' :''}}>{{$experience->name}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -108,10 +118,12 @@
                       <option value="answer_2" {{$question->answers->right_answer=='answer_2' ? 'selected' :''}} >Answer 2</option>
                       <option value="answer_3" {{$question->answers->right_answer=='answer_3' ? 'selected' :''}} >Answer 3</option>
                       <option value="answer_4" {{$question->answers->right_answer=='answer_4' ? 'selected' :''}} >Answer 4</option>
-                    
+
                   </select>
                 </div>
+
             </div>
+
             <!-- End Input -->
           </div>
 
@@ -124,7 +136,7 @@
             </button>
 
           </div>
-          
+
 
           <!-- End Buttons -->
         </form>
@@ -136,10 +148,16 @@
 @endsection
 
 @section('scripts')
-
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     var select2 = $('select.skillselect').select2();
+    $('.select2exp').select2();
+    CKEDITOR.replace('question', {
+			filebrowserUploadUrl: "{{asset('/question/upload')}}",
+            filebrowserBrowseUrl: "{{asset('/question/file_browser') }}",
+            filebrowserUploadMethod: 'form'
+		});
 
 
   });

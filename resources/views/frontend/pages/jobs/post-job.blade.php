@@ -75,12 +75,12 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 						<div class="card card-body p-0 pt-2 pb-2">
 							<div class="row form-group">
-								<div class="col-md-4"> 
+								<div class="col-md-4">
 									<div id="job__id" style="
-												display: flex; 
-												padding: 6px 12px; 
-												border: 1px solid #ececec; 
-												margin-left: 7px; 
+												display: flex;
+												padding: 6px 12px;
+												border: 1px solid #ececec;
+												margin-left: 7px;
 									">
 										<div class="job__label">
 											Job ID:
@@ -94,7 +94,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 										class="text-center text-theme form-control border-0 border-bottom mb-3"
 										id="title" name="title" placeholder="Job Title"
 										style="border-bottom: 1px solid #5553b7!important;">
-									<div id="searchTemplateArea"></div>
+									<div id="searchTemplateArea" style="width: 98%"></div>
 									<input type="hidden" name="template_id" id="template_id">
 								</div>
 							</div>
@@ -183,7 +183,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 										<option value="{{ $skill->id }}">{{ $skill->name }}</option>
 										@endforeach
 									</select>
-								</div> 
+								</div>
 								<div class="col-md-12 form-group" style="margin-bottom: -9px;">
 									<div class="row">
 										<div class="col-md-12">
@@ -288,7 +288,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 									</select>
 								</div>
 								<div class="col-sm-4">
-									<label for="segment_id">Job Segment <span class="required">*</span>
+									<label for="segment_id">Employer Type<span class="required">*</span>
 									</label>
 									<select name="segment_id" id="segment_id" class="form-control" required>
 										<option value="">Select One</option>
@@ -339,7 +339,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 									<input type="text" autocomplete="off" name="deadline" class="form-control"
 										id="deadline" placeholder="Write application deadline" required>
 								</div>
-							</div> 
+							</div>
 						</div>
 
 						<div class="form-group mt-2">
@@ -353,7 +353,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 										Policy</a>
 								</label>
 							</div>
-						</div> 
+						</div>
 						@if (Auth::check())
 						@if (App\User::userCanPost(Auth::id()))
 						<div class="row form-group">
@@ -434,7 +434,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 	});
 	$(this).siblings('.select2-container').find('.select2-selection__placeholder').css('color', '#5553b7');
 	$("#skill").select2()
- 
+
 </script>
 
 @include('frontend.pages.jobs.partials.post-job-script-old');
@@ -464,16 +464,16 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 	});
 
 	// Select on the job title and fill the fields from the templates
-	
+
 	var area = $("#searchTemplateArea");
 	area.addClass('hidden');
-	
+
 	$("#title").on('input', function(){
 		var search = $("#title").val();
 		if(search.length > 0){
 			var url = "{{ Url('/') }}"+"/api/templates/"+search;
 			var htmlValue = "";
-	
+
 			$.get(url).done(function( data ) {
 				// console.log(data.templates);
 				if(data.templates.length > 0){
@@ -487,8 +487,8 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 					area.html(htmlValue);
 					area.addClass('hidden');
 				}
-				
-				
+
+
 			});
 		}else{
 			area.addClass('hidden');
@@ -504,7 +504,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 		$("#template_id").val(id);
 
 		@if($enable_editing)
-		
+
 		tinymce.init({
 			selector:'#job_summery',
 			plugins: "{{ config('constants.tiny_plugins') }}",
@@ -514,7 +514,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 			image_advtab: true,
 			menubar:false,
 		  });
-		
+
 		tinymce.init({
 			selector:'#responsibilities',
 			plugins: "{{ config('constants.tiny_plugins') }}",
@@ -524,7 +524,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 			image_advtab: true,
 			menubar:false,
 		  });
-		
+
 		tinymce.init({
 			selector:'#qualification',
 			plugins: "{{ config('constants.tiny_plugins') }}",
@@ -534,7 +534,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 			image_advtab: true,
 			menubar:false,
 		  });
-		
+
 		tinymce.init({
 			selector:'#certification',
 			plugins: "{{ config('constants.tiny_plugins') }}",
@@ -544,7 +544,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 			image_advtab: true,
 			menubar:false,
 		  });
-		
+
 		tinymce.init({
 			selector:'#experience',
 			plugins: "{{ config('constants.tiny_plugins') }}",
@@ -554,7 +554,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 			image_advtab: true,
 			menubar:false,
 		  });
-		
+
 		tinymce.init({
 			selector:'#about_company',
 			plugins: "{{ config('constants.tiny_plugins') }}",
@@ -566,7 +566,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 		  });
 		@endif
 
-		
+
 		$.post( "{{ route('api.getTemplate') }}", { template_id: id } )
 		.done(function( data ) {
 			data = JSON.parse(data);
@@ -576,7 +576,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 			$('#qualification').html('');
 			$('#certification').html('');
 			$('#experience').html('');
-			$('#about_company').html(''); 
+			$('#about_company').html('');
 
 			@if($enable_editing)
 				tinymce.get('job_summery').setContent(data.template.job_summery);
@@ -584,7 +584,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 				tinymce.get('qualification').setContent(data.template.qualification);
 				tinymce.get('certification').setContent(data.template.certification);
 				tinymce.get('experience').setContent(data.template.experience);
-				tinymce.get('about_company').setContent(data.template.about_company); 
+				tinymce.get('about_company').setContent(data.template.about_company);
 			@endif
 
 			  $('#responsibilities').html(data.template.responsibilities);
@@ -600,6 +600,6 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 			  $('#discipline_id').val(data.template.discipline_id);
 		});
 	}
-	
+
 </script>
 @endsection

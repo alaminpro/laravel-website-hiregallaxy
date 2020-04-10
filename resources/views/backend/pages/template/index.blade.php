@@ -36,30 +36,20 @@
             <thead>
               <tr>
                 <th width="5%">Sl</th>
-                <th width="15%">Name</th>
-                <th width="15%">Category</th>
-                <th width="15%">Segment</th>
-                <th width="15%">Sector</th>
+                <th width="15%">Position</th>
                 <th width="15%">Discipline</th>
                 <th width="15%">Manage</th>
               </tr>
             </thead>
             <tbody>
               @if(count($templates) > 0)
+
               @foreach($templates as $template)
+
               <tr>
                 <td>{{ $loop->index+1 }}</td>
                 <td>
-                  {{ $template->name }}
-                </td>
-                <td>
-                  {{ isset($template->category) ? $template->category->name : '' }}
-                </td>
-                <td>
-                  {{ isset($template->segment) ? $template->segment->name : '' }}
-                </td>
-                <td>
-                  {{ isset($template->sector) ? $template->sector->name : '' }}
+                   {{$template->category['name']}}
                 </td>
                 <td>
                   {{ isset($template->discipline) ? $template->discipline->name : '' }}

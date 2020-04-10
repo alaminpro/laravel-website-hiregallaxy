@@ -70,7 +70,7 @@
 									<div class="row">
 										@if (!is_null($job->segment))
 										<div class="col-12">
-											<strong>Segment: </strong>
+											<strong>Employer Type: </strong>
 											{{ !is_null($job->segment) ? $job->segment->name : '--' }}
 										</div>
 										@endif
@@ -101,8 +101,8 @@
 										</div>
 									</div>
 									<div class="mt-3">
-										
-										@if (Auth::check()) 
+
+										@if (Auth::check())
 											@if (Auth::user()->hasAppliedJob($job->id))
 											<a href="#update-apply-job-modal" data-toggle="modal"
 												class="btn btn-outline-success"
@@ -110,7 +110,7 @@
 												<span class="text-success"><i class="fa fa-check"></i> Already
 													Applied</span>
 											</a>
-											@else 
+											@else
 												@if (Auth::id() != $job->user_id)
 												@if($result)
 														<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button"
@@ -119,11 +119,11 @@
 														</a>
 													@else
 														<a href="{{route('exam', $job->id)}}" class="btn apply-now-button" >
-															Apply Now  
+															Apply Now
 														</a>
 													@endif
 												@endif
-											
+
 											@endif
 										@else
 										<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button"
@@ -131,7 +131,7 @@
 											Apply Now
 										</a>
 										@endif
-									
+
 
 										@if (Auth::check())
 										<favorite-component url="{{ url('/') }}" id="{{ $job->id }}"
@@ -228,7 +228,7 @@
 				</div>
 
 				<!--
-				
+
 				<div class="mt-2">
 					<h3 class="text-center text-theme apply-count-text">
 						<span class="job-apply-total">
@@ -278,7 +278,7 @@
 					</div>
 					@endforeach
 				</div>
-                
+
                 -->
 
 				@if (count($similar_jobs) > 0)

@@ -34,19 +34,7 @@
           <div class="col-md-6 form-group">
             <div class="row">
               <div class="col-md-5">
-                <label for="name">Template Name <span class="text-danger required">*</span></label>
-              </div>
-              <div class="col-md-7">
-                <div class="border p-1">
-                  {!! $template->name !!}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 form-group">
-            <div class="row">
-              <div class="col-md-5">
-                <label for="name">Template Position <span class="text-danger required">*</span></label>
+                <label for="name">Position <span class="text-danger required">*</span></label>
               </div>
               <div class="col-md-7">
                 <div class="border p-1">
@@ -58,30 +46,6 @@
         </div>
 
         <div class="form-row">
-          <div class="col-md-12 form-group">
-            <div class="row">
-              <div class="col-md-3">
-                <label for="name">Segment <span class="text-danger required">*</span></label>
-              </div>
-              <div class="col-md-9">
-                <div class="border p-1">
-                  {{ isset($template->segment) ? $template->segment->name : '' }}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12 form-group">
-            <div class="row">
-              <div class="col-md-3">
-                <label for="name">Sector <span class="text-danger required">*</span></label>
-              </div>
-              <div class="col-md-9">
-                <div class="border p-1">
-                  {{ isset($template->sector) ? $template->sector->name : '' }}
-                </div>
-              </div>
-            </div>
-          </div>
           <div class="col-md-12 form-group">
             <div class="row">
               <div class="col-md-3">

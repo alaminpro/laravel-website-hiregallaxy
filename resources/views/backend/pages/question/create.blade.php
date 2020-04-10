@@ -34,14 +34,15 @@
       </div>
       <div class="card-body">
         @include('backend.partials.message')
-       <form class="js-validate" method="POST" action="{{route('admin.question.store')}}">
+       <form class="js-validate" method="POST" action="{{route('admin.question.store')}}"  enctype="multipart/form-data">
             @csrf
           <div class="row">
             <!-- Input -->
             <div class="col-sm-12 mb-6">
                 <div class="form-group">
-                  <label id="question" class="form-label">Question</label>
-                  <input type="text" class="form-control" name="question" id="question" placeholder="Enter question" required>
+                  <label id="questions" class="form-label">Question</label>
+                  <textarea class="form-control question_editor" name="question" id="questions" placeholder="Enter question" cols="30" rows="1" ></textarea>
+                  <span class="text-danger">{{ $errors->has('question') ? $errors->first('question') : '' }}</span>
                 </div>
             </div>
             <!-- End Input -->
@@ -57,7 +58,7 @@
                 <div class="form-group">
                   <label id="nameLabel" class="form-label">
                     Answer 2
-                    
+
                   </label>
                   <input type="text" class="form-control" name="answer_2" id="answer_2" placeholder="Enter answer" required>
                 </div>
@@ -66,7 +67,7 @@
                 <div class="form-group">
                   <label id="nameLabel" class="form-label">
                     Answer 3
-                    
+
                   </label>
                   <input type="text" class="form-control" name="answer_3" id="answer_3" placeholder="Enter answer" required>
                 </div>
@@ -75,7 +76,7 @@
                 <div class="form-group">
                   <label id="nameLabel" class="form-label">
                     Answer 4
-                    
+
                   </label>
                   <input type="text" class="form-control" name="answer_4" id="answer_4" placeholder="Enter answer" required>
                 </div>
@@ -88,9 +89,19 @@
                   Skills
                 </label>
                   <select name="skills[]" id="skills" required class="form-control skillselect" multiple>
-                    
+
                     @foreach($skills as $skill)
                       <option value="{{$skill->id}}">{{$skill->name}}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label id="exparience" class="form-label">
+                    Exparience
+                </label>
+                  <select name="expariences[]" id="exparience" required class="form-control select2exp" multiple>
+                    @foreach($experiences as $exparience)
+                      <option value="{{$exparience->id}}">{{$exparience->name}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -107,10 +118,11 @@
                       <option value="answer_2">Answer 2</option>
                       <option value="answer_3">Answer 3</option>
                       <option value="answer_4">Answer 4</option>
-                    
+
                   </select>
                 </div>
             </div>
+
             <!-- End Input -->
           </div>
 
@@ -123,7 +135,7 @@
             </button>
 
           </div>
-          
+
 
           <!-- End Buttons -->
         </form>
@@ -135,11 +147,16 @@
 @endsection
 
 @section('scripts')
-
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     var select2 = $('select.skillselect').select2();
-
+     $('.select2exp').select2();
+     CKEDITOR.replace('question', {
+			filebrowserUploadUrl: "{{asset('/question/upload')}}",
+            filebrowserBrowseUrl: "{{asset('/question/file_browser') }}",
+            filebrowserUploadMethod: 'form'
+		});
 
   });
 </script>

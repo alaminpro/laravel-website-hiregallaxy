@@ -3,11 +3,11 @@
 @section('content')
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-  <h1 class="h3 mb-0 float-left">Segments</h1>
+  <h1 class="h3 mb-0 float-left">Employer</h1>
   <div class="breadcrumb-holder float-right">
     <ol class="breadcrumb float-right">
       <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-      <li class="breadcrumb-item active">Segments</li>
+      <li class="breadcrumb-item active">Employer</li>
     </ol>
     <div class="clearfix"></div>
   </div>
@@ -19,7 +19,7 @@
     <div class="card mb-3">
       <div class="card-header py-3">
         <div class="float-left">
-          <h6 class="m-0 font-weight-bold text-primary">All Segments</h6>
+          <h6 class="m-0 font-weight-bold text-primary">All Employer</h6>
         </div>
         <div class="float-right">
           @if (Route::is('admin.segment.index'))
@@ -33,7 +33,7 @@
           @endif
 
           <a href="" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
-            data-target="#addModal"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add New segment</a>
+            data-target="#addModal"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add New Employer</a>
         </div>
         <div class="clearfix"></div>
       </div>
@@ -61,7 +61,7 @@
                 <td style="Display:none;">{!! $segment->description !!}</td>
                 <td>
                   @if ($segment->status == 1)
-                  <a href="#editModal{{ $segment->id }}" class="btn btn-circle btn-outline-success" title="Edit segment"
+                  <a href="#editModal{{ $segment->id }}" class="btn btn-circle btn-outline-success" title="Edit Employer"
                     data-toggle="modal"><i class="fa fa-edit"></i></a>
                   @endif
 
@@ -80,7 +80,7 @@
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Are you sure want to delete this segment ?</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">Are you sure want to delete this Employer ?</h5>
                           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                           </button>
@@ -135,7 +135,7 @@
 
                     <!-- Modal Header -->
                     <div class="modal-header">
-                      <h4 class="modal-title">Edit Segment</h4>
+                      <h4 class="modal-title">Edit Employer</h4>
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
@@ -146,19 +146,19 @@
                         @csrf
                         <div class="form-row">
                           <div class="col-md-6 form-group">
-                            <label for="name">Segment Title <span class="text-danger required">*</span></label>
+                            <label for="name">Employer Title <span class="text-danger required">*</span></label>
                             <input type="text" id="name" name="name" class="form-control"
                               placeholder="eg. Web Development" required value="{{ $segment->name }}">
                           </div>
                           <div class="col-md-6 form-group" style="Display:none;">
-                            <label for="slug">Segment Slug <span class="text-info required">(optional)</span></label>
+                            <label for="slug">Employer Slug <span class="text-info required">(optional)</span></label>
                             <input type="text" id="slug" name="slug" class="form-control"
                               placeholder="eg. web-development" value="{{ $segment->slug }}">
                           </div>
                         </div>
                         <div class="form-row" style="Display:none;">
                           <div class="col-md-12 form-group">
-                            <label for="description">Segment Description</label>
+                            <label for="description">Employer Description</label>
 
                             <textarea name="description" id="description" name="description" rows="8" cols="80"
                               class="tinymce form-control">{{ $segment->description }}</textarea>
@@ -198,7 +198,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Add New Segment</h4>
+        <h4 class="modal-title">Add New Employer</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -208,17 +208,17 @@
           @csrf
           <div class="form-row">
             <div class="col-md-6 form-group">
-              <label for="name">Segment Title <span class="text-danger required">*</span></label>
+              <label for="name">Employer Title <span class="text-danger required">*</span></label>
               <input type="text" id="name" name="name" class="form-control" placeholder="" required>
             </div>
             <div class="col-md-6 form-group" style="Display:none;">
-              <label for="slug">Segment Slug <span class="text-info required">(optional)</span></label>
+              <label for="slug">Employer Slug <span class="text-info required">(optional)</span></label>
               <input type="text" id="slug" name="slug" class="form-control" placeholder="">
             </div>
           </div>
           <div class="form-row" style="Display:none;">
             <div class="col-md-12 form-group">
-              <label for="description">Segment Description</label>
+              <label for="description">Employer Description</label>
 
               <textarea name="description" id="description" name="description" rows="8" cols="80"
                 class="tinymce form-control"></textarea>

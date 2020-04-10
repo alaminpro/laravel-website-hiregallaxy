@@ -12,15 +12,17 @@ Job Application For - {{ $job->title }} | {{ App\Models\Setting::first()->site_t
 <section class="employer-page sec-pad pt-0">
 	<div class="container">
 		<div class="row mt-4">
-			<div class="col-md-8">
+			<div class="col-md-9">
 				<div class="employer-detail-main">
 					<h5 class="text-theme mb-5">
 						Applications For - <mark><span class="border-left">{{ $job->title }}</span></mark>
 					</h5>
 					<table class="table table-hover table-striped" id="dataTable">
 						<thead>
-
 							<th>Candidate</th>
+									<th>Education</th>
+							<th>Experience</th>
+							<th>Skill test Score</th>
 							<th>Expected Salary</th>
 							<th>CV</th>
 							<th>Cover Letter</th>
@@ -40,6 +42,18 @@ Job Application For - {{ $job->title }} | {{ App\Models\Setting::first()->site_t
 										Applied {{ $application->created_at->diffForHumans() }}
 									</span>
 								</td>
+                                <td> @if(!empty($education)){{$education->certificate_degree_name}} @else --- @endif</td>
+                                <td> @if(!empty($experience)){{$experience->experience->name}} @else --- @endif</td>
+                                    @if(count($results) > 0)
+                                       @foreach($results as $result)
+
+                                        <td>{{ round($result->result, 2) }}%</td>
+
+                                     @endforeach
+                                     @else
+                                        <td>---</td>
+                                        @endif
+
 								<td>
 									@if ($application->is_salary_negotiable)
 									Negotiable
@@ -51,7 +65,7 @@ Job Application For - {{ $job->title }} | {{ App\Models\Setting::first()->site_t
 								</td>
 								<td>
 									@if ($application->cv != null)
-									<!--<a href="{{ asset('files/cv/'.$application->cv) }}"><i-->
+									<!--<a href="{{ asset('public/files/cv/'.$application->cv) }}"><i-->
 									<!--		class="fa fa-download"></i> Download</a>-->
 									<a href="{{ $application->cv }}" target="_blank"><i
 											class="fa fa-download"></i> Download</a>
@@ -89,7 +103,7 @@ Job Application For - {{ $job->title }} | {{ App\Models\Setting::first()->site_t
 				</div>
 
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-3">
 				@include('frontend.pages.partials.employers-sidebar')
 			</div>
 		</div>

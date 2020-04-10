@@ -22,7 +22,7 @@
           <h6 class="m-0 font-weight-bold text-primary">All Questions</h6>
         </div>
         <div class="float-right">
-        
+
           <a href="{{ route('admin.question.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add New Question</a>
         </div>
         <div class="clearfix"></div>
@@ -37,6 +37,7 @@
                 <th width="5%">Sl</th>
                 <th width="30%">Question</th>
                 <th width="20%">Skill</th>
+                <th width="20%">Exparience</th>
                 <th width="15%">Manage</th>
               </tr>
             </thead>
@@ -44,12 +45,15 @@
               @foreach($questions as $key=>$question)
                   <tr>
                     <td>{{$key+1}}</td>
-                    <td>{{$question->question}}</td>
+                    <td> {{ str_limit($question->question, 30,'...')}}</td>
                     <td >
                         @foreach($question->getAllSkill() as $skll)
                           <span class="badge badge-success">{{$skll}}</span>
                         @endforeach
                     </td>
+                      <td> @foreach($question->getAllExperience() as $e)
+                        <span class="badge badge-success">{{$e}}</span>
+                      @endforeach</td>
                     <td>
                         <a href="{{url('admin/question/'.$question->id.'/edit')}}" title="Edit Template" class="btn btn-outline-success">
                           <i class="fa fa-edit"></i>

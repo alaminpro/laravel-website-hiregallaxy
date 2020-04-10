@@ -44,7 +44,7 @@
         <a class="dropdown-item" href="{{ route('admin.cities.index') }}">Cities</a>
         <a class="dropdown-item" href="{{ route('admin.skill.index') }}">Skills</a>
         <a class="dropdown-item" href="{{ route('admin.experience.index') }}">Experience</a>
-        <a class="dropdown-item" href="{{ route('admin.segment.index') }}">Segments</a>
+        <a class="dropdown-item" href="{{ route('admin.segment.index') }}">Employer</a>
         <a class="dropdown-item" href="{{ route('admin.discipline.index') }}">Disciplines</a>
         <a class="dropdown-item" href="{{ route('admin.sector.index') }}">Sectors</a>
         <a class="dropdown-item" href="{{ route('admin.question.index') }}">Questions</a>
@@ -88,7 +88,7 @@
         <a class="dropdown-item" href="{{ route('admin.crawl.extractLinks') }}">Extract Links</a>
       </div>
     </li>
-    
+
     <li class="nav-item  {{ (Route::is('admin.settings.index')) ? 'show' : '' }}" style="font-family: verdana;">
       <a class="nav-link" href="{{ route('admin.settings.index') }}">
         <i class="fas fa-fw fa-cog"></i>
@@ -111,7 +111,7 @@
       </a>
     </li>
 
-    
+
 
     <!-- Nav Item - User Information -->
     <li class="nav-item dropdown no-arrow">

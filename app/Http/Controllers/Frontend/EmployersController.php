@@ -2,25 +2,20 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-
-use App\User;
-use App\Models\CompanyProfile;
-use Auth;
-
 use App\Helpers\ImageUploadHelper;
-use App\Helpers\UploadHelper;
+use App\Http\Controllers\Controller;
 use App\Models\CandidateProfile;
 use App\Models\Category;
+use App\Models\CompanyProfile;
 use App\Models\Country;
-use App\Models\Experience;
-use App\Models\TeamSize;
 use App\Models\Job;
-use App\Models\Result;
 use App\Models\JobActivity;
-use App\Models\FavoriteJob;
+use App\Models\Result;
+use App\Models\UserQualification;
+use App\User;
+use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class EmployersController extends Controller
@@ -75,11 +70,11 @@ class EmployersController extends Controller
 
         $pdo = DB::connection()->getPdo();
         $sql = 'select users.id
-                from users 
+                from users
                 left join company_profiles on users.id = company_profiles.user_id
                 left join locations on locations.id = users.location_id
                 left join jobs on jobs.user_id = users.id
-                where users.is_company=1 and users.status=1 
+                where users.is_company=1 and users.status=1
         ';
 
         if ($request->search && $request->search != '') {
@@ -104,7 +99,6 @@ class EmployersController extends Controller
             $sql .= " and company_profiles.team_member = '$request->team'";
         }
 
-
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $user_ids = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -117,7 +111,6 @@ class EmployersController extends Controller
         return view('frontend.pages.employers.index', compact('users', 'categories', 'pageNoText', 'search', 'country', 'category'));
     }
 
-
     public function updateAbout(Request $request, $user_id)
     {
         if (!Auth::check() && Auth::id() != $user_id) {
@@ -126,7 +119,7 @@ class EmployersController extends Controller
         }
 
         $this->validate($request, [
-            'about' => 'required'
+            'about' => 'required',
         ]);
 
         $user = User::find($user_id);
@@ -151,7 +144,7 @@ class EmployersController extends Controller
             'facebook_link' => 'nullable|url',
             'twitter_link' => 'nullable|url',
             'linkedin_link' => 'nullable|url',
-            'google_plus_link' => 'nullable|url'
+            'google_plus_link' => 'nullable|url',
         ]);
 
         $user = User::find($user_id);
@@ -162,7 +155,6 @@ class EmployersController extends Controller
         $user->linkedin_link = $request->linkedin_link;
         $user->google_plus_link = $request->google_plus_link;
         $user->phone_no = $request->phone_no;
-
 
         if ($request->profile_picture) {
             $user->profile_picture = ImageUploadHelper::update('profile_picture', $request->file('profile_picture'), 'pr-' . time(), 'images/users', 'images/users/' . $user->profile_picture);
@@ -175,7 +167,7 @@ class EmployersController extends Controller
             'establish_year' => substr($request->establish_date, 0, 4),
             'team_member' => $request->team_member,
         ]);
-        
+
         // If not empty sectors[] then add this to user_sectors table
         if (count($request->sectors) != 0) {
 
@@ -187,7 +179,7 @@ class EmployersController extends Controller
                 $sector_id = $sector;
                 DB::table('user_sectors')->insert([
                     'sector_id' => $sector_id,
-                    'user_id' => $user_id
+                    'user_id' => $user_id,
                 ]);
             }
         }
@@ -216,7 +208,7 @@ class EmployersController extends Controller
         $user_id = $user->id;
         $pdo = DB::connection()->getPdo();
         $sql = "select job_favorites.job_id
-                from job_favorites 
+                from job_favorites
                 left join users on job_favorites.user_id = users.id
                 where users.id = $user_id";
 
@@ -266,15 +258,27 @@ class EmployersController extends Controller
         $user_id = $user->id;
         $job = Job::where('slug', $slug)->first();
         $applications = JobActivity::where('job_id', $job->id)->get();
+        $results = [];
+        $experiences = [];
+        $education = [];
+        foreach ($applications as $application) {
+            $results[] = Result::where('job_id', $application->job_id)->where('user_id', $application->user_id)->get();
+            $experiences[] = CandidateProfile::with('experience')->where('user_id', $application->user_id)->first();
+            $education[] = UserQualification::where('user_id', $application->user_id)->first();
+        }
+        $results = $results[0];
+        $education = $education[0];
+        $experience = $experiences[0];
 
-        return view('frontend.pages.employers.job-applications', compact('user', 'job', 'applications'));
+        return view('frontend.pages.employers.job-applications', compact('user', 'job', 'applications', 'results', 'experience', 'education'));
+
     }
 
     /**
      * deleteJob
      *
      * @param string $slug
-     * @return void 
+     * @return void
      */
     public function deleteJob($slug)
     {
@@ -286,12 +290,11 @@ class EmployersController extends Controller
                 return back();
             }
 
-
             // Delete All job activities
             $jobActivities = JobActivity::where('job_id', $job->id)->get();
             foreach ($jobActivities as $activity) {
 
-                // Get User and check if the CV is not the user default CV, 
+                // Get User and check if the CV is not the user default CV,
                 // if not then delete the cv from file path
                 $appliedUser = CandidateProfile::where('user_id', $activity->user_id)->first();
                 if (!is_null($appliedUser)) {

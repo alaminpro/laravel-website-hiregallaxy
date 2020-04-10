@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-
-use App\Models\Question;
 use App\Models\Answers;
+use App\Models\Experience;
+use App\Models\Question;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
     public function __construct()
-  {
-    $this->middleware('auth:admin');
-  }
+    {
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +34,8 @@ class QuestionController extends Controller
     public function create()
     {
         $skills = Skill::all();
-    	return view('backend.pages.question.create')->with(compact('skills'));
+        $experiences = Experience::all();
+        return view('backend.pages.question.create')->with(compact('skills', 'experiences'));
     }
 
     /**
@@ -45,12 +46,32 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'question' => 'required',
+        ]);
+        $explode = implode(',', $request->expariences);
         $question = new Question();
         $question->question = $request->question;
         $question->skills = $request->skills;
+        $question->exparience = $explode;
         $question->save();
-        $this->syncAnswer($request,$question->id);
+        $this->syncAnswer($request, $question->id);
         return redirect('admin/question')->with('message', 'Question created successfully');
+    }
+    public function upload(Request $request)
+    {
+        $request->upload->move(public_path('uploads'), $request->file('upload')->getClientOriginalName());
+        return json_encode(array('file_name' => $request->file('upload')->getClientOriginalName()));
+    }
+    public function fileBrowser()
+    {
+        $paths = glob(public_path('uploads/*'));
+        $fileNames = array();
+        foreach ($paths as $path) {
+            array_push($fileNames, basename($path));
+        }
+        return view('backend.pages.question.file_browser')->with(compact('fileNames'));
     }
 
     /**
@@ -61,7 +82,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-       
+
     }
 
     /**
@@ -72,9 +93,9 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-     
         $skills = Skill::all();
-        return view('backend.pages.question.edit')->with(compact('skills','question'));
+        $experiences = Experience::all();
+        return view('backend.pages.question.edit')->with(compact('skills', 'question', 'experiences'));
     }
 
     /**
@@ -84,15 +105,19 @@ class QuestionController extends Controller
      * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(Request $request, $id)
     {
-        //$question->answers->getAnswer('1');
-        //exit;
+        $this->validate($request, [
+            'question' => 'required',
+        ]);
+        $explode = implode(',', $request->expariences);
+        $question = Question::find($id);
         $question->question = $request->question;
         $question->skills = $request->skills;
+        $question->exparience = $explode;
         $question->save();
-        
-        $this->syncAnswer($request,$question->id);
+
+        $this->syncAnswer($request, $question->id);
         return redirect('admin/question')->with('message', 'Question updated successfully');
     }
 
@@ -104,30 +129,27 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-       
+
     }
     public function delete_question($question_id)
     {
         Question::find($question_id)->delete();
-        Answers::where('question_id',$question_id)->delete();
-        
-        return redirect('admin/question')->with('message', 'Question deleted successfully');;
-    }
-    public function syncAnswer(Request $request,$question_id)
-    {
-        $answers = Answers::where('question_id',$question_id)->first();
+        Answers::where('question_id', $question_id)->delete();
 
-        if($answers && !empty($answers))
-        {
+        return redirect('admin/question')->with('message', 'Question deleted successfully');
+    }
+    public function syncAnswer(Request $request, $question_id)
+    {
+        $answers = Answers::where('question_id', $question_id)->first();
+
+        if ($answers && !empty($answers)) {
             $answers->answer_1 = $request->answer_1;
             $answers->answer_2 = $request->answer_2;
             $answers->answer_3 = $request->answer_3;
             $answers->answer_4 = $request->answer_4;
             $answers->right_answer = $request->right_answer;
             $answers->save();
-        }
-        else
-        {
+        } else {
             $answers = new Answers();
             $answers->question_id = $question_id;
             $answers->answer_1 = $request->answer_1;
@@ -137,5 +159,5 @@ class QuestionController extends Controller
             $answers->right_answer = $request->right_answer;
             $answers->save();
         }
-    }    
+    }
 }

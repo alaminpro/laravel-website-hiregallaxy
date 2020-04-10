@@ -51,14 +51,16 @@
           @csrf
           <div class="form-row">
             <div class="col-md-6 form-group">
-              <div class="row">
-                <div class="col-md-12">
-                  <input type="text" id="name" name="name" class="form-control" placeholder="eg. New Template Name"
-                    required>
-                </div>
+                <label for="discipline_id">Job Discipline</label>
+                <select name="discipline_id" id="discipline_id" class="form-control" required>
+                  <option value="">Select a job discipline</option>
+                  @foreach ($disciplines as $discipline)
+                  <option value="{{ $discipline->id }}">{{ $discipline->name }}</option>
+                  @endforeach
+                </select>
               </div>
-            </div>
             <div class="col-md-6 form-group">
+                <label for="discipline_id">Job Position</label>
               <div class="row">
                 <div class="col-md-12">
                   <select name="category_id" id="category_id" class="form-control" required>
@@ -72,41 +74,6 @@
             </div>
           </div>
 
-          <!-- Segment, Sector, Discipline -->
-          <div class="form-row mt-2">
-
-            <div class="col-md-4 form-group">
-              <label for="segment_id">Job Segment</label>
-              <select name="segment_id" id="segment_id" class="form-control" required>
-                <option value="">Select a job segment</option>
-                @foreach ($segments as $segment)
-                <option value="{{ $segment->id }}">{{ $segment->name }}</option>
-                @endforeach
-              </select>
-            </div>
-
-            <div class="col-md-4 form-group">
-              <label for="sector_id">Job Sector</label>
-              <select name="sector_id" id="sector_id" class="form-control" required>
-                <option value="">Select a job sector</option>
-                @foreach ($sectors as $sector)
-                <option value="{{ $sector->id }}">{{ $sector->name }}</option>
-                @endforeach
-              </select>
-            </div>
-
-            <div class="col-md-4 form-group">
-              <label for="discipline_id">Job Discipline</label>
-              <select name="discipline_id" id="discipline_id" class="form-control" required>
-                <option value="">Select a job discipline</option>
-                @foreach ($disciplines as $discipline)
-                <option value="{{ $discipline->id }}">{{ $discipline->name }}</option>
-                @endforeach
-              </select>
-            </div>
-
-          </div>
-          <!-- Segment, Sector, Discipline -->
 
 
           <div class="form-row">

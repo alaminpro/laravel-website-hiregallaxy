@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Discipline;
-use App\Models\Sector;
-use App\Models\Segment;
 use App\Models\Template;
+use Illuminate\Http\Request;
 
 class TemplatesController extends Controller
 {
@@ -24,7 +22,7 @@ class TemplatesController extends Controller
      */
     public function index()
     {
-        $templates = Template::orderBy('id', 'desc')->get();
+        $templates = Template::with('category')->orderBy('id', 'desc')->get();
         return view('backend.pages.template.index', compact('templates'));
     }
 
@@ -36,10 +34,8 @@ class TemplatesController extends Controller
     public function create()
     {
         $categories = Category::orderBy('name', 'asc')->select('id', 'name')->get();
-        $segments = Segment::orderBy('name', 'asc')->select('id', 'name')->get();
-        $sectors = Sector::orderBy('name', 'asc')->select('id', 'name')->get();
         $disciplines = Discipline::orderBy('name', 'asc')->select('id', 'name')->get();
-        return view('backend.pages.template.create', compact('categories', 'segments', 'sectors', 'disciplines'));
+        return view('backend.pages.template.create', compact('categories', 'disciplines'));
     }
 
     /**
@@ -53,23 +49,16 @@ class TemplatesController extends Controller
         $this->validate(
             $request,
             [
-                'name' => 'required',
                 'category_id' => 'required',
-                'segment_id' => 'required',
-                'sector_id' => 'required',
-                'discipline_id' => 'required'
+                'discipline_id' => 'required',
             ],
             [
-                'name.required' => 'Please give template a name',
                 'category_id.required' => 'Please select a category',
-                'segment_id.required' => 'Please select a job segment',
-                'sector_id.required' => 'Please select a job sector',
-                'discipline_id.required' => 'Please select a job discipline'
+                'discipline_id.required' => 'Please select a job discipline',
             ]
         );
 
         $template = new Template();
-        $template->name = $request->name;
         $template->category_id = $request->category_id;
         $template->responsibilities = $request->responsibilities;
         $template->job_summery = $request->job_summery;
@@ -77,9 +66,6 @@ class TemplatesController extends Controller
         $template->certification = $request->certification;
         $template->experience = $request->experience;
         $template->about_company = $request->about_company;
-
-        $template->segment_id = $request->segment_id;
-        $template->sector_id = $request->sector_id;
         $template->discipline_id = $request->discipline_id;
         $template->save();
 
@@ -113,12 +99,10 @@ class TemplatesController extends Controller
     {
         $template = Template::find($id);
         $categories = Category::orderBy('name', 'asc')->get();
-        $segments = Segment::orderBy('name', 'asc')->select('id', 'name')->get();
-        $sectors = Sector::orderBy('name', 'asc')->select('id', 'name')->get();
         $disciplines = Discipline::orderBy('name', 'asc')->select('id', 'name')->get();
 
         if (!is_null($template)) {
-            return view('backend.pages.template.edit', compact('template', 'categories', 'segments', 'sectors', 'disciplines'));
+            return view('backend.pages.template.edit', compact('template', 'categories', 'disciplines'));
         }
         session()->flash('error', 'Template not found');
         return redirect()->route('admin.templates.index');
@@ -138,22 +122,15 @@ class TemplatesController extends Controller
             $this->validate(
                 $request,
                 [
-                    'name' => 'required',
                     'category_id' => 'required',
-                    'segment_id' => 'required',
-                    'sector_id' => 'required',
-                    'discipline_id' => 'required'
+                    'discipline_id' => 'required',
                 ],
                 [
-                    'name.required' => 'Please give template a name',
                     'category_id.required' => 'Please select a category',
-                    'segment_id.required' => 'Please select a job segment',
-                    'sector_id.required' => 'Please select a job sector',
-                    'discipline_id.required' => 'Please select a job discipline'
+                    'discipline_id.required' => 'Please select a job discipline',
                 ]
             );
 
-            $template->name = $request->name;
             $template->category_id = $request->category_id;
             $template->responsibilities = $request->responsibilities;
             $template->job_summery = $request->job_summery;
@@ -162,8 +139,6 @@ class TemplatesController extends Controller
             $template->experience = $request->experience;
             $template->about_company = $request->about_company;
 
-            $template->segment_id = $request->segment_id;
-            $template->sector_id = $request->sector_id;
             $template->discipline_id = $request->discipline_id;
 
             $template->save();

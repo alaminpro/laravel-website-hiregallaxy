@@ -48,9 +48,7 @@
 				</a> 
 			@endif
 		</p>
-	 
-		@endif
-		
+	   
 	</div>
 
 	<div class="float-right mb-3 text-right">

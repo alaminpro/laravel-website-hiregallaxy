@@ -2,44 +2,37 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-
-use App\Helpers\ImageUploadHelper;
-use App\Helpers\UploadHelper;
 use App\Helpers\StringHelper;
-
-use App\Models\JobType;
-use App\Models\Currency;
+use App\Helpers\UploadHelper;
+use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Country;
+use App\Models\Currency;
+use App\Models\Discipline;
+use App\Models\Experience;
 use App\Models\Job;
 use App\Models\JobActivity;
 use App\Models\JobApplyType;
-use App\Models\JobQualification;
-use App\Models\JobSkill;
-use App\Models\JobStatus;
-use App\Models\JobTag;
-use App\Models\Experience;
+use App\Models\JobType;
 use App\Models\Location;
-use App\Models\Skill;
-use App\Models\Category;
-use App\Models\Discipline;
 use App\Models\Qualification;
+use App\Models\Result;
 use App\Models\Sector;
 use App\Models\Segment;
 use App\Models\Setting;
+use App\Models\Skill;
 use App\Models\Template;
-use App\Models\Result;
 use App\User;
 use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JobsController extends Controller
 {
 
     /**
      * index
-     * @param  Request $request 
+     * @param  Request $request
      * @return view
      */
     public function index(Request $request)
@@ -55,7 +48,6 @@ class JobsController extends Controller
         // if (!is_null(Country::where('name', $user_city)->first())) {
         //     $city_id = Country::where('name', $user_city)->first()->id;
         // }
-
 
         $categories = Category::orderBy('name', 'asc')->where('status', 1)->get();
 
@@ -77,7 +69,7 @@ class JobsController extends Controller
         $pageNo = $pageNo != 0 ? $pageNo - 1 : $pageNo;
         $pageNoText = $paginateNumber * $pageNo . ' to ' . ($pageNo * $paginateNumber + $total_jobs);
 
-        // for exam result validation 
+        // for exam result validation
         return view('frontend.pages.jobs.index', compact('jobs', 'categories', 'pageNoText'));
     }
 
@@ -108,7 +100,6 @@ class JobsController extends Controller
             $pageNo = 0;
         }
 
-
         $jobs = Job::with('results')->where('is_confirmed', 1)->where('category_id', $category->id)->where('status_id', 1)->orderBy('id', 'desc')->paginate($paginateNumber);
 
         // if (isset($city_id) && !is_null($city_id) && $city_id != '' && $city_id != 0) {
@@ -118,16 +109,15 @@ class JobsController extends Controller
         $total_jobs = count($jobs);
         $pageNo = $pageNo != 0 ? $pageNo - 1 : $pageNo;
         $pageNoText = $paginateNumber * $pageNo . ' to ' . ($pageNo * $paginateNumber + $total_jobs);
-        
+
         return view('frontend.pages.jobs.index', compact('jobs', 'categories', 'category', 'pageNoText'));
     }
 
-
     /**
      * searchJob
-     * 
-     * @param  Request $request 
-     * @return [type]           
+     *
+     * @param  Request $request
+     * @return [type]
      */
     public function searchJob(Request $request)
     {
@@ -188,11 +178,11 @@ class JobsController extends Controller
 
         $pdo = DB::connection()->getPdo();
         $sql = 'select jobs.id
-        from jobs 
+        from jobs
         left join users on users.id = jobs.id
         left join categories on jobs.category_id = categories.id
         left join job_types on job_types.id = jobs.type_id
-        where 1 = 1  
+        where 1 = 1
         ';
 
         if ($request->search && $request->search != '') {
@@ -213,7 +203,7 @@ class JobsController extends Controller
             $category = $request->category;
             $category = Category::where('slug', $category)->first();
             if (!is_null($category)) {
-                $category_id =  $category->id;
+                $category_id = $category->id;
                 $sql .= " and jobs.category_id = $category_id ";
             }
         }
@@ -233,7 +223,7 @@ class JobsController extends Controller
         if ($request->type != null && $request->type != '') {
             $type = JobType::where('name', $request->type)->first();
             if (!is_null($type)) {
-                $type_id =  $type->id;
+                $type_id = $type->id;
                 $sql .= " and jobs.type_id = $type_id";
             }
         }
@@ -242,11 +232,10 @@ class JobsController extends Controller
         if ($request->experience != null && $request->experience != '') {
             $experience = Experience::where('slug', $request->experience)->first();
             if (!is_null($experience)) {
-                $experience_id =  $experience->id;
+                $experience_id = $experience->id;
                 $sql .= " and jobs.experience_id = $experience_id";
             }
         }
-
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
@@ -260,13 +249,13 @@ class JobsController extends Controller
         $total_jobs = count($jobs);
         $pageNo = $pageNo != 0 ? $pageNo - 1 : $pageNo;
         $pageNoText = $paginateNumber * $pageNo . ' to ' . ($pageNo * $paginateNumber + $total_jobs);
-   
+
         return view('frontend.pages.jobs.index', compact('jobs', 'categories', 'pageNoText', 'search', 'country', 'category'));
     }
 
     /**
      * show
-     * 
+     *
      * @param  string
      * @return view
      */
@@ -275,10 +264,10 @@ class JobsController extends Controller
         $job = Job::where('slug', $slug)->first();
         // for exam result validation
         $result = Result::where('status', 1)->where('job_id', $job->id)->select('job_id')->first();
-     
+
         if (!is_null($job)) {
             $similar_jobs = Job::where('category_id', $job->category->id)->where('status_id', 1)->where('id', '!=', $job->id)->limit(3)->get();
-            return view('frontend.pages.jobs.show', compact('job', 'similar_jobs','result'));
+            return view('frontend.pages.jobs.show', compact('job', 'similar_jobs', 'result'));
         }
 
         session()->flash('error', 'Sorry !! No job has found !!');
@@ -289,7 +278,7 @@ class JobsController extends Controller
      * post
      *
      * Job Post Page
-     *      
+     *
      * @return  view
      */
     public function post()
@@ -306,32 +295,32 @@ class JobsController extends Controller
 
         $sectors = Sector::orderBy('name', 'asc')->select('name', 'id')->get();
         $segments = Segment::orderBy('name', 'asc')->select('name', 'id')->get();
-        $disciplines = Discipline::orderBy('name', 'asc')->select('name', 'id')->get(); 
-        $skills = Skill::orderBy('name', 'asc')->select('name', 'id')->get(); 
-            $last_id = Job::orderBy('id', 'DESC')->first();
-            if (!$last_id) {
-                $number = 0;
-            } else {
-                $number = substr($last_id->job_id, 3);
-            }
-        $job_id = '6' . sprintf('%04d', intval($number) + 1); 
-        return view('frontend.pages.jobs.post-job', compact('job_id','skills','job_types', 'job_experiences', 'job_apply_types', 'categories', 'skills', 'qualifications', 'currencies', 'countries', 'sectors', 'segments', 'disciplines', 'templates'));
+        $disciplines = Discipline::orderBy('name', 'asc')->select('name', 'id')->get();
+        $skills = Skill::orderBy('name', 'asc')->select('name', 'id')->get();
+        $last_id = Job::orderBy('id', 'DESC')->first();
+        if (!$last_id) {
+            $number = 0;
+        } else {
+            $number = substr($last_id->job_id, 3);
+        }
+        $job_id = '6' . sprintf('%04d', intval($number) + 1);
+        return view('frontend.pages.jobs.post-job', compact('job_id', 'skills', 'job_types', 'job_experiences', 'job_apply_types', 'categories', 'skills', 'qualifications', 'currencies', 'countries', 'sectors', 'segments', 'disciplines', 'templates'));
     }
 
     /**
      * store
      *
      * Add New Job Post
-     * 
+     *
      * @param  Request $request [description]
      * @return [type]           [description]
      */
     public function store(Request $request)
-    { 
+    {
         if (!Auth::check() || !User::userCanPost(Auth::id())) {
             session()->flash('error', 'Sorry !! You are not permitted to post a job !!');
             return redirect()->route('jobs');
-        } 
+        }
         $this->validate($request, [
             'title' => 'required|max:150',
             'template_id' => 'required|max:150',
@@ -339,15 +328,15 @@ class JobsController extends Controller
             'type_id' => 'required',
             'apply_type_id' => 'required',
             'location' => 'nullable',
-            'deadline' => 'required'
-        ]); 
+            'deadline' => 'required',
+        ]);
         $job = new Job();
         $template_id = $request->template_id;
         $template = Template::find($template_id);
         if (!is_null($template)) {
-            $job->template_id =  $template_id;
-            $job->title =  trim($template->name);
-            $job->slug = StringHelper::createSlug($template->name, 'Job', 'slug');;
+            $job->template_id = $template_id;
+            $job->title = trim($template->name);
+            $job->slug = StringHelper::createSlug($template->name, 'Job', 'slug');
             $job->email = $request->email;
             $job->description = $request->description;
             $job->category_id = $template->category_id;
@@ -361,7 +350,7 @@ class JobsController extends Controller
 
             $job->location = trim($request->location);
             $job->country_id = $request->country;
-            $job->job_id = $request->job_id; 
+            $job->job_id = $request->job_id;
 
             if (isset($request->is_salary_negotiable)) {
                 $job->is_salary_negotiable = 1;
@@ -370,8 +359,8 @@ class JobsController extends Controller
 
                 $this->validate($request, [
                     'monthly_salary' => 'required',
-                    'salary_currency' => 'required'
-                ]); 
+                    'salary_currency' => 'required',
+                ]);
                 $job->monthly_salary = $request->monthly_salary;
                 $job->salary_currency = $request->salary_currency;
             }
@@ -419,8 +408,8 @@ class JobsController extends Controller
 
     /**
      * Job Post Edit page
-     * 
-     * @param  view $slug 
+     *
+     * @param  view $slug
      * @return view
      */
     public function edit($slug)
@@ -449,7 +438,7 @@ class JobsController extends Controller
         $skills = Skill::where('status', 1)->orderBy('name', 'asc')->get();
         $currencies = Currency::orderBy('priority', 'asc')->get();
         $countries = Country::orderBy('name', 'asc')->get();
-        $job_deadline = substr($job->deadline, 5, 2) . '/' . substr($job->deadline, 8, 2) . '/' . substr($job->deadline, 0, 4); //2019-04-18 to 04/10/2019 
+        $job_deadline = substr($job->deadline, 5, 2) . '/' . substr($job->deadline, 8, 2) . '/' . substr($job->deadline, 0, 4); //2019-04-18 to 04/10/2019
         $templates = Template::orderBy('name', 'asc')->get();
 
         $sectors = Sector::orderBy('name', 'asc')->select('name', 'id')->get();
@@ -459,12 +448,11 @@ class JobsController extends Controller
         return view('frontend.pages.jobs.edit', compact('job_types', 'job_experiences', 'job_apply_types', 'categories', 'skills', 'qualifications', 'currencies', 'countries', 'job', 'job_deadline', 'sectors', 'segments', 'disciplines', 'templates'));
     }
 
-
     /**
      * update Job
-     * 
-     * @param  Request $request 
-     * @return Route           
+     *
+     * @param  Request $request
+     * @return Route
      */
     public function update(Request $request, $slug)
     {
@@ -482,13 +470,13 @@ class JobsController extends Controller
             'type_id' => 'required',
             'apply_type_id' => 'required',
             'location' => 'nullable',
-            'deadline' => 'required'
+            'deadline' => 'required',
         ]);
 
         $template_id = $request->template_id;
         $template = Template::find($template_id);
-        $job->template_id =  $template_id;
-        $job->title =  trim($template->name);
+        $job->template_id = $template_id;
+        $job->title = trim($template->name);
         // $job->slug = StringHelper::createSlug($template->name, 'Job', 'slug');;
         $job->email = $request->email;
         $job->description = $request->description;
@@ -511,7 +499,7 @@ class JobsController extends Controller
 
             $this->validate($request, [
                 'monthly_salary' => 'required',
-                'salary_currency' => 'required'
+                'salary_currency' => 'required',
             ]);
 
             $job->monthly_salary = $request->monthly_salary;
@@ -544,7 +532,6 @@ class JobsController extends Controller
         return back();
     }
 
-
     /**
      * Apply For Jobs
      * @param  Request $request [description]
@@ -562,7 +549,7 @@ class JobsController extends Controller
             'job_id' => 'required|numeric',
             'cover_letter' => 'required',
             'expected_salary' => 'nullable|numeric',
-            'cv_file' => 'nullable|mimes:pdf|max:2000'
+            'cv_file' => 'nullable|mimes:pdf|max:2000',
         ]);
 
         if (JobActivity::where('user_id', Auth::id())->where('job_id', $request->job_id)->first() != null) {
@@ -587,7 +574,7 @@ class JobsController extends Controller
             if (Auth::user()->candidate->cv != null) {
                 $cv = Auth::user()->candidate->cv;
             } else {
-                $cv = NULL;
+                $cv = null;
             }
         } else {
             // If there is any uploaded CV
@@ -596,7 +583,7 @@ class JobsController extends Controller
             if (!is_null($cv_file)) {
                 $cv = url('/') . '/files/cv/' . $cv_file;
             } else {
-                $cv = NULL;
+                $cv = null;
             }
         }
         $jobActivity->cv = $cv;
@@ -606,11 +593,10 @@ class JobsController extends Controller
         return redirect()->route('jobs');
     }
 
-
     /**
      * applyUpdate
-     * @param  Request $request 
-     * @return            
+     * @param  Request $request
+     * @return
      */
     public function applyUpdate(Request $request)
     {
@@ -623,7 +609,7 @@ class JobsController extends Controller
             'job_id' => 'required|numeric',
             'cover_letter' => 'required',
             'expected_salary' => 'nullable|numeric',
-            'cv_file' => 'nullable|mimes:pdf|max:2000'
+            'cv_file' => 'nullable|mimes:pdf|max:2000',
         ]);
 
         $jobActivity = JobActivity::where('user_id', Auth::id())->where('job_id', $request->job_id)->first();
@@ -647,7 +633,7 @@ class JobsController extends Controller
             if (Auth::user()->candidate->cv != null) {
                 $cv = Auth::user()->candidate->cv;
             } else {
-                $cv = NULL;
+                $cv = null;
             }
         } else {
             // If there is any uploaded CV
@@ -661,7 +647,7 @@ class JobsController extends Controller
             if (!is_null($cv_file)) {
                 $cv = url('/') . '/files/cv/' . $cv_file;
             } else {
-                $cv = NULL;
+                $cv = null;
             }
         }
         $jobActivity->cv = $cv;
