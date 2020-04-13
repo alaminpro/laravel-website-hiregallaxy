@@ -38,7 +38,7 @@
         aria-haspopup="true" aria-expanded="false" style="font-family: verdana;">
         <i class="fas fa-sliders-h"></i> &nbsp;&nbsp;Job Options
       </a>
-      <div class="dropdown-menu shadow animated--grow-in" aria-labelledby="jobs_settings">
+      <div class="dropdown-menu shadow animated--grow-in" aria-labelledby="jobs_settings" style="width: 12rem !important">
         <a class="dropdown-item" href="{{ route('admin.category.index') }}">Positions</a>
         <a class="dropdown-item" href="{{ route('admin.states.index') }}">States</a>
         <a class="dropdown-item" href="{{ route('admin.cities.index') }}">Cities</a>
@@ -47,7 +47,9 @@
         <a class="dropdown-item" href="{{ route('admin.segment.index') }}">Employer</a>
         <a class="dropdown-item" href="{{ route('admin.discipline.index') }}">Disciplines</a>
         <a class="dropdown-item" href="{{ route('admin.sector.index') }}">Sectors</a>
-        <a class="dropdown-item" href="{{ route('admin.question.index') }}">Questions</a>
+        <a class="dropdown-item" href="{{ route('admin.question.index') }}">Questions - job skill</a>
+        <a class="dropdown-item" href="{{ route('admin.personality.question.index') }}">Questions - personality</a>
+        <a class="dropdown-item" href="{{ route('admin.personality.index') }}">Personality Type</a>
       </div>
     </li>
 

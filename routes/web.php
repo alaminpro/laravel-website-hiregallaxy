@@ -297,10 +297,34 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     //Route::get('/','QuestionController@index');
     Route::post('question/{id}', 'Backend\QuestionController@update')->name('que.update');
-
-    Route::resource('question', 'Backend\QuestionController');
     Route::get('delete_question/{question_id}', 'Backend\QuestionController@delete_question');
+    Route::post('/question/upload', "Backend\QuestionController@upload");
+    Route::get('/question/file_browser', "Backend\QuestionController@fileBrowser");
+    Route::resource('question', 'Backend\QuestionController');
 
+    /**
+     * coding for personality route
+     */
+    Route::group(['prefix' => 'personality'], function () {
+        Route::get('/', 'Backend\PersonalityController@index')->name('personality.index');
+        Route::get('/add', 'Backend\PersonalityController@create')->name('personality.create');
+        Route::post('/add', 'Backend\PersonalityController@store')->name('personality.submit');
+        Route::get('/view/{id}', 'Backend\PersonalityController@show')->name('personality.view');
+        Route::get('/edit/{id}', 'Backend\PersonalityController@edit')->name('personality.edit');
+        Route::post('/update/{id}', 'Backend\PersonalityController@update')->name('personality.update');
+        Route::get('/delete/{id}', 'Backend\PersonalityController@destroy')->name('personality.delete');
+
+        // for question
+        Route::get('question', 'Backend\PersonalityQuestionController@index')->name('personality.question.index');
+        Route::get('question/add', 'Backend\PersonalityQuestionController@create')->name('personality.question.create');
+        Route::post('question/add', 'Backend\PersonalityQuestionController@store')->name('personality.question.submit');
+        Route::get('question/view/{id}', 'Backend\PersonalityQuestionController@show')->name('personality.question.view');
+        Route::get('question/edit/{id}', 'Backend\PersonalityQuestionController@edit')->name('personality.question.edit');
+        Route::post('question/update/{id}', 'Backend\PersonalityQuestionController@update')->name('personality.question.update');
+        Route::get('question/delete/{id}', 'Backend\PersonalityQuestionController@destroy')->name('personality.question.delete');
+        Route::post('question/upload', "Backend\PersonalityQuestionController@upload");
+        Route::get('question/file_browser', "Backend\PersonalityQuestionController@fileBrowser");
+    });
     /**
      * Template Routes
      * Job Posting Template Routes
@@ -335,6 +359,3 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::put('', 'Backend\SettingsController@update')->name('settings.update');
     });
 });
-
-Route::post('/question/upload', "Backend\QuestionController@upload");
-Route::get('/question/file_browser', "Backend\QuestionController@fileBrowser");

@@ -64,6 +64,7 @@ class QuestionController extends Controller
         $request->upload->move(public_path('uploads'), $request->file('upload')->getClientOriginalName());
         return json_encode(array('file_name' => $request->file('upload')->getClientOriginalName()));
     }
+
     public function fileBrowser()
     {
         $paths = glob(public_path('uploads/*'));
