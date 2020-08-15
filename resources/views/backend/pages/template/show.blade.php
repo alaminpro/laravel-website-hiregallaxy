@@ -34,7 +34,19 @@
           <div class="col-md-6 form-group">
             <div class="row">
               <div class="col-md-5">
-                <label for="name">Position <span class="text-danger required">*</span></label>
+                <label for="name">Template Name <span class="text-danger required">*</span></label>
+              </div>
+              <div class="col-md-7">
+                <div class="border p-1">
+                  {!! $template->name !!}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 form-group">
+            <div class="row">
+              <div class="col-md-5">
+                <label for="name">Template Position <span class="text-danger required">*</span></label>
               </div>
               <div class="col-md-7">
                 <div class="border p-1">
@@ -44,22 +56,6 @@
             </div>
           </div>
         </div>
-
-        <div class="form-row">
-          <div class="col-md-12 form-group">
-            <div class="row">
-              <div class="col-md-3">
-                <label for="name">Discipline <span class="text-danger required">*</span></label>
-              </div>
-              <div class="col-md-9">
-                <div class="border p-1">
-                  {{ isset($template->discipline) ? $template->discipline->name : '' }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="form-row">
           <div class="col-md-12 form-group">
             <div class="row">

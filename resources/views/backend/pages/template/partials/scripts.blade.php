@@ -36,7 +36,6 @@
         selector:'.template' ,
         plugins: 'codesample autoresize code print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern',
         autoresize_bottom_margin: 0,
-        contextmenu: 'copy paste',
         toolbar: 'bold italic hr forecolor backcolor |  autolink  link  alignleft aligncenter alignright numlist bullist code preview',
         image_advtab: true,
         menubar:false,

@@ -23,21 +23,6 @@ class Job extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function sector()
-    {
-        return $this->belongsTo(Sector::class);
-    }
-
-    public function discipline()
-    {
-        return $this->belongsTo(Discipline::class);
-    }
-
-    public function segment()
-    {
-        return $this->belongsTo(Segment::class);
-    }
-
     public function template()
     {
         return $this->belongsTo(Template::class);
@@ -90,16 +75,9 @@ class Job extends Model
         return $this->belongsTo(Country::class);
     }
 
-    // public function skills()
-    // {
-    //     return $this->hasMany(JobSkill::class);
-    // }
-    public function results() {
-        return $this->hasMany("App\Models\Result", "job_id", "id");
-    }
     public function skills()
-    { 
-        return $this->belongsToMany('App\Models\Skill', 'job_skills', 'job_id', 'skill_id');
+    {
+        return $this->hasMany(JobSkill::class);
     }
 
     public function qualifications()

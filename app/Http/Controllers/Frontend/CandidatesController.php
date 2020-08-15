@@ -17,7 +17,6 @@ use App\Models\Job;
 use App\Models\JobActivity;
 
 use Auth;
-use PDF;
 
 class CandidatesController extends Controller
 {
@@ -46,17 +45,6 @@ class CandidatesController extends Controller
             return redirect()->route('candidates');
         }
         return view('frontend.pages.candidates.show', compact('user'));
-    }
-
-    public function showResume($username)
-    {
-        $user = User::where('username', $username)->first();
-        $data = [
-            'user' => $user
-        ];
-        // return view('frontend.pages.candidates.show-resume', compact('data'));
-        $pdf = PDF::loadView('frontend.pages.candidates.show-resume', compact('data'));
-        return $pdf->stream('candidate-resume.pdf');
     }
 
     public function search(Request $request)
@@ -176,14 +164,14 @@ class CandidatesController extends Controller
         $user->google_plus_link = $request->google_plus_link;
 
         if ($request->profile_picture) {
-            $user->profile_picture = ImageUploadHelper::update('profile_picture', $request->file('profile_picture'), 'pr-' . time(), 'images/users', 'images/users/' . $user->profile_picture);
+            $user->profile_picture = ImageUploadHelper::update('profile_picture', $request->file('profile_picture'), 'pr-' . time(), 'public/images/users', 'public/images/users/' . $user->profile_picture);
         }
         $user->save();
 
         if ($request->cv) {
             $user->candidate->update([
                 'date_of_birth' => $request->date_of_birth,
-                'cv' => UploadHelper::update('cv', $request->file('cv'), 'cv-' . time(), 'files/cv', 'files/cv/' . $user->candidate->cv),
+                'cv' => UploadHelper::update('cv', $request->file('cv'), 'cv-' . time(), 'public/files/cv', 'public/files/cv/' . $user->candidate->cv),
                 'sector' => $request->sector,
                 'gender' => $request->gender,
                 'career_level_id' => $request->career_level_id,

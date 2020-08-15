@@ -36,23 +36,21 @@
             <thead>
               <tr>
                 <th width="5%">Sl</th>
-                <th width="15%">Position</th>
-                <th width="15%">Discipline</th>
+                <th width="30%">Name</th>
+                <th width="30%">Category</th>
                 <th width="15%">Manage</th>
               </tr>
             </thead>
             <tbody>
               @if(count($templates) > 0)
-
               @foreach($templates as $template)
-
               <tr>
                 <td>{{ $loop->index+1 }}</td>
                 <td>
-                   {{$template->category['name']}}
+                  {{ $template->name }}
                 </td>
                 <td>
-                  {{ isset($template->discipline) ? $template->discipline->name : '' }}
+                  {{ isset($template->category) ? $template->category->name : '' }}
                 </td>
                 <td>
                   <a href="{{ route('admin.templates.show', $template->id) }}" title="View Template"

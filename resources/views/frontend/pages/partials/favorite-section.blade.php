@@ -2,7 +2,7 @@
 	<h5 class="text-theme">
 		Favorite Jobs
 	</h5>
-	@foreach ($jobs as  $key => $single_job)
+	@foreach ($jobs as $single_job)
 	@include('frontend.pages.partials.single-job-search')
 	@endforeach
 

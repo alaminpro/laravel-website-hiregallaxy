@@ -50,7 +50,7 @@ class TagController extends Controller
     $tag = new Tag;
     $tag->name = $request->name;
     $tag->slug = StringHelper::createSlug($request->name, 'Tag', 'slug');
-    $tag->image = ImageUploadHelper::upload('image', $request->file('image'), time(), 'website-images/tag');
+    $tag->image = ImageUploadHelper::upload('image', $request->file('image'), time(), 'public/website-images/tag');
     $tag->description = $request->description;
     $tag->save();
 
@@ -88,10 +88,10 @@ class TagController extends Controller
       $tag->name = $request->name;
       if($request->image){
         if($tag->image){
-          $tag->image = ImageUploadHelper::update('image', $request->file('image'), time(), 'website-images/tag', $tag->image);
+          $tag->image = ImageUploadHelper::update('image', $request->file('image'), time(), 'public/website-images/tag', $tag->image);
         }
         else{
-          $tag->image = ImageUploadHelper::upload('image', $request->file('image'), time(), 'website-images/tag');
+          $tag->image = ImageUploadHelper::upload('image', $request->file('image'), time(), 'public/website-images/tag');
         }
       }
       $tag->description = $request->description;
@@ -114,7 +114,7 @@ class TagController extends Controller
     $tag = Tag::where('slug', $slug)->first();
     if($tag){
       if($tag->image){
-        ImageUploadHelper::delete('website-images/category/'.$tag->image);
+        ImageUploadHelper::delete('public/website-images/category/'.$tag->image);
       }
 
       $postTags = PostTag::where('tag_id', $tag->id)->get();
@@ -122,7 +122,7 @@ class TagController extends Controller
         $posts = Post::where('id', $postTag->post_id)->get();
         foreach($posts as $post){
           if($post->image){
-            ImageUploadHelper::delete('website-images/posts/'.$post->featured_image);
+            ImageUploadHelper::delete('public/website-images/posts/'.$post->featured_image);
 
             PostCategory::where('post_id', $post->id)->delete();
 

@@ -51,22 +51,19 @@
           @method('PUT')
           @csrf
           <div class="form-row">
-            <div class="col-md-4 form-group">
-                <label for="discipline_id">Job Discipline</label>
-                <select name="discipline_id" id="discipline_id" class="form-control" required>
-                  <option value="">Select a job discipline</option>
-                  @foreach ($disciplines as $discipline)
-                  <option value="{{ $discipline->id }}"
-                    {{ $template->discipline_id == $discipline->id ? 'selected' : '' }}>{{ $discipline->name }}</option>
-                  @endforeach
-                </select>
+            <div class="col-md-6 form-group">
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="text" id="name" name="name" class="form-control" placeholder="eg. New Template Name"
+                    required value="{{ $template->name }}">
+                </div>
               </div>
-            <div class="col-md-4 form-group">
-                <label for="discipline_id">Job Position</label>
+            </div>
+            <div class="col-md-6 form-group">
               <div class="row">
                 <div class="col-md-12">
                   <select name="category_id" id="category_id" class="form-control" required>
-                    <option value="">Select a Position</option>
+                    <option value="">Select a category</option>
                     @foreach ($categories as $cat)
                     <option value="{{ $cat->id }}"
                       {{ isset($template->category)? ($template->category->id == $cat->id) ? 'selected' : '' : '' }}>
@@ -77,7 +74,6 @@
               </div>
             </div>
           </div>
-
 
           <div class="form-row">
             <div class="col-md-12 form-group">

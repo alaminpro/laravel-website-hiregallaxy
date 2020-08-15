@@ -18,6 +18,8 @@ class CreatePersonalitiesTable extends Migration
             $table->string('title');
             $table->string('sub_title');
             $table->text('description');
+            $table->text('strengths');
+            $table->text('weaknesses');
             $table->timestamps();
         });
     }

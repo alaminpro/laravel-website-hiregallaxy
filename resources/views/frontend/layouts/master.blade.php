@@ -7,7 +7,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>@yield('title', App\Models\Setting::first()->site_title)</title>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-	<script data-ad-client="ca-pub-5382978051188489" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	@include('frontend.partials.styles')
 	@yield('stylesheets')
 </head>
@@ -59,7 +58,6 @@
 	@include('frontend.partials.scripts')
 	@yield('scripts')
 	<!-- JS Files -->
-	<script data-ad-client="ca-pub-5382978051188489" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </body>
 
 </html>

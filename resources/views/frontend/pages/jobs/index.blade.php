@@ -95,7 +95,7 @@ Jobs | {{ App\Models\Setting::first()->site_title }}
 						</div>
 						<div class="clearfix"></div>
 					</div>
-					@foreach ($jobs as $key => $single_job)
+					@foreach ($jobs as $single_job)
 					@include('frontend.pages.partials.single-job-search')
 					@endforeach
 

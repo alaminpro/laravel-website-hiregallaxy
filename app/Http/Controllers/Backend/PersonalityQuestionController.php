@@ -19,7 +19,12 @@ class PersonalityQuestionController extends Controller
      */
     public function index()
     {
-        $questions = PersonalityQuestion::all();
+        if(auth()->user()->hasRole('editor')){
+            $questions = PersonalityQuestion::where('user_id', auth()->user()->id)->get();
+        }else{
+            $questions = PersonalityQuestion::all();
+        } 
+ 
         return view('backend.pages.personalities.question.index')->with(compact('questions'));
     }
 
@@ -51,6 +56,7 @@ class PersonalityQuestionController extends Controller
         $question->question = $request->question;
         $question->answer_1 = $request->answer_1;
         $question->answer_2 = $request->answer_2;
+        $question->user_id = auth()->user()->id;
         $question->save();
         return redirect()->route('admin.personality.question.index')->with('message', 'Question created successfully');
     }

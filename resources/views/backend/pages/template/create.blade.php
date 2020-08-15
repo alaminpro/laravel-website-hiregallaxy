@@ -51,16 +51,14 @@
           @csrf
           <div class="form-row">
             <div class="col-md-6 form-group">
-                <label for="discipline_id">Job Discipline</label>
-                <select name="discipline_id" id="discipline_id" class="form-control" required>
-                  <option value="">Select a job discipline</option>
-                  @foreach ($disciplines as $discipline)
-                  <option value="{{ $discipline->id }}">{{ $discipline->name }}</option>
-                  @endforeach
-                </select>
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="text" id="name" name="name" class="form-control" placeholder="eg. New Template Name"
+                    required>
+                </div>
               </div>
+            </div>
             <div class="col-md-6 form-group">
-                <label for="discipline_id">Job Position</label>
               <div class="row">
                 <div class="col-md-12">
                   <select name="category_id" id="category_id" class="form-control" required>
@@ -73,8 +71,6 @@
               </div>
             </div>
           </div>
-
-
 
           <div class="form-row">
             <div class="col-md-12 form-group">

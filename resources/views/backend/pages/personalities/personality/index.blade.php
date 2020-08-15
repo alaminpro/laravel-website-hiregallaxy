@@ -35,8 +35,11 @@
             <thead>
               <tr>
                 <th width="5%">Sl</th>
-                <th width="30%">Title</th>
-                <th width="30%">Sub title</th>
+                <th width="20%">Title</th>
+                <th width="20%">Sub title</th>
+                @if(auth()->user()->hasRole('super-admin') or auth()->user()->hasRole('admin'))
+                <th width="20%">Editor</th>
+                @endif
                 <th width="15%">Manage</th>
               </tr>
             </thead>
@@ -46,6 +49,14 @@
                     <td>{{$key+1}}</td>
                     <td> {{ $personality->title }}</td>
                     <td> {{ $personality->sub_title }}</td>
+                    @if(auth()->user()->hasRole('super-admin') or auth()->user()->hasRole('admin'))
+                    <td>
+                      @php 
+                          $user = \App\Models\Admin::where('id', $personality->user_id)->first();
+                      @endphp
+                      {{ $user['username'] }}
+                    </td>
+                    @endif
                     <td>
                         <a href="{{route('admin.personality.view',$personality->id)}}" title="show Template" class="btn btn-outline-success">
                           <i class="fa fa-eye"></i>

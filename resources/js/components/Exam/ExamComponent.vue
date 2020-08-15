@@ -324,7 +324,7 @@ export default {
             answer: this.answer,
             job_id: this.id
         }
-         Axios.post('/jobs/exam/results/', data).then((res) => {
+         Axios.post('/jobs/exam/questions/results', data).then((res) => {
             if(res.data.success == 'success'){
                 window.location = 'https://hiregallaxy.com/jobs/view/'+ res.data.job_id.slug;
             }

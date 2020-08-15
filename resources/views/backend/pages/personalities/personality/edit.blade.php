@@ -26,9 +26,9 @@
           </h6>
         </div>
         <div class="float-right">
-            <a href="{{ route('admin.personality.question.index') }}"
+            <a href="{{ route('admin.personality.index') }}"
             class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-              class="fas fa-arrow-left fa-sm text-white-50"></i> All Questions</a>
+              class="fas fa-arrow-left fa-sm text-white-50"></i> All Personality</a>
         </div>
         <div class="clearfix"></div>
       </div>
@@ -51,6 +51,14 @@
                 <div class="form-group">
                     <label id="description" class="form-label">Descrition</label>
                     <textarea name="description"  class="form-control"  id="description" cols="30" rows="5">{{ $edit->description }}</textarea>
+                 </div>
+                <div class="form-group">
+                    <label id="strength" class="form-label">Strengths</label>
+                    <textarea name="strengths"  class="form-control"  id="strength" cols="30" rows="5">{{ $edit->strengths }}</textarea>
+                 </div>
+                <div class="form-group">
+                    <label id="weaknesse" class="form-label">Weaknesses</label>
+                    <textarea name="weaknesses"  class="form-control"  id="weaknesse" cols="30" rows="5">{{ $edit->weaknesses }}</textarea>
                  </div>
             </div>
           </div>
@@ -76,3 +84,15 @@
 @endsection
 
 
+
+@section('scripts')
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){ 
+     CKEDITOR.replace('strengths');
+     CKEDITOR.replace('weaknesses'); 
+  });
+</script>
+
+
+@endsection

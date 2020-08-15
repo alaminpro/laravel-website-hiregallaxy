@@ -60,7 +60,7 @@
     <div id="fileExplorer">
         @foreach($fileNames as $fileName)
              <div class="thumbnail">
-             <img src="{{ asset('/uploads/'. $fileName)}}" alt="humb" title="/uploads/{{$fileName}}" width="200" height="100"/>
+             <img src="{{ asset('public/uploads/'. $fileName)}}" alt="humb" title="https://hiregallaxy.com/public/uploads/{{$fileName}}" width="200" height="100"/>
              <br/>
              {{ $fileName  }}
              </div>

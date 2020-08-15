@@ -45,6 +45,16 @@
                 <td>:</td>
                 <td>{{$personality->description}}</td>
             </tr>
+            <tr>
+                <td>Personality Strengths</td>
+                <td>:</td>
+                <td>{!! $personality->strengths !!}</td>
+            </tr>
+            <tr>
+                <td>Personality Weaknesses</td>
+                <td>:</td>
+                <td>{!! $personality->weaknesses !!}</td>
+            </tr>
 
           </table>
         </div>

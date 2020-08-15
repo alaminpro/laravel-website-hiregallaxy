@@ -11,7 +11,7 @@
 
   <title>@yield('title', 'Admin Panel | Hire Gallaxy')</title>
 
-  <link rel="shortcut icon" href="{{ asset('images/'.App\Models\Setting::first()->site_favicon) }}"
+  <link rel="shortcut icon" href="{{ asset('public/images/'.App\Models\Setting::first()->site_favicon) }}"
     type="image/x-icon">
 
   @include('backend.partials.styles')

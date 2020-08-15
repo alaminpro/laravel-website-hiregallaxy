@@ -166,7 +166,6 @@ return [
          * Package Service Providers...
          */
         Intervention\Image\ImageServiceProvider::class,
-        Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -229,7 +228,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Image' => Intervention\Image\Facades\Image::class,
-        'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class,
 
     ],
 

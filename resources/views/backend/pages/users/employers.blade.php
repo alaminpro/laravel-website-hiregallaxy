@@ -48,8 +48,8 @@
                   <a href="{{ route('employers.show', $user->username) }}" target="_blank"><i class="fa fa-link"></i> {{ route('employers.show', $user->username) }}</a>
                 </td>
                 <td>
-                  <a href="{!! asset('images/users/'.$user->image) !!}" target="_blank">
-                    <img src="{!! asset('images/users/'.$user->image) !!}" alt="" width="50" height="50">
+                  <a href="{!! asset('public/images/users/'.$user->image) !!}" target="_blank">
+                    <img src="{!! asset('public/images/users/'.$user->image) !!}" alt="" width="50" height="50">
                   </a>
                 </td>
                 <td>

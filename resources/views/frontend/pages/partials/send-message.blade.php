@@ -30,7 +30,7 @@
 		<div class="form-check">
 			<input class="form-check-input" type="checkbox" id="employerSendMessage" checked>
 			<label class="form-check-label ml-3" for="employerSendMessage">
-				Accept our <a href="{{ route('terms') }}" class="text-yellow">Terms and Condition</a> and <a href="{{ route('privacy') }}"  class="text-yellow">Privacy Policy</a>
+				Accept our <a href="" class="text-yellow">Terms and Condition</a> and <a href=""  class="text-yellow">Privacy Policy</a>
 			</label>
 		</div>
 	</div>

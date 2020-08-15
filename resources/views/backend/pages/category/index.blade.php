@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-  <h1 class="h3 mb-0 float-left">All Positions</h1>
+  <h1 class="h3 mb-0 float-left">All Sectors</h1>
   <div class="breadcrumb-holder float-right">
     <ol class="breadcrumb float-right">
       <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
@@ -45,9 +45,9 @@
             <thead>
               <tr>
                 <th width="5%">Sl</th>
-                <th width="30%">Position</th>
+                <th width="30%">Sectors</th>
                 <th width="10%">Image</th>
-                <th width="20%" style="Display:none;">Sector</th>
+                <th width="20%">Sector</th>
                 <th width="15%">Manage</th>
               </tr>
             </thead>
@@ -63,12 +63,12 @@
                       class="fa fa-link"></i> {{ route('jobs.categories.show', $category->slug) }}</a>
                 </td>
                 <td>
-                  <a href="{!! asset('images/categories/'.$category->image) !!}" target="_blank">
-                    <img src="{!! asset('images/categories/'.$category->image) !!}" alt="" width="50"
+                  <a href="{!! asset('public/images/categories/'.$category->image) !!}" target="_blank">
+                    <img src="{!! asset('public/images/categories/'.$category->image) !!}" alt="" width="50"
                       height="50">
                   </a>
                 </td>
-                <td style="Display:none;">{!! $category->description !!}</td>
+                <td>{!! $category->description !!}</td>
                 <td>
                   @if ($category->status == 1)
                   <a href="#editModal{{ $category->id }}" class="btn btn-circle btn-outline-success"
@@ -163,7 +163,7 @@
                             <input type="text" id="name" name="name" class="form-control"
                               placeholder="eg. Web Development" required value="{{ $category->name }}">
                           </div>
-                          <div class="col-md-4 form-group" style="Display:none;">
+                          <div class="col-md-4 form-group">
                             <label for="slug">Position Slug <span class="text-info required">(optional)</span></label>
                             <input type="text" id="slug" name="slug" class="form-control"
                               placeholder="eg. web-development" value="{{ $category->slug }}">
@@ -179,12 +179,12 @@
                             <label for="image">
                               Position Image
                               @if ($category->image != NULL)
-                              <a href="{!! asset('images/categories/'.$category->image) !!}">Previous Image</a>
+                              <a href="{!! asset('public/images/categories/'.$category->image) !!}">Previous Image</a>
                               @endif
                             </label>
                             <input type="file" id="image" name="image" class="form-control">
                           </div>
-                          <div class="col-md-4 form-group" style="Display:none;">
+                          <div class="col-md-4 form-group">
                             <label for="parent_category_id">Parent Position <span
                                 class="text-info required">(optional)</span></label>
 
@@ -207,7 +207,7 @@
                             </select>
                           </div>
                         </div>
-                        <div class="form-row" style="Display:none;">
+                        <div class="form-row">
                           <div class="col-md-12 form-group">
                             <label for="description">Category</label>
 
@@ -262,11 +262,11 @@
               <label for="name">Position Title <span class="text-danger required">*</span></label>
               <input type="text" id="name" name="name" class="form-control" placeholder="eg. Web Development" required>
             </div>
-            <div class="col-md-4 form-group" style="Display:none;">
+            <div class="col-md-4 form-group">
               <label for="slug">Position Slug <span class="text-info required">(optional)</span></label>
               <input type="text" id="slug" name="slug" class="form-control" placeholder="eg. web-development">
             </div>
-            <div class="col-md-4 form-group" >
+            <div class="col-md-4 form-group">
               <label for="icon">Position Icon <span class="text-info required">(optional)</span></label>
               <input type="text" id="icon" name="icon" class="form-control" placeholder="fa fa-bars">
             </div>
@@ -276,7 +276,7 @@
               <label for="image">Position Image</label>
               <input type="file" id="image" name="image" class="form-control">
             </div>
-            <div class="col-md-4 form-group" style="Display:none;">
+            <div class="col-md-4 form-group">
               <label for="parent_category_id">Parent Position <span class="text-info required">(optional)</span></label>
 
               <select name="parent_category_id" id="parent_category_id" class="form-control">
@@ -295,7 +295,7 @@
               </select>
             </div>
           </div>
-          <div class="form-row" style="Display:none;">
+          <div class="form-row">
             <div class="col-md-12 form-group">
               <label for="description">Category</label>
 

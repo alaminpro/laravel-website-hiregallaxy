@@ -52,6 +52,14 @@
                     <label id="description" class="form-label">Descrition</label>
                     <textarea name="description" id="description"  class="form-control"   cols="30" rows="5"></textarea>
                  </div>
+                <div class="form-group">
+                    <label id="strength" class="form-label">Strengths</label>
+                    <textarea name="strengths" id="strength"  class="form-control"   cols="30" rows="5"></textarea>
+                 </div>
+                <div class="form-group">
+                    <label id="weaknesse" class="form-label">Weaknesses</label>
+                    <textarea name="weaknesses" id="weaknesse"  class="form-control"   cols="30" rows="5"></textarea>
+                 </div>
             </div>
             <!-- End Input -->
           </div>
@@ -72,6 +80,18 @@
     </div>
   </div>
 </div>
+
+@endsection
+
+@section('scripts')
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){ 
+     CKEDITOR.replace('strengths');
+     CKEDITOR.replace('weaknesses'); 
+  });
+</script>
+
 
 @endsection
 

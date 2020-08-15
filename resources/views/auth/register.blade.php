@@ -77,7 +77,7 @@ Sign Up | Hire Gallaxy
                                     <input type="email" class="form-control" name="email" id="email" placeholder="Write Your Email Address" required  value="{{ old('email') }}">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="sector">Position <span class="required">*</span></label>
+                                    <label for="sector">Sector <span class="required">*</span></label>
                                     <select name="sector" id="sector" class="form-control" required value="{{ old('sector') }}">
                                         <option value="">Select One</option>
                                         @foreach ($categories as $cat)
@@ -95,18 +95,10 @@ Sign Up | Hire Gallaxy
                                 <div class="col-md-6">
                                     <label for="country">Your City <span class="required">*</span></label>
                                     <select name="country" id="country" class="form-control" required value="{{ old('country') }}">
-                                        <option value="">Select a city</option>
-                                        @foreach (App\Models\State::orderBy('name', 'asc')->get() as $state)
-                    					<option value="" disabled style="font-weight: bolder;font-size: 16px;">
-                    						{{ $state->name }}
-                    					</option>
-                    					@foreach ($state->cities()->orderBy('name', 'asc')->get() as $country)
-                    					<option value="{{ $country->id }}" {{ old('country') == $country->id ? 'selected':'' }}>
-                    						&nbsp; &nbsp;
-                    						{{ $country->name }}
-                    					</option>
-                    					@endforeach
-                    					@endforeach
+                                        <option value="">Select One</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country->id }}" {{ old('country') == $country->id ? 'selected':'' }}>{{ $country->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -121,14 +113,6 @@ Sign Up | Hire Gallaxy
                                     <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Write Password Again" data-parsley-equalto="#passwordCandidate"  minlength="8" required>
                                 </div>
                             </div>
-	<div class="form-group">
-		<div class="form-check">
-			<input class="form-check-input" type="checkbox" id="employerSendMessage" checked>
-			<label class="form-check-label ml-3" for="employerSendMessage">
-				Accept our <a href="{{ route('terms') }}" class="text-yellow">Terms and Condition</a> and <a href="{{ route('privacy') }}"  class="text-yellow">Privacy Policy</a>
-			</label>
-		</div>
-	</div>
 
                             <div class="row justify-content-center form-group text-center">
                                 <div class="col-8">
@@ -214,7 +198,7 @@ Sign Up | Hire Gallaxy
                                     <input type="text" class="form-control" name="website" id="website" placeholder="www.example.com">
                                 </div> --}}
                                 <div class="col-md-6">
-                                    <label for="sector">Position <span class="required">*</span></label>
+                                    <label for="sector">Sector <span class="required">*</span></label>
                                     <select name="sector" id="sector" class="form-control" required>
                                         <option value="">Select One</option>
                                         @foreach ($categories as $cat)
@@ -230,20 +214,12 @@ Sign Up | Hire Gallaxy
                                     <input type="text" class="form-control" name="street_address" id="street_address" placeholder="Write Your Address" required value="{{ old('street_address') }}" value="{{ old('street_address') }}">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="country">Your City <span class="required">*</span></label>
+                                    <label for="country">Your Country <span class="required">*</span></label>
                                     <select name="country" id="country" class="form-control" required>
-                                        <option value="">Select a city</option>
-                                        @foreach (App\Models\State::orderBy('name', 'asc')->get() as $state)
-                    					<option value="" disabled style="font-weight: bolder;font-size: 16px;">
-                    						{{ $state->name }}
-                    					</option>
-                    					@foreach ($state->cities()->orderBy('name', 'asc')->get() as $country)
-                    					<option value="{{ $country->id }}" {{ old('country') == $country->id ? 'selected':'' }}>
-                    						&nbsp; &nbsp;
-                    						{{ $country->name }}
-                    					</option>
-                    					@endforeach
-                    					@endforeach
+                                        <option value="">Select One</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country->id }}" {{ old('country') == $country->id ? 'selected':'' }}>{{ $country->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -258,13 +234,9 @@ Sign Up | Hire Gallaxy
                                     <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Write Password Again" maxlength="8" data-parsley-equalto="#passwordEm" required>
                                 </div>
                             </div>
-                            	<div class="form-group">
-	
 
-
-                         
+                            <div class="row justify-content-center form-group text-center">
                                 <div class="col-8">
-                                    <a href="#signInModal" data-toggle="modal" class="text-yellow">Log in</a>
                                     <input type="submit" value="Sign Up" class="btn btn-block apply-now-button pt-2 pb-2 font20 ">
                                     <div class="mt-3 mb-3">
                                         <div class="text-center text-theme font16">

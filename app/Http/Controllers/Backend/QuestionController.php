@@ -21,8 +21,12 @@ class QuestionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $questions = Question::all();
+    {   
+        if(auth()->user()->hasRole('editor')){
+            $questions = Question::where('user_id', auth()->user()->id)->get();
+        }else{
+            $questions = Question::all();
+        } 
         return view('backend.pages.question.index')->with(compact('questions'));
     }
 
@@ -55,6 +59,7 @@ class QuestionController extends Controller
         $question->question = $request->question;
         $question->skills = $request->skills;
         $question->exparience = $explode;
+        $question->user_id = auth()->user()->id;
         $question->save();
         $this->syncAnswer($request, $question->id);
         return redirect('admin/question')->with('message', 'Question created successfully');
@@ -81,8 +86,10 @@ class QuestionController extends Controller
      * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function show(Question $question)
+    public function show($id)
     {
+        $question = Question::with('answers')->where('id', $id)->first();
+        return view('backend.pages.question.view',compact('question'));
 
     }
 

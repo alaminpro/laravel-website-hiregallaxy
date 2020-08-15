@@ -22,7 +22,7 @@
 			<div class="col-md-10 mt-5">
 				<div class="row">
 					<div class="col-md-4 wow fadeInLeft">
-						<img src="{{ asset('images/default/create-account.png') }}" class="how-work-image"
+						<img src="{{ asset('public/images/default/create-account.png') }}" class="how-work-image"
 							alt="">
 						<h4 class="how-work-subtitle">Create an account</h4>
 						<p class="how-work-sub-description">
@@ -31,7 +31,7 @@
 						</p>
 					</div>
 					<div class="col-md-4 wow fadeInDown">
-						<img src="{{ asset('images/default/search-work.png') }}" class="how-work-image" alt="">
+						<img src="{{ asset('public/images/default/search-work.png') }}" class="how-work-image" alt="">
 						<h4 class="how-work-subtitle">Search And Apply</h4>
 						<p class="how-work-sub-description">
 							Create an account with your valid information with all your skill and experience to get the
@@ -39,7 +39,7 @@
 						</p>
 					</div>
 					<div class="col-md-4 wow fadeInRight">
-						<img src="{{ asset('images/default/start-work.png') }}" class="how-work-image" alt="">
+						<img src="{{ asset('public/images/default/start-work.png') }}" class="how-work-image" alt="">
 						<h4 class="how-work-subtitle">Start Work</h4>
 						<p class="how-work-sub-description">
 							Create an account with your valid information with all your skill and experience to get the
@@ -106,7 +106,7 @@
 				aria-labelledby="featured-jobs-tab">
 				<div class="row mt-4">
 
-					@foreach ($featured_jobs as  $key => $single_job)
+					@foreach ($featured_jobs as $single_job)
 					<div class="col-md-6">
 						@include('frontend.pages.partials.single-job-search')
 					</div><!-- End Single Item -->
@@ -116,7 +116,7 @@
 			</div>
 			<div class="tab-pane fade" id="recent-jobs" role="tabpanel" aria-labelledby="recent-jobs-tab">
 				<div class="row mt-4">
-					@foreach ($recent_jobs as  $key => $single_job)
+					@foreach ($recent_jobs as $single_job)
 					<div class="col-md-6">
 						@include('frontend.pages.partials.single-job-search')
 					</div><!-- End Single Item -->
@@ -151,7 +151,7 @@
 			@foreach ($reviews as $review)
 			<div class="wow fadeInLeft single-carousel-item item mt-3">
 				<div class="float-left">
-					<img src="{{ asset('images/users/'.$review->profile_picture) }}" class="client-image">
+					<img src="{{ asset('public/images/users/'.$review->profile_picture) }}" class="client-image">
 				</div>
 				<div class="client-detail float-left ml-3 mb-2 ">
 					<h4>{{ $review->name }}</h4>
@@ -413,7 +413,7 @@
 		<div class="text-center mb-5">
 			<div class="row">
 				<div class="col-md-5 wow fadeInLeft">
-					<img src="{{ asset('images/default/mobile.png') }}" alt="download-app-image"
+					<img src="{{ asset('public/images/default/mobile.png') }}" alt="download-app-image"
 						class="img img-fluid">
 				</div>
 				<div class="col-md-7 wow fadeInRight">

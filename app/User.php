@@ -10,8 +10,6 @@ use App\Models\UserExperience;
 use App\Models\UserQualification;
 use App\Models\JobActivity;
 use Illuminate\Support\Carbon;
-use App\Models\UserSector;
-use App\Models\UserCategory;
 
 class User extends Authenticatable
 {
@@ -76,11 +74,6 @@ class User extends Authenticatable
     public function categories()
     {
         return $this->hasMany('App\Models\UserCategory');
-    }
-    
-    public function sectors()
-    {
-        return $this->hasMany('App\Models\UserSector');
     }
 
     public function skills()
@@ -199,45 +192,6 @@ class User extends Authenticatable
         }
         return false;
     }
-    
-    /**
-     * hasCategoryOrNot
-     *
-     * @param int $category_id
-     * @return boolean
-     */
-    public function hasCategoryOrNot($category_id)
-    {
-        $user = $this;
-        $category = UserCategory::where('user_id', $user->id)
-            ->where('category_id', $category_id)
-            ->first();
-        if (!is_null($category)) {
-            return true;
-        }
-        return false;
-    }
-    
-    
-
-    /**
-     * hasSectorOrNot
-     *
-     * @param int $category_id
-     * @return boolean
-     */
-    public function hasSectorOrNot($sector_id)
-    {
-        $user = $this;
-        $sector = UserSector::where('user_id', $user->id)
-            ->where('sector_id', $sector_id)
-            ->first();
-        if (!is_null($sector)) {
-            return true;
-        }
-        return false;
-    }
-    
 
     /**
      * The attributes that should be cast to native types.

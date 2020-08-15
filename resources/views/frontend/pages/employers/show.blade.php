@@ -67,7 +67,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 															<div class="row form-group">
 																<div class="col-md-6">
-																	<label for="category_id">Position <span
+																	<label for="category_id">Primary Sector <span
 																			class="required">*</span></label>
 																	<select name="category_id" id="category_id"
 																		class="form-control" required>
@@ -87,24 +87,6 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 																		class="form-control"
 																		value="{{ $user->website }}" />
 																</div>
-
-
-																<div class="col-md-12 mt-3">
-																	<label for="sectors"> Sectors <span
-																			class="required">*</span></label>
-																	<br>
-																	<select name="sectors[]" id="sectors"
-																		class="select2 form-control" required multiple>
-																		@foreach (App\Models\Sector::orderBy('name',
-																		'asc')->get() as $sector)
-																		<option value="{{ $sector->id }}"
-																			{{ $user->hasSectorOrNot($sector->id) ? 'selected' : '' }}>
-																			{{ $sector->name }}</option>
-																		@endforeach
-																	</select>
-																</div>
-
-
 															</div>
 
 															<div class="row form-group">
@@ -192,23 +174,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 										</div>
 										@endif
 									</div>
-									<p class="text-yellow mb-3">
-										<span class="text-dark">Position:</span>
-										<a href="{{ route('jobs.categories.show', $user->company->category->slug) }}"
-											target="_blank" class="badge badge-category pl-2 pr-2 mt-2">
-											{{ $user->company->category->name }}
-										</a>
-
-										<br>
-										<span class="text-dark">Sectors:</span>
-										@if (count($user->sectors) > 0)
-										@foreach ($user->sectors as $sector)
-										<span class="badge badge-category pl-2 pr-2 mt-2">
-											{{ $sector->sector->name }}
-										</span>
-										@endforeach
-										@endif
-									</p>
+									<p class="text-yellow mb-3"> {{ $user->company->category->name }}</p>
 									<p>
 										<span class="ml-2">
 											<i class="fa fa-map-marker location-icon"></i>
@@ -264,7 +230,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 							<div class="employer-top-item">
 								<i class="fa fa-cog float-left"></i>
 								<div class="float-left">
-									<h6>Position</h6>
+									<h6>Sector</h6>
 									<p>{{ $user->company->category->name }}</p>
 								</div>
 								<div class="clearfix"></div>
@@ -377,7 +343,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 				<div class="mt-5">
 					<div class="more-jobs">
 						<h5 class="text-theme bold">Active Jobs from {{ $user->name }}</h5>
-						@foreach ($jobs_employer = $user->jobs()->where('status_id', 1)->paginate(20) as $key => $single_job)
+						@foreach ($jobs_employer = $user->jobs()->where('status_id', 1)->paginate(20) as $single_job)
 						@include('frontend.pages.partials.single-job-search')
 						@endforeach
 						<div class="mt-2">
@@ -413,53 +379,5 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 
 @section('scripts')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-<style>
-	.select2-container .select2-selection--single {
-		height: 35px;
-	}
 
-	#s2id_title .select2-default {
-		color: green !important;
-	}
-
-	.select2-container {
-		text-align: center;
-		min-width:320px;
-	}
-
-	.select2-container--default .select2-selection--single {
-		border: none;
-		border-bottom: 1px solid #5553b7;
-		border-radius: 0px;
-	}
-
-	.select2-container--default .select2-selection--single .select2-selection__rendered {
-		color: #5553b7;
-		font-weight: bold;
-	}
-
-	.select2-container--default .select2-selection--multiple {
-		background-color: white;
-		border: 1px solid #aaa;
-		border-radius: 4px;
-		cursor: text;
-		/*min-width: 767px;*/
-	}
-
-	.badge-category {
-		color: #FFF;
-		background-color: #ff7c39;
-		font-weight: normal;
-		font-size: 15px;
-	}
-
-	.badge-category:hover {
-		color: #FFF;
-	}
-</style>
-<script>
-	$(".select2").select2();
-</script>
 @endsection

@@ -1,4 +1,14 @@
 @extends('backend.layouts.master')
+@section('stylesheets')
+<style>
+#dataTable img {
+
+width: 50px !important;
+height: 50px !important;
+
+}
+</style>
+@endsection
 
 @section('content')
 
@@ -36,8 +46,11 @@
               <tr>
                 <th width="5%">Sl</th>
                 <th width="30%">Question</th>
-                <th width="20%">Skill</th>
-                <th width="20%">Exparience</th>
+                <th width="10%">Skill</th>
+                <th width="15%">Exparience</th>
+                @if(auth()->user()->hasRole('super-admin') or auth()->user()->hasRole('admin'))
+                <th width="15%">Editors</th>
+                @endif
                 <th width="15%">Manage</th>
               </tr>
             </thead>
@@ -45,7 +58,7 @@
               @foreach($questions as $key=>$question)
                   <tr>
                     <td>{{$key+1}}</td>
-                    <td> {{ str_limit($question->question, 30,'...')}}</td>
+                    <td> {!! $question->question !!}</td>
                     <td >
                         @foreach($question->getAllSkill() as $skll)
                           <span class="badge badge-success">{{$skll}}</span>
@@ -54,7 +67,18 @@
                       <td> @foreach($question->getAllExperience() as $e)
                         <span class="badge badge-success">{{$e}}</span>
                       @endforeach</td>
+                      @if(auth()->user()->hasRole('super-admin') or auth()->user()->hasRole('admin'))
+                      <td>
+                        @php 
+                            $user = \App\Models\Admin::where('id', $question->user_id)->first();
+                        @endphp
+                        {{ $user['username'] }}
+                      </td>
+                      @endif
                     <td>
+                        <a href="{{url('admin/question/view/'.$question->id)}}" title="View Template" class="btn btn-outline-success">
+                          <i class="fa fa-eye"></i>
+                        </a>
                         <a href="{{url('admin/question/'.$question->id.'/edit')}}" title="Edit Template" class="btn btn-outline-success">
                           <i class="fa fa-edit"></i>
                         </a>

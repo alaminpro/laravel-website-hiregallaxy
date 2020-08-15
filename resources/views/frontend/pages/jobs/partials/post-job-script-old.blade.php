@@ -1,6 +1,6 @@
-{{--  <script src="{{ asset('admin-asset/js/tinymce/tiny_old.min.js') }}"></script> --}}
+<script src="{{ asset('public/admin-asset/js/tinymce/tiny_old.min.js') }}"></script>
 {{--  <script src="https://cdn.tiny.cloud/1/qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc/tinymce/5/tinymce.min.js">  --}}
-{{--  </script>  --}}
+</script>
 
 <style>
     .mce-branding-powered-by {

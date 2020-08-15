@@ -5,7 +5,7 @@
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.index') }}">
     <div class="sidebar-brand-icon">
       {{--  <i class="fas fa-laugh-wink"></i>  --}}
-      <img src="{{ asset('images/'.App\Models\Setting::first()->site_logo) }}" style="width: 50px" />
+      <img src="{{ asset('public/images/'.App\Models\Setting::first()->site_logo) }}" style="width: 50px" />
     </div>
     <div class="sidebar-brand-text mx-3">{{ App\Models\Setting::first()->site_title }}</div>
   </a>

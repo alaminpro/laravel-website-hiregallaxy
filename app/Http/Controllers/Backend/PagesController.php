@@ -10,11 +10,8 @@ use App\Models\CandidateProfile;
 use App\Models\CompanyProfile;
 use App\Models\Category;
 use App\Models\Country;
-use App\Models\Discipline;
 use App\Models\Skill;
 use App\Models\Experience;
-use App\Models\Sector;
-use App\Models\Segment;
 use Auth;
 use Hash;
 use App\Models\Template;
@@ -32,19 +29,16 @@ class PagesController extends Controller
   */
   public function index()
   {
-    $jobs = count(Job::select('id')->get());
-    $categories = count(Category::select('id')->get());
-    $skills = count(Skill::select('id')->get());
-    $experiences = count(Experience::select('id')->get());
-    $employers = count(CompanyProfile::select('id')->get());
-    $candidates = count(CandidateProfile::select('id')->get());
-    $templates = count(Template::select('id')->get());
-    $cities = count(Country::select('id')->get());
-    $crawlers = count(WebCrawler::select('id')->get());
-    $disciplines = count(Discipline::select('id')->get());
-    $segments = count(Segment::select('id')->get());
-    $sectors = count(Sector::select('id')->get());
-    return view('backend.pages.index', compact('jobs', 'categories', 'employers', 'candidates', 'skills', 'experiences', 'templates', 'cities', 'crawlers', 'disciplines', 'segments', 'sectors'));
+    $jobs = count(Job::all());
+    $categories = count(Category::all());
+    $skills = count(Skill::all());
+    $experiences = count(Experience::all());
+    $employers = count(CompanyProfile::all());
+    $candidates = count(CandidateProfile::all());
+    $templates = count(Template::all());
+    $cities = count(Country::all());
+    $crawlers = count(WebCrawler::all());
+    return view('backend.pages.index', compact('jobs', 'categories', 'employers', 'candidates', 'skills', 'experiences', 'templates', 'cities', 'crawlers'));
   }
 
 
@@ -75,7 +69,7 @@ class PagesController extends Controller
 
     session()->flash('success', 'Password changed successfully');
     return back();
-
+      
     // if (Hash::check($request->old_password, $admin->password)) {
     //   $admin->password = Hash::make($request->password);
     //   $admin->save();

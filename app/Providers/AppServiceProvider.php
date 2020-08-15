@@ -13,10 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        If (env('APP_ENV') !== 'local') {
-            \URL::forceScheme('https');
-            $this->app['request']->server->set('HTTPS', true);
-        }
+         \URL::forceScheme('https');
+         $this->app['request']->server->set('HTTPS', true);
 
         // if ($this->app->environment() === 'production') {
         //     \URL::forceScheme('https');

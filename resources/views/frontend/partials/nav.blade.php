@@ -3,7 +3,7 @@
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
 		<div class="container">
 			<a class="navbar-brand" href="{{ route('index') }}">
-				<img src="{{ asset('images/'.App\Models\Setting::first()->site_logo) }}" class="logo" alt=""
+				<img src="{{ asset('public/images/'.App\Models\Setting::first()->site_logo) }}" class="logo" alt=""
 					style="width: 100px;">
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"

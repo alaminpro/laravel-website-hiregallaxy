@@ -50,7 +50,7 @@ class CategoryController extends Controller
       $category->slug = StringHelper::createSlug($request->name, 'Category', 'slug');
     }
     
-    $category->image = ImageUploadHelper::upload('image', $request->file('image'), time(), 'images/categories');
+    $category->image = ImageUploadHelper::upload('image', $request->file('image'), time(), 'public/images/categories');
     $category->description = $request->description;
     $category->icon = $request->icon;
     $category->parent_category_id = $request->parent_category_id;
@@ -78,10 +78,10 @@ class CategoryController extends Controller
       $category->name = $request->name;
       if($request->image){
         if($category->image){
-          $category->image = ImageUploadHelper::update('image', $request->file('image'), time(), 'images/categories', $category->image);
+          $category->image = ImageUploadHelper::update('image', $request->file('image'), time(), 'public/images/categories', $category->image);
         }
         else{
-          $category->image = ImageUploadHelper::upload('image', $request->file('image'), time(), 'images/categories');
+          $category->image = ImageUploadHelper::upload('image', $request->file('image'), time(), 'public/images/categories');
         }
       }
       $category->description = $request->description;
@@ -113,7 +113,7 @@ class CategoryController extends Controller
         session()->flash('error', 'Category trashed successfully');
       }else{
         if($category->image){
-          ImageUploadHelper::delete('images/categories/'.$category->image);
+          ImageUploadHelper::delete('public/images/categories/'.$category->image);
         }
 
         $category->delete();

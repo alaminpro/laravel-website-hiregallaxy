@@ -55,10 +55,7 @@ Candidate Dashboard | {{ App\Models\Setting::first()->site_title }}
 									onclick="location.href='{{ route('candidates.messages') }}'">
 									<i class="fa fa-envelope font30"></i>
 									<h6>
-										@php
-									        $messages = count($user->received_messages()->where('is_seen', 0)->get());
-									    @endphp
-										{{ $messages }} Message{{ $messages > 1 ? 's' : '' }}
+										{{ count($user->received_messages()->where('is_seen',0)) }} Message
 									</h6>
 									<p>
 										Total

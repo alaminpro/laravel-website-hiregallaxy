@@ -35,8 +35,7 @@
             <thead>
               <tr>
                 <th width="5%">Sl</th>
-                <th width="30%">City Name</th>
-                <th width="30%">State</th>
+                <th width="30%">Name</th>
                 <th width="15%">Manage</th>
               </tr>
             </thead>
@@ -47,9 +46,6 @@
                 <td>{{ $loop->index+1 }}</td>
                 <td>
                   {{ $city->name }}
-                </td>
-                <td>
-                  {{ (!is_null($city->state)) ? $city->state->name : '--' }}
                 </td>
 
                 <td>
@@ -113,19 +109,6 @@
                               required value="{{ $city->name }}">
                           </div>
                         </div>
-                        <div class="form-row">
-                          <div class="col-md-12 form-group">
-                            <label for="staet_id">Select State <span
-                                class="text-danger required">(optional)</span></label>
-                            <select name="state_id" id="state_id" class="form-control">
-                              <option value="">Select a state</option>
-                              @foreach ($states as $state)
-                              <option value="{{ $state->id }}" {{ $city->state_id == $state->id ? 'selected' : '' }}>
-                                {{ $state->name }}</option>
-                              @endforeach
-                            </select>
-                          </div>
-                        </div>
 
                         <button type="button" class="btn btn-danger float-right mt-1 ml-2 " data-dismiss="modal"><i
                             class="fa fa-times"></i> Cancel</button>
@@ -172,19 +155,6 @@
             <div class="col-md-12 form-group">
               <label for="name">City Name <span class="text-danger required">*</span></label>
               <input type="text" id="name" name="name" class="form-control" placeholder="eg. Abbotsford" required>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="col-md-12 form-group">
-              <label for="staet_id">Select State <span class="text-danger required">(optional)</span></label>
-              <select name="state_id" id="state_id" class="form-control">
-                <option value="">Select a state</option>
-                @foreach ($states as $state)
-                <option value="{{ $state->id }}">
-                  {{ $state->name }}</option>
-                @endforeach
-              </select>
             </div>
           </div>
 

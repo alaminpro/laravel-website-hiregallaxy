@@ -50,7 +50,6 @@ Job Details | Hire Gallaxy
 										</div>
 									</div>
 								</div>
-								<input type="hidden" name="to_user_id" value="15">
 								<div class="col">
 									<label for="email">Email Address <span class="required">*</span></label>
 									<div class="input-group mb-3">

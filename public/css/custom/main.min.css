@@ -380,7 +380,7 @@ label {
     position: absolute;
     left: 50%;
     top: 50%;
-    background-image:url("{{ asset('images/preloader.gif')}}");
+    background-image:url("{{ asset('public/images/preloader.gif')}}");
     background-repeat: no-repeat;
     background-position: center;
     margin: -100px 0 0 -100px
@@ -388,7 +388,7 @@ label {
 
 .header-main {
     background-color: #7078e3;
-    background-image: url(../../../images/default/bg-top.png);
+    background-image: url(../../../public/images/default/bg-top.png);
     color: #fff;
     padding-bottom: 0
 }
@@ -731,7 +731,7 @@ span.counts-more {
 }
 
 .client-review {
-    background-image: url(../../../images/default/bg-top.png);
+    background-image: url(../../../public/images/default/bg-top.png);
     color: #fff!important;
     text-align: center
 }
@@ -2034,53 +2034,3 @@ p {
         float: none!important;
     }
 }
-
-
-/** Home Right Sidebar Header Top **/
-
-.home-right-sidebar-area {
-    background: #FFF;
-    padding-top: 50px;
-    padding-right: 20px;
-}
-
-.home-right-sidebar-area .btn-success {
-    border: 1px solid #4caf50!important;
-    background: #4caf50!important;
-}
-
-.home-right-sidebar-area .btn-job-alert {
-    border: 1px solid #880015!important;
-    background: #880015!important;
-}
-
-.home-right-sidebar-area .add-block {
-    border: 3px solid #6e67e7;
-    height: 200px;
-    width: 200px;
-    margin: 0 auto;
-}
-
-#SubscriberModal div,
-#SubscriberModal p {
-    color: #000!important;
-}
-
-#SubscriberModal .modal-content {
-    border-radius: 0px;
-}
-
-#SubscriberModal .text-danger {
-    color: #dc3545!important;
-}
-
-#SubscriberModal .text-success {
-    color: #4caf50!important;
-}
-
-.row {
-    margin-right: 0px;
-}
-
-
-/** Home Right Sidebar Header Top **/

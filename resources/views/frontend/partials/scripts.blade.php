@@ -1,13 +1,14 @@
 <!-- Vue App JS -->
-{{-- <script src="{{ asset('js/app-copy.js') }}"></script> --}}
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('public/js/app-copy.js') }}"></script>
+
+<!--<script src="{{ asset('public/js/app.js') }}"></script>-->
 
 <!-- Jquery -->
-<script src="{{ asset('js/jquery/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('public/js/jquery/jquery-3.3.1.min.js') }}"></script>
 
 <style>
 	#preloader-status {
-		background-image: url("{{ asset('images/preloader.gif')}}");
+		background-image: url("{{ asset('public/images/preloader.gif')}}");
 	}
 </style>
 <script>
@@ -18,26 +19,26 @@
 </script>
 
 <!-- Bootstrap -->
-<script src="{{ asset('js/bootstrap/popper.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
+<script src="{{ asset('public/js/bootstrap/popper.min.js') }}"></script>
+<script src="{{ asset('public/js/bootstrap/bootstrap.min.js') }}"></script>
 
 <!-- Custom -->
-<script src="{{ asset('js/custom.js') }}?v={{ config('constants.asset_version') }}"></script>
+<script src="{{ asset('public/js/custom.js') }}?v={{ config('constants.asset_version') }}"></script>
 
 <!-- Bootstrap Select Picker-->
-<script src="{{ asset('js/bootstrap/bootstrap-select.min.js') }}"></script>
+<script src="{{ asset('public/js/bootstrap/bootstrap-select.min.js') }}"></script>
 <script>
 	$('.selectpicker').selectpicker();
 </script>
 
 <!-- Owl Carousel -->
-<script src="{{ asset('js/owl-carousel/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('public/js/owl-carousel/owl.carousel.min.js') }}"></script>
 
 <!-- Parsley -->
-<script src="{{ asset('js/parsley/parsley.min.js') }}"></script>
+<script src="{{ asset('public/js/parsley/parsley.min.js') }}"></script>
 
 <!-- Noty -->
-<script src="{{ asset('js/noty/noty.min.js') }}"></script>
+<script src="{{ asset('public/js/noty/noty.min.js') }}"></script>
 @include('frontend.partials.flash-messages')
 
 <!-- Jquery UI -->
@@ -59,7 +60,7 @@
 </style>
 
 <!-- Apply Job Modal -->
-<script src="{{ asset('admin-asset/js/tinymce/tiny_old.min.js') }}"></script>
+<script src="{{ asset('public/admin-asset/js/tinymce/tiny_old.min.js') }}"></script>
 <script>
 	tinymce.init({
 		selector: '#aboutCompanyDescription',
@@ -164,7 +165,7 @@
 
 					if (user_profile_cv != null){
 						if(cv.length != 0){
-							$("#oldApplyCV").html("<a href='files/cv/"+cv+"' target='blank'><i class='fa fa-download'></i> Previous CV</a>")
+							$("#oldApplyCV").html("<a href='public/files/cv/"+cv+"' target='blank'><i class='fa fa-download'></i> Previous CV</a>")
 						}
 					}
 
@@ -207,38 +208,10 @@
 				expected_salary.attr('required', 'true');
 			}
 		});	
-		
-		/** Subscriber Email **/ 
-		$("#subscribe-button").click(function(){
-			let email_address = $("#subscriber-email").val();
-			var url_subscribe = "{{ url('/') }}/get-subscribed";
-			if(email_address.length == 0){
-				$("#subscriber-message").html("<div class='text-danger'>Please write your email address !!</div>")
-			}else{
-				$.post( url_subscribe, { email: email_address, '_token': "{{ csrf_token() }}" })
-				.done(function( data ) {
-					data = JSON.parse(data);
-					if(data.status === 'success'){
-						$("#subscriber-message").html("<div class='text-success'></div>")
-						new Noty({
-							theme: 'sunset',
-							type: 'success',
-							layout: 'topCenter',
-							text: data.message,
-							timeout: 3000
-						  }).show();
-						  $("#subscriber-email").val('');
-						  $('#SubscriberModal').modal('toggle');
-					}else{
-						$("#subscriber-message").html("<div class='text-danger'>"+data.message+"</div>")
-					}
-				});
-			}
-		});
 </script>
 
 <!-- Wow -->
-<script src="{{ asset('js/wow/wow.min.js') }}"></script>
+<script src="{{ asset('public/js/wow/wow.min.js') }}"></script>
 <script>
 	new WOW().init(); 
 </script>

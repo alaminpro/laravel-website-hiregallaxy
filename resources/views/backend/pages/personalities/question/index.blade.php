@@ -36,6 +36,9 @@
               <tr>
                 <th width="5%">Sl</th>
                 <th width="30%">Question</th>
+                @if(auth()->user()->hasRole('super-admin') or auth()->user()->hasRole('admin'))
+                  <th width="30%">Editor</th>
+                @endif
                 <th width="15%">Manage</th>
               </tr>
             </thead>
@@ -44,6 +47,14 @@
                   <tr>
                     <td>{{$key+1}}</td>
                     <td> {{ str_limit($question->question, 30,'...')}}</td>
+                    @if(auth()->user()->hasRole('super-admin') or auth()->user()->hasRole('admin'))
+                    <td>
+                      @php 
+                          $user = \App\Models\Admin::where('id', $question->user_id)->first();
+                      @endphp
+                      {{ $user['username'] }}
+                    </td>
+                    @endif
                     <td>
                         <a href="{{route('admin.personality.question.view',$question->id)}}" title="show Template" class="btn btn-outline-success">
                           <i class="fa fa-eye"></i>

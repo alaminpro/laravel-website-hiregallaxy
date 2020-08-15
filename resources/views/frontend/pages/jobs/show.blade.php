@@ -65,32 +65,6 @@
 									</span>
 									@endforeach
 									</p> --}}
-									@if (!is_null($job->sector) || !is_null($job->segment) ||
-									!is_null($job->discipline))
-									<div class="row">
-										@if (!is_null($job->segment))
-										<div class="col-12">
-											<strong>Employer Type: </strong>
-											{{ !is_null($job->segment) ? $job->segment->name : '--' }}
-										</div>
-										@endif
-
-										@if (!is_null($job->sector))
-										<div class="col-12">
-											<strong>Sector: </strong>
-											{{ !is_null($job->sector) ? $job->sector->name : '--' }}
-										</div>
-										@endif
-
-										@if (!is_null($job->discipline))
-										<div class="col-12">
-											<strong>Discipline: </strong>
-											{{ !is_null($job->discipline) ? $job->discipline->name : '--' }}
-										</div>
-										@endif
-									</div>
-									@endif
-
 									<div class="mt-3">
 										<div class="footer-social">
 											<span class="mr-3">Share </span>
@@ -101,37 +75,28 @@
 										</div>
 									</div>
 									<div class="mt-3">
-
 										@if (Auth::check())
-											@if (Auth::user()->hasAppliedJob($job->id))
-											<a href="#update-apply-job-modal" data-toggle="modal"
-												class="btn btn-outline-success"
-												onclick="applyUpdateJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}')">
-												<span class="text-success"><i class="fa fa-check"></i> Already
-													Applied</span>
-											</a>
-											@else
-												@if (Auth::id() != $job->user_id)
-												@if($result)
-														<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button"
-															onclick="applyJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}')">
-															Apply Now
-														</a>
-													@else
-														<a href="{{route('exam', $job->id)}}" class="btn apply-now-button" >
-															Apply Now
-														</a>
-													@endif
-												@endif
-
-											@endif
+										@if (Auth::user()->hasAppliedJob($job->id))
+										<a href="#update-apply-job-modal" data-toggle="modal"
+											class="btn btn-outline-success"
+											onclick="applyUpdateJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}')">
+											<span class="text-success"><i class="fa fa-check"></i> Already
+												Applied</span>
+										</a>
+										@else
+										@if (Auth::id() != $job->user_id)
+										<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button"
+											onclick="applyJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}')">
+											Apply Now
+										</a>
+										@endif
+										@endif
 										@else
 										<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button"
 											onclick="applyJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}')">
 											Apply Now
 										</a>
 										@endif
-
 
 										@if (Auth::check())
 										<favorite-component url="{{ url('/') }}" id="{{ $job->id }}"
@@ -219,16 +184,16 @@
 					<div class="single-details p-2 mb-3">
 						<h5>About Company</h5>
 						<div>
-							{!! $job->user->about !!}
+							{!! $job->about_company !!}
 						</div>
 					</div>
 					@endif
 
 
 				</div>
-
+				
 				<!--
-
+				
 				<div class="mt-2">
 					<h3 class="text-center text-theme apply-count-text">
 						<span class="job-apply-total">
@@ -278,7 +243,7 @@
 					</div>
 					@endforeach
 				</div>
-
+                
                 -->
 
 				@if (count($similar_jobs) > 0)

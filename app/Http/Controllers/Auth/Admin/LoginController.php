@@ -23,7 +23,8 @@ class LoginController extends Controller
         return view('backend.auth.login');
     }
 
-    public function login(Request $request){ 
+    public function login(Request $request){
+
         //Validate the form data
         $this->validate($request, [
             'email' 		=> 'email|required',

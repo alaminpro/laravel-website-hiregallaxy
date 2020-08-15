@@ -234,49 +234,6 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 								</div>
 
 							</div>
-
-							<!-- Sector, Segment, Discipline -->
-							<div class="row form-group">
-								<div class="col-sm-4">
-									<label for="sector_id">Job Sector <span class="required">*</span>
-									</label>
-									<select name="sector_id" id="sector_id" class="form-control" required>
-										<option value="">Select One</option>
-										@foreach ($sectors as $sector)
-										<option value="{{ $sector->id }}"
-											{{ $job->sector_id == $sector->id ? 'selected' : '' }}>{{ $sector->name }}
-										</option>
-										@endforeach
-									</select>
-								</div>
-								<div class="col-sm-4">
-									<label for="segment_id">Job Segment <span class="required">*</span>
-									</label>
-									<select name="segment_id" id="segment_id" class="form-control" required>
-										<option value="">Select One</option>
-										@foreach ($segments as $segment)
-										<option value="{{ $segment->id }}"
-											{{ $job->segment_id == $segment->id ? 'selected' : '' }}>
-											{{ $segment->name }}</option>
-										@endforeach
-									</select>
-								</div>
-								<div class="col-sm-4">
-									<label for="discipline_id">Job Discipline <span class="required">*</span>
-									</label>
-									<select name="discipline_id" id="discipline_id" class="form-control" required>
-										<option value="">Select One</option>
-										@foreach ($disciplines as $discipline)
-										<option value="{{ $discipline->id }}"
-											{{ $job->discipline_id == $discipline->id ? 'selected' : '' }}>
-											{{ $discipline->name }}</option>
-										@endforeach
-									</select>
-								</div>
-
-							</div>
-							<!-- Sector, Segment, Discipline -->
-
 							<div class="row form-group">
 								<div class="col-sm-4">
 									<label for="apply_type_id">Job Nature <span class="required">*</span>
@@ -384,12 +341,12 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 		$( "#deadline" ).datepicker();
 	});
 
-	@if($enable_editing)		
+	@if($enable_editing)
+		var pluginsTested = 'codesample autoresize code print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern';
+		
 		tinymce.init({
 			selector:'#job_summery',
-			plugins: "{{ config('constants.tiny_plugins') }}",
-			toolbar: "{{ config('constants.tiny_toolbar') }}",
-			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			plugins: pluginsTested,
 			autoresize_bottom_margin: 0,
 			image_advtab: true,
 			menubar:false,
@@ -397,9 +354,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 		
 		tinymce.init({
 			selector:'#responsibilities',
-			plugins: "{{ config('constants.tiny_plugins') }}",
-			toolbar: "{{ config('constants.tiny_toolbar') }}",
-			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			plugins: pluginsTested,
 			autoresize_bottom_margin: 0,
 			image_advtab: true,
 			menubar:false,
@@ -407,9 +362,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 		
 		tinymce.init({
 			selector:'#qualification',
-			plugins: "{{ config('constants.tiny_plugins') }}",
-			toolbar: "{{ config('constants.tiny_toolbar') }}",
-			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			plugins: pluginsTested,
 			autoresize_bottom_margin: 0,
 			image_advtab: true,
 			menubar:false,
@@ -417,9 +370,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 		
 		tinymce.init({
 			selector:'#certification',
-			plugins: "{{ config('constants.tiny_plugins') }}",
-			toolbar: "{{ config('constants.tiny_toolbar') }}",
-			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			plugins: pluginsTested,
 			autoresize_bottom_margin: 0,
 			image_advtab: true,
 			menubar:false,
@@ -427,9 +378,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 		
 		tinymce.init({
 			selector:'#experience',
-			plugins: "{{ config('constants.tiny_plugins') }}",
-			toolbar: "{{ config('constants.tiny_toolbar') }}",
-			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			plugins: pluginsTested,
 			autoresize_bottom_margin: 0,
 			image_advtab: true,
 			menubar:false,
@@ -437,14 +386,12 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 		
 		tinymce.init({
 			selector:'#about_company',
-			plugins: "{{ config('constants.tiny_plugins') }}",
-			toolbar: "{{ config('constants.tiny_toolbar') }}",
-			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			plugins: pluginsTested,
 			autoresize_bottom_margin: 0,
 			image_advtab: true,
 			menubar:false,
 		  });
-		@endif
+	@endif
 
 	$("#is_salary_negotiable").change(function(){
 
@@ -533,11 +480,6 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 			  $('#certification').html(data.template.certification);
 			  $('#experience').html(data.template.experience);
 			  $('#about_company').html(data.template.about_company);
-
-			  /** Segment, Sector, Discipline **/
-			  $('#segment_id').val(data.template.segment_id);
-			  $('#sector_id').val(data.template.sector_id);
-			  $('#discipline_id').val(data.template.discipline_id);
 		});
 	}
 </script>

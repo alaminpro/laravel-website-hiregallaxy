@@ -18,7 +18,12 @@ class PersonalityController extends Controller
      */
     public function index()
     {
-        $personalities = Personality::all();
+        if(auth()->user()->hasRole('editor')){
+            $personalities = Personality::where('user_id', auth()->user()->id)->get();
+        }else{
+            $personalities = Personality::all();
+        } 
+
         return view('backend.pages.personalities.personality.index')->with(compact('personalities'));
     }
 
@@ -48,6 +53,9 @@ class PersonalityController extends Controller
         $personality->title = $request->title;
         $personality->sub_title = $request->sub_title;
         $personality->description = $request->description;
+        $personality->strengths = $request->strengths;
+        $personality->user_id = auth()->user()->id;
+        $personality->weaknesses = $request->weaknesses;
         $personality->save();
         return redirect()->route('admin.personality.index')->with('message', 'Personality created successfully');
     }
@@ -93,6 +101,8 @@ class PersonalityController extends Controller
         $personality->title = $request->title;
         $personality->sub_title = $request->sub_title;
         $personality->description = $request->description;
+        $personality->strengths = $request->strengths;
+        $personality->weaknesses = $request->weaknesses;
         $personality->save();
         return redirect()->route('admin.personality.index')->with('message', 'Personality Update successfully');
     }

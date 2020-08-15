@@ -41,7 +41,7 @@
               <tr>
                 <th width="5%">Sl</th>
                 <th width="30%">Name</th>
-                <th width="20%" style="Display:none;">Description</th>
+                <th width="20%">Description</th>
                 <th width="15%">Manage</th>
               </tr>
             </thead>
@@ -55,7 +55,7 @@
                   <br>
                   <a href="{{ route('jobs.experiences.show', $experience->slug) }}" target="_blank"><i class="fa fa-link"></i> {{ route('jobs.experiences.show', $experience->slug) }}</a>
                 </td>
-                <td style="Display:none;">{!! $experience->description !!}</td>
+                <td>{!! $experience->description !!}</td>
                 <td>
                   @if ($experience->status == 1)
                     <a href="#editModal{{ $experience->id }}" class="btn btn-circle btn-outline-success" title="Edit experience" data-toggle="modal" ><i class="fa fa-edit"></i></a>
@@ -131,15 +131,15 @@
                         @csrf
                         <div class="form-row">
                           <div class="col-md-6 form-group">
-                            <label for="name">Experience Title <span class="text-danger required">*</span></label>
+                            <label for="name">experience Title <span class="text-danger required">*</span></label>
                             <input type="text" id="name" name="name" class="form-control" placeholder="eg. 0-1 years" required value="{{ $experience->name }}">
                           </div>
-                          <div class="col-md-6 form-group" style="Display:none;">
+                          <div class="col-md-6 form-group">
                             <label for="slug">experience Slug <span class="text-info required">(optional)</span></label>
                             <input type="text" id="slug" name="slug" class="form-control" placeholder="eg. 0-to-1-years"  value="{{ $experience->slug }}">
                           </div>
                         </div>
-                        <div class="form-row" style="Display:none;">
+                        <div class="form-row">
                           <div class="col-md-12 form-group">
                             <label for="description">experience Description</label>
                             
@@ -189,17 +189,17 @@
           @csrf
           <div class="form-row">
             <div class="col-md-6 form-group">
-              <label for="name">Experience Title <span class="text-danger required">*</span></label>
+              <label for="name">experience Title <span class="text-danger required">*</span></label>
               <input type="text" id="name" name="name" class="form-control" placeholder="eg. 0-1 Years" required>
             </div>
-            <div class="col-md-6 form-group" style="Display:none;">
+            <div class="col-md-6 form-group">
               <label for="slug">experience Slug <span class="text-info required">(optional)</span></label>
               <input type="text" id="slug" name="slug" class="form-control" placeholder="eg. o-to-1-years">
             </div>
           </div>
-          <div class="form-row" style="Display:none;">
+          <div class="form-row">
             <div class="col-md-12 form-group">
-              <label for="description">Experience Description</label>
+              <label for="description">experience Description</label>
               
               <textarea name="description" id="description" name="description" rows="8" cols="80" class="tinymce form-control"></textarea>
             </div>

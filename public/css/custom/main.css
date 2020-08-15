@@ -400,7 +400,7 @@ label {
 	position: absolute;
 	left: 50%;
 	top: 50%;
-	background-image: url("{{ asset('images/preloader.gif')}}");
+	background-image: url("{{ asset('public/images/preloader.gif')}}");
 	background-repeat: no-repeat;
 	background-position: center;
 	margin: -100px 0 0 -100px;
@@ -412,7 +412,7 @@ label {
 
 .header-main {
     background-color: #7078e3;
-    background-image: url("../../../images/default/bg-top.png");
+    background-image: url("../../../public/images/default/bg-top.png");
     color: #FFF;
     padding-bottom: 0px;
 }
@@ -796,7 +796,7 @@ span.counts-more {
 }
 
 .client-review {
-    background-image: url(../../../images/default/bg-top.png);
+    background-image: url(../../../public/images/default/bg-top.png);
     color: #FFF!important;
     text-align: center;
 }

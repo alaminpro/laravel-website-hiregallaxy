@@ -52,7 +52,7 @@ class AdminController extends Controller
     $admin->email = $request->email;
     $admin->phone_no = $request->phone_no;
     $admin->password = Hash::make($password);
-    $admin->image = ImageUploadHelper::upload('image', $request->file('image'), time(), 'website-images/admins');
+    $admin->image = ImageUploadHelper::upload('image', $request->file('image'), time(), 'public/website-images/admins');
     $admin->username = StringHelper::createSlug($request->first_name, 'Admin', 'username');
     $admin->address = $request->address;
     $admin->verify_token = $verifyToken;
@@ -116,10 +116,10 @@ class AdminController extends Controller
       $admin->phone_no = $request->phone_no;
       if($request->image){
         if($admin->iamge){
-          $admin->image = ImageUploadHelper::update('image', $request->file('image'), time(), 'website-images/admins', $admin->image);
+          $admin->image = ImageUploadHelper::update('image', $request->file('image'), time(), 'public/website-images/admins', $admin->image);
         }
         else{
-          $admin->image = ImageUploadHelper::upload('image', $request->file('image'), time(), 'website-images/admins');
+          $admin->image = ImageUploadHelper::upload('image', $request->file('image'), time(), 'public/website-images/admins');
         }
       }
       $admin->username = StringHelper::createSlug($request->username, 'Admin', 'username');
@@ -142,7 +142,7 @@ class AdminController extends Controller
     $admin = Admin::where('username', $userName)->first();
     if($admin){
       if($admin->image){
-        ImageUploadHelper::delete('website-images/admins/'.$admin->image);
+        ImageUploadHelper::delete('public/website-images/admins/'.$admin->image);
       }
 
       $admin->delete();

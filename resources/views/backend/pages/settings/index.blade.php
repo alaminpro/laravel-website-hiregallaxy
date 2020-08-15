@@ -44,14 +44,14 @@ Settings | Hire Gallaxy
                             <label for="site_logo">Site Logo<span class="text-danger required">*</span></label>
                             {{--  <input type="file" name="site_title" id="site_title" class="form-control dropify" required>  --}}
                             <input type="file" name="site_logo" id="site_logo" class="dropify"
-                                data-default-file="{{ asset('images/'.$settings->site_logo) }}"
+                                data-default-file="{{ asset('public/images/'.$settings->site_logo) }}"
                                 data-height="80" />
                         </div>
                         <div class="col-md-6">
                             <label for="site_favicon">Site Favicon<span class="text-danger required">*</span></label>
                             {{--  <input type="file" name="site_title" id="site_title" class="form-control dropify" required>  --}}
                             <input type="file" name="site_favicon" id="site_favicon" class="dropify"
-                                data-default-file="{{ asset('images/'.$settings->site_favicon) }}"
+                                data-default-file="{{ asset('public/images/'.$settings->site_favicon) }}"
                                 data-height="80" />
                         </div>
                     </div>

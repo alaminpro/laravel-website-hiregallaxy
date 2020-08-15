@@ -17,11 +17,11 @@ Favorite Jobs | {{ App\Models\Setting::first()->site_title }}
 					<h5 class="text-theme">
 						Posted Jobs
 					</h5>
-					@foreach ($jobs as  $key => $single_job)
+					@foreach ($jobs as $single_job)
 					@include('frontend.pages.partials.single-job-search')
 					@endforeach
 
-					<div class="mt-3">
+					<div>
 						{{ $jobs->links() }}
 					</div>
 

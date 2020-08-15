@@ -17,10 +17,6 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 		border-bottom: 1px solid #dfdfdf !important;
 		//margin-top: -18px;
 	}
-	#parsley-id-multiple-skill\[\] {
-    position: absolute;
-    top: 70px;
-}
 
 	div#searchTemplateArea {
 		border: 1px solid #dfdfdf;
@@ -74,27 +70,13 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 						@csrf
 
 						<div class="card card-body p-0 pt-2 pb-2">
-							<div class="row form-group">
-								<div class="col-md-4">
-									<div id="job__id" style="
-												display: flex;
-												padding: 6px 12px;
-												border: 1px solid #ececec;
-												margin-left: 7px;
-									">
-										<div class="job__label">
-											Job ID:
-										</div>
-										<div class="job__number" style="font-weight: bold; margin-left: 5px">{{$job_id}}</div>
-									</div>
-									<input type="hidden" name="job_id" id="job_id" value="{{$job_id}}">
-								</div>
-								<div class="col-md-8">
+							<div class="row form-group justify-content-center">
+								<div class="col-md-5">
 									<input type="search" autocomplete="off"
 										class="text-center text-theme form-control border-0 border-bottom mb-3"
 										id="title" name="title" placeholder="Job Title"
 										style="border-bottom: 1px solid #5553b7!important;">
-									<div id="searchTemplateArea" style="width: 98%"></div>
+									<div id="searchTemplateArea"></div>
 									<input type="hidden" name="template_id" id="template_id">
 								</div>
 							</div>
@@ -174,15 +156,6 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 											@endif
 										</div>
 									</div>
-								</div>
-								<div class="col-md-12 form-group">
-									<label for="skill">	<strong>Skill</strong></span>
-									</label>
-									<select multiple name="skills[]" id="skill" class="form-control" required>
-									  	@foreach ($skills as $skill)
-										<option value="{{ $skill->id }}">{{ $skill->name }}</option>
-										@endforeach
-									</select>
 								</div>
 								<div class="col-md-12 form-group" style="margin-bottom: -9px;">
 									<div class="row">
@@ -274,43 +247,6 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 								</div>
 
 							</div>
-
-							<!-- Sector, Segment, Discipline -->
-							<div class="row form-group">
-								<div class="col-sm-4">
-									<label for="sector_id">Job Sector <span class="required">*</span>
-									</label>
-									<select name="sector_id" id="sector_id" class="form-control" required>
-										<option value="">Select One</option>
-										@foreach ($sectors as $sector)
-										<option value="{{ $sector->id }}">{{ $sector->name }}</option>
-										@endforeach
-									</select>
-								</div>
-								<div class="col-sm-4">
-									<label for="segment_id">Employer Type<span class="required">*</span>
-									</label>
-									<select name="segment_id" id="segment_id" class="form-control" required>
-										<option value="">Select One</option>
-										@foreach ($segments as $segment)
-										<option value="{{ $segment->id }}">{{ $segment->name }}</option>
-										@endforeach
-									</select>
-								</div>
-								<div class="col-sm-4">
-									<label for="discipline_id">Job Discipline <span class="required">*</span>
-									</label>
-									<select name="discipline_id" id="discipline_id" class="form-control" required>
-										<option value="">Select One</option>
-										@foreach ($disciplines as $discipline)
-										<option value="{{ $discipline->id }}">{{ $discipline->name }}</option>
-										@endforeach
-									</select>
-								</div>
-
-							</div>
-							<!-- Sector, Segment, Discipline -->
-
 							<div class="row form-group">
 								<div class="col-sm-4">
 									<label for="apply_type_id">Job Nature <span class="required">*</span>
@@ -340,6 +276,8 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 										id="deadline" placeholder="Write application deadline" required>
 								</div>
 							</div>
+
+
 						</div>
 
 						<div class="form-group mt-2">
@@ -422,10 +360,6 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 		color: #5553b7;
 		font-weight: bold;
 	}
-	.select2-container--default.select2-container--focus .select2-selection--multiple {
-		border: solid #b9b9b9 1px;
-		margin-right: 12px;
-	}
 </style>
 <script>
 	$(".select2-title").select2({
@@ -433,7 +367,6 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 		allowClear: true
 	});
 	$(this).siblings('.select2-container').find('.select2-selection__placeholder').css('color', '#5553b7');
-	$("#skill").select2()
 
 </script>
 
@@ -464,16 +397,16 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 	});
 
 	// Select on the job title and fill the fields from the templates
-
+	
 	var area = $("#searchTemplateArea");
 	area.addClass('hidden');
-
+	
 	$("#title").on('input', function(){
 		var search = $("#title").val();
 		if(search.length > 0){
 			var url = "{{ Url('/') }}"+"/api/templates/"+search;
 			var htmlValue = "";
-
+	
 			$.get(url).done(function( data ) {
 				// console.log(data.templates);
 				if(data.templates.length > 0){
@@ -487,8 +420,8 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 					area.html(htmlValue);
 					area.addClass('hidden');
 				}
-
-
+				
+				
 			});
 		}else{
 			area.addClass('hidden');
@@ -504,69 +437,58 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 		$("#template_id").val(id);
 
 		@if($enable_editing)
-
+		var pluginsTested = 'codesample autoresize code print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern';
+		
 		tinymce.init({
 			selector:'#job_summery',
-			plugins: "{{ config('constants.tiny_plugins') }}",
-			toolbar: "{{ config('constants.tiny_toolbar') }}",
-			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			plugins: pluginsTested,
 			autoresize_bottom_margin: 0,
 			image_advtab: true,
 			menubar:false,
 		  });
-
+		
 		tinymce.init({
 			selector:'#responsibilities',
-			plugins: "{{ config('constants.tiny_plugins') }}",
-			toolbar: "{{ config('constants.tiny_toolbar') }}",
-			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			plugins: pluginsTested,
 			autoresize_bottom_margin: 0,
 			image_advtab: true,
 			menubar:false,
 		  });
-
+		
 		tinymce.init({
 			selector:'#qualification',
-			plugins: "{{ config('constants.tiny_plugins') }}",
-			toolbar: "{{ config('constants.tiny_toolbar') }}",
-			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			plugins: pluginsTested,
 			autoresize_bottom_margin: 0,
 			image_advtab: true,
 			menubar:false,
 		  });
-
+		
 		tinymce.init({
 			selector:'#certification',
-			plugins: "{{ config('constants.tiny_plugins') }}",
-			toolbar: "{{ config('constants.tiny_toolbar') }}",
-			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			plugins: pluginsTested,
 			autoresize_bottom_margin: 0,
 			image_advtab: true,
 			menubar:false,
 		  });
-
+		
 		tinymce.init({
 			selector:'#experience',
-			plugins: "{{ config('constants.tiny_plugins') }}",
-			toolbar: "{{ config('constants.tiny_toolbar') }}",
-			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			plugins: pluginsTested,
 			autoresize_bottom_margin: 0,
 			image_advtab: true,
 			menubar:false,
 		  });
-
+		
 		tinymce.init({
 			selector:'#about_company',
-			plugins: "{{ config('constants.tiny_plugins') }}",
-			toolbar: "{{ config('constants.tiny_toolbar') }}",
-			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			plugins: pluginsTested,
 			autoresize_bottom_margin: 0,
 			image_advtab: true,
 			menubar:false,
 		  });
 		@endif
 
-
+		
 		$.post( "{{ route('api.getTemplate') }}", { template_id: id } )
 		.done(function( data ) {
 			data = JSON.parse(data);
@@ -593,13 +515,8 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 			  $('#certification').html(data.template.certification);
 			  $('#experience').html(data.template.experience);
 			  $('#about_company').html(data.template.about_company);
-
-			  /** Segment, Sector, Discipline **/
-			  $('#segment_id').val(data.template.segment_id);
-			  $('#sector_id').val(data.template.sector_id);
-			  $('#discipline_id').val(data.template.discipline_id);
 		});
 	}
-
+	
 </script>
 @endsection

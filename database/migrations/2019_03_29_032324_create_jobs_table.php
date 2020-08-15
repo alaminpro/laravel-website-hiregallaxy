@@ -15,7 +15,6 @@ class CreateJobsTable extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('job_id');
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('email');
@@ -27,12 +26,6 @@ class CreateJobsTable extends Migration
             $table->unsignedInteger('status_id');
             $table->unsignedInteger('template_id');
             $table->unsignedInteger('apply_type_id');
-            $table->string('skill_id');
-
-            $table->unsignedInteger('sector_id');
-            $table->unsignedInteger('discipline_id');
-            $table->unsignedInteger('segment_id');
-
             $table->unsignedInteger('country_id')->nullable();
             $table->string('location')->nullable();
             $table->string('gender')->default('Male')->comment('Male,Female,Both,Other');
@@ -58,11 +51,7 @@ class CreateJobsTable extends Migration
             $table->foreign('status_id')->references('id')->on('job_statuses');
             $table->foreign('apply_type_id')->references('id')->on('job_apply_types');
             $table->foreign('salary_currency')->references('id')->on('currencies');
-            $table->foreign('location_id')->references('id')->on('countries'); 
-
-            $table->foreign('sector_id')->references('id')->on('sectors');
-            $table->foreign('discipline_id')->references('id')->on('disciplines');
-            $table->foreign('segment_id')->references('id')->on('segments');
+            $table->foreign('location_id')->references('id')->on('countries');
             $table->timestamps();
         });
     }

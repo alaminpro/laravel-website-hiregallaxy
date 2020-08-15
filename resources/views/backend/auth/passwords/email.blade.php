@@ -3,7 +3,7 @@
 @section('stylesheets')
 <style>
   .bg-login-image {
-    background: url("{{ asset('admin-asset/img/bg-login-image.png') }}");
+    background: url("{{ asset('public/admin-asset/img/bg-login-image.png') }}");
     background-position: center;
     background-size: cover;
   }

@@ -153,8 +153,8 @@
     var select2 = $('select.skillselect').select2();
      $('.select2exp').select2();
      CKEDITOR.replace('question', {
-			filebrowserUploadUrl: "{{asset('/question/upload')}}",
-            filebrowserBrowseUrl: "{{asset('/question/file_browser') }}",
+			filebrowserUploadUrl: "{{asset('admin/question/upload')}}",
+            filebrowserBrowseUrl: "{{asset('admin/question/file_browser') }}",
             filebrowserUploadMethod: 'form'
 		});
 

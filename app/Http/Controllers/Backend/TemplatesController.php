@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\Discipline;
 use App\Models\Template;
-use Illuminate\Http\Request;
 
 class TemplatesController extends Controller
 {
@@ -22,7 +21,7 @@ class TemplatesController extends Controller
      */
     public function index()
     {
-        $templates = Template::with('category')->orderBy('id', 'desc')->get();
+        $templates = Template::orderBy('id', 'desc')->get();
         return view('backend.pages.template.index', compact('templates'));
     }
 
@@ -33,9 +32,8 @@ class TemplatesController extends Controller
      */
     public function create()
     {
-        $categories = Category::orderBy('name', 'asc')->select('id', 'name')->get();
-        $disciplines = Discipline::orderBy('name', 'asc')->select('id', 'name')->get();
-        return view('backend.pages.template.create', compact('categories', 'disciplines'));
+        $categories = Category::orderBy('name', 'asc')->get();
+        return view('backend.pages.template.create', compact('categories'));
     }
 
     /**
@@ -49,16 +47,17 @@ class TemplatesController extends Controller
         $this->validate(
             $request,
             [
+                'name' => 'required',
                 'category_id' => 'required',
-                'discipline_id' => 'required',
             ],
             [
-                'category_id.required' => 'Please select a category',
-                'discipline_id.required' => 'Please select a job discipline',
+                'name.required' => 'Please give template a name',
+                'category_id.required' => 'Please select a category'
             ]
         );
 
         $template = new Template();
+        $template->name = $request->name;
         $template->category_id = $request->category_id;
         $template->responsibilities = $request->responsibilities;
         $template->job_summery = $request->job_summery;
@@ -66,7 +65,6 @@ class TemplatesController extends Controller
         $template->certification = $request->certification;
         $template->experience = $request->experience;
         $template->about_company = $request->about_company;
-        $template->discipline_id = $request->discipline_id;
         $template->save();
 
         session()->flash('success', 'New Template added successfully');
@@ -99,10 +97,8 @@ class TemplatesController extends Controller
     {
         $template = Template::find($id);
         $categories = Category::orderBy('name', 'asc')->get();
-        $disciplines = Discipline::orderBy('name', 'asc')->select('id', 'name')->get();
-
         if (!is_null($template)) {
-            return view('backend.pages.template.edit', compact('template', 'categories', 'disciplines'));
+            return view('backend.pages.template.edit', compact('template', 'categories'));
         }
         session()->flash('error', 'Template not found');
         return redirect()->route('admin.templates.index');
@@ -122,15 +118,16 @@ class TemplatesController extends Controller
             $this->validate(
                 $request,
                 [
+                    'name' => 'required',
                     'category_id' => 'required',
-                    'discipline_id' => 'required',
                 ],
                 [
-                    'category_id.required' => 'Please select a category',
-                    'discipline_id.required' => 'Please select a job discipline',
+                    'name.required' => 'Please give template a name',
+                    'category_id.required' => 'Please select a category'
                 ]
             );
 
+            $template->name = $request->name;
             $template->category_id = $request->category_id;
             $template->responsibilities = $request->responsibilities;
             $template->job_summery = $request->job_summery;
@@ -138,9 +135,6 @@ class TemplatesController extends Controller
             $template->certification = $request->certification;
             $template->experience = $request->experience;
             $template->about_company = $request->about_company;
-
-            $template->discipline_id = $request->discipline_id;
-
             $template->save();
             session()->flash('success', 'Template has been updated');
         } else {

@@ -16,7 +16,7 @@
 		<div class="row justify-content-center text-center">
 			<div class="col-12">
 				<p>
-					<img src="{{ asset('images/default/404.png') }}" alt="" class="page-not-found-image">
+					<img src="{{ asset('public/images/default/404.png') }}" alt="" class="page-not-found-image">
 				</p>
 				<br>
 				<p>

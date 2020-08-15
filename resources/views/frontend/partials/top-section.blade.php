@@ -1,82 +1,72 @@
 @if (Route::is('index'))
+<div class="home-top">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-10">
 
+				<h3 class="top-title wow fadeInUp">
+					The Coolest Way to Get Your <br> Dream Job
+				</h3>
+				<p class="top-description  wow fadeInLeft">Find Job, Employment, and Career Oppurtunities</p>
+				@include('frontend.pages.partials.search', ['route' => route('jobs.search') ])
 
-<div class="row">
-	<!-- Home Search Section -->
-	<div class="col-md-10">
-		<div class="home-top">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-md-10">
+				<div class="companies-more">
+					<div class="row">
+						<div class="wow slideInLeft col-4">
+							<div>
+								<span class="icon">
+									<i class="fa fa-globe" aria-hidden="true"></i>
+								</span>
+								<span class="counts-more">
+									<span class="count-thing">
+										{{ count(App\Models\Country::all()) }}
+									</span>
+									<br>
+									<span class="company-more-name">
+										Cities
+									</span>
+								</span>
+							</div>
+						</div>
 
-						<h3 class="top-title wow fadeInUp">
-							The Coolest Way to Get Your <br> Dream Job
-						</h3>
-						<p class="top-description  wow fadeInLeft">Find Job, Employment, and Career Oppurtunities
-						</p>
-						@include('frontend.pages.partials.search', ['route' => route('jobs.search') ])
-
-						<div class="companies-more">
-							<div class="row">
-								<div class="wow slideInLeft col-4">
-									<div>
-										<span class="icon">
-											<i class="fa fa-globe" aria-hidden="true"></i>
-										</span>
-										<span class="counts-more">
-											<span class="count-thing">
-												{{ count(App\Models\Country::select('id')->get()) }}
-											</span>
-											<br>
-											<span class="company-more-name">
-												Cities
-											</span>
-										</span>
-									</div>
-								</div>
-
-								<div class="wow slideInDown col-4">
-									<div>
-										<span class="icon">
-											<i class="fa fa-line-chart" aria-hidden="true"></i>
-										</span>
-										<span class="counts-more">
-											<span class="count-thing">
-												@php
-												$companies_count = count(App\User::where('is_company',
-												1)->where('status',
-												1)->get());
-												@endphp
-												{{ $companies_count }}
-											</span>
-											<br>
-											<span class="company-more-name">
-												{{ $companies_count > 1 ? 'Companies':'Company' }}
-											</span>
-										</span>
-									</div>
-								</div>
-								<div class="wow slideInRight col-4">
-									<div>
-										<span class="icon">
-											<i class="fa fa-user-o" aria-hidden="true"></i>
-										</span>
-										<span class="counts-more">
-											<span class="count-thing">
-												@php
-												$candidate_counts = count(App\User::where('is_company',
-												0)->where('status',
-												1)->get());
-												@endphp
-												{{ $candidate_counts }}
-											</span>
-											<br>
-											<span class="company-more-name">
-												{{ $candidate_counts > 1 ? 'Candidates':'Candidate' }}
-											</span>
-										</span>
-									</div>
-								</div>
+						<div class="wow slideInDown col-4">
+							<div>
+								<span class="icon">
+									<i class="fa fa-line-chart" aria-hidden="true"></i>
+								</span>
+								<span class="counts-more">
+									<span class="count-thing">
+										@php
+										$companies_count = count(App\User::where('is_company', 1)->where('status',
+										1)->get());
+										@endphp
+										{{ $companies_count }}
+									</span>
+									<br>
+									<span class="company-more-name">
+										{{ $companies_count > 1 ? 'Companies':'Company' }}
+									</span>
+								</span>
+							</div>
+						</div>
+						<div class="wow slideInRight col-4">
+							<div>
+								<span class="icon">
+									<i class="fa fa-user-o" aria-hidden="true"></i>
+								</span>
+								<span class="counts-more">
+									<span class="count-thing">
+										@php
+										$candidate_counts = count(App\User::where('is_company', 0)->where('status',
+										1)->get());
+										@endphp
+										{{ $candidate_counts }}
+									</span>
+									<br>
+									<span class="company-more-name">
+										{{ $candidate_counts > 1 ? 'Candidates':'Candidate' }}
+									</span>
+								</span>
 							</div>
 						</div>
 					</div>
@@ -84,92 +74,7 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- Home Job Post, Subscriber and other buttons -->
-	<div class="col-md-2 home-right-sidebar-area">
-		<div class="home-right-sidebar">
-			<div>
-				<a href="{{ route('jobs.post') }}" class="btn post-job-button  btn-block">
-					<i class="fa fa-upload"></i>
-					Post Free Job
-				</a>
-			</div>
-			<div class="mt-2">
-			    @if(Auth::check() && Auth::user()->candidate != null)
-			    <a href="{{ route('candidates.show', Auth::user()->username) }}" class="btn post-job-button btn-success  btn-block">
-					<i class="fa fa-pencil-square-o"></i>
-					Create CV Free
-				</a>
-				
-			    @elseif(Auth::check() && Auth::user()->company != null)
-			    <a href="{{ route('employers.show', Auth::user()->username) }}" class="btn post-job-button btn-success  btn-block">
-					<i class="fa fa-pencil-square-o"></i>
-					Create CV Free
-				</a>
-				@else
-                <a href="{{ route('login') }}" class="btn post-job-button btn-success  btn-block">
-					<i class="fa fa-pencil-square-o"></i>
-					Login to Create CV
-				</a>
-			    @endif
-				
-			</div>
-			<div class="mt-2">
-				<a href="#SubscriberModal" class="btn post-job-button btn-job-alert  btn-block" data-toggle="modal">
-					<i class="fa fa-bell"></i>
-					Create Job Alert
-				</a>
-			</div>
-
-			<!-- Advertising Block -->
-			<div class="mt-4">
-				<div class="add-block"></div>
-			</div>
-
-		</div>
-
-
-		<!-- Subscriber Modal -->
-		<div class="modal fade" id="SubscriberModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-			aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">
-							Subscribe Now
-						</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div>
-							<p>
-								Are you willing to get notifications whenever a new job post added ?
-							</p>
-							<div class="mt-4">
-								<input type="email" id="subscriber-email" class="form-control"
-									placeholder="Enter your email address" />
-							</div>
-							<div id="subscriber-message"></div>
-						</div>
-						<div class="mt-3 text-center">
-							<button type="button" class="btn btn-success btn-lg" id="subscribe-button">
-								<i class="fa fa-check"></i> Yes ! I'm In
-								<span class="hidden">'</span>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> <!-- End Subscriber Modal -->
-
-
-	</div> <!-- Header top sidebar -->
 </div>
-
-
-
 
 @elseif(Route::is('jobs'))
 <div class="home-top">
@@ -202,7 +107,7 @@
 <div class="home-top">
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-md-10">
+			<div class="col-md-8">
 
 				<h3 class="top-title wow fadeInUp mb-3">
 					Find Perfect Candidate
@@ -273,7 +178,7 @@
 									Search
 								</button>
 							</div>
-						</div>
+						</div>b
 					</div> <!-- End Searchbox -->
 				</form>
 
@@ -288,43 +193,7 @@
 		</div>
 	</div>
 </div>
-@elseif(Route::is('exam')) 
-<div class="home-top">
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-md-10">
 
-				<h3 class="top-title wow fadeInUp mb-3">
-					Online Skill Test
-				</h3>  
-				<div class="navbar-breadcrumb">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Skill Test</li>
-					</ol>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-@elseif(Route::is('show-result')) 
-<div class="home-top">
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-md-10"> 
-				<h3 class="top-title wow fadeInUp mb-3">
-					Online Skill Test Result
-				</h3>  
-				<div class="navbar-breadcrumb">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Result</li>
-					</ol>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 
 @elseif(Route::is('employers.dashboard') || Route::is('candidates.dashboard') || Route::is('employers.jobs.posted') ||
 Route::is('employers.jobs.favorite') || Route::is('candidates.jobs.favorite') || Route::is('employers.messages') ||
@@ -337,7 +206,7 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 <div class="home-top">
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-md-10">
+			<div class="col-md-8">
 
 				<h3 class="top-title wow fadeInUp">
 					@if(Route::is('contacts'))
@@ -360,13 +229,13 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 					Jobs in - {{ $category->name }} Category
 					@elseif(Route::is('jobs.edit'))
 					Edit - {{ $job->title }}
-
+					
 					@elseif(Route::is('terms'))
 					Terms and Service
-
+					
 					@elseif(Route::is('privacy'))
 					Privacy Policy
-
+					
 					@else
 					404 | Page Not Found
 					@endif
@@ -388,7 +257,7 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 					</div> <!-- End Searchbox -->
 				</form>
 				@elseif(Route::is('candidates.search'))
-				{{--  @include('frontend.pages.partials.search', ['route' => route('candidates.search') ])  --}}
+								{{--  @include('frontend.pages.partials.search', ['route' => route('candidates.search') ])  --}}
 
 				<form action="{{ route('candidates.search') }}" method="get">
 					<div class="job-searchbox candidate-searchbox">
@@ -418,7 +287,7 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 				@else
 				<!--bye-->
 				@endif
-
+				
 				<div class="navbar-breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
@@ -428,7 +297,6 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 						@elseif(Route::is('employers.show'))
 						<li class="breadcrumb-item"><a href="{{ route('employers') }}">Employers</a></li>
 						<li class="breadcrumb-item active" aria-current="page">{{ $user->name }}</li>
-						 
 						@elseif(Route::is('candidates.show'))
 						<li class="breadcrumb-item"><a href="{{ route('candidates') }}">Candidates</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Candidate Details</li>
@@ -451,11 +319,11 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 						<li class="breadcrumb-item"><a href="{{ route('jobs') }}">Jobs</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Edit - {{ $job->title }}</li>
 						@elseif(Route::is('terms'))
-
-						<li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
+    					
+    					<li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Terms and Service</li>
-						@elseif(Route::is('privacy'))
-						<li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
+    					@elseif(Route::is('privacy'))
+    					<li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Privacy Policy</li>
 						@else
 						<li class="breadcrumb-item active" aria-current="page">404 - Page Not Found</li>

@@ -11,15 +11,6 @@
     		        <a href="{{ route('jobs.categories.show', $single_user->company->category->slug) }}">{{ $single_user->company->category->name }}</a>
     		    @endif
 		    @endif
-		    
-		    @if (count($single_user->categories) > 0)
-				@foreach ($single_user->categories as $category)
-				,<a href="{{ route('jobs.categories.show', $category->category->slug) }}"
-					target="_blank" class="">
-					{{ $category->category->name }}
-				</a>
-				@endforeach
-			@endif
 			
 		</p>
 		<p class="mt-2">

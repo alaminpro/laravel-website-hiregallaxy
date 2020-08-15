@@ -41,7 +41,7 @@
               <tr>
                 <th width="5%">Sl</th>
                 <th width="30%">Name</th>
-                <th width="20%" style="Display:none;">Description</th>
+                <th width="20%">Description</th>
                 <th width="15%">Manage</th>
               </tr>
             </thead>
@@ -55,7 +55,7 @@
                   <br>
                   <a href="{{ route('jobs.skills.show', $skill->slug) }}" target="_blank"><i class="fa fa-link"></i> {{ route('jobs.skills.show', $skill->slug) }}</a>
                 </td>
-                <td style="Display:none;">{!! $skill->description !!}</td>
+                <td>{!! $skill->description !!}</td>
                 <td>
                   @if ($skill->status == 1)
                     <a href="#editModal{{ $skill->id }}" class="btn btn-circle btn-outline-success" title="Edit skill" data-toggle="modal" ><i class="fa fa-edit"></i></a>
@@ -131,15 +131,15 @@
                         @csrf
                         <div class="form-row">
                           <div class="col-md-6 form-group">
-                            <label for="name">Skill Title <span class="text-danger required">*</span></label>
+                            <label for="name">skill Title <span class="text-danger required">*</span></label>
                             <input type="text" id="name" name="name" class="form-control" placeholder="eg. Web Development" required value="{{ $skill->name }}">
                           </div>
-                          <div class="col-md-6 form-group" style="Display:none;">
+                          <div class="col-md-6 form-group">
                             <label for="slug">skill Slug <span class="text-info required">(optional)</span></label>
                             <input type="text" id="slug" name="slug" class="form-control" placeholder="eg. web-development"  value="{{ $skill->slug }}">
                           </div>
                         </div>
-                        <div class="form-row" style="Display:none;">
+                        <div class="form-row">
                           <div class="col-md-12 form-group">
                             <label for="description">skill Description</label>
                             
@@ -189,17 +189,17 @@
           @csrf
           <div class="form-row">
             <div class="col-md-6 form-group">
-              <label for="name">Skill Title <span class="text-danger required">*</span></label>
+              <label for="name">skill Title <span class="text-danger required">*</span></label>
               <input type="text" id="name" name="name" class="form-control" placeholder="eg. PHP" required>
             </div>
-            <div class="col-md-6 form-group" style="Display:none;">
-              <label for="slug" style="Display:none;">skill Slug <span class="text-info required">(optional)</span></label>
+            <div class="col-md-6 form-group">
+              <label for="slug">skill Slug <span class="text-info required">(optional)</span></label>
               <input type="text" id="slug" name="slug" class="form-control" placeholder="eg. php">
             </div>
           </div>
-          <div class="form-row" style="Display:none;">
-            <div class="col-md-12 form-group" >
-              <label for="description" style="Display:none;">skill Description</label>
+          <div class="form-row">
+            <div class="col-md-12 form-group">
+              <label for="description">skill Description</label>
               
               <textarea name="description" id="description" name="description" rows="8" cols="80" class="tinymce form-control"></textarea>
             </div>

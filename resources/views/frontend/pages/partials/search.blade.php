@@ -7,16 +7,8 @@
 			<div class="col-sm-2 col-xs-2">
 				<select name="country" id="country" class="selectpicker" data-live-search="true">
 					<option data-icon="fa fa-map-marker" value="all">All Locations</option>
-					@foreach (App\Models\State::orderBy('name', 'asc')->get() as $state)
-					<option value="" disabled style="font-weight: bolder;font-size: 16px;">
-						{{ $state->name }}
-					</option>
-					@foreach ($state->cities()->orderBy('name', 'asc')->get() as $country)
-					<option value="{{ $country->name }}">
-						&nbsp; &nbsp;
-						{{ $country->name }}
-					</option>
-					@endforeach
+					@foreach (App\Models\Country::orderBy('name', 'asc')->get() as $country)
+					<option value="{{ $country->name }}">{{ $country->name }}</option>
 					@endforeach
 				</select>
 			</div>
