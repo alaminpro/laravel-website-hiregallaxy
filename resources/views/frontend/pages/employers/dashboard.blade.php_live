@@ -1,0 +1,222 @@
+@extends('frontend.layouts.master')
+
+@section('title')
+Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
+@endsection
+
+@section('stylesheets')
+
+@endsection
+
+@section('content')
+<section class="employer-page sec-pad pt-0">
+	<div class="container">
+	<div class="">	<div class="col-md-4">				@include('frontend.pages.partials.employers-sidebar')</div>			
+	
+			<div class="col-md-8">
+			<div class="employer-detail-sidebar">
+	<div class="d-flex justify-content-center mb-3">
+		<img src="{{ App\Helpers\ReturnPathHelper::getUserImage($user->id) }}" class="img img-fluid rounded-circle" style="width: 60%;">
+	</div> 
+	<div class="single-job-description mt-2">
+		<h3 class="text-center">{{ $user->name }}</h3>
+		@if(!empty($user->company->category))
+		<p class="text-yellow mb-3 text-center"> {{ $user->company->category->name }}</p>
+		@endif
+	</div>
+				<div class="employer-detail-main">
+					<h5 class="text-theme">
+						Welcome {{ $user->name }}
+					</h5>
+					<p>
+						You can manage/see your informations from this section.
+					</p>
+					<hr>
+					<div class="mt-2">
+						<h5 class="text-theme p-2">Your Statistics</h5>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="single-dashboard-link card card-default p-3 text-center"
+									onclick="location.href='{{ route('employers.jobs.posted') }}'">
+									<i class="fa fa-bell font30"></i>
+									<h6>
+										{{ count($user->jobs) }} Jobs
+									</h6>
+									<p>
+										Posted
+									</p>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="single-dashboard-link card card-default p-3 text-center"
+									onclick="location.href=''">
+									<i class="fa fa-briefcase font30"></i>
+									<h6>
+										{{ $user->company()->count() }} Total
+									</h6>
+									<p>
+										Companies
+									</p>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="single-dashboard-link card card-default p-3 text-center"
+									onclick="location.href='{{ route('employers.jobs.posted') }}'">
+									<i class="fa fa-bullhorn font30"></i>
+									<h6>
+										{{ $user->jobs()->count() }} Total
+									</h6>
+									<p>
+										Openings
+									</p>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="single-dashboard-link card card-default p-3 text-center"
+									onclick="location.href=''">
+									<i class="fa fa-file-text font30"></i>
+									<h6>
+										{{ $user->employerJobApplications()->count() }} Total
+									</h6>
+									<p>
+										Applications
+									</p>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="single-dashboard-link card card-default p-3 text-center"
+									onclick="location.href=''">
+									<i class="fa fa-user-plus font30"></i>
+									<h6>
+										0 Total
+									</h6>
+									<p>
+										Hired
+									</p>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="single-dashboard-link card card-default p-3 text-center"
+									onclick="location.href=''">
+									<i class="fa fa-user-times font30"></i>
+									<h6>
+										0 Total
+									</h6>
+									<p>
+										Rejected
+									</p>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="single-dashboard-link card card-default p-3 text-center"
+									onclick="location.href=''">
+									<i class="fa fa-file-text font30"></i>
+									<h6>
+										{{ $user->employerJobApplications()->whereDate('job_activities.created_at', '>=', date('Y-m-d'))->count() }} Total
+									</h6>
+									<p>
+										New Applications
+									</p>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="single-dashboard-link card card-default p-3 text-center"
+									onclick="location.href=''">
+									<i class="fa fa-users font30"></i>
+									<h6>
+										0 Total
+									</h6>
+									<p>
+										Shortlisted Candidates
+									</p>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="single-dashboard-link card card-default p-3 text-center"
+									onclick="location.href=''">
+									<i class="fa fa-users font30"></i>
+									<h6>
+										0 Total
+									</h6>
+									<p>
+										Today Interviews
+									</p>
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="single-dashboard-link card card-default p-3 text-center"
+									onclick="location.href='{{ route('employers.search.candidates') }}'">
+									<i class="fa fa-search font30"></i>
+									<h6>
+									 Search Candidates
+									</h6> 
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="single-dashboard-link card card-default p-3 text-center"
+									onclick="location.href='{{ route('employers.messages') }}'">
+									<i class="fa fa-envelope font30"></i>
+									<h6>
+									    @php
+									        $messages = count($user->received_messages()->where('is_seen', 0)->get());
+									    @endphp
+										{{ $messages }} Message{{ $messages > 1 ? 's' : '' }}
+									</h6>
+									<p>
+										Total
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="mt-3">
+						<h5 class="text-theme p-2">Your Profile</h5>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="single-dashboard-link card card-default p-3 text-center"
+									onclick="location.href='{{ route('employers.show', $user->username) }}'">
+									<i class="fa fa-edit font30"></i>
+									<h6>
+										Profile
+									</h6>
+									<p>
+										Edit
+									</p>
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="single-dashboard-link card card-default p-3 text-center"
+									onclick="location.href='{{ route('jobs.post') }}'">
+									<i class="fa fa-plus-circle font30"></i>
+									<h6>
+										Post
+									</h6>
+									<p>
+										New Job
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="mt-4">
+					@include('frontend.pages.todo._component')
+				</div>
+
+			</div>
+		
+
+		</div>
+
+</section>
+@endsection
+
+
+@section('scripts')
+
+@endsection

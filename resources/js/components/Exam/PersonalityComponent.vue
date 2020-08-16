@@ -231,7 +231,7 @@ export default {
                    this.error = true;
             }else{
                 this.quiz = await {
-                    user_id: this.id, 
+                    id: this.id, 
                     questions: res.data
                 }
                 if(JSON.stringify(this.quiz) !== '{}' ){
@@ -261,14 +261,15 @@ export default {
     submitResult(){
        this.beforeunload = false
         let data = {
-            user_id: this.quiz.user_id,
-            total: this.answer.length,
+            user_id: this.quiz.id,
+            total: this.quiz.questions.length,
             seconds: this.time,
-            answer: this.answer, 
+            answer: this.answer,
+            job_id: this.id
         }
-         Axios.post('/candidates/personality/result', data).then((res) => {
+         Axios.post('/jobs/exam/results/', data).then((res) => {
             if(res.data.success == 'success'){
-                window.location = 'https://hiregallaxy.com/candidates/dashboard/';
+                window.location = 'https://hiregallaxy.com/jobs/view/'+ res.data.job_id.slug;
             }
         });
     },
@@ -344,7 +345,7 @@ export default {
             }
        .hiregallaxy_main__section .hiregallaxy_pagination__left_side{
            padding: 15px 0px;
-           width: 270px;
+           width: 250px;
        }
         .hiregallaxy_main__section .hiregallaxy_pagination__left_side i {
                 font-size: 24px;

@@ -7,7 +7,7 @@
              <div class="hiregallaxy__start_exam py-5 d-flex flex-column align-items-center">
                  <h1 class="text-danger text-center pb-2">You are Allreay Give Your Skill Test!</h1>
                  <a :href="url" class="btn btn-info text-center text-light">
-                    Go Back
+                    Go Back & apply job
                  </a>
              </div>
         </div>
@@ -22,7 +22,7 @@
         <div v-if="!isExamStart && !loading && !exam_status && !error" class="d-flex justify-content-center py-5 mt-5">
              <div class="hiregallaxy__start_exam">
                  <button class="btn btn-success" @click="StartExam">
-                     Aptitude test now
+                     Exam Start Now
                  </button>
              </div>
         </div>
@@ -70,7 +70,7 @@
                 <div class="col-lg-6">
                     <div class="hiregallaxy_right__side mt-5 mt-lg-0">
                         <h5 class="hiregallaxy_choose mb-3">
-                            Choose Best Option
+                            Choose Best Option`
                         </h5>
                         <div class="hiregallaxy__options">
                             <span class="d-none question_id" :data-questionid="quiz.questions[questionIndex].id"></span>
@@ -104,7 +104,7 @@
                 </div>
             </div>
             <div class="hiregallaxy__submit_result d-flex justify-content-center my-5 py-5" v-if="showResult">
-                <button @click="submitResult" class="btn btn-success">Submit & back </button>
+                <button @click="submitResult" class="btn btn-success">Submit & Apply Job</button>
             </div>
         </div>
     </div>
@@ -182,7 +182,7 @@ export default {
 	},
     methods: {
         StartExam(){
-        const status = this.status.id  == this.id
+            const status = this.status.some(el => el.job_id  == this.id)
                 if(status){
                     this.exam_status = true
                      return
@@ -255,7 +255,7 @@ export default {
         });
     },
     fetchData(){
-        Axios.get('/candidates/aptitude/questions/'+this.id).then(async (res) =>   {
+        Axios.get('/aptitude/questions/'+this.id).then(async (res) =>   {
             if(res.data.error == 'error') {
                    this.loading = false;
                    this.error = true;
@@ -324,14 +324,14 @@ export default {
             answer: this.answer,
             job_id: this.id
         }
-         Axios.post('/candidates/aptitude/questions/results', data).then((res) => {
+         Axios.post('/aptitude/result/', data).then((res) => {
             if(res.data.success == 'success'){
-                window.location = 'https://hiregallaxy.com/candidates/dashboard/';
+                window.location = 'https://hiregallaxy.com/jobs/view/'+ res.data.job_id.slug;
             }
         });
     },
     user_finished_exam(){
-        Axios.get('/candidates/aptitude/check-status').then((res) => {
+        Axios.get('/aptitude/check-status').then((res) => {
             this.status = res.data
         });
     },
