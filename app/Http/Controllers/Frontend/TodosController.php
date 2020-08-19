@@ -1,48 +1,32 @@
 <?php
 
-
-
 namespace App\Http\Controllers\Frontend;
 
-
-
+use App\Http\Controllers\Controller;
+use App\Models\Todo;
+use App\User;
+use Auth;
 use Illuminate\Http\Request;
 
-use App\Http\Controllers\Controller;
-
-
-
-use Auth;
-
-use App\Models\Todo;
-
-
-
 class TodosController extends Controller
-
 {
 
-
-
     public function getAll(Request $request)
-
     {
-
+        $todos = '';
+        if ($request->has('id')) {
+            $todos = User::where('id', $request->id)->first()->todos;
+        } else {
+            $todos = Auth::user()->todos;
+        }
         return response()->json([
-
             'status' => 200,
-
-            'todos' => Auth::user()->todos
-
+            'todos' => $todos,
         ]);
-
     }
 
     public function toggleTodo($id)
-
     {
-
-        
 
         $todo = Todo::find($id);
 
@@ -71,14 +55,11 @@ class TodosController extends Controller
      */
 
     public function index()
-
     {
 
         //
 
     }
-
-
 
     /**
 
@@ -91,7 +72,6 @@ class TodosController extends Controller
      */
 
     public function create()
-
     {
 
         //
@@ -99,8 +79,6 @@ class TodosController extends Controller
         return view('frontend.pages.todo._form_fields');
 
     }
-
-
 
     /**
 
@@ -115,7 +93,6 @@ class TodosController extends Controller
      */
 
     public function store(Request $request)
-
     {
 
         //
@@ -124,25 +101,23 @@ class TodosController extends Controller
 
         $this->validate($request, [
 
-            'title' => 'required|string'
+            'title' => 'required|string',
 
         ]);
 
-
-
         $data_array = $request->only(['title', 'status']);
 
-        if($request->id){
+        if ($request->id) {
 
             $todo = Todo::find($request->id);
 
-            if($todo->user_id == Auth::id()){
+            if ($todo->user_id == Auth::id()) {
 
                 $todo->update($data_array);
 
             }
 
-        }else{
+        } else {
 
             $data_array['user_id'] = Auth::id();
 
@@ -150,19 +125,15 @@ class TodosController extends Controller
 
         }
 
-
-
         return response()->json([
 
             'status' => 200,
 
-            'todo' => $todo
+            'todo' => $todo,
 
         ]);
 
     }
-
-
 
     /**
 
@@ -177,14 +148,11 @@ class TodosController extends Controller
      */
 
     public function show($id)
-
     {
 
         //
 
     }
-
-
 
     /**
 
@@ -199,7 +167,6 @@ class TodosController extends Controller
      */
 
     public function edit($id)
-
     {
 
         //
@@ -208,11 +175,7 @@ class TodosController extends Controller
 
         return view('frontend.pages.todo._form_fields', compact('todo'));
 
-
-
     }
-
-
 
     /**
 
@@ -229,14 +192,11 @@ class TodosController extends Controller
      */
 
     public function update(Request $request, $id)
-
     {
 
         //
 
     }
-
-
 
     /**
 
@@ -251,46 +211,31 @@ class TodosController extends Controller
      */
 
     public function destroy($id)
-
     {
-
-        //
 
         $todo = Todo::find($id);
 
-        if($todo->user_id == Auth::id()){
-
+        if ($todo->user_id == Auth::id()) {
             $todo->delete();
-
-
-
             $response = [
-
                 'status' => 200,
-
-                'message' => 'Todo Deleted Successfully'
-
+                'message' => 'Todo Deleted Successfully',
             ];
 
-        }else{
+        } else {
 
             $response = [
 
                 'status' => 401,
 
-                'message' => 'Unauthorized Action'
+                'message' => 'Unauthorized Action',
 
             ];
 
         }
 
-
-
         return response()->json($response);
-
-
 
     }
 
 }
-

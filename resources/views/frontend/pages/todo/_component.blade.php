@@ -52,19 +52,14 @@
 
 			<div class="card-header text-white bg-warning">
 
-				Pending Tasks
-
+				Pending Tasks 
 				<button class=" btn-add pull-right" id="createTodoBtn"> <strong>+</strong></button>
 
 
 
 			</div>
 
-			<div class="card-body" id="pending_div">
-
-				
-
-			</div>
+			<div class="card-body" id="pending_div"></div>
 
 		</div>
 
@@ -143,8 +138,11 @@
 	let todosIndexRoute = "{{route('todos.index')}}";
 
 	function initTodos() {
-
-		$.get('{{route('todos.getAll')}}', function(data) {
+		var team_id = $('.todo__team').attr('data-id')
+		if(team_id){
+			$('#createTodoBtn').remove(); 
+		}
+		$.get('{{route('todos.getAll')}}', team_id ? {id: team_id} : '', function(data) {
 
 			if(data.status === 200){
 
@@ -179,6 +177,7 @@
 											</span>
 
 										</div>`;
+										
 
 					}else{
 
@@ -215,7 +214,13 @@
 				$('#completed_div').html(completed_todos);
 
 				$('#pending_div').html(pending_todos);
-
+				if(team_id){
+					$('#pending_div .todo').remove();
+				$('#pending_div .pull-right').remove();
+					$('#completed_div .todo').remove();
+				$('#completed_div .pull-right').remove();
+				}
+			
 			}
 
 		});

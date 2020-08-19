@@ -67,8 +67,13 @@
 						</a>
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdownAccountButton"><img src="{{ App\Helpers\ReturnPathHelper::getUserImage(Auth::user()->id) }}" class="account-img"> {{ Auth::user()->name }}</a>
 						<div class="dropdown-menu dropdown-menu-account" aria-labelledby="dropdownAccountButton">
-							<a class="dropdown-item dropdown-account-item" href="{{ route('users.dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a>
-							<a class="dropdown-item dropdown-account-item" target="_blank" href="{{ Auth::user()->is_company ? route('employers.show', Auth::user()->username) : route('candidates.show', Auth::user()->username) }}"><i class="fa fa-user"></i> Profile</a>
+							@if(auth()->check() && auth()->user()->type == 1)
+								<a class="dropdown-item dropdown-account-item" href="{{ route('team.dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a>
+								<a class="dropdown-item dropdown-account-item" target="_blank" href="{{ route('team.show', Auth::user()->username) }}"><i class="fa fa-user"></i> Profile</a>
+							@else
+								<a class="dropdown-item dropdown-account-item" href="{{ route('users.dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a>
+								<a class="dropdown-item dropdown-account-item" target="_blank" href="{{ Auth::user()->is_company ? route('employers.show', Auth::user()->username) : route('candidates.show', Auth::user()->username) }}"><i class="fa fa-user"></i> Profile</a>
+							@endif
 							<a class="dropdown-item dropdown-account-item" href="{{ route('logout') }}"
 							onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i> Logout</a>
 							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

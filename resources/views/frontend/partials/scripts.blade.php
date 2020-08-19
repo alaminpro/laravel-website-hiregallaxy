@@ -1,12 +1,12 @@
 <!-- Vue App JS -->  
 
-<script src="{{ asset('public/js/app.js') }}"></script> 
+<script src="{{ asset('js/app.js') }}"></script> 
 
 
 
 <!-- Jquery -->
 
-<script src="{{ asset('public/js/jquery/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('js/jquery/jquery-3.3.1.min.js') }}"></script>
 
 
 
@@ -14,7 +14,7 @@
 
 	#preloader-status {
 
-		background-image: url("{{ asset('public/images/preloader.gif')}}");
+		background-image: url("{{ asset('images/preloader.gif')}}");
 
 	}
 
@@ -50,21 +50,21 @@
 
 <!-- Bootstrap -->
 
-<script src="{{ asset('public/js/bootstrap/popper.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap/popper.min.js') }}"></script>
 
-<script src="{{ asset('public/js/bootstrap/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
 
 
 
 <!-- Custom -->
 
-<script src="{{ asset('public/js/custom.js') }}?v={{ config('constants.asset_version') }}"></script>
+<script src="{{ asset('js/custom.js') }}?v={{ config('constants.asset_version') }}"></script>
 
 
 
 <!-- Bootstrap Select Picker-->
 
-<script src="{{ asset('public/js/bootstrap/bootstrap-select.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap/bootstrap-select.min.js') }}"></script>
 
 <script>
 
@@ -76,19 +76,19 @@
 
 <!-- Owl Carousel -->
 
-<script src="{{ asset('public/js/owl-carousel/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('js/owl-carousel/owl.carousel.min.js') }}"></script>
 
 
 
 <!-- Parsley -->
 
-<script src="{{ asset('public/js/parsley/parsley.min.js') }}"></script>
+<script src="{{ asset('js/parsley/parsley.min.js') }}"></script>
 
 
 
 <!-- Noty -->
 
-<script src="{{ asset('public/js/noty/noty.min.js') }}"></script>
+<script src="{{ asset('js/noty/noty.min.js') }}"></script>
 
 @include('frontend.partials.flash-messages')
 
@@ -132,7 +132,7 @@
 
 <!-- Apply Job Modal -->
 
-<script src="{{ asset('public/admin-asset/js/tinymce/tiny_old.min.js') }}"></script>
+<script src="{{ asset('admin-asset/js/tinymce/tiny_old.min.js') }}"></script>
 
 <script>
 
@@ -314,7 +314,7 @@
 
 					var cv = data.data.cv;
 
-					var user_profile_cv = '{{ Auth::user()->candidate->cv }}';
+					var user_profile_cv = '{{ Auth::user()->candidate ? Auth::user()->candidate->cv : '' }}';
 
 					if( cv == null){
 
@@ -342,7 +342,7 @@
 
 						if(cv.length != 0){
 
-							$("#oldApplyCV").html("<a href='public/files/cv/"+cv+"' target='blank'><i class='fa fa-download'></i> Previous CV</a>")
+							$("#oldApplyCV").html("<a href='files/cv/"+cv+"' target='blank'><i class='fa fa-download'></i> Previous CV</a>")
 
 						}
 
@@ -490,7 +490,7 @@
 
 <!-- Wow -->
 
-<script src="{{ asset('public/js/wow/wow.min.js') }}"></script>
+<script src="{{ asset('js/wow/wow.min.js') }}"></script>
 
 <script>
 

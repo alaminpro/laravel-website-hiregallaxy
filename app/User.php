@@ -1,40 +1,19 @@
 <?php
 
-
-
 namespace App;
 
-
-
+use App\Models\JobActivity;
+use App\Models\UserCategory;
+use App\Models\UserExperience;
+use App\Models\UserQualification;
+use App\Models\UserSector;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-
-use Illuminate\Foundation\Auth\User as Authenticatable;
-
-
-
-use App\Models\UserExperience;
-
-use App\Models\UserQualification;
-
-use App\Models\JobActivity;
-
-use Illuminate\Support\Carbon;
-
-use App\Models\UserSector;
-
-use App\Models\UserCategory;
-
-
-
 class User extends Authenticatable
-
 {
 
     use Notifiable;
-
-
 
     /**
 
@@ -52,8 +31,6 @@ class User extends Authenticatable
 
     ];
 
-
-
     /**
 
      * The attributes that should be hidden for arrays.
@@ -70,14 +47,9 @@ class User extends Authenticatable
 
     ];
 
-
-
-
-
     //job applications of the jobs employer created
 
     public function employerJobApplications()
-
     {
 
         return $this->hasManyThrough(
@@ -98,65 +70,48 @@ class User extends Authenticatable
 
     }
 
-
     // for applicants
-    public function hiredApplicants()   {
+    public function hiredApplicants()
+    {
         return $this->hasMany('App\Models\HiredApplicants');
     }
 
-
     public function todos()
-
     {
 
         return $this->hasMany('App\Models\Todo');
 
     }
 
-
-
     public function company()
-
     {
 
         return $this->hasOne('App\Models\CompanyProfile');
 
     }
 
-
-
     public function jobs()
-
     {
 
         return $this->hasMany('App\Models\Job');
 
     }
 
-
-
     public function favoriteJobs()
-
     {
 
         return $this->hasMany('App\Models\JobFavorite');
 
     }
 
-
-
     public function jobApplications()
-
     {
 
         return $this->hasMany('App\Models\JobActivity');
 
     }
 
-
-
     public function hasAppliedJob($job_id)
-
     {
 
         if (JobActivity::where('user_id', $this->id)->where('job_id', $job_id)->first() != null) {
@@ -169,38 +124,28 @@ class User extends Authenticatable
 
     }
 
-
-
     public function location()
-
     {
 
         return $this->belongsTo('App\Models\Location');
 
     }
 
-    
-
-    public function countries(){
+    public function countries()
+    {
 
         return $this->location->country;
 
     }
 
-
-
     public function candidate()
-
     {
 
         return $this->hasOne('App\Models\CandidateProfile');
 
     }
 
-
-
     public function categories()
-
     {
 
         return $this->hasMany('App\Models\UserCategory');
@@ -208,35 +153,33 @@ class User extends Authenticatable
     }
 
     public function new_categories()
-
     {
 
         return $this->belongsToMany(\App\Models\Category::class, 'user_categories', 'user_id', 'category_id');
 
     }
 
-    
-
     public function sectors()
-
     {
 
         return $this->hasMany('App\Models\UserSector');
 
     }
+    public function team()
+    {
+
+        return $this->hasOne('App\Models\UserTeam');
+
+    }
 
     public function new_sectors()
-
     {
 
         return $this->belongsToMany(\App\Models\Sector::class, 'user_sectors', 'user_id', 'sector_id');
 
     }
 
-
-
     public function skills()
-
     {
 
         return $this->hasMany('App\Models\UserSkill');
@@ -244,77 +187,55 @@ class User extends Authenticatable
     }
 
     public function new_skills()
-
     {
 
         return $this->belongsToMany(\App\Models\Skill::class, 'user_skills', 'user_id', 'skill_id');
 
     }
 
-
-
     public function experiences()
-
     {
 
         return $this->hasMany('App\Models\UserExperience');
 
     }
 
-
-
     public function qualifications()
-
     {
 
         return $this->hasMany('App\Models\UserQualification');
 
     }
 
-
-
     public function awards()
-
     {
 
         return $this->hasMany('App\Models\UserAward');
 
     }
 
-
-
     public function portfolios()
-
     {
 
         return $this->hasMany('App\Models\UserPortfolio');
 
     }
 
-
-
     public function received_messages()
-
     {
 
         return $this->hasMany('App\Models\Contact', 'to_user_id')->orderBy('is_replied', 'asc')->orderBy('id', 'desc');
 
     }
 
-
-
     public function sent_messages()
-
     {
 
         return $this->hasMany('App\Models\Contact', 'from_user_id')->orderBy('id', 'desc');
 
     }
 
-
-
     public function age()
-
     {
 
         $user = $this;
@@ -322,8 +243,6 @@ class User extends Authenticatable
         $birthdate = $user->candidate->date_of_birth;
 
         $today = date('Y-m-d');
-
-
 
         if (is_null($birthdate)) {
 
@@ -345,10 +264,7 @@ class User extends Authenticatable
 
     }
 
-
-
     public function getExperienceInYears()
-
     {
 
         $user = $this;
@@ -359,13 +275,11 @@ class User extends Authenticatable
 
         $end_date = date('Y-m-d');
 
-        
-
         foreach ($user->experiences as $ex) {
 
             if ($i == 1) {
 
-                $start_date = $ex->start_date;;
+                $start_date = $ex->start_date;
 
             }
 
@@ -383,22 +297,15 @@ class User extends Authenticatable
 
         }
 
-
-
         $diff = abs(strtotime($end_date) - strtotime($start_date));
 
-        $years = round(($diff / (365*60*60*24)), 1);
-
-        
+        $years = round(($diff / (365 * 60 * 60 * 24)), 1);
 
         return $years;
 
     }
 
-
-
     public function lastQualification()
-
     {
 
         $user = $this;
@@ -415,10 +322,7 @@ class User extends Authenticatable
 
     }
 
-
-
     public function currentJob()
-
     {
 
         $user = User::find($this->id);
@@ -435,8 +339,6 @@ class User extends Authenticatable
 
     }
 
-
-
     /**
 
      * userCanPost function
@@ -452,7 +354,6 @@ class User extends Authenticatable
      */
 
     public static function userCanPost($user_id)
-
     {
 
         $user = User::find($user_id);
@@ -475,8 +376,6 @@ class User extends Authenticatable
 
     }
 
-    
-
     /**
 
      * hasCategoryOrNot
@@ -490,7 +389,6 @@ class User extends Authenticatable
      */
 
     public function hasCategoryOrNot($category_id)
-
     {
 
         $user = $this;
@@ -511,12 +409,6 @@ class User extends Authenticatable
 
     }
 
-    
-
-    
-
-
-
     /**
 
      * hasSectorOrNot
@@ -530,7 +422,6 @@ class User extends Authenticatable
      */
 
     public function hasSectorOrNot($sector_id)
-
     {
 
         $user = $this;
@@ -551,10 +442,6 @@ class User extends Authenticatable
 
     }
 
-    
-
-
-
     /**
 
      * The attributes that should be cast to native types.
@@ -572,4 +459,3 @@ class User extends Authenticatable
     ];
 
 }
-

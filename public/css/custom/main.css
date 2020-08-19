@@ -47,12 +47,8 @@ i {
     border-radius: 20px;
     font-size: 12px!important;
     color: #FFF!important;
-    padding: 4px 23px!important;
-    -webkit-transition: all .25s ease|linear|ease-in|ease-out|ease-in-out|cubic-bezier(<number>, <number>, <number>, <number>);
-    -moz-transition: all .25s ease|linear|ease-in|ease-out|ease-in-out|cubic-bezier(<number>, <number>, <number>, <number>);
-    -ms-transition: all .25s ease|linear|ease-in|ease-out|ease-in-out|cubic-bezier(<number>, <number>, <number>, <number>);
-    -o-transition: all .25s ease|linear|ease-in|ease-out|ease-in-out|cubic-bezier(<number>, <number>, <number>, <number>);
-    transition: all .25s ease|linear|ease-in|ease-out|ease-in-out|cubic-bezier(<number>, <number>, <number>, <number>);
+    padding: 4px 23px!important; 
+    transition: all .25s ease;
 }
 
 .apply-now-button:hover {
@@ -60,11 +56,7 @@ i {
 }
 
 .btn {
-    -webkit-transition: all .25s ease|linear|ease-in|ease-out|ease-in-out|cubic-bezier(<number>, <number>, <number>, <number>);
-    -moz-transition: all .25s ease|linear|ease-in|ease-out|ease-in-out|cubic-bezier(<number>, <number>, <number>, <number>);
-    -ms-transition: all .25s ease|linear|ease-in|ease-out|ease-in-out|cubic-bezier(<number>, <number>, <number>, <number>);
-    -o-transition: all .25s ease|linear|ease-in|ease-out|ease-in-out|cubic-bezier(<number>, <number>, <number>, <number>);
-    transition: all .25s ease|linear|ease-in|ease-out|ease-in-out|cubic-bezier(<number>, <number>, <number>, <number>);
+      transition: all .25s ease;
 }
 
 .btn-login {
@@ -411,8 +403,8 @@ label {
 /** Header Part */
 
 .header-main {
-    background-color: #7078e3;
-    background-image: url("../../../public/images/default/bg-top.png");
+    background-color: #1379ce;
+
     color: #FFF;
     padding-bottom: 0px;
 }
@@ -807,9 +799,7 @@ span.counts-more {
     padding: 10px;
 }
 
-.client-review .owl-item {
-    /*width: 500px!important;*/
-}
+ 
 
 .arrow-up {
     width: 10px;
@@ -1170,8 +1160,7 @@ input[type=radio] {
 }
 
 .employer-detail-main {
-    border: 1px solid #eee;
-    padding: 20px;
+    border: 1px solid #eee; 
 }
 
 .employer-detail-sidebar {
@@ -1445,7 +1434,7 @@ input[type=radio] {
 #apply-job-modal .modal-dialog,
 #update-apply-job-modal .modal-dialog,
 #signInModal .modal-dialog,
-#signUpModal .modal-dialog,
+#signUpModal .modal-dialog
 {
     margin: 1.2rem auto;
 }
@@ -1745,11 +1734,7 @@ ul.footer-links {
     padding: 15px;
     border-radius: 4px;
     transition: .4s;
-    -webkit-transition: all .4s ease|linear|ease-in|ease-out|ease-in-out|cubic-bezier(<number>, <number>, <number>, <number>);
-    -moz-transition: all .4s ease|linear|ease-in|ease-out|ease-in-out|cubic-bezier(<number>, <number>, <number>, <number>);
-    -ms-transition: all .4s ease|linear|ease-in|ease-out|ease-in-out|cubic-bezier(<number>, <number>, <number>, <number>);
-    -o-transition: all .4s ease|linear|ease-in|ease-out|ease-in-out|cubic-bezier(<number>, <number>, <number>, <number>);
-    transition: all .4s ease|linear|ease-in|ease-out|ease-in-out|cubic-bezier(<number>, <number>, <number>, <number>);
+       transition: all .4s ease;
 }
 
 #scroll-btn:hover {
@@ -1848,8 +1833,6 @@ ul.footer-links {
 .left-sidebar .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
     width: 300px!important;
 }
-
-
 /** Override After Modification **/
 
 
@@ -2227,4 +2210,5 @@ ul.footer-links {
 }
 
 
-/** Responsive  **/
+/** custom design  **/
+

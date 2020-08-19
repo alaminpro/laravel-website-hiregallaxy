@@ -1,33 +1,16 @@
 <?php
 
-
-
 namespace App\Http\Controllers\Auth;
 
-
-
-use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\DB;
-
 use App\Http\Controllers\Controller;
-
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
-
-
 use App\Notifications\VerifyEmailUser;
-
 use App\User;
-
 use Auth;
-
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Session;
 
-
-
 class LoginController extends Controller
-
 {
 
     /*
@@ -48,13 +31,9 @@ class LoginController extends Controller
 
     |
 
-    */
-
-
+     */
 
     use AuthenticatesUsers;
-
-
 
     /**
 
@@ -68,8 +47,6 @@ class LoginController extends Controller
 
     protected $redirectTo = '/';
 
-
-
     /**
 
      * Create a new controller instance.
@@ -81,17 +58,13 @@ class LoginController extends Controller
      */
 
     public function __construct()
-
     {
 
         $this->middleware('guest')->except('logout');
 
     }
 
-
-
     public function showLoginForm()
-
     {
 
         if (Auth::check()) {
@@ -106,23 +79,18 @@ class LoginController extends Controller
 
     }
 
-
-
-    public function login(Request $request){
-
-
+    public function login(Request $request)
+    {
 
         //Validate the form data
 
         $this->validate($request, [
 
-            'username'         => 'required',
+            'username' => 'required',
 
-            'password'         => 'required|min:6'
+            'password' => 'required|min:6',
 
         ]);
-
-
 
         //Attempt to login
 
@@ -130,33 +98,37 @@ class LoginController extends Controller
 
             // check whether the user is employer or not
             $check = User::where('username', $request->username)->orWhere('email', $request->username)->where('is_company', 1)->first();
-            if(!is_null($check))    {
-                return redirect()->intended(route('employers.dashboard'));
-            }   else{
-                //If successful then redirect to the intended location
-
-                return redirect()->intended(route('index'));    
+            if (!is_null($check)) {
+                if ($check->type == 1) {
+                    return redirect()->intended(route('team.dashboard'));
+                } else {
+                    return redirect()->intended(route('employers.dashboard'));
+                }
+            } else {
+                return redirect()->intended(route('index'));
             }
 
-        }else{
+        } else {
 
-            if (Auth::guard('web')->attempt(['username' => $request->username, 'password' => $request->password, 'status' => 1], $request->remember)){
+            if (Auth::guard('web')->attempt(['username' => $request->username, 'password' => $request->password, 'status' => 1], $request->remember)) {
 
                 // check whether the user is employer or not
                 $check = User::where('username', $request->username)->orWhere('email', $request->username)->where('is_company', 1)->first();
-                if(!is_null($check))    {
-                    return redirect()->intended(route('employers.dashboard'));
-                }   else{
+                if (!is_null($check)) {
+                    if ($check->type == 1) {
+                        return redirect()->intended(route('team.dashboard'));
+                    } else {
+                        return redirect()->intended(route('employers.dashboard'));
+                    }
+                } else {
                     //If successful then redirect to the intended location
 
-                    return redirect()->intended(route('index'));    
+                    return redirect()->intended(route('index'));
                 }
 
             }
 
         }
-
-
 
         // Check if has account but status=0
 
@@ -186,8 +158,6 @@ class LoginController extends Controller
 
         }
 
-
-
         //If unsuccessfull, then redirect to the admin login with the data
 
         Session::flash('login_error', "Username and password combination doesn't match. Please provide correct email and password");
@@ -197,4 +167,3 @@ class LoginController extends Controller
     }
 
 }
-

@@ -14,7 +14,7 @@
 			<div class="col-md-10 mt-5">
 				<div class="row">
 					<div class="col-md-4 wow fadeInLeft">
-						<img src="{{ asset('public/images/default/create-account.png') }}" class="how-work-image"
+						<img src="{{ asset('images/default/create-account.png') }}" class="how-work-image"
 
 							alt="">
 
@@ -32,7 +32,7 @@
 
 					<div class="col-md-4 wow fadeInDown">
 
-						<img src="{{ asset('public/images/default/search-work.png') }}" class="how-work-image" alt="">
+						<img src="{{ asset('images/default/search-work.png') }}" class="how-work-image" alt="">
 
 						<h4 class="how-work-subtitle">Search And Apply</h4>
 
@@ -48,7 +48,7 @@
 
 					<div class="col-md-4 wow fadeInRight">
 
-						<img src="{{ asset('public/images/default/start-work.png') }}" class="how-work-image" alt="">
+						<img src="{{ asset('images/default/start-work.png') }}" class="how-work-image" alt="">
 
 						<h4 class="how-work-subtitle">Start Work</h4>
 
@@ -272,7 +272,7 @@
 
 				<div class="float-left">
 
-					<img src="{{ asset('public/images/users/'.$review->profile_picture) }}" class="client-image">
+					<img src="{{ asset('images/users/'.$review->profile_picture) }}" class="client-image">
 
 				</div>
 
@@ -796,7 +796,7 @@
 
 				<div class="col-md-5 wow fadeInLeft">
 
-					<img src="{{ asset('public/images/default/mobile.png') }}" alt="download-app-image"
+					<img src="{{ asset('images/default/mobile.png') }}" alt="download-app-image"
 
 						class="img img-fluid">
 

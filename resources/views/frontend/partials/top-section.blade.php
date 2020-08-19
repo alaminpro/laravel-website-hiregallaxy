@@ -671,7 +671,7 @@
 @elseif(Route::is('show-result')) 
 
 <div class="home-top">
-
+ 
 	<div class="container">
 
 		<div class="row justify-content-center">
@@ -706,7 +706,7 @@
 
 
 
-@elseif(Route::is('employers.dashboard') || Route::is('candidates.dashboard') || Route::is('employers.jobs.posted') ||
+@elseif(Route::is('employers.dashboard') || Route::is('teams') || Route::is('team.create') || Route::is('team.dashboard') || Route::is('candidates.dashboard') || Route::is('employers.jobs.posted') ||
 
 Route::is('employers.search.candidates') || Route::is('candidates.jobs.favorite') || Route::is('employers.messages') ||
 
@@ -741,6 +741,9 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 					@elseif(Route::is('employers.show'))
 
 					Employer - {{ $user->name }}
+					@elseif(Route::is('team.show'))
+
+					Team - {{ $user->name }}
 
 					@elseif(Route::is('candidates.show'))
 
@@ -915,6 +918,13 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 						@elseif(Route::is('employers.show'))
 
 						<li class="breadcrumb-item"><a href="{{ route('employers') }}">Employers</a></li>
+
+						<li class="breadcrumb-item active" aria-current="page">{{ $user->name }}</li>
+
+						 
+						@elseif(Route::is('team.show'))
+
+						<li class="breadcrumb-item"><a href="{{ route('team.dashboard') }}">Team</a></li>
 
 						<li class="breadcrumb-item active" aria-current="page">{{ $user->name }}</li>
 

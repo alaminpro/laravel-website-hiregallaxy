@@ -1,7 +1,5 @@
 <?php
 
-
-
 /*
 
 |--------------------------------------------------------------------------
@@ -22,8 +20,6 @@
 
  */
 
-
-
 /*
 
 |--------------------------------------------------------------------------
@@ -36,29 +32,19 @@
 
  */
 
-
-
 Route::get('/', 'Frontend\PagesController@index')->name('index');
-
-
 
 Route::get('/terms-and-service', 'Frontend\PagesController@termsAndService')->name('terms');
 
-Route::get('/privacy-policy', 'Frontend\PagesController@privacyPolicy')->name('privacy'); 
+Route::get('/privacy-policy', 'Frontend\PagesController@privacyPolicy')->name('privacy');
 
 Route::get('/candidates/personality/{id}', 'Frontend\EmployersController@Personality')->name('public.personality');
 
-
-
-
-
 /*** Employers **/
 
-Route::group(['prefix' => 'employers'], function () {
+Route::group(['prefix' => 'employers', 'middleware' => ['checkTeam']], function () {
 
     Route::get('', 'Frontend\EmployersController@index')->name('employers');
-
-
 
     // todos routes
 
@@ -68,11 +54,7 @@ Route::group(['prefix' => 'employers'], function () {
 
     Route::resource('todos', 'Frontend\TodosController');
 
-
-
     Route::get('/view/{username}', 'Frontend\EmployersController@show')->name('employers.show');
-
-
 
     // About
 
@@ -81,8 +63,6 @@ Route::group(['prefix' => 'employers'], function () {
     Route::post('/profile/update/{id}', 'Frontend\EmployersController@updateProfile')->name('employers.profile.update');
 
     Route::post('/applicants/update/{id}', 'Frontend\EmployersController@applicantUpdate')->name('employers.applicants.update');
-
-
 
     Route::get('/search', 'Frontend\EmployersController@search')->name('employers.search');
 
@@ -110,11 +90,31 @@ Route::group(['prefix' => 'employers'], function () {
 
     Route::get('/messages', 'Frontend\EmployersController@messages')->name('employers.messages');
 
+    Route::group(['prefix' => 'teams'], function () {
 
+        Route::get('', 'Frontend\TeamController@index')->name('teams');
+        Route::get('/create', 'Frontend\TeamController@create')->name('team.create');
+        Route::post('/store', 'Frontend\TeamController@store')->name('team.store');
+        Route::get('/delete/{id}', 'Frontend\TeamController@destroy')->name('team.delete');
+
+    });
 
 });
 
+Route::group(['prefix' => 'team'], function () {
+    Route::get('/messages', 'Frontend\EmployersController@messages')->name('employers.messages');
+    Route::get('/dashboard/{id?}', 'Frontend\TeamController@dashboard')->name('team.dashboard');
+    // todos routes
 
+    Route::get('todos/get', 'Frontend\TodosController@getAll')->name('todos.getAll');
+    Route::post('todos/toggle/{id}', 'Frontend\TodosController@toggleTodo')->name('todos.toogle');
+    Route::resource('todos', 'Frontend\TodosController');
+
+    Route::get('/search-candidates', 'Frontend\EmployersController@searchCadidates')->name('employers.search.candidates');
+
+    Route::get('/view/{username}', 'Frontend\TeamController@showProfile')->name('team.show');
+    Route::post('/profile/update/{id}', 'Frontend\TeamController@updateProfile')->name('team.profile.update');
+});
 
 /*** candidates **/
 
@@ -128,8 +128,6 @@ Route::group(['prefix' => 'candidates'], function () {
 
     Route::get('/search', 'Frontend\CandidatesController@search')->name('candidates.search');
 
-
-
     // Experience
 
     Route::post('/add-experience', 'Frontend\ExperiencesController@store')->name('candidates.experience.store');
@@ -137,8 +135,6 @@ Route::group(['prefix' => 'candidates'], function () {
     Route::post('/update-experience/{id}', 'Frontend\ExperiencesController@update')->name('candidates.experience.update');
 
     Route::post('/delete-experience/{id}', 'Frontend\ExperiencesController@destroy')->name('candidates.experience.delete');
-
-
 
     // Education
 
@@ -148,8 +144,6 @@ Route::group(['prefix' => 'candidates'], function () {
 
     Route::post('/delete-education/{id}', 'Frontend\EducationsController@destroy')->name('candidates.education.delete');
 
-
-
     // Awards
 
     Route::post('/add-award', 'Frontend\AwardsController@store')->name('candidates.award.store');
@@ -157,8 +151,6 @@ Route::group(['prefix' => 'candidates'], function () {
     Route::post('/update-award/{id}', 'Frontend\AwardsController@update')->name('candidates.award.update');
 
     Route::post('/delete-award/{id}', 'Frontend\AwardsController@destroy')->name('candidates.award.delete');
-
-
 
     // Skills
 
@@ -168,8 +160,6 @@ Route::group(['prefix' => 'candidates'], function () {
 
     Route::post('/delete-skill/{id}', 'Frontend\SkillsController@destroy')->name('candidates.skill.delete');
 
-
-
     // Portfolio
 
     Route::post('/addportfolio', 'Frontend\PortfoliosController@store')->name('candidates.portfolio.store');
@@ -178,27 +168,21 @@ Route::group(['prefix' => 'candidates'], function () {
 
     Route::post('/delete-portfolio/{id}', 'Frontend\PortfoliosController@destroy')->name('candidates.portfolio.delete');
 
-
-
     // About
 
     Route::post('/about/update/{id}', 'Frontend\CandidatesController@updateAbout')->name('candidates.about.update');
 
     Route::post('/profile/update/{id}', 'Frontend\CandidatesController@updateProfile')->name('candidates.profile.update');
 
+    Route::get('/dashboard', 'Frontend\CandidatesController@dashboard')->name('candidates.dashboard');
 
-
-    Route::get('/dashboard', 'Frontend\CandidatesController@dashboard')->name('candidates.dashboard'); 
-
-    Route::get('/personality', 'Frontend\CandidatesController@Personality')->name('candidates.personality'); 
-
-
+    Route::get('/personality', 'Frontend\CandidatesController@Personality')->name('candidates.personality');
 
     Route::group(['prefix' => 'personality'], function () {
 
         Route::get('/test/{id}', 'Frontend\PersonalityController@index')->name('personality');
 
-        Route::get('/questions/{id}', 'Frontend\PersonalityController@questions'); 
+        Route::get('/questions/{id}', 'Frontend\PersonalityController@questions');
 
         Route::post('/result', 'Frontend\PersonalityController@Results');
 
@@ -206,21 +190,17 @@ Route::group(['prefix' => 'candidates'], function () {
 
     });
 
-
-
     Route::group(['prefix' => 'aptitude'], function () {
 
         Route::get('/test/{id}', 'Frontend\AptitudeResultController@index')->name('aptitude');
 
-        Route::get('/questions/{id}', 'Frontend\AptitudeResultController@questions'); 
+        Route::get('/questions/{id}', 'Frontend\AptitudeResultController@questions');
 
         Route::post('/questions/results', 'Frontend\AptitudeResultController@Results');
 
         Route::get('/check-status', 'Frontend\AptitudeResultController@examStatus');
 
     });
-
-
 
     Route::get('/messages', 'Frontend\CandidatesController@messages')->name('candidates.messages');
 
@@ -230,19 +210,13 @@ Route::group(['prefix' => 'candidates'], function () {
 
 });
 
-
-
 /*** contacts **/
-
-
 
 Route::get('/contact-us', 'Frontend\ContactsController@index')->name('contacts');
 
 Route::post('/contact-us', 'Frontend\ContactsController@store')->name('contacts.store');
 
 Route::post('/contact-us/delete/{id}', 'Frontend\ContactsController@destroy')->name('contacts.delete');
-
-
 
 /*** jobs **/
 
@@ -294,8 +268,6 @@ Route::group(['prefix' => 'jobs'], function () {
 
 });
 
-
-
 Route::group(['prefix' => 'messages'], function () {
 
     Route::get('', 'Frontend\ContactsController@getMessages')->name('messages');
@@ -306,13 +278,9 @@ Route::group(['prefix' => 'messages'], function () {
 
 });
 
-
-
 Route::group(['prefix' => 'users'], function () {
 
     Route::get('/dashboard', 'Frontend\UsersController@dashboard')->name('users.dashboard');
-
-
 
     Route::group(['prefix' => 'messages'], function () {
 
@@ -324,8 +292,6 @@ Route::group(['prefix' => 'users'], function () {
 
 });
 
-
-
 /** Subscription Routes **/
 
 Route::post('/get-subscribed', 'Frontend\SubscriberController@store')->name('users.subscribe');
@@ -334,23 +300,13 @@ Route::get('/unsubscribe/{email}', 'Frontend\SubscriberController@unsubscribe')-
 
 // Route::get('/send-email-all-subscriber/{token}', 'Frontend\SubscriberController@sendEmailAsCron')->name('users.subscribe.send-email');
 
-
-
 /** Authentication Routes **/
-
-
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-
-
-
 Route::get('/verify/{verify_token}', 'Auth\VerificationController@verify')->name('user.verify');
-
-
 
 /*
 
@@ -368,15 +324,9 @@ Route::get('/verify/{verify_token}', 'Auth\VerificationController@verify')->name
 
  */
 
-
-
 // Route::get('admin', 'Backend\PagesController@index')->name('index');
 
-
-
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-
-
 
     // HomePage
 
@@ -388,8 +338,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::get('/dashboard', 'Backend\PagesController@index')->name('index');
 
-
-
     // Admin Login Routes
 
     Route::get('/login', 'Auth\Admin\LoginController@showLoginForm')->name('login');
@@ -398,15 +346,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::post('/logout/submit', 'Auth\Admin\LoginController@logout')->name('logout');
 
-
-
     // Password Email Send
 
     Route::get('/password/reset', 'Auth\Admin\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 
     Route::post('/password/resetPost', 'Auth\Admin\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-
-
 
     // Password Reset
 
@@ -414,13 +358,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::post('/password/reset', 'Auth\Admin\ResetPasswordController@reset')->name('password.reset.post');
 
-
-
     Route::get('/change-password', 'Backend\PagesController@changePasswordForm')->name('password.changeForm');
 
     Route::post('/change-password', 'Backend\PagesController@changePassword')->name('password.change');
-
-
 
     /**
 
@@ -443,8 +383,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::post('/active/{id}', 'Backend\JobsController@active')->name('job.active')->middleware('role:super-admin');
 
     });
-
-
 
     /**
 
@@ -470,8 +408,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::get('/delete/{id}', 'Backend\AdminController@destroy')->name('account.delete')->middleware('role:super-admin');
 
-
-
     /**
 
      * Category Routes
@@ -493,8 +429,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::post('/active/{id}', 'Backend\CategoryController@active')->name('category.active')->middleware('role:super-admin,admin');
 
     });
-
-
 
     /**
 
@@ -518,8 +452,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     });
 
-
-
     /**
 
      * Discipline Routes
@@ -541,8 +473,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::post('/active/{id}', 'Backend\DisciplinesController@active')->name('discipline.active')->middleware('role:super-admin,admin');
 
     });
-
-
 
     /**
 
@@ -566,8 +496,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     });
 
-
-
     /**
 
      * Sector Routes
@@ -589,8 +517,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::post('/active/{id}', 'Backend\SectorsController@active')->name('sector.active')->middleware('role:super-admin,admin');
 
     });
-
-
 
     /**
 
@@ -614,8 +540,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     });
 
-
-
     /**
 
      * User Routes
@@ -631,8 +555,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::post('/bann/{id}', 'Backend\UsersController@ban')->name('users.change_status')->middleware('role:super-admin');
 
     });
-
-
 
     /**
 
@@ -656,8 +578,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     });
 
-
-
     //Route::get('/','QuestionController@index');
 
     Route::post('question/{id}', 'Backend\QuestionController@update')->name('que.update')->middleware('role:super-admin,admin,editor');
@@ -672,8 +592,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::resource('question', 'Backend\QuestionController')->middleware('role:super-admin,admin,editor');
 
-
-
     Route::post('aptitude/{id}', 'Backend\AptitudeController@update')->name('aptitude.update')->middleware('role:super-admin,admin,editor');
 
     Route::get('delete_aptitude/{question_id}', 'Backend\AptitudeController@delete_aptitude')->middleware('role:super-admin,admin,editor');
@@ -683,8 +601,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/aptitude/file_browser', "Backend\AptitudeController@fileBrowser")->middleware('role:super-admin,admin,editor');
 
     Route::resource('aptitude', 'Backend\AptitudeController')->middleware('role:super-admin,admin,editor');
-
-
 
     /**
 
@@ -707,8 +623,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::post('/update/{id}', 'Backend\PersonalityController@update')->name('personality.update')->middleware('role:super-admin,admin,editor');
 
         Route::get('/delete/{id}', 'Backend\PersonalityController@destroy')->name('personality.delete')->middleware('role:super-admin,admin,editor');
-
-
 
         // for question
 
@@ -746,31 +660,21 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     });
 
-
-
     // City/Country Manage
 
     Route::resource('cities', 'Backend\CitiesController')->middleware('role:super-admin,admin');
-
-
 
     // State Manage
 
     Route::resource('states', 'Backend\StatesController')->middleware('role:super-admin,admin');
 
-
-
     // Job Crawlers
 
     Route::resource('crawlers', 'Backend\JobCrawlersController')->middleware('role:super-admin,admin');
 
-
-
     // Crawler Sites
 
     Route::resource('crawler_sites', 'Backend\CrawlerSitesController')->middleware('role:super-admin,admin');
-
-
 
     // Assign Url to Site
 
@@ -782,13 +686,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::delete('assign-site/{id}', 'Backend\JobCrawlersController@asignSiteDelete')->name('sites.assign.delete')->middleware('role:super-admin');
 
-
-
     Route::get('extract-links', 'Backend\JobCrawlersController@extractLinks')->name('crawl.extractLinks')->middleware('role:super-admin');
 
     Route::post('extract-links', 'Backend\JobCrawlersController@extractLinksStore')->name('crawl.extractLinks.store')->middleware('role:super-admin');
-
-
 
     Route::group(['prefix' => 'settings'], function () {
 

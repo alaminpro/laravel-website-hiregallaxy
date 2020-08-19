@@ -54,7 +54,7 @@
 							</span>
 								Message
 						</a>
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdownAccountButton"><img src="../../../public/images/header.jpg" class="account-img"> {{ 'Account' }}</a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdownAccountButton"><img src="../../../images/header.jpg" class="account-img"> {{ 'Account' }}</a>
 						<div class="dropdown-menu dropdown-menu-account" aria-labelledby="dropdownAccountButton">
 							<a class="dropdown-item dropdown-account-item" href="{{ route('users.dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a>
 							<a class="dropdown-item dropdown-account-item" target="_blank" href="{{ Auth::user()->is_company ? route('employers.show', Auth::user()->username) : route('candidates.show', Auth::user()->username) }}"><i class="fa fa-user"></i> Profile</a>

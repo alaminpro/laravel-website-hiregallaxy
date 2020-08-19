@@ -1,55 +1,31 @@
 <?php
 
-
-
 namespace App\Http\Controllers\Frontend;
 
-
-
+use App\Helpers\General\CollectionHelper;
 use App\Helpers\ImageUploadHelper;
-
 use App\Http\Controllers\Controller;
-
 use App\Models\CandidateProfile;
-
 use App\Models\Category;
-
 use App\Models\CompanyProfile;
-
 use App\Models\Country;
-
-use App\Models\Job;
-
-use App\Models\JobActivity;
-
-use App\Models\Result;
-
-use App\Models\UserQualification;
-
-use App\Models\PersonalityResult;
-
-use App\Models\Personality;
-
 use App\Models\Experience;
-
+use App\Models\Job;
+use App\Models\JobActivity;
+use App\Models\Personality;
+use App\Models\PersonalityResult;
+use App\Models\Result;
+use App\Models\UserQualification;
 use App\User;
-
 use Auth;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\DB;
-
 use Illuminate\Support\Facades\File;
 
-use App\Helpers\General\CollectionHelper;
-
 class EmployersController extends Controller
-
 {
 
     public function index(Request $request)
-
     {
 
         $paginateNumber = 20;
@@ -66,24 +42,17 @@ class EmployersController extends Controller
 
         }
 
-
-
         $users = User::where('status', 1)->where('is_company', 1)->paginate($paginateNumber);
 
         $total_user = count($users);
 
         $pageNoText = $paginateNumber * $pageNo . ' to ' . ($pageNo * $paginateNumber + $total_user);
 
-
-
         return view('frontend.pages.employers.index', compact('users', 'pageNoText'));
 
     }
 
-
-
     public function show($username)
-
     {
 
         $user = User::where('username', $username)->first();
@@ -114,19 +83,12 @@ class EmployersController extends Controller
 
     }
 
-
-
     public function search(Request $request)
-
     {
 
         $search = $country = $country_id = $category_id = null;
 
-
-
         $categories = Category::orderBy('name', 'asc')->where('status', 1)->get();
-
-
 
         $paginateNumber = 20;
 
@@ -141,8 +103,6 @@ class EmployersController extends Controller
             $pageNo = 0;
 
         }
-
-
 
         $pdo = DB::connection()->getPdo();
 
@@ -160,8 +120,6 @@ class EmployersController extends Controller
 
         ';
 
-
-
         if ($request->search && $request->search != '') {
 
             //$sql .= " and users.name like '%$request->search%' or users.about like '%$request->search%' or jobs.title like '%$request->search%'";
@@ -169,8 +127,6 @@ class EmployersController extends Controller
             $sql .= " and users.name like '%$request->search%' ";
 
         }
-
-
 
         if ($request->country && $request->country != 'all') {
 
@@ -182,8 +138,6 @@ class EmployersController extends Controller
 
         }
 
-
-
         if ($request->category != null && $request->category != 'all') {
 
             $category = $request->category;
@@ -194,8 +148,6 @@ class EmployersController extends Controller
 
         }
 
-
-
         $team = null;
 
         if ($request->team != null && $request->team != '') {
@@ -204,34 +156,23 @@ class EmployersController extends Controller
 
         }
 
-
-
         $stmt = $pdo->prepare($sql);
 
         $stmt->execute();
 
         $user_ids = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-
-
         $users = User::whereIn('id', $user_ids)->paginate($paginateNumber);
-
-
 
         $total_users = count($users);
 
         $pageNoText = $paginateNumber * $pageNo . ' to ' . ($pageNo * $paginateNumber + $total_users);
 
-
-
         return view('frontend.pages.employers.index', compact('users', 'categories', 'pageNoText', 'search', 'country', 'category'));
 
     }
 
-
-
     public function updateAbout(Request $request, $user_id)
-
     {
 
         if (!Auth::check() && Auth::id() != $user_id) {
@@ -242,15 +183,11 @@ class EmployersController extends Controller
 
         }
 
-
-
         $this->validate($request, [
 
             'about' => 'required',
 
         ]);
-
-
 
         $user = User::find($user_id);
 
@@ -264,10 +201,7 @@ class EmployersController extends Controller
 
     }
 
-
-
     public function applicantUpdate(Request $request, $id)
-
     {
         //session()->flash('success', $user_id);
 
@@ -289,37 +223,37 @@ class EmployersController extends Controller
 
         $user = Auth::user();
 
-        if($request->status == 'Hired') {
+        if ($request->status == 'Hired') {
             $timezone = date_default_timezone_get();
             date_default_timezone_set($timezone);
-            $date = date('Y-m-d H:i:s', time()); 
-            DB::table('job_activities')->where('id',$id)->update(array('status' => $request->status, 'hired_at' => $date));            
+            $date = date('Y-m-d H:i:s', time());
+            DB::table('job_activities')->where('id', $id)->update(array('status' => $request->status, 'hired_at' => $date));
             session()->flash('success', 'Applicant status has been updated !!');
-        }   elseif ($request->status == 'Rejected') {
+        } elseif ($request->status == 'Rejected') {
             $timezone = date_default_timezone_get();
             date_default_timezone_set($timezone);
-            $date = date('Y-m-d H:i:s', time()); 
-            DB::table('job_activities')->where('id',$id)->update(array('status' => $request->status, 'rejected_at' => $date));            
+            $date = date('Y-m-d H:i:s', time());
+            DB::table('job_activities')->where('id', $id)->update(array('status' => $request->status, 'rejected_at' => $date));
             session()->flash('success', 'Applicant status has been updated !!');
-        }   elseif ($request->status == 'Shortlisted') {
+        } elseif ($request->status == 'Shortlisted') {
             $timezone = date_default_timezone_get();
             date_default_timezone_set($timezone);
-            $date = date('Y-m-d H:i:s', time()); 
-            DB::table('job_activities')->where('id',$id)->update(array('status' => $request->status, 'shortlisted_at' => $date));
+            $date = date('Y-m-d H:i:s', time());
+            DB::table('job_activities')->where('id', $id)->update(array('status' => $request->status, 'shortlisted_at' => $date));
             session()->flash('success', 'Applicant status has been updated !!');
-        }   elseif ($request->status == 'Interview') {
+        } elseif ($request->status == 'Interview') {
             $timezone = date_default_timezone_get();
             date_default_timezone_set($timezone);
-            $date = date('Y-m-d H:i:s', time()); 
-            DB::table('job_activities')->where('id',$id)->update(array('status' => $request->status, 'interview_at' => $date));
+            $date = date('Y-m-d H:i:s', time());
+            DB::table('job_activities')->where('id', $id)->update(array('status' => $request->status, 'interview_at' => $date));
             session()->flash('success', 'Applicant status has been updated !!');
-        }   elseif ($request->status == 'Offered') {
+        } elseif ($request->status == 'Offered') {
             $timezone = date_default_timezone_get();
             date_default_timezone_set($timezone);
-            $date = date('Y-m-d H:i:s', time()); 
-            DB::table('job_activities')->where('id',$id)->update(array('status' => $request->status, 'offered_at' => $date));
+            $date = date('Y-m-d H:i:s', time());
+            DB::table('job_activities')->where('id', $id)->update(array('status' => $request->status, 'offered_at' => $date));
             session()->flash('success', 'Applicant status has been updated !!');
-        }   else { 
+        } else {
             session()->flash('success', 'Applicant status has been updated !!');
         }
 
@@ -332,9 +266,7 @@ class EmployersController extends Controller
 
     }
 
-
     public function updateProfile(Request $request, $user_id)
-
     {
 
         if (!Auth::check() && Auth::id() != $user_id) {
@@ -344,8 +276,6 @@ class EmployersController extends Controller
             return back();
 
         }
-
-
 
         $this->validate($request, [
 
@@ -367,8 +297,6 @@ class EmployersController extends Controller
 
         ]);
 
-
-
         $user = User::find($user_id);
 
         $user->name = $request->name;
@@ -385,17 +313,13 @@ class EmployersController extends Controller
 
         $user->phone_no = $request->phone_no;
 
-
-
         if ($request->profile_picture) {
 
-            $user->profile_picture = ImageUploadHelper::update('profile_picture', $request->file('profile_picture'), 'pr-' . time(), 'public/images/users', 'public/images/users/' . $user->profile_picture);
+            $user->profile_picture = ImageUploadHelper::update('profile_picture', $request->file('profile_picture'), 'pr-' . time(), 'images/users', 'images/users/' . $user->profile_picture);
 
         }
 
         $user->save();
-
-
 
         $user->company->update([
 
@@ -409,21 +333,15 @@ class EmployersController extends Controller
 
         ]);
 
-
-
         // If not empty sectors[] then add this to user_sectors table
 
         if (count($request->sectors) != 0) {
-
-
 
             // Delete all existings
 
             $user_id = $user->id;
 
             DB::table('user_sectors')->where('user_id', $user_id)->delete();
-
-
 
             foreach ($request->sectors as $sector) {
 
@@ -441,18 +359,13 @@ class EmployersController extends Controller
 
         }
 
-
-
         session()->flash('success', 'Your profile information has been updated !!');
 
         return back();
 
     }
 
-
-
     public function dashboard()
-
     {
 
         if (!Auth::check()) {
@@ -471,9 +384,7 @@ class EmployersController extends Controller
 
     }
 
-
     public function applicants()
-
     {
 
         if (!Auth::check()) {
@@ -488,14 +399,13 @@ class EmployersController extends Controller
 
         $user_id = $user->id;
 
-        $applicant = DB::table('applicants')->where('company_id',$user_id)->get();
+        $applicant = DB::table('applicants')->where('company_id', $user_id)->get();
 
         return view('frontend.pages.employers.applicants', compact('user', 'applicant'));
 
     }
 
     public function applicantEdit($id)
-
     {
 
         //session()->flash('error', $id);
@@ -512,15 +422,13 @@ class EmployersController extends Controller
 
         $user_id = $user->id;
 
-        $applicant = DB::table('job_activities')->where('id',$id)->get();
+        $applicant = DB::table('job_activities')->where('id', $id)->get();
 
         //$candi = $applicant->user_id;
 
         return view('frontend.pages.employers.edit', compact('user', 'applicant'));
 
     }
-
-
 
     // public function favoriteJobs()
 
@@ -548,8 +456,6 @@ class EmployersController extends Controller
 
     //             where users.id = $user_id";
 
-
-
     //     $stmt = $pdo->prepare($sql);
 
     //     $stmt->execute();
@@ -558,21 +464,12 @@ class EmployersController extends Controller
 
     //     $jobs = Job::whereIn('id', $job_ids)->paginate(20);
 
-
-
     //     return view('frontend.pages.employers.favorite-jobs', compact('user', 'jobs'));
 
     // }
 
-
-
-    
-
     public function searchCadidates(Request $request)
-
-    { 
-
-         
+    {
 
         if (!Auth::check()) {
 
@@ -586,219 +483,206 @@ class EmployersController extends Controller
 
         $results = [];
 
-        $find = false; 
+        $find = false;
 
-        if($request->keyword || $request->experience || $request->country){
+        if ($request->keyword || $request->experience || $request->country) {
 
-            $keywords = explode(',', $request->keyword);  
+            $keywords = explode(',', $request->keyword);
 
-            $experience = $request->experience;  
+            $experience = $request->experience;
 
-            $country = $request->country;  
+            $country = $request->country;
 
-            $terms= array_map('trim', $keywords);
+            $terms = array_map('trim', $keywords);
 
-            $find = true;   
+            $find = true;
 
+            $users = User::with('categories', 'skills', 'location')->where('status', 1)->where('is_company', 0);
 
+            foreach ($keywords as $keyword) {
 
-            $users =  User::with('categories','skills','location')->where('status', 1)->where('is_company',0); 
+                $users->where(function ($query) use ($terms) {
 
-            
+                    foreach ($terms as $term) {
 
-            foreach($keywords  as $keyword){        
+                        $query->where('name', 'LIKE', '%' . $term . '%');
 
-                $users->where(function($query) use ($terms){
+                        $query->orWhere('username', 'LIKE', '%' . $term . '%');
 
-                    foreach($terms as $term){
+                        $query->orWhere('email', 'LIKE', '%' . $term . '%');
 
-                        $query->where('name', 'LIKE', '%'.$term.'%');
+                        $query->orWhere('about', 'LIKE', '%' . $term . '%');
 
-                        $query->orWhere('username', 'LIKE', '%'.$term.'%');
+                        $query->orWhere('website', 'LIKE', '%' . $term . '%');
 
-                        $query->orWhere('email', 'LIKE', '%'.$term.'%');
+                        $query->orWhere('phone_no', 'LIKE', '%' . $term . '%');
 
-                        $query->orWhere('about', 'LIKE', '%'.$term.'%');
+                        $query->orWhereHas('candidate', function ($query) use ($term) {
 
-                        $query->orWhere('website', 'LIKE', '%'.$term.'%');
+                            $query->where('gender', 'LIKE', "%$term%");
 
-                        $query->orWhere('phone_no', 'LIKE', '%'.$term.'%'); 
+                            $query->orWhere('date_of_birth', 'LIKE', "%$term%");
 
-                        $query->orWhereHas('candidate', function ($query) use ($term) { 
+                            $query->orWhere('sector', 'LIKE', "%$term%");
 
-                            $query->where('gender', 'LIKE', "%$term%"); 
+                            $query->orWhere('career_level_id', 'LIKE', "%$term%");
 
-                            $query->orWhere('date_of_birth', 'LIKE', "%$term%"); 
+                            $query->orWhere('date_of_birth', 'LIKE', "%$term%");
 
-                            $query->orWhere('sector', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('career_level_id', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('date_of_birth', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('date_of_birth', 'LIKE', "%$term%"); 
+                            $query->orWhere('date_of_birth', 'LIKE', "%$term%");
 
                         });
 
-                        $query->orWhereHas('candidate.experience', function ($query) use ($term) { 
+                        $query->orWhereHas('candidate.experience', function ($query) use ($term) {
 
-                            $query->where('name', 'LIKE', "%$term%"); 
-
-                        });
-
-                        $query->orWhereHas('location', function ($query) use ($term) { 
-
-                            $query->where('street_address', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('zip', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('city', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('state', 'LIKE', "%$term%"); 
+                            $query->where('name', 'LIKE', "%$term%");
 
                         });
 
-                        $query->orWhereHas('location.country', function ($query) use ($term) { 
+                        $query->orWhereHas('location', function ($query) use ($term) {
 
-                            $query->where('name', 'LIKE', "%$term%"); 
+                            $query->where('street_address', 'LIKE', "%$term%");
 
-                        });
+                            $query->orWhere('zip', 'LIKE', "%$term%");
 
-                        $query->orWhereHas('new_categories', function ($query) use ($term) { 
+                            $query->orWhere('city', 'LIKE', "%$term%");
 
-                            $query->where('name', 'LIKE', "%$term%"); 
-
-                        });
-
-                        $query->orWhereHas('new_sectors', function ($query) use ($term) { 
-
-                            $query->where('name', 'LIKE', "%$term%"); 
+                            $query->orWhere('state', 'LIKE', "%$term%");
 
                         });
 
-                        $query->orWhereHas('new_skills', function ($query) use ($term) { 
+                        $query->orWhereHas('location.country', function ($query) use ($term) {
 
-                            $query->where('name', 'LIKE', "%$term%"); 
-
-                        });
-
-                        $query->orWhereHas('qualifications', function ($query) use ($term) { 
-
-                            $query->where('certificate_degree_name', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('major_subject', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('start_date', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('end_date', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('institute_university_name', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('percentage', 'LIKE', "%$term%"); 
+                            $query->where('name', 'LIKE', "%$term%");
 
                         });
 
-                        $query->orWhereHas('experiences', function ($query) use ($term) { 
+                        $query->orWhereHas('new_categories', function ($query) use ($term) {
 
-                            $query->where('is_current_job', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('job_title', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('company_name', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('job_location_city', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('job_location_state', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('job_location_country', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('description', 'LIKE', "%$term%"); 
+                            $query->where('name', 'LIKE', "%$term%");
 
                         });
 
-                        $query->orWhereHas('jobApplications', function ($query) use ($term) { 
+                        $query->orWhereHas('new_sectors', function ($query) use ($term) {
 
-                            $query->where('expected_salary', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('salary_currency', 'LIKE', "%$term%"); 
-
-                            $query->orWhere('cover_letter', 'LIKE', "%$term%");  
+                            $query->where('name', 'LIKE', "%$term%");
 
                         });
 
-                        $query->orWhereHas('jobs', function ($query) use ($term) { 
+                        $query->orWhereHas('new_skills', function ($query) use ($term) {
 
-                            $query->where('title', 'LIKE', "%$term%");  
+                            $query->where('name', 'LIKE', "%$term%");
+
+                        });
+
+                        $query->orWhereHas('qualifications', function ($query) use ($term) {
+
+                            $query->where('certificate_degree_name', 'LIKE', "%$term%");
+
+                            $query->orWhere('major_subject', 'LIKE', "%$term%");
+
+                            $query->orWhere('start_date', 'LIKE', "%$term%");
+
+                            $query->orWhere('end_date', 'LIKE', "%$term%");
+
+                            $query->orWhere('institute_university_name', 'LIKE', "%$term%");
+
+                            $query->orWhere('percentage', 'LIKE', "%$term%");
+
+                        });
+
+                        $query->orWhereHas('experiences', function ($query) use ($term) {
+
+                            $query->where('is_current_job', 'LIKE', "%$term%");
+
+                            $query->orWhere('job_title', 'LIKE', "%$term%");
+
+                            $query->orWhere('company_name', 'LIKE', "%$term%");
+
+                            $query->orWhere('job_location_city', 'LIKE', "%$term%");
+
+                            $query->orWhere('job_location_state', 'LIKE', "%$term%");
+
+                            $query->orWhere('job_location_country', 'LIKE', "%$term%");
+
+                            $query->orWhere('description', 'LIKE', "%$term%");
+
+                        });
+
+                        $query->orWhereHas('jobApplications', function ($query) use ($term) {
+
+                            $query->where('expected_salary', 'LIKE', "%$term%");
+
+                            $query->orWhere('salary_currency', 'LIKE', "%$term%");
+
+                            $query->orWhere('cover_letter', 'LIKE', "%$term%");
+
+                        });
+
+                        $query->orWhereHas('jobs', function ($query) use ($term) {
+
+                            $query->where('title', 'LIKE', "%$term%");
 
                         });
 
                     }
 
-                }); 
-
-            } 
-
-            if($country != 'all'){
-
-                $users->whereHas('location.country', function ($query) use ($country) {
-
-                    $query->where('name','LIKE', "%$country%");
-
-                });  
-
-            } 
-
-
-
-           
-
-            if($experience != 'all'){ 
-
-                    $users = $users->get();
-
-                    $min =  explode('-',explode(' ', $experience)[0])[0]; 
-
-                    $max =  explode('-',explode(' ', $experience)[0])[1];  
-
-                    $new_user = []; 
-
-                    foreach($users as $user){
-
-                        if(($min <= $user->getExperienceInYears()) && ($user->getExperienceInYears() <= $max)){
-
-                            $new_user[] = $user;
-
-                        } 
-
-                     
-
-                    } 
-
-                    $collection = collect($new_user);
-
-                    $total = $collection->count();
-
-                    $pageSize = 10;
-
-                    $results[] = CollectionHelper::paginate($collection, $total, $pageSize); 
-
-            } else{
-
-                $results[] =   $users->paginate(10); 
+                });
 
             }
 
-       
+            if ($country != 'all') {
 
-        }  
+                $users->whereHas('location.country', function ($query) use ($country) {
 
-        return view('frontend.pages.employers.search-candidates', compact('user','results', 'find'));
+                    $query->where('name', 'LIKE', "%$country%");
+
+                });
+
+            }
+
+            if ($experience != 'all') {
+
+                $users = $users->get();
+
+                $min = explode('-', explode(' ', $experience)[0])[0];
+
+                $max = explode('-', explode(' ', $experience)[0])[1];
+
+                $new_user = [];
+
+                foreach ($users as $user) {
+
+                    if (($min <= $user->getExperienceInYears()) && ($user->getExperienceInYears() <= $max)) {
+
+                        $new_user[] = $user;
+
+                    }
+
+                }
+
+                $collection = collect($new_user);
+
+                $total = $collection->count();
+
+                $pageSize = 10;
+
+                $results[] = CollectionHelper::paginate($collection, $total, $pageSize);
+
+            } else {
+
+                $results[] = $users->paginate(10);
+
+            }
+
+        }
+
+        return view('frontend.pages.employers.search-candidates', compact('user', 'results', 'find'));
 
     }
 
-
-
-    public function applicantList($status, $slug)   {
+    public function applicantList($status, $slug)
+    {
 
         if (!Auth::check()) {
 
@@ -814,16 +698,13 @@ class EmployersController extends Controller
 
         $job = Job::where('slug', $slug)->first();
 
-        $applicant = JobActivity::where('status',$status)->where('company_id',$user_id)->where('job_id', $job->id)->get();
+        $applicant = JobActivity::where('status', $status)->where('company_id', $user_id)->where('job_id', $job->id)->get();
 
         return view('frontend.pages.employers.listed', compact('user', 'applicant', 'status', 'slug'));
 
-    }    
-
-
+    }
 
     public function postedJobs()
-
     {
 
         if (!Auth::check()) {
@@ -838,25 +719,23 @@ class EmployersController extends Controller
 
         $user_id = $user->id;
 
-
-
         $_filter = request()->filter ?? null;
 
         $jobs = Job::where('user_id', $user_id)
 
-                    ->when($_filter == 'active', function($query) use($_filter){
+            ->when($_filter == 'active', function ($query) use ($_filter) {
 
-                        return $query->where('archived', 0);
+                return $query->where('archived', 0);
 
-                    })
+            })
 
-                    ->when($_filter == 'inactive', function($query) use($_filter){
+            ->when($_filter == 'inactive', function ($query) use ($_filter) {
 
-                        return $query->where('archived', 1);
+                return $query->where('archived', 1);
 
-                    })
+            })
 
-                    ->paginate(40);
+            ->paginate(40);
 
         $user_jobs = $user->jobs;
 
@@ -866,13 +745,12 @@ class EmployersController extends Controller
 
         $user_inactive_jobs_count = $user_jobs->where('archived', 1)->count();
 
-
-
         return view('frontend.pages.employers.posted-jobs', compact('user', 'jobs', 'user_jobs_count', 'user_active_jobs_count', 'user_inactive_jobs_count'));
 
     }
 
-    public function listedJobs($status) {
+    public function listedJobs($status)
+    {
 
         if (!Auth::check()) {
 
@@ -886,33 +764,33 @@ class EmployersController extends Controller
 
         $user_id = $user->id;
 
-        if($status == 'Live')   {
+        if ($status == 'Live') {
 
             $timezone = date_default_timezone_get();
 
             $date = date('Y/m/d H:i:s');
 
-            $jobs = \App\Models\Job::where('user_id',$user->id)->where( 'deadline', '>', $date)->get();
+            $jobs = \App\Models\Job::where('user_id', $user->id)->where('deadline', '>', $date)->get();
 
-        } elseif($status == 'In-progress')  {
-
-            $timezone = date_default_timezone_get();
-
-            $date = date('Y/m/d H:i:s');
-
-            $jobs = \App\Models\Job::where('user_id',$user->id)->where( 'deadline', '<', $date)->where('archived',0)->get();
-
-        } elseif($status == 'Archived') {
+        } elseif ($status == 'In-progress') {
 
             $timezone = date_default_timezone_get();
 
             $date = date('Y/m/d H:i:s');
 
-            $jobs = \App\Models\Job::where('user_id',$user->id)->where('archived',1)->get();
+            $jobs = \App\Models\Job::where('user_id', $user->id)->where('deadline', '<', $date)->where('archived', 0)->get();
 
-        } else{
+        } elseif ($status == 'Archived') {
 
-            $jobs = \App\Models\Job::where('user_id',$user->id)->get();
+            $timezone = date_default_timezone_get();
+
+            $date = date('Y/m/d H:i:s');
+
+            $jobs = \App\Models\Job::where('user_id', $user->id)->where('archived', 1)->get();
+
+        } else {
+
+            $jobs = \App\Models\Job::where('user_id', $user->id)->get();
 
         }
 
@@ -920,10 +798,7 @@ class EmployersController extends Controller
 
     }
 
-
-
     public function messages()
-
     {
 
         if (!Auth::check()) {
@@ -942,21 +817,14 @@ class EmployersController extends Controller
 
         $sent_messages = $user->sent_messages()->paginate(20);
 
-
-
         $user->received_messages()->update(['is_seen' => 1]);
 
         return view('frontend.pages.employers.messages', compact('user', 'received_messages', 'sent_messages'));
 
     }
 
-
-
     public function jobApplications($slug)
-
     {
-
-    
 
         if (!Auth::check()) {
 
@@ -970,7 +838,7 @@ class EmployersController extends Controller
 
         $user_id = $user->id;
 
-        $applicant = DB::table('job_activities')->where('user_id',$user_id)->get();
+        $applicant = DB::table('job_activities')->where('user_id', $user_id)->get();
 
         $job = Job::where('slug', $slug)->first();
 
@@ -978,13 +846,9 @@ class EmployersController extends Controller
 
         $expreience_data = Experience::all();
 
-
-
         $filter = [];
 
         $query = JobActivity::query();
-
-
 
         if (isset(request()->date_from) && isset(request()->date_to)) {
 
@@ -998,8 +862,6 @@ class EmployersController extends Controller
 
         }
 
-
-
         if (isset(request()->salary_from) && isset(request()->salary_to)) {
 
             $query->where('expected_salary', '>=', request()->salary_from);
@@ -1012,24 +874,17 @@ class EmployersController extends Controller
 
         }
 
-
         //$applications = $query->where('job_id', $job->id)->get();
 
-
-
-        $applications = JobActivity::where('job_id', $job->id)->get(); 
+        $applications = JobActivity::where('job_id', $job->id)->get();
 
         $experiences = [];
 
         $education = [];
 
-
-
         $application_data = [];
 
         foreach ($applications as $application) {
-
-
 
             // Filter
 
@@ -1037,53 +892,35 @@ class EmployersController extends Controller
 
                 $exp_data = CandidateProfile::with('experience')->where('experience_id', request()->exp)->where('user_id', $application->user_id)->first();
 
-
-
                 if ($exp_data) {
 
                     $experiences[] = $exp_data;
 
                     $education[] = UserQualification::where('user_id', $application->user_id)->first();
 
-
-
                     $application_data[] = $application;
-
-
 
                     $filter['exp'] = request()->exp;
 
                 }
 
-                
-
-            }else{
+            } else {
 
                 $experiences[] = CandidateProfile::with('experience')->where('user_id', $application->user_id)->first();
 
                 $education[] = UserQualification::where('user_id', $application->user_id)->first();
 
-
-
                 $application_data[] = $application;
 
             }
 
-           
-
-            
-
-        } 
+        }
 
         $education = $education ? $education[0] : [];
 
         $experience = $experiences ? $experiences[0] : [];
 
-
-
         // return $applications;
-
-
 
         $applications = $application_data;
 
@@ -1095,34 +932,29 @@ class EmployersController extends Controller
 
             $export = new \App\Exports\JobApplicationExport($job, $applications);
 
-
-
-            return \Excel::download($export, $job->slug. '_' . time() .'.xlsx');
+            return \Excel::download($export, $job->slug . '_' . time() . '.xlsx');
 
         }
 
         // Delete applicant
 
-        if(request()->has('delete')) {
+        if (request()->has('delete')) {
             DB::table('job_activities')->where('id', $applicant->id)->delete();
             session()->flash('success', 'Applicant deleted successfully !!');
         }
 
-
-        return view('frontend.pages.employers.job-applications', compact('user', 'applicant', 'job', 'applications','experience', 'education', 'filter', 'expreience_data'));
-
-
+        return view('frontend.pages.employers.job-applications', compact('user', 'applicant', 'job', 'applications', 'experience', 'education', 'filter', 'expreience_data'));
 
     }
-
 
 /*
 =====================================================================================================================================
 Dashboard icons
 =====================================================================================================================================
-*/
+ */
 
-public function candidatesDisplay($status) {
+    public function candidatesDisplay($status)
+    {
 
         if (!Auth::check()) {
 
@@ -1140,7 +972,7 @@ public function candidatesDisplay($status) {
 
         $slug = $job->slug;
 
-        $applicant = JobActivity::where('status',$status)->where('company_id',$user_id)->get();
+        $applicant = JobActivity::where('status', $status)->where('company_id', $user_id)->get();
 
         return view('frontend.pages.employers.candidate', compact('user', 'applicant', 'status', 'slug'));
 
@@ -1148,11 +980,10 @@ public function candidatesDisplay($status) {
 
 /* =====================================================================================================================*/
 
-public function totalApplications()
-
+    public function totalApplications()
     {
 
-    	//session()->flash('success', 'We are here!!');
+        //session()->flash('success', 'We are here!!');
 
         if (!Auth::check()) {
 
@@ -1165,8 +996,8 @@ public function totalApplications()
         $user = Auth::user();
 
         $company_id = $user->id;
-        
-        $applicant = JobActivity::where('company_id',$company_id)->get();
+
+        $applicant = JobActivity::where('company_id', $company_id)->get();
 
         return view('frontend.pages.employers.total', compact('user', 'applicant'));
 
@@ -1176,9 +1007,7 @@ public function totalApplications()
 ==========================================================================================================================================
 end
 ==========================================================================================================================================
-*/
-
-
+ */
 
     /**
 
@@ -1193,10 +1022,9 @@ end
      */
 
     public function deleteJob($slug)
+    {
 
-    { 
-
-      $job = Job::where('slug', $slug)->first();
+        $job = Job::where('slug', $slug)->first();
 
         if (!is_null($job)) {
 
@@ -1208,15 +1036,11 @@ end
 
             }
 
-
-
             // Delete All job activities
 
             $jobActivities = JobActivity::where('job_id', $job->id)->get();
 
             foreach ($jobActivities as $activity) {
-
-
 
                 // Get User and check if the CV is not the user default CV,
 
@@ -1248,8 +1072,6 @@ end
 
             }
 
-
-
             $job->delete();
 
             session()->flash('success', 'Job has been deleted !!');
@@ -1265,7 +1087,6 @@ end
     }
 
     public function Personality($id)
-
     {
 
         if (!Auth::check()) {
@@ -1278,27 +1099,21 @@ end
 
         $user = User::where('id', $id)->first();
 
-        if($user){
+        if ($user) {
 
-            $personality_result = PersonalityResult::where('user_id', $user->id)->select('id','personality_result')->first();
-
-      
+            $personality_result = PersonalityResult::where('user_id', $user->id)->select('id', 'personality_result')->first();
 
             $personality = Personality::where('title', '=', $personality_result['personality_result'])
 
-                             ->select('id','title','sub_title','description','strengths','weaknesses')->first(); 
+                ->select('id', 'title', 'sub_title', 'description', 'strengths', 'weaknesses')->first();
 
-            return view('frontend.pages.employers.personality', compact('personality','user'));
+            return view('frontend.pages.employers.personality', compact('personality', 'user'));
 
-        }
-
-        else{
+        } else {
 
             return redirect()->back();
 
         }
-
-    
 
     }
 
