@@ -91,29 +91,40 @@ Route::group(['prefix' => 'employers', 'middleware' => ['checkTeam']], function 
     Route::get('/messages', 'Frontend\EmployersController@messages')->name('employers.messages');
 
     Route::group(['prefix' => 'teams'], function () {
-
         Route::get('', 'Frontend\TeamController@index')->name('teams');
         Route::get('/create', 'Frontend\TeamController@create')->name('team.create');
         Route::post('/store', 'Frontend\TeamController@store')->name('team.store');
         Route::get('/delete/{id}', 'Frontend\TeamController@destroy')->name('team.delete');
-
+    });
+    Route::group(['prefix' => 'companies'], function () {
+        Route::get('', 'Frontend\CompanyController@index')->name('companies');
+        Route::get('/create', 'Frontend\CompanyController@create')->name('company.create');
+        Route::post('/store', 'Frontend\CompanyController@store')->name('company.store');
+        Route::get('/show/{id}', 'Frontend\CompanyController@show')->name('company.show');
+        Route::get('/edit/{id}', 'Frontend\CompanyController@edit')->name('company.edit');
+        Route::post('/update/{id}', 'Frontend\CompanyController@update')->name('company.update');
+        Route::get('/delete/{id}', 'Frontend\CompanyController@destroy')->name('company.delete');
     });
 
 });
 
 Route::group(['prefix' => 'team'], function () {
-    Route::get('/messages', 'Frontend\EmployersController@messages')->name('employers.messages');
-    Route::get('/dashboard/{id?}', 'Frontend\TeamController@dashboard')->name('team.dashboard');
+    Route::get('{id?}/dashboard/', 'Frontend\TeamController@dashboard')->name('team.dashboard');
+    Route::get('/view/{username}', 'Frontend\TeamController@showProfile')->name('team.show');
+    Route::post('/profile/update/{id}', 'Frontend\TeamController@updateProfile')->name('team.profile.update');
     // todos routes
-
     Route::get('todos/get', 'Frontend\TodosController@getAll')->name('todos.getAll');
     Route::post('todos/toggle/{id}', 'Frontend\TodosController@toggleTodo')->name('todos.toogle');
     Route::resource('todos', 'Frontend\TodosController');
 
-    Route::get('/search-candidates', 'Frontend\EmployersController@searchCadidates')->name('employers.search.candidates');
-
-    Route::get('/view/{username}', 'Frontend\TeamController@showProfile')->name('team.show');
-    Route::post('/profile/update/{id}', 'Frontend\TeamController@updateProfile')->name('team.profile.update');
+    Route::get('{id}/posted-jobs', 'Frontend\TeamController@postedJobs')->name('team.jobs.posted');
+    Route::get('{id}/applications/{slug}', 'Frontend\TeamController@jobApplications')->name('team.jobs.applications');
+    Route::get('{id}/total', 'Frontend\TeamController@totalApplications')->name('team.total');
+    Route::get('{id}/candidate/{status}', 'Frontend\TeamController@candidatesDisplay')->name('team.candidate');
+    Route::get('/messages', 'Frontend\TeamController@messages')->name('team.messages');
+    Route::get('/search-candidates', 'Frontend\TeamController@searchCadidates')->name('team.search.candidates');
+    Route::get('/companies', 'Frontend\TeamController@Companies')->name('team.companies');
+    Route::get('/company/{id}/show', 'Frontend\TeamController@CompanyShow')->name('team.company.show');
 });
 
 /*** candidates **/

@@ -261,9 +261,9 @@ $_filter = request()->filter ?? '';
 
 								<td>
 									@php
-									$company = App\Models\Company::where('id', $single_job->company_id)->first()
-								@endphp
-								{{ $company ? $company : '---'  }}
+										$company = App\Models\Company::where('id', $single_job->company_id)->first()
+									@endphp
+									{{ $company ? $company : '---'  }}
 								</td>
 
 								<td>
@@ -320,14 +320,16 @@ $_filter = request()->filter ?? '';
 								</td>
 
 								<td>
+									@if (auth()->user()->id == $user->id)
+										<a href="{{ route('jobs.edit', $single_job->slug) }}" class="btn btn-outline-success" title="Edit Job">
 
-									<a href="{{ route('jobs.edit', $single_job->slug) }}" class="btn btn-outline-success" title="Edit Job">
+											<i class="fa fa-edit"></i>
 
-										<i class="fa fa-edit"></i>
+										</a>
+									@endif
+									
 
-									</a>
-
-									<a href="{{ route('employers.jobs.applications', $single_job->slug) }}" class="btn btn-outline-yellow"
+									<a href="{{ route('team.jobs.applications', [ $user->id, $single_job->slug]) }}" class="btn btn-outline-yellow"
 
 										title="View All Applications ({{ count($single_job->activities) }})">
 
@@ -336,23 +338,23 @@ $_filter = request()->filter ?? '';
 										<span class="badge badge-danger">{{ count($single_job->activities) }}</span>
 
 									</a>
+									@if (auth()->user()->id == $user->id)
+										<form method="post" action="{{ route('employers.jobs.delete', $single_job->slug) }}" class="ml-1"
 
-									<form method="post" action="{{ route('employers.jobs.delete', $single_job->slug) }}" class="ml-1"
+											style="display:inline" onsubmit="return confirm('Are you sure to delete the job permanently ?')">
 
-										style="display:inline" onsubmit="return confirm('Are you sure to delete the job permanently ?')">
+											@csrf
 
-										@csrf
+											<button class="btn btn-outline-danger" type="submit" title="Delete Job" style="border-radius: 20px!important;
 
-										<button class="btn btn-outline-danger" type="submit" title="Delete Job" style="border-radius: 20px!important;
+											padding: 4px 20px!important">
 
-										padding: 4px 20px!important">
+												<i class="fa fa-trash"></i>
 
-											<i class="fa fa-trash"></i>
+											</button>
 
-										</button>
-
-									</form>
-
+										</form>
+									@endif
 								</td>
 
 							</tr>

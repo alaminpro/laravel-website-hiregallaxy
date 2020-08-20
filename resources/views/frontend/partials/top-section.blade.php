@@ -246,6 +246,43 @@
 	</div>
 
 </div>
+@elseif(Route::is('team.candidate'))
+
+<div class="home-top">
+
+	<div class="container">
+
+		<div class="row justify-content-center">
+
+			<div class="col-md-12">
+
+
+
+				<h3 class="top-title wow fadeInUp mb-3">
+
+					List of Candidates
+
+				</h3>
+
+				 <div class="navbar-breadcrumb">
+
+					<ol class="breadcrumb">
+
+						<li class="breadcrumb-item"><a href="{{ route('team.dashboard') }}">Dashboard</a></li>
+
+						<li class="breadcrumb-item active" aria-current="page">Candidates</li>
+
+					</ol>
+
+				</div> 
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
 
 @elseif(Route::is('employers.jobs.listed'))
 
@@ -308,6 +345,43 @@
 					<ol class="breadcrumb">
 
 						<li class="breadcrumb-item"><a href="{{ route('employers.dashboard') }}">Home</a></li>
+
+						<li class="breadcrumb-item active" aria-current="page">Total Applications</li>
+
+					</ol>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+@elseif(Route::is('team.total'))
+
+<div class="home-top">
+
+	<div class="container">
+
+		<div class="row justify-content-center">
+
+			<div class="col-md-10">
+
+
+
+				<h3 class="top-title wow fadeInUp mb-3">
+
+					List of All Applicants
+
+				</h3>
+
+				<div class="navbar-breadcrumb">
+
+					<ol class="breadcrumb">
+
+						<li class="breadcrumb-item"><a href="{{ route('team.dashboard') }}">Home</a></li>
 
 						<li class="breadcrumb-item active" aria-current="page">Total Applications</li>
 
@@ -667,6 +741,224 @@
 	</div>
 
 </div>
+@elseif(Route::is('companies')) 
+
+<div class="home-top">
+
+	<div class="container">
+
+		<div class="row justify-content-center">
+
+			<div class="col-md-10">
+
+
+
+				<h3 class="top-title wow fadeInUp mb-3">
+
+				  Companies
+
+				</h3>  
+
+				<div class="navbar-breadcrumb">
+
+					<ol class="breadcrumb">
+
+						<li class="breadcrumb-item"><a href="{{ route('employers.dashboard') }}">Home</a></li>
+
+						<li class="breadcrumb-item active" aria-current="page">companies</li>
+
+					</ol>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+@elseif(Route::is('team.companies')) 
+
+<div class="home-top">
+
+	<div class="container">
+
+		<div class="row justify-content-center">
+
+			<div class="col-md-10">
+
+
+
+				<h3 class="top-title wow fadeInUp mb-3">
+
+				  Companies
+
+				</h3>  
+
+				<div class="navbar-breadcrumb">
+
+					<ol class="breadcrumb">
+
+						<li class="breadcrumb-item"><a href="{{ route('employers.dashboard') }}">Home</a></li>
+
+						<li class="breadcrumb-item active" aria-current="page">companies</li>
+
+					</ol>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+@elseif(Route::is('company.create')) 
+
+<div class="home-top">
+
+	<div class="container">
+
+		<div class="row justify-content-center">
+
+			<div class="col-md-10">
+
+
+
+				<h3 class="top-title wow fadeInUp mb-3">
+Create new company 
+
+				</h3>  
+
+				<div class="navbar-breadcrumb">
+
+					<ol class="breadcrumb">
+
+						<li class="breadcrumb-item"><a href="{{ route('employers.dashboard') }}">Home</a></li>
+
+						<li class="breadcrumb-item active" aria-current="page">create new</li>
+
+					</ol>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+@elseif(Route::is('company.show')) 
+
+<div class="home-top">
+
+	<div class="container">
+
+		<div class="row justify-content-center">
+
+			<div class="col-md-10">
+
+
+
+				<h3 class="top-title wow fadeInUp mb-3">
+Show company  Details
+
+				</h3>  
+
+				<div class="navbar-breadcrumb">
+
+					<ol class="breadcrumb">
+
+						<li class="breadcrumb-item"><a href="{{ route('employers.dashboard') }}">Home</a></li>
+
+						<li class="breadcrumb-item active" aria-current="page">company details</li>
+
+					</ol>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+@elseif(Route::is('team.company.show')) 
+
+<div class="home-top">
+
+	<div class="container">
+
+		<div class="row justify-content-center">
+
+			<div class="col-md-10">
+
+
+
+				<h3 class="top-title wow fadeInUp mb-3">
+Show company  Details
+
+				</h3>  
+
+				<div class="navbar-breadcrumb">
+
+					<ol class="breadcrumb">
+
+						<li class="breadcrumb-item"><a href="{{ route('employers.dashboard') }}">Home</a></li>
+
+						<li class="breadcrumb-item active" aria-current="page">company details</li>
+
+					</ol>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+@elseif(Route::is('company.edit')) 
+
+<div class="home-top">
+
+	<div class="container">
+
+		<div class="row justify-content-center">
+
+			<div class="col-md-10">
+
+
+
+				<h3 class="top-title wow fadeInUp mb-3">
+Edit  company and update details
+
+				</h3>  
+
+				<div class="navbar-breadcrumb">
+
+					<ol class="breadcrumb">
+
+						<li class="breadcrumb-item"><a href="{{ route('employers.dashboard') }}">Home</a></li>
+
+						<li class="breadcrumb-item active" aria-current="page">edit details</li>
+
+					</ol>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
 
 @elseif(Route::is('show-result')) 
 
@@ -707,10 +999,10 @@
 
 
 @elseif(Route::is('employers.dashboard') || Route::is('teams') || Route::is('team.create') || Route::is('team.dashboard') || Route::is('candidates.dashboard') || Route::is('employers.jobs.posted') ||
+ Route::is('team.jobs.posted') ||
+Route::is('employers.search.candidates') || Route::is('team.search.candidates') || Route::is('candidates.jobs.favorite') || Route::is('employers.messages') || Route::is('team.messages') ||
 
-Route::is('employers.search.candidates') || Route::is('candidates.jobs.favorite') || Route::is('employers.messages') ||
-
-Route::is('candidates.messages') || Route::is('employers.jobs.applications') || Route::is('candidates.jobs.applied'))
+Route::is('candidates.messages') || Route::is('employers.jobs.applications') || Route::is('team.jobs.applications') ||Route::is('candidates.jobs.applied'))
 
 <!-- -->
 

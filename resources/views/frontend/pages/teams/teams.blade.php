@@ -40,12 +40,17 @@ Teams | {{ App\Models\Setting::first()->site_title }}
                               <div class="col-sm-6 col-md-6 col-lg-4 mb-2">
                                 <div class="card teams__all">
                                   <div class="card-body">
-                                    <div class="username"> {{ $user->name }}</div>
-                                    <div class="email"> {{ $user->email }}</div>
-                                    <div class="action"> 
-                                      <a href="{{ route('team.dashboard', $user->id) }}" class="btn btn-secondary">Dashboard</a>
-                                      <a href="{{ route('team.delete', $user->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></i></a>
-                                   </div>
+                                      <div class="d-flex">
+                                          <div class="left__side" style="flex:2">
+                                              <div class="username"> {{ $user->name }}</div>
+                                              <div class="email"> {{ $user->email }}</div>
+                                              <div class="action"> 
+                                                <a href="{{ route('team.dashboard', $user->id) }}" class="btn btn-secondary">Dashboard</a>
+                                                <a href="{{ route('team.delete', $user->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></i></a>
+                                              </div>
+                                          </div>
+                                          <img src="{{ App\Helpers\ReturnPathHelper::getUserImage($user->id) }}" style="width: 70px; height: 70px">
+                                      </div>
                                   </div>
                                 </div>
                               </div>

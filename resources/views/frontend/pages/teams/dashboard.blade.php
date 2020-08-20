@@ -39,7 +39,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 								<div class="single-dashboard-link card card-default p-3 text-center"
 
-									onclick="location.href='{{ route('employers.jobs.posted') }}'">
+									onclick="location.href='{{ route('team.jobs.posted', $user->id) }}'">
 
 									<i class="fa fa-bell font30"></i>
 
@@ -58,6 +58,231 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 								</div>
 
 							</div> 
+							<div class="col-sm-6 col-md-6 col-lg-4 mb-2 px-1">
+
+								<div class="single-dashboard-link card card-default p-3 text-center"
+
+								onclick="location.href='{{ route('team.companies') }}'">
+									<i class="fa fa-briefcase font30"></i>
+
+									<h6>
+
+										{{ $user->companies_reverse()->count() }} Total
+
+									</h6>
+
+									<p>
+
+										Companies
+
+									</p>
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-6 col-md-6 col-lg-4 mb-2 px-1">
+
+								<div class="single-dashboard-link card card-default p-3 text-center"
+
+									onclick="location.href='{{ route('team.total', $user->id)}}'">
+
+									<i class="fa fa-file-text font30"></i>
+
+									<h6>
+
+										{{ $user->employerJobApplications()->count() }} Total
+
+									</h6>
+
+									<p>
+
+										Applications
+
+									</p>
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-6 col-md-6 col-lg-4 mb-2 px-1">
+
+								<div class="single-dashboard-link card card-default p-3 text-center"
+
+									onclick="location.href='{{ route('team.candidate', [$user->id, 'New'])}}'">
+
+									<i class="fa fa-file-text font30"></i>
+
+									<h6>
+
+										@php 
+
+										$new = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'New')->get(); 
+
+										@endphp
+
+										{{ $new->count() }} Total
+
+									</h6>
+
+									<p>
+
+										New Applications
+
+									</p>
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-6 col-md-6 col-lg-4 mb-2 px-1">
+
+								<div class="single-dashboard-link card card-default p-3 text-center"
+
+									onclick="location.href='{{ route('team.candidate', [$user->id, 'Shortlisted'])}}'">
+ 
+									<i class="fa  fa-user-secret font30"></i>
+
+									<h6>
+
+										@php 
+
+										$shortlist = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'Shortlisted')->get(); 
+
+										@endphp
+
+										{{ $shortlist->count() }} Total
+
+									</h6>
+
+									<p>
+
+										Shortlisted Candidates
+
+									</p>
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-6 col-md-6 col-lg-4 mb-2 px-1">
+
+								<div class="single-dashboard-link card card-default p-3 text-center"
+
+									onclick="location.href='{{ route('team.candidate', [$user->id, 'Interview'])}}'">
+
+									<i class="fa fa-user-secret  font30"></i>
+
+									<h6> 
+										@php 
+
+										$interview = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'Interview')->get(); 
+
+										@endphp
+
+										{{ $interview->count() }} Total
+
+									</h6>
+
+									<p>
+
+										Interviews
+
+									</p>
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-6 col-md-6 col-lg-4 mb-2 px-1">
+
+								<div class="single-dashboard-link card card-default p-3 text-center"
+
+									onclick="location.href='{{ route('team.candidate', [$user->id, 'Offered'])}}'">
+
+									<i class="fa fa-bullhorn font30"></i>
+
+									<h6>
+
+										@php 
+
+										$offered = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'Offered')->get(); 
+
+										@endphp
+
+										{{ $offered->count() }} Total
+
+									</h6>
+
+									<p>
+
+										Offered
+
+									</p>
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-6 col-md-6 col-lg-4 mb-2 px-1">
+
+								<div class="single-dashboard-link card card-default p-3 text-center"
+
+									onclick="location.href='{{ route('team.candidate', [$user->id, 'Hired'])}}'">
+
+									<i class="fa fa-user-plus font30"></i>
+
+									<h6>
+
+										@php 
+
+										$hired = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'Hired')->get(); 
+
+										@endphp
+
+										{{ $hired->count() }} Total
+
+									</h6>
+
+									<p>
+
+										Hired
+
+									</p>
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-6 col-md-6 col-lg-4 mb-2 px-1">
+
+								<div class="single-dashboard-link card card-default p-3 text-center"
+
+									onclick="location.href='{{ route('team.candidate', [$user->id, 'Rejected'])}}'">
+
+									<i class="fa fa-user-times font30"></i>
+
+									<h6>
+
+										@php 
+
+										$reject = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'Rejected')->get(); 
+
+										@endphp
+
+										{{ $reject->count() }} Total
+
+									</h6>
+
+									<p>
+
+										Rejected
+
+									</p>
+
+								</div>
+
+							</div>
 
 						</div>
 
@@ -99,11 +324,36 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 							</div>
 
 						</div> 
+						@if (auth()->user()->id == $user->id)
+						<div class="col-sm-6 col-md-6 col-lg-4 mb-2 px-1">
+
+							<div class="single-dashboard-link card card-default p-3 text-center"
+
+								onclick="location.href='{{ route('jobs.post') }}'">
+
+								<i class="fa fa-plus-circle font30"></i>
+
+								<h6>
+
+									Post
+
+								</h6>
+
+								<p>
+
+									New Job
+
+								</p>
+
+							</div>
+
+						</div>
+						@endif
 						<div class="col-sm-6 col-md-6 col-lg-4 mb-2 px-1">
 
 								<div class="single-dashboard-link card card-default p-3 text-center"
 
-									onclick="location.href='{{ route('employers.search.candidates') }}'">
+									onclick="location.href='{{ route('team.search.candidates') }}'">
 
 									<i class="fa fa-search font30"></i>
 
@@ -116,7 +366,36 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 								</div>
 
 						</div>  
-				 
+						 
+					<div class="col-sm-6 col-md-6 col-lg-4 mb-2 px-1">
+
+						<div class="single-dashboard-link card card-default p-3 text-center"
+
+							onclick="location.href='{{ route('team.messages') }}'">
+
+							<i class="fa fa-envelope font30"></i>
+
+							<h6>
+
+								@php
+
+									$messages = count($user->received_messages()->where('is_seen', 0)->get());
+
+								@endphp
+
+								{{ $messages }} Message{{ $messages > 1 ? 's' : '' }}
+
+							</h6>
+
+							<p>
+
+								Total
+
+							</p>
+
+						</div>
+
+					</div>
 					</div>
 
 				</div>

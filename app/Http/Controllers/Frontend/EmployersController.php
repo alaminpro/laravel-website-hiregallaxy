@@ -179,7 +179,7 @@ class EmployersController extends Controller
 
             session()->flash('error', 'Sorry !! You are not permitted to do this action');
 
-            return back();
+            return redirect()->route('index');
 
         }
 
@@ -197,7 +197,7 @@ class EmployersController extends Controller
 
         $user->save();
 
-        return back();
+        return redirect()->route('index');
 
     }
 
@@ -209,7 +209,7 @@ class EmployersController extends Controller
 
         //     session()->flash('error', 'Sorry !! You are not permitted to do this action');
 
-        //     return back();
+        //     return redirect()->route('index');
 
         // }
 
@@ -217,7 +217,7 @@ class EmployersController extends Controller
 
             session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
 
-            return back();
+            return redirect()->route('index');
 
         }
 
@@ -257,7 +257,7 @@ class EmployersController extends Controller
             session()->flash('success', 'Applicant status has been updated !!');
         }
 
-        return back();
+        return redirect()->route('index');
         //return redirect()->route('employers.dashboard', compact('user'));
         // return redirect('frontend.pages.employers.dashboard', compact('user'));
         //return redirect()->back();
@@ -273,7 +273,7 @@ class EmployersController extends Controller
 
             session()->flash('error', 'Sorry !! You are not permitted to do this action');
 
-            return back();
+            return redirect()->route('index');
 
         }
 
@@ -361,7 +361,7 @@ class EmployersController extends Controller
 
         session()->flash('success', 'Your profile information has been updated !!');
 
-        return back();
+        return redirect()->route('index');
 
     }
 
@@ -372,15 +372,22 @@ class EmployersController extends Controller
 
             session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
 
-            return back();
+            return redirect()->route('index');
 
         }
 
-        $user = Auth::user();
+        $user = User::where('id', auth()->user()->id)
+            ->with('teams')
+            ->first();
+
+        $collection = collect($user->teams);
+        $filtered_id = $collection->pluck('id');
+
+        $team_job_count = Job::whereIn('user_id', $filtered_id)->count();
 
         $candidates = JobActivity::all();
 
-        return view('frontend.pages.employers.dashboard', compact('user', 'candidates'));
+        return view('frontend.pages.employers.dashboard', compact('user', 'candidates', 'team_job_count'));
 
     }
 
@@ -391,7 +398,7 @@ class EmployersController extends Controller
 
             session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
 
-            return back();
+            return redirect()->route('index');
 
         }
 
@@ -414,7 +421,7 @@ class EmployersController extends Controller
 
             session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
 
-            return back();
+            return redirect()->route('index');
 
         }
 
@@ -438,7 +445,7 @@ class EmployersController extends Controller
 
     //         session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
 
-    //         return back();
+    //         return redirect()->route('index');
 
     //     }
 
@@ -475,7 +482,7 @@ class EmployersController extends Controller
 
             session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
 
-            return back();
+            return redirect()->route('index');
 
         }
 
@@ -688,7 +695,7 @@ class EmployersController extends Controller
 
             session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
 
-            return back();
+            return redirect()->route('index');
 
         }
 
@@ -711,7 +718,7 @@ class EmployersController extends Controller
 
             session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
 
-            return back();
+            return redirect()->route('index');
 
         }
 
@@ -756,7 +763,7 @@ class EmployersController extends Controller
 
             session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
 
-            return back();
+            return redirect()->route('index');
 
         }
 
@@ -805,7 +812,7 @@ class EmployersController extends Controller
 
             session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
 
-            return back();
+            return redirect()->route('index');
 
         }
 
@@ -830,7 +837,7 @@ class EmployersController extends Controller
 
             session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
 
-            return back();
+            return redirect()->route('index');
 
         }
 
@@ -960,7 +967,7 @@ Dashboard icons
 
             session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
 
-            return back();
+            return redirect()->route('index');
 
         }
 
@@ -989,7 +996,7 @@ Dashboard icons
 
             session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
 
-            return back();
+            return redirect()->route('index');
 
         }
 
@@ -1032,7 +1039,7 @@ end
 
                 session()->flash('error', 'Sorry !! You are not an authenticated Employer to delete this job !!');
 
-                return back();
+                return redirect()->route('index');
 
             }
 
@@ -1082,7 +1089,7 @@ end
 
         }
 
-        return back();
+        return redirect()->route('index');
 
     }
 
@@ -1093,7 +1100,7 @@ end
 
             session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
 
-            return back();
+            return redirect()->route('index');
 
         }
 

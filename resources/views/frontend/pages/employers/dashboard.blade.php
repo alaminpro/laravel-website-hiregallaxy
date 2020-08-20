@@ -43,9 +43,8 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 									<i class="fa fa-bell font30"></i>
 
-									<h6>
-
-										{{ count($user->jobs) }} Jobs
+									<h6>  
+										{{ count($user->jobs) + $team_job_count}} Jobs
 
 									</h6>
 
@@ -63,13 +62,13 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 								<div class="single-dashboard-link card card-default p-3 text-center"
 
-									onclick="location.href=''">
+									onclick="location.href='{{ route('companies') }}'">
 
 									<i class="fa fa-briefcase font30"></i>
 
 									<h6>
 
-										{{ $user->company()->count() }} Total
+										{{ $user->companies()->count() }} Total
 
 									</h6>
 
@@ -119,7 +118,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 										@php 
 
-										$new = \App\Models\JobActivity::where('status', 'New')->get(); 
+										$new = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'New')->get(); 
 
 										@endphp
 
@@ -149,7 +148,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 										@php 
 
-										$shortlist = \App\Models\JobActivity::where('status', 'Shortlisted')->get(); 
+										$shortlist = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'Shortlisted')->get(); 
 
 										@endphp
 
@@ -178,7 +177,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 									<h6> 
 										@php 
 
-										$interview = \App\Models\JobActivity::where('status', 'Interview')->get(); 
+										$interview = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'Interview')->get(); 
 
 										@endphp
 
@@ -208,7 +207,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 										@php 
 
-										$offered = \App\Models\JobActivity::where('status', 'Offered')->get(); 
+										$offered = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'Offered')->get(); 
 
 										@endphp
 
@@ -238,7 +237,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 										@php 
 
-										$hired = \App\Models\JobActivity::where('status', 'Hired')->get(); 
+										$hired = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'Hired')->get(); 
 
 										@endphp
 
@@ -268,7 +267,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 										@php 
 
-										$reject = \App\Models\JobActivity::where('status', 'Rejected')->get(); 
+										$reject = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'Rejected')->get(); 
 
 										@endphp
 
@@ -403,7 +402,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 								onclick="location.href='{{ route('teams') }}'"> 
 								<i class="fa fa-users font30"></i>
-								<h6>Team</h6>  
+								<h6>{{ count($user->teams) }}  Team</h6>  
 							</div>
 
 						</div>

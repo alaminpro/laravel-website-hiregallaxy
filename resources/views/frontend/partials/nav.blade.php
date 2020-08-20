@@ -68,7 +68,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdownAccountButton"><img src="{{ App\Helpers\ReturnPathHelper::getUserImage(Auth::user()->id) }}" class="account-img"> {{ Auth::user()->name }}</a>
 						<div class="dropdown-menu dropdown-menu-account" aria-labelledby="dropdownAccountButton">
 							@if(auth()->check() && auth()->user()->type == 1)
-								<a class="dropdown-item dropdown-account-item" href="{{ route('team.dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a>
+								<a class="dropdown-item dropdown-account-item" href="{{ route('team.dashboard', auth()->user()->id) }}"><i class="fa fa-dashboard"></i> Dashboard</a>
 								<a class="dropdown-item dropdown-account-item" target="_blank" href="{{ route('team.show', Auth::user()->username) }}"><i class="fa fa-user"></i> Profile</a>
 							@else
 								<a class="dropdown-item dropdown-account-item" href="{{ route('users.dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a>

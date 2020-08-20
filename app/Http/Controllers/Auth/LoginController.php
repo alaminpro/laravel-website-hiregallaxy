@@ -100,7 +100,7 @@ class LoginController extends Controller
             $check = User::where('username', $request->username)->orWhere('email', $request->username)->where('is_company', 1)->first();
             if (!is_null($check)) {
                 if ($check->type == 1) {
-                    return redirect()->intended(route('team.dashboard'));
+                    return redirect()->intended(route('team.dashboard', $check->id));
                 } else {
                     return redirect()->intended(route('employers.dashboard'));
                 }
@@ -116,7 +116,7 @@ class LoginController extends Controller
                 $check = User::where('username', $request->username)->orWhere('email', $request->username)->where('is_company', 1)->first();
                 if (!is_null($check)) {
                     if ($check->type == 1) {
-                        return redirect()->intended(route('team.dashboard'));
+                        return redirect()->intended(route('team.dashboard', $check->id));
                     } else {
                         return redirect()->intended(route('employers.dashboard'));
                     }

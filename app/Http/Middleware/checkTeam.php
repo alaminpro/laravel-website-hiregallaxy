@@ -16,7 +16,7 @@ class checkTeam
     public function handle($request, Closure $next)
     {
         if (auth()->check() && auth()->user()->type == 1) {
-            return redirect()->route('team.dashboard');
+            return redirect()->route('team.dashboard', auth()->user()->id);
         }
         return $next($request);
     }

@@ -89,6 +89,18 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\CompanyProfile');
 
     }
+    public function companies_reverse()
+    {
+        return $this->belongsToMany(\App\User::class, 'Companies', 'assign_id', 'user_id');
+
+    }
+
+    public function companies()
+    {
+
+        return $this->hasMany('App\Models\Company');
+
+    }
 
     public function jobs()
     {
@@ -170,6 +182,11 @@ class User extends Authenticatable
 
         return $this->hasOne('App\Models\UserTeam');
 
+    }
+
+    public function teams()
+    {
+        return $this->belongsToMany(\App\User::class, 'user_teams', 'employer_id', 'user_id');
     }
 
     public function new_sectors()
