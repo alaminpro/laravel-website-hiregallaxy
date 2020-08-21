@@ -185,19 +185,19 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 									<input type="search" autocomplete="off" 
 										class="text-center text-theme form-control border-0 border-bottom mb-3"
 
-										id="title" name="title" placeholder="Job Title"
+										id="title" name="title" value="{{ old('title') }}" placeholder="Job Title"
 
 										style="border-bottom: 1px solid #5553b7!important;">
 
-									<div id="searchTemplateArea" style="width: 98%"></div>
+									{{-- <div id="searchTemplateArea" style="width: 98%"></div> --}}
 
-									<input type="hidden" name="template_id" id="template_id">
+									{{-- <input type="hidden" name="template_id" id="template_id"> --}}
 
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
 										<label for="conpany_id">Company</label>
-										<select name="company_id" id="conpany_id" class="form-control">
+										<select name="company_id" id="conpany_id" class="form-control" value="{{ old('company_id') }}">
 											<option value="">Select Company</option>
 											@if(auth()->check() )
 											@if(auth()->user()->type == 1)
@@ -238,7 +238,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 											<textarea name="job_summery" id="job_summery" rows="3"
 
-												class="template form-control"></textarea>
+												class="template form-control">{{ old('job_summery') }}</textarea>
 
 											@else
 
@@ -268,7 +268,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 												name="responsibilities" rows="3"
 
-												class="template form-control"></textarea>
+												class="template form-control">{{ old('responsibilities') }}</textarea>
 
 											@else
 
@@ -298,7 +298,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 											<textarea name="qualification" id="qualification" name="qualification"
 
-												rows="3" class="template form-control"></textarea>
+												rows="3" class="template form-control">{{ old('qualification') }}</textarea>
 
 											@else
 
@@ -324,7 +324,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 											<textarea name="certification" id="certification" name="certification"
 
-												rows="3" class="template form-control"></textarea>
+												rows="3" class="template form-control">{{ old('certification') }}</textarea>
 
 											@else
 
@@ -360,7 +360,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 											<textarea name="experience" id="experience" name="experience" rows="3"
 
-												class="template form-control"></textarea>
+												class="template form-control">{{ old('experience') }}</textarea>
 
 											@else
 
@@ -404,7 +404,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 											<textarea name="about_company" id="about_company" name="about_company"
 
-												rows="3" class="template form-control"></textarea>
+												rows="3" class="template form-control">{{ old('about_company') }}</textarea>
 
 											@else
 
@@ -453,7 +453,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 											<input type="number" id="monthly_salary" name="monthly_salary"
 
 												class="form-control" placeholder="Write your expected salary" required
-
+												value="{{ old('monthly_salary') }}"
 												min="1">
 
 										</div>
@@ -498,7 +498,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 							<div class="row form-group">
 
-								<div class="col-sm-6">
+								<div class="col-sm-4">
 
 									<div class="row form-group">
 
@@ -548,7 +548,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 								</div>
 
-								<div class="col-sm-6">
+								<div class="col-sm-4">
 
 									<label for="type_id">Job Type <span class="required">*</span>
 
@@ -561,6 +561,25 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 										@foreach ($job_types as $j_type)
 
 										<option value="{{ $j_type->id }}">{{ $j_type->name }}</option>
+
+										@endforeach
+
+									</select>
+
+								</div>
+								<div class="col-sm-4">
+
+									<label for="category_id">Category <span class="required">*</span>
+
+									</label>
+
+									<select name="category_id" id="category_id" class="form-control" required>
+
+										<option value="">Select a Category</option>
+
+										@foreach ($categories as $category)
+
+										<option value="{{ $category->id }}">{{ $category->name }}</option>
 
 										@endforeach
 
@@ -961,80 +980,80 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 
 
-	$("#title").on('input', function(){
+	// $("#title").on('input', function(){
 
-		var search = $("#title").val();
+	// 	var search = $("#title").val();
 
-		if(search.length > 0){
+	// 	if(search.length > 0){
 
-			var url = "{{ Url('/') }}"+"/api/templates/"+search;
+	// 		var url = "{{ Url('/') }}"+"/api/templates/"+search;
 
-			var htmlValue = "";
+	// 		var htmlValue = "";
 
 
 
-			$.get(url).done(function( data ) {
+	// 		$.get(url).done(function( data ) {
 
-				// console.log(data.templates);
+	// 			// console.log(data.templates);
 
-				if(data.templates.length > 0){
+	// 			if(data.templates.length > 0){
 
-					area.removeClass('hidden');
+	// 				area.removeClass('hidden');
 
-					for(var i=0; i < data.templates.length; i++){
+	// 				for(var i=0; i < data.templates.length; i++){
 
-						htmlValue += `
+	// 					htmlValue += `
 						
-							<div class='item'>
-								<a onClick='selectTemplate(${data.templates[i].id},  "${data.templates[i].name}")' class='pointer border-bottom'>
-							 ${data.templates[i].name}</a>
-							 </div>
-						`;
+	// 						<div class='item'>
+	// 							<a onClick='selectTemplate(${data.templates[i].id},  "${data.templates[i].name}")' class='pointer border-bottom'>
+	// 						 ${data.templates[i].name}</a>
+	// 						 </div>
+	// 					`;
 
-					}
+	// 				}
 
-					area.html(htmlValue);
+	// 				area.html(htmlValue);
 
-				}else{
+	// 			}else{
 
-					data = [];
+	// 				data = [];
 
-					area.html(htmlValue);
+	// 				area.html(htmlValue);
 
-					area.addClass('hidden');
+	// 				area.addClass('hidden');
 
-				}
-
-
+	// 			}
 
 
 
-			});
-
-		}else{
-
-			area.addClass('hidden');
-
-		}
 
 
+	// 		});
 
-	});
-	function selectTemplate(id, name){
+	// 	}else{
 
-		var area = $("#searchTemplateArea");
+	// 		area.addClass('hidden');
 
-		var search = $("#title");
+	// 	}
 
 
 
-		area.addClass('hidden');
+	// });
+	// function selectTemplate(id, name){
 
-		$("#template_id").val(id);
-		$("#title").val(name);
+	// 	var area = $("#searchTemplateArea");
+
+	// 	var search = $("#title");
+
+
+
+	// 	area.addClass('hidden');
+
+	// 	$("#template_id").val(id);
+	// 	$("#title").val(name);
 		
 
-	}
+	// }
 
 
 	// function selectTemplate(id){

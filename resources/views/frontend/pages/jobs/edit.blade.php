@@ -193,10 +193,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 												value="{{ !is_null($job->template) ? $job->template->name : '' }}">
 
 											<div id="searchTemplateArea"></div>
-
-											<input type="hidden" name="template_id" id="template_id"
-
-												value="{{ $job->template_id }}">
+ 
 
 										</div>
 										<div class="col-md-4">
@@ -472,7 +469,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 							<div class="row form-group">
 
-								<div class="col-sm-6">
+								<div class="col-sm-4">
 
 									<div class="row form-group">
 
@@ -510,7 +507,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 
 
-								<div class="col-sm-6">
+								<div class="col-sm-4">
 
 									<label for="type_id">Job Type <span class="required">*</span>
 
@@ -533,7 +530,25 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 									</select>
 
 								</div>
+								<div class="col-sm-4">
 
+									<label for="type_id">Category <span class="required">*</span>
+
+									</label>
+
+									<select name="category_id" id="category_id" class="form-control" required>
+
+										<option value="">Select a Category</option>
+
+										@foreach ($categories as $category)
+
+										<option value="{{ $category->id }}" {{ $job->category_id ==  $category->id ? 'selected' : ''  }}>{{ $category->name }}</option>
+
+										@endforeach
+
+									</select>
+
+								</div>
 
 
 							</div>
@@ -1032,80 +1047,80 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 	
 
-	$("#title").on('input', function(){
+// 	$("#title").on('input', function(){
 
-		var search = $("#title").val();
+// 		var search = $("#title").val();
 
-		if(search.length > 0){
+// 		if(search.length > 0){
 
-			var url = "{{ Url('/') }}"+"/api/templates/"+search;
+// 			var url = "{{ Url('/') }}"+"/api/templates/"+search;
 
-			var htmlValue = "";
+// 			var htmlValue = "";
 
 	
 
-			$.get(url).done(function( data ) {
+// 			$.get(url).done(function( data ) {
 
-				// console.log(data.templates);
+// 				// console.log(data.templates);
 
-				if(data.templates.length > 0){
+// 				if(data.templates.length > 0){
 
-					area.removeClass('hidden');
+// 					area.removeClass('hidden');
 
-					for(var i=0; i < data.templates.length; i++){
+// 					for(var i=0; i < data.templates.length; i++){
 
-						htmlValue += `
+// 						htmlValue += `
 						
-						<div class='item'>
-							<a onClick='selectTemplate(${data.templates[i].id},  "${data.templates[i].name}")' class='pointer border-bottom'>
-						 ${data.templates[i].name}</a>
-						 </div>
-					`;
-					}
+// 						<div class='item'>
+// 							<a onClick='selectTemplate(${data.templates[i].id},  "${data.templates[i].name}")' class='pointer border-bottom'>
+// 						 ${data.templates[i].name}</a>
+// 						 </div>
+// 					`;
+// 					}
 
-					area.html(htmlValue);
+// 					area.html(htmlValue);
 
-				}else{
+// 				}else{
 
-					data = [];
+// 					data = [];
 
-					area.html(htmlValue);
+// 					area.html(htmlValue);
 
-					area.addClass('hidden');
+// 					area.addClass('hidden');
 
-				}
-
-				
+// 				}
 
 				
 
-			});
+				
 
-		}else{
+// 			});
 
-			area.addClass('hidden');
+// 		}else{
 
-		}
+// 			area.addClass('hidden');
 
-
-
-	});
-
-	function selectTemplate(id, name){
-
-var area = $("#searchTemplateArea");
-
-var search = $("#title");
+// 		}
 
 
 
-area.addClass('hidden');
+// 	});
 
-$("#template_id").val(id);
-$("#title").val(name);
+// 	function selectTemplate(id, name){
+
+// var area = $("#searchTemplateArea");
+
+// var search = $("#title");
 
 
-}
+
+// area.addClass('hidden');
+
+// $("#template_id").val(id);
+// $("#title").val(name);
+
+
+// }
 
 	// function selectTemplate(id){
 

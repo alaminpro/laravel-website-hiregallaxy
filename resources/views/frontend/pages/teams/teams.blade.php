@@ -49,7 +49,7 @@ Teams | {{ App\Models\Setting::first()->site_title }}
                                                 <a href="{{ route('team.delete', $user->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></i></a>
                                               </div>
                                           </div>
-                                          <img src="{{ App\Helpers\ReturnPathHelper::getUserImage($user->id) }}" style="width: 70px; height: 70px">
+                                          <img class="rounded-circle" src="{{ App\Helpers\ReturnPathHelper::getUserImage($user->id) }}" style="width: 70px; height: 70px">
                                       </div>
                                   </div>
                                 </div>

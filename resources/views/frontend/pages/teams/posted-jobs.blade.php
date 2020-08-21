@@ -263,7 +263,7 @@ $_filter = request()->filter ?? '';
 									@php
 										$company = App\Models\Company::where('id', $single_job->company_id)->first()
 									@endphp
-									{{ $company ? $company : '---'  }}
+									{{ $company ? $company->name : '---'  }}
 								</td>
 
 								<td>

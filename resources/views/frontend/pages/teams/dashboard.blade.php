@@ -91,7 +91,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 									<h6>
 
-										{{ $user->employerJobApplications()->count() }} Total
+										{{ App\Models\JobActivity::where('company_id', $user->id)->get()->count() }} Total
 
 									</h6>
 

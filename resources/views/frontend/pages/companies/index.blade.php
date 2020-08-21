@@ -32,13 +32,15 @@ Companies | {{ App\Models\Setting::first()->site_title }}
                           </div> 
                           <div class="clearfix"></div> 
                         </div> 
-                            <div class="card-body"> 
+                            <div class="card-body" style="overflow-x:scroll"> 
                             @include('backend.partials.message') 
                             <table id="dataTable" width="100%" cellspacing="0" class="table table-bordered">
                                 <thead>
                                   <tr>
                                     <th>Sl</th>
                                     <th>Company Name</th>
+                                    <th>Contact Person</th> 
+                                    <th>Contact no.</th> 
                                     <th>Email Id</th> 
                                     <th>Assigned</th>  
                                     <th>Manage</th>
@@ -49,6 +51,8 @@ Companies | {{ App\Models\Setting::first()->site_title }}
                                       <tr>
                                         <td>{{$key+1}}</td>
                                         <td> {!! $company->name !!}</td>
+                                        <td> {!! $company->contact_person !!}</td>  
+                                        <td> {!! $company->phone !!}</td>  
                                         <td> {!! $company->email !!}</td>  
                                         <td> {{ App\User::where('id', $company->assign_id)->first()->name }}</td>  
                                         <td>

@@ -92,7 +92,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 									<h6>
 
-										{{ $user->employerJobApplications()->count() }} Total
+										{{ \App\Models\JobActivity::where('company_id', auth()->user()->id)->get()->count() + $applicant_count }} Total
 
 									</h6>
 
@@ -122,7 +122,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 										@endphp
 
-										{{ $new->count() }} Total
+										{{ $new->count() + $new_count }} Total
 
 									</h6>
 
@@ -152,7 +152,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 										@endphp
 
-										{{ $shortlist->count() }} Total
+										{{ $shortlist->count() + $short_count }} Total
 
 									</h6>
 
@@ -181,7 +181,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 										@endphp
 
-										{{ $interview->count() }} Total
+										{{ $interview->count() + $interview_count}} Total
 
 									</h6>
 
@@ -211,7 +211,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 										@endphp
 
-										{{ $offered->count() }} Total
+										{{ $offered->count() + $offered_count}} Total
 
 									</h6>
 
@@ -241,7 +241,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 										@endphp
 
-										{{ $hired->count() }} Total
+										{{ $hired->count() + $hired_count }} Total
 
 									</h6>
 
@@ -271,7 +271,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 										@endphp
 
-										{{ $reject->count() }} Total
+										{{ $reject->count() + $reject_count }} Total
 
 									</h6>
 

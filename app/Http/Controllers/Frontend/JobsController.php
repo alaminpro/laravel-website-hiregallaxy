@@ -19,7 +19,6 @@ use App\Models\Qualification;
 use App\Models\Result;
 use App\Models\Sector;
 use App\Models\Segment;
-use App\Models\Setting;
 use App\Models\Skill;
 use App\Models\Template;
 use App\User;
@@ -529,152 +528,67 @@ class JobsController extends Controller
         $this->validate($request, [
 
             'title' => 'required|max:150',
-
-            'template_id' => 'required|max:150',
-
             'email' => 'required|email',
-
             'type_id' => 'required',
-
             'apply_type_id' => 'required',
-
             'location' => 'nullable',
-
             'deadline' => 'required',
             'company_id' => 'required',
 
         ]);
 
         $job = new Job();
-
-        $template_id = $request->template_id;
-
-        $template = Template::find($template_id);
-
-        if (!is_null($template)) {
-
-            $job->template_id = $template_id;
-
-            $job->title = trim($template->name);
-
-            $job->slug = StringHelper::createSlug($template->name, 'Job', 'slug');
-
-            $job->email = $request->email;
-
-            $job->description = $request->description;
-
-            $job->category_id = $template->category_id;
-
-            $job->type_id = $request->type_id;
-            $job->company_id = $request->company_id;
-
-            $job->experience_id = $request->experience_id;
-
-            $job->apply_type_id = $request->apply_type_id;
-
-            $job->sector_id = $request->sector_id;
-
-            $job->segment_id = $request->segment_id;
-
-            $job->discipline_id = $request->discipline_id;
-
-            $job->location = trim($request->location);
-
-            $job->country_id = $request->country;
-
-            $job->job_id = $request->job_id;
-
-            if (isset($request->is_salary_negotiable)) {
-
-                $job->is_salary_negotiable = 1;
-
-            } else {
-
-                $job->is_salary_negotiable = 0;
-
-                $this->validate($request, [
-
-                    'monthly_salary' => 'required',
-
-                    'salary_currency' => 'required',
-
-                ]);
-
-                $job->monthly_salary = $request->monthly_salary;
-
-                $job->salary_currency = $request->salary_currency;
-
-            }
-
-            $job->gender = $request->gender;
-
-            // Deadline Customization
-
-            $getDeadline = $request->deadline; //04/30/2019
-
-            //2019-04-18 00:00:00
-
-            $getDeadline = substr($getDeadline, 6, 4) . '-' . substr($getDeadline, 0, 2) . '-' . substr($getDeadline, 3, 2);
-
-            $job->deadline = $getDeadline;
-
-            $job->is_featured = 1; // Featured Job By Default
-
-            $job->is_confirmed = 1;
-
-            $job->user_id = Auth::id();
-
-            $job->status_id = 1; // Open
-
-            // Textareas
-
-            $enable_editing = Setting::first()->enable_job_editing;
-
-            if (!$enable_editing) {
-
-                $job->job_summery = $template->job_summery;
-
-                $job->responsibilities = $template->responsibilities;
-
-                $job->qualification = $template->qualification;
-
-                $job->certification = $template->certification;
-
-                $job->experience = $template->experience;
-
-                $job->about_company = $template->about_company;
-
-            } else {
-
-                $job->job_summery = $request->job_summery;
-
-                $job->responsibilities = $request->responsibilities;
-
-                $job->qualification = $request->qualification;
-
-                $job->certification = $request->certification;
-
-                $job->experience = $request->experience;
-
-                $job->about_company = $request->about_company;
-
-                $job->save();
-
-                $job->skills()->sync($request->skills);
-
-            }
-
-            session()->flash('success', 'Job has been posted successfully !!');
-
-            return redirect()->route('jobs');
-
+        $job->title = $request->title;
+        $job->slug = StringHelper::createSlug($request->job_title, 'Job', 'slug');
+        $job->email = $request->email;
+        $job->description = $request->description;
+        $job->category_id = $request->category_id;
+        $job->type_id = $request->type_id;
+        $job->company_id = $request->company_id;
+        $job->experience_id = $request->experience_id;
+        $job->apply_type_id = $request->apply_type_id;
+        $job->sector_id = $request->sector_id;
+        $job->segment_id = $request->segment_id;
+        $job->discipline_id = $request->discipline_id;
+        $job->location = trim($request->location);
+        $job->country_id = $request->country;
+        $job->job_id = $request->job_id;
+        if (isset($request->is_salary_negotiable)) {
+            $job->is_salary_negotiable = 1;
         } else {
-
-            session()->flash('error', 'Please select job title..');
-
-            return back();
-
+            $job->is_salary_negotiable = 0;
+            $this->validate($request, [
+                'monthly_salary' => 'required',
+                'salary_currency' => 'required',
+            ]);
+            $job->monthly_salary = $request->monthly_salary;
+            $job->salary_currency = $request->salary_currency;
         }
+        $job->gender = $request->gender;
+        $getDeadline = $request->deadline;
+        $getDeadline = substr($getDeadline, 6, 4) . '-' . substr($getDeadline, 0, 2) . '-' . substr($getDeadline, 3, 2);
+        $job->deadline = $getDeadline;
+        $job->is_featured = 1;
+        $job->is_confirmed = 1;
+        $job->user_id = Auth::id();
+        $job->status_id = 1;
+        $job->job_summery = $request->job_summery;
+
+        $job->responsibilities = $request->responsibilities;
+
+        $job->qualification = $request->qualification;
+
+        $job->certification = $request->certification;
+
+        $job->experience = $request->experience;
+
+        $job->about_company = $request->about_company;
+
+        $job->save();
+        $job->skills()->sync($request->skills);
+
+        session()->flash('success', 'Job has been posted successfully !!');
+        return redirect()->route('jobs');
 
     }
 
@@ -763,113 +677,60 @@ class JobsController extends Controller
 
     public function update(Request $request, $slug)
     {
-
         if (!Auth::check() || !User::userCanPost(Auth::id())) {
 
-            session()->flash('error', 'Sorry !! You are not permitted to edit the job !!');
+            session()->flash('error', 'Sorry !! You are not permitted to post a job !!');
 
             return redirect()->route('jobs');
 
         }
 
-        $job = Job::where('slug', $slug)->first();
-
         $this->validate($request, [
 
             'title' => 'required|max:150',
-
-            'template_id' => 'required|max:150',
-
             'email' => 'required|email',
-
             'type_id' => 'required',
-
             'apply_type_id' => 'required',
-
             'location' => 'nullable',
-
             'deadline' => 'required',
             'company_id' => 'required',
 
         ]);
 
-        $template_id = $request->template_id;
-
-        $template = Template::find($template_id);
-
-        $job->template_id = $template_id;
-
-        $job->title = trim($template->name);
-
-        // $job->slug = StringHelper::createSlug($template->name, 'Job', 'slug');;
-
+        $job = Job::where('slug', $request->slug)->first();
+        $job->title = $request->title;
         $job->email = $request->email;
-
         $job->description = $request->description;
-
-        $job->category_id = $template->category_id;
-        $job->company_id = $request->company_id;
-
+        $job->category_id = $request->category_id;
         $job->type_id = $request->type_id;
-
+        $job->company_id = $request->company_id;
         $job->experience_id = $request->experience_id;
-
         $job->apply_type_id = $request->apply_type_id;
-
-        $job->location = trim($request->location);
-
-        $job->country_id = $request->country;
-
         $job->sector_id = $request->sector_id;
-
         $job->segment_id = $request->segment_id;
-
         $job->discipline_id = $request->discipline_id;
-
+        $job->location = trim($request->location);
+        $job->country_id = $request->country;
+        $job->job_id = $request->job_id;
         if (isset($request->is_salary_negotiable)) {
-
             $job->is_salary_negotiable = 1;
-
         } else {
-
             $job->is_salary_negotiable = 0;
-
             $this->validate($request, [
-
                 'monthly_salary' => 'required',
-
                 'salary_currency' => 'required',
-
             ]);
-
             $job->monthly_salary = $request->monthly_salary;
-
             $job->salary_currency = $request->salary_currency;
-
         }
-
         $job->gender = $request->gender;
-
-        // Deadline Customization
-
-        $getDeadline = $request->deadline; //04/30/2019
-
-        //2019-04-18 00:00:00
-
+        $getDeadline = $request->deadline;
         $getDeadline = substr($getDeadline, 6, 4) . '-' . substr($getDeadline, 0, 2) . '-' . substr($getDeadline, 3, 2);
-
         $job->deadline = $getDeadline;
-
-        // $job->is_featured = 1; // Featured Job By Default
-
-        // $job->is_confirmed = 1;
-
+        $job->is_featured = 1;
+        $job->is_confirmed = 1;
         $job->user_id = Auth::id();
-
-        // $job->status_id = 1; // Open
-
-        // Textareas
-
+        $job->status_id = 1;
         $job->job_summery = $request->job_summery;
 
         $job->responsibilities = $request->responsibilities;
@@ -880,25 +741,13 @@ class JobsController extends Controller
 
         $job->experience = $request->experience;
 
-        if ($request->has('archived')) {
-
-            $job->archived = 1;
-
-        } else {
-
-            $job->archived = 0;
-
-        }
-
         $job->about_company = $request->about_company;
 
+        $job->save();
         $job->skills()->sync($request->skills);
 
-        $job->save();
-
-        session()->flash('success', 'Job has been updated successfully !!');
-
-        return back();
+        session()->flash('success', 'Job has been posted successfully !!');
+        return redirect()->route('jobs');
 
     }
 

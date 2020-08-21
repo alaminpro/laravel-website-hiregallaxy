@@ -91,7 +91,7 @@ class User extends Authenticatable
     }
     public function companies_reverse()
     {
-        return $this->belongsToMany(\App\User::class, 'Companies', 'assign_id', 'user_id');
+        return $this->belongsToMany(\App\User::class, 'companies', 'assign_id', 'user_id');
 
     }
 
