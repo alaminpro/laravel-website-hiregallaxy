@@ -46,7 +46,11 @@ Teams | {{ App\Models\Setting::first()->site_title }}
                                               <div class="email"> {{ $user->email }}</div>
                                               <div class="action"> 
                                                 <a href="{{ route('team.dashboard', $user->id) }}" class="btn btn-secondary">Dashboard</a>
-                                                <a href="{{ route('team.delete', $user->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></i></a>
+                                                @if($user->status == 1)
+                                                <a href="{{ route('team.delete', [$user->id, 2]) }}" class="btn btn-success" onclick="return confirm('Are you sure?')">Active</a>
+                                                @elseif($user->status == 2)
+                                                <a href="{{ route('team.delete', [$user->id, 1]) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Deactive</a>
+                                                @endif
                                               </div>
                                           </div>
                                           <img class="rounded-circle" src="{{ App\Helpers\ReturnPathHelper::getUserImage($user->id) }}" style="width: 70px; height: 70px">

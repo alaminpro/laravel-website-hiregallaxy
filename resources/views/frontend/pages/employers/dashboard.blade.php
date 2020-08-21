@@ -118,7 +118,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 										@php 
 
-										$new = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'New')->get(); 
+										$new = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'New')->get(); 
 
 										@endphp
 
@@ -148,7 +148,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 										@php 
 
-										$shortlist = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'Shortlisted')->get(); 
+										$shortlist = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'Shortlisted')->get(); 
 
 										@endphp
 
@@ -177,7 +177,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 									<h6> 
 										@php 
 
-										$interview = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'Interview')->get(); 
+										$interview = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'Interview')->get(); 
 
 										@endphp
 
@@ -207,7 +207,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 										@php 
 
-										$offered = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'Offered')->get(); 
+										$offered = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'Offered')->get(); 
 
 										@endphp
 
@@ -237,7 +237,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 										@php 
 
-										$hired = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'Hired')->get(); 
+										$hired = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'Hired')->get(); 
 
 										@endphp
 
@@ -267,7 +267,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 										@php 
 
-										$reject = \App\Models\JobActivity::where('user_id', $user->id)->where('status', 'Rejected')->get(); 
+										$reject = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'Rejected')->get(); 
 
 										@endphp
 

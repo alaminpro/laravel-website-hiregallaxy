@@ -14,6 +14,40 @@ Create new Company | {{ App\Models\Setting::first()->site_title }}
 
 @section('content')
 
+<div class="home-top">
+
+	<div class="container">
+
+		<div class="row justify-content-center">
+
+			<div class="col-md-12">
+
+
+
+				<h3 class="top-title wow fadeInUp mb-3">
+Create new company 
+
+				</h3>  
+
+				<div class="navbar-breadcrumb  d-flex justify-content-between align-items-center">
+
+					<ol class="breadcrumb">
+
+						<li class="breadcrumb-item"><a href="{{ route('employers.dashboard') }}">Home</a></li>
+
+						<li class="breadcrumb-item active" aria-current="page">create new</li>
+
+					</ol>
+                    <a href="{{ route('employers.dashboard') }}" class="btn btn-dark">Back</a>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
 <section class="employer-page sec-pad pt-4" id="wrapper"> 
     <div class="container">
         <div class="row">

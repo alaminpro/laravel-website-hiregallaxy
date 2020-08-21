@@ -190,7 +190,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 												style="border-bottom: 1px solid #5553b7!important;"
 
-												value="{{ !is_null($job->template) ? $job->template->name : '' }}">
+												value="{{  $job->title }}">
 
 											<div id="searchTemplateArea"></div>
  

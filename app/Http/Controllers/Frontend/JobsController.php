@@ -797,6 +797,7 @@ class JobsController extends Controller
         $jobActivity->job_id = $request->job_id;
 
         $jobActivity->user_id = Auth::id();
+        $jobActivity->company_id = $request->company_id;
 
         $jobActivity->cover_letter = $request->cover_letter;
 

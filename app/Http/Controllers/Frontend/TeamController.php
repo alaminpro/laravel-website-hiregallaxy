@@ -36,7 +36,7 @@ class TeamController extends Controller
                 ->with(['location' => function ($q) {
                     $q->select('id', 'country_id');
                 }])
-                ->select('id', 'name', 'email', 'phone_no', 'location_id')
+                ->select('id', 'name', 'email', 'phone_no', 'location_id', 'status')
                 ->get();
             return view('frontend.pages.teams.teams', compact('users'));
         } else {
@@ -577,16 +577,16 @@ class TeamController extends Controller
 
     }
 
-    public function Companies()
+    public function Companies($id)
     {
-        $companies = Company::get();
-        return view('frontend.pages.teams.companies', compact('companies'));
+        $companies = Company::where('assign_id', $id)->get();
+        return view('frontend.pages.teams.companies', compact('companies', 'id'));
     }
     public function CompanyShow($id)
     {
-        $show = Company::where('assign_id', auth()->user()->id)->where('id', $id)->first();
+        $show = Company::where('id', $id)->first();
         if ($show) {
-            return view('frontend.pages.teams.company-show', compact('show'));
+            return view('frontend.pages.teams.company-show', compact('show', 'id'));
         }
         return back();
 
@@ -712,12 +712,12 @@ class TeamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $status)
     {
         $user = User::find($id);
         if ($user) {
-            $user->delete();
-
+            $user->status = $status;
+            $user->save();
             return redirect()->back();
         }
     }

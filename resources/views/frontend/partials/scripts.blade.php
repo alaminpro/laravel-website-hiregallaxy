@@ -260,9 +260,10 @@
 
 
 
-	function applyJobDataSet(job_id, currency='USD') {
+	function applyJobDataSet(job_id, currency='USD', company_id) {
 
 		$('#job_id_for_apply').val(job_id);
+		$('#company_id_for_apply').val(company_id);
 
 		$('#jobApplyCurrency').val(currency);
 
@@ -284,10 +285,10 @@
 
 
 
-	 function applyUpdateJobDataSet(job_id, currency='USD') {
+	 function applyUpdateJobDataSet(job_id, currency='USD', company_id) {
 
 	 	$('#job_id_for_apply_update').val(job_id);
-
+		 $('#company_id_update').val(company_id);
 	 	$('#jobApplyCurrencyUpdate').val(currency);
 
 

@@ -94,7 +94,7 @@ Route::group(['prefix' => 'employers', 'middleware' => ['checkTeam']], function 
         Route::get('', 'Frontend\TeamController@index')->name('teams');
         Route::get('/create', 'Frontend\TeamController@create')->name('team.create');
         Route::post('/store', 'Frontend\TeamController@store')->name('team.store');
-        Route::get('/delete/{id}', 'Frontend\TeamController@destroy')->name('team.delete');
+        Route::get('/delete/{id}/{status}', 'Frontend\TeamController@destroy')->name('team.delete');
     });
     Route::group(['prefix' => 'companies'], function () {
         Route::get('', 'Frontend\CompanyController@index')->name('companies');
@@ -123,7 +123,7 @@ Route::group(['prefix' => 'team'], function () {
     Route::get('{id}/candidate/{status}', 'Frontend\TeamController@candidatesDisplay')->name('team.candidate');
     Route::get('/messages', 'Frontend\TeamController@messages')->name('team.messages');
     Route::get('/search-candidates', 'Frontend\TeamController@searchCadidates')->name('team.search.candidates');
-    Route::get('/companies', 'Frontend\TeamController@Companies')->name('team.companies');
+    Route::get('{id}/companies', 'Frontend\TeamController@Companies')->name('team.companies');
     Route::get('/company/{id}/show', 'Frontend\TeamController@CompanyShow')->name('team.company.show');
 });
 

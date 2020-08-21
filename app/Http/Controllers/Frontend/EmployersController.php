@@ -386,12 +386,12 @@ class EmployersController extends Controller
         $team_job_count = Job::whereIn('user_id', $filtered_id)->count();
 
         $applicant_count = JobActivity::whereIn('company_id', $filtered_id)->count();
-        $new_count = JobActivity::whereIn('user_id', $filtered_id)->where('status', 'New')->count();
-        $short_count = JobActivity::whereIn('user_id', $filtered_id)->where('status', 'Shortlisted')->count();
-        $interview_count = JobActivity::whereIn('user_id', $filtered_id)->where('status', 'Interview')->count();
-        $offered_count = JobActivity::whereIn('user_id', $filtered_id)->where('status', 'Offered')->count();
-        $hired_count = JobActivity::whereIn('user_id', $filtered_id)->where('status', 'Hired')->count();
-        $reject_count = JobActivity::whereIn('user_id', $filtered_id)->where('status', 'Rejected')->count();
+        $new_count = JobActivity::whereIn('company_id', $filtered_id)->where('status', 'New')->count();
+        $short_count = JobActivity::whereIn('company_id', $filtered_id)->where('status', 'Shortlisted')->count();
+        $interview_count = JobActivity::whereIn('company_id', $filtered_id)->where('status', 'Interview')->count();
+        $offered_count = JobActivity::whereIn('company_id', $filtered_id)->where('status', 'Offered')->count();
+        $hired_count = JobActivity::whereIn('company_id', $filtered_id)->where('status', 'Hired')->count();
+        $reject_count = JobActivity::whereIn('company_id', $filtered_id)->where('status', 'Rejected')->count();
 
         $candidates = JobActivity::all();
 

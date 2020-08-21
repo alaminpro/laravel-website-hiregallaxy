@@ -31,7 +31,7 @@
 					<!-- Hidden Job ID -->
 
 					<input type="hidden" name="job_id" id="job_id_for_apply">
-
+					<input type="hidden" name="company_id" id="company_id_for_apply">
 					<div class="row form-group">
 
 
