@@ -98,7 +98,7 @@ class TeamController extends Controller
         $user_jobs_count = $user_jobs->count();
         $user_active_jobs_count = $user_jobs->where('archived', 0)->count();
         $user_inactive_jobs_count = $user_jobs->where('archived', 1)->count();
-        return view('frontend.pages.teams.posted-jobs', compact('user', 'jobs', 'user_jobs_count', 'user_active_jobs_count', 'user_inactive_jobs_count'));
+        return view('frontend.pages.teams.posted-jobs', compact('id', 'user', 'jobs', 'user_jobs_count', 'user_active_jobs_count', 'user_inactive_jobs_count'));
 
     }
 
@@ -185,7 +185,7 @@ class TeamController extends Controller
             DB::table('job_activities')->where('id', $applicant->id)->delete();
             session()->flash('success', 'Applicant deleted successfully !!');
         }
-        return view('frontend.pages.teams.job-applications', compact('user', 'applicant', 'job', 'applications', 'experience', 'education', 'filter', 'expreience_data'));
+        return view('frontend.pages.teams.job-applications', compact('id', 'slug', 'user', 'applicant', 'job', 'applications', 'experience', 'education', 'filter', 'expreience_data'));
 
     }
 

@@ -13,3 +13,9 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
+
+mix.sass('resources/sass/custom/main.scss', 'public/css/main.css').options({
+    processCssUrls: false
+});
+mix.js('resources/js/custom/postjob.js', 'public/js')
+mix.js('resources/js/custom/job-application.js', 'public/js')

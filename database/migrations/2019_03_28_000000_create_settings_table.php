@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateSettingsTable extends Migration
 {
@@ -33,6 +33,7 @@ class CreateSettingsTable extends Migration
             $table->string('stackoverflow_link')->nullable();
             $table->string('youtube_link')->nullable();
             $table->string('github_link')->nullable();
+            $table->string('instragram_links')->nullable();
 
             $table->text('download_app_text')->nullable();
             $table->string('playstore_app_link')->nullable();

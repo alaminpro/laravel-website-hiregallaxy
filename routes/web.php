@@ -32,11 +32,13 @@
 
  */
 
-Route::get('/', 'Frontend\PagesController@index')->name('index');
+Route::post('ajax', 'Frontend\AjaxController@main')->name('ajax');
 
+Route::get('/', 'Frontend\PagesController@index')->name('index');
 Route::get('/terms-and-service', 'Frontend\PagesController@termsAndService')->name('terms');
 
 Route::get('/privacy-policy', 'Frontend\PagesController@privacyPolicy')->name('privacy');
+Route::get('/about-us', 'Frontend\PagesController@about_us')->name('about_us');
 
 Route::get('/candidates/personality/{id}', 'Frontend\EmployersController@Personality')->name('public.personality');
 
@@ -80,7 +82,7 @@ Route::group(['prefix' => 'employers', 'middleware' => ['checkTeam']], function 
 
     Route::post('/posted-jobs/delete/{slug}', 'Frontend\EmployersController@deleteJob')->name('employers.jobs.delete');
 
-    Route::get('/applications/{slug}', 'Frontend\EmployersController@jobApplications')->name('employers.jobs.applications');
+    Route::get('{slug}/applications', 'Frontend\EmployersController@jobApplications')->name('employers.jobs.applications');
 
     Route::get('/{status}/listed-applicants/{slug}', 'Frontend\EmployersController@applicantList')->name('employers.listed');
 

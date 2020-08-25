@@ -7,9 +7,9 @@
 					<i class="fa fa-envelope"></i> 
 					<span class="message-count">
 						{{ count(Auth::user()->received_messages->where('is_seen',0)) }}
-						New 
+						
 					</span>
-						Message
+					<span class="message__hidden">	New Message</span>
 				</a>
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdownAccountButton"><i class="fa fa-user"></i> {{ 'Account' }}</a>
 				<div class="dropdown-menu dropdown-menu-account" aria-labelledby="dropdownAccountButton">

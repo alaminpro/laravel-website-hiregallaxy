@@ -6,9 +6,8 @@
     type="image/x-icon">
 
 <!-- Font Awesome CSS -->
-<link rel="stylesheet" href="{{ asset('css/font-awesome/font-awesome.min.css') }}">
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/app.css') }}"> 
+<link rel="stylesheet" href="{{ asset('css/font-awesome/font-awesome.min.css') }}"> 
 <!-- Bootstrap Select Picker -->
 <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap-select.min.css') }}">
 <!-- Animate CSS -->
@@ -21,16 +20,10 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- Owl Carousel CSS -->
 <link rel="stylesheet" href="{{ asset('js/owl-carousel/owl.carousel.min.css') }}">
-<link rel="stylesheet" href="{{ asset('js/owl-carousel/owl.theme.default.min.css') }}">
-
-<!--  for left navigation 
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"> -->
-<!-- Custom CSS -->
-<link rel="stylesheet" href="{{ asset('css/custom/main.min.css') }}?v={{ config('constants.asset_version') }}">
+<link rel="stylesheet" href="{{ asset('js/owl-carousel/owl.theme.default.min.css') }}"> 
 
 <!-- script for datatables -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-<script src="vendor/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-  
-<link rel="stylesheet" href="{{ asset('css/custom/custom.css') }}">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+
+<link rel="stylesheet" href="{{ asset('css/main.css') }}?v={{ config('constants.asset_version') }}"> 

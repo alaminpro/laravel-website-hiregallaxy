@@ -1,18 +1,18 @@
 <!-- dropify -->
 
-<link href="{{ asset('public/js/dropify/dropify.css') }}" rel="stylesheet">
+<link href="{{ asset('js/dropify/dropify.css') }}" rel="stylesheet">
 
 
 
 <!-- noty -->
 
-<link href="{{ asset('public/css/noty/noty.css') }}" rel="stylesheet">
+<link href="{{ asset('css/noty/noty.css') }}" rel="stylesheet">
 
 
 
 <!-- Noty -->
 
-<script src="{{ asset(/js/noty/noty.min.js') }}"></script>
+<script src="{{ asset('/js/noty/noty.min.js') }}"></script>
 
 
 
@@ -20,13 +20,13 @@
 
 <!-- dataTable -->
 
-<link href="{{ asset('public/admin-asset/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+<link href="{{ asset('admin-asset/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
 
 
 <!-- Custom fonts for this template-->
 
-<link href="{{ asset('public/admin-asset/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ asset('admin-asset/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
 <link
 
@@ -38,17 +38,17 @@
 
 <!-- Custom styles for this template-->
 
-<link href="{{ asset('public/admin-asset/css/sb-admin-2.min.css') }}" rel="stylesheet">
+<link href="{{ asset('admin-asset/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
-<link href="{{ asset('public/admin-asset/vendor/select2/css/select2.min.css') }}" rel="stylesheet">
+<link href="{{ asset('admin-asset/vendor/select2/css/select2.min.css') }}" rel="stylesheet">
 
 <!-- Custom styles-->
 
-<link href="{{ asset('public/admin-asset/css/custom.css') }}?v={{ config('constants.asset_version') }}"
+<link href="{{ asset('admin-asset/css/custom.css') }}?v={{ config('constants.asset_version') }}"
 
   rel="stylesheet">
 
-<link rel="shortcut icon" href="{{ asset('public/images/'.App\Models\Setting::first()->site_favicon) }}"
+<link rel="shortcut icon" href="{{ asset('images/'.App\Models\Setting::first()->site_favicon) }}"
 
   type="image/x-icon">
 

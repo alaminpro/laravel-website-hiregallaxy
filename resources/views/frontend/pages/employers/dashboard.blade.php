@@ -421,26 +421,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 		</div>
 
 	</div>
-	<!-- script for side bar -->
-	<script>
-		function toggleSidebar(){
-				$("#sidebar").removeClass("turn-off");
-				$("#sidebar").addClass("active");
-				$("#sidebar_btn").addClass("btn-close");
-				// $("#sidebar_close").removeClass("#sidebar_close")
-				$("#sidebar_close").addClass("btn-active");
-				// $("#sidebar").addClass("turn-off");
-			}
-
-		function toggleOffSidebar(){
-			// $("#sidebar").removeClass("active");
-			$("#sidebar").removeClass("active");
-			$("#sidebar").addClass("turn-off");
-			$("#sidebar_btn").removeClass("btn-close");
-			$("#sidebar_btn").addClass("btn-active");
-			$("#sidebar_close").removeClass("btn-active");
-		}
-	</script>
+ 
 
 </section>
 

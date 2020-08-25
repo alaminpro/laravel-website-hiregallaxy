@@ -4,8 +4,8 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>@yield('title', App\Models\Setting::first()->site_title)</title>
-	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<title>@yield('title', App\Models\Setting::first()->site_title)</title>  
+	<meta name="csrf_token" content="{!! csrf_token() !!}">
 	<!-- link to stylesheets -->
 	@include('frontend.partials.styles')
 	@stack('stylesheets_stack')
@@ -14,9 +14,9 @@
 <body>
 
 	<div id="app">
-		<div id="preloader">
+		{{-- <div id="preloader">
 			<div id="preloader-status">&nbsp;</div>
-		</div>
+		</div> --}}
 		<!-- Header -->
 		<div class="">
 			<!-- Top Header -->

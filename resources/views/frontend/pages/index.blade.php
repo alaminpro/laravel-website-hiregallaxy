@@ -140,31 +140,27 @@
 
 
 
-		<div class="row justify-content-center">
+		<div class="feature__recent_job">
 
-			<div class="col-md-4 mt-1">
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
 
-				<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
 
-					<li class="nav-item">
+					<a class="nav-link active" id="featured-jobs-tab" data-toggle="tab" href="#featured-jobs"
 
-						<a class="nav-link active" id="featured-jobs-tab" data-toggle="tab" href="#featured-jobs"
+						role="tab" aria-controls="featured-jobs" aria-selected="true">Featured Jobs</a>
 
-							role="tab" aria-controls="featured-jobs" aria-selected="true">Featured Jobs</a>
+				</li>
 
-					</li>
+				<li class="nav-item">
 
-					<li class="nav-item">
+					<a class="nav-link" id="recent-jobs-tab" data-toggle="tab" href="#recent-jobs" role="tab"
 
-						<a class="nav-link" id="recent-jobs-tab" data-toggle="tab" href="#recent-jobs" role="tab"
+						aria-controls="recent-jobs" aria-selected="false">Recent Jobs</a>
 
-							aria-controls="recent-jobs" aria-selected="false">Recent Jobs</a>
+				</li>
 
-					</li>
-
-				</ul>
-
-			</div>
+			</ul>
 
 		</div>
 
@@ -838,6 +834,27 @@
 
 		</div>
 
+	</div>
+
+</section>
+
+<section class="trending_job_cetegory" >
+
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<h2 class="trending__title">Trending jobs 
+				</h2>
+			</div>
+			<div class="col-lg-6">
+				<ul class="trending__tag">
+					<li>Remote jobs</li>
+					<li>Business development</li>
+					<li>Amazon jobs</li>
+					<li>administrative assistant</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 
 </section>

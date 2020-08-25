@@ -1160,21 +1160,21 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 
 
-	// 		@if($enable_editing)
+			@if($enable_editing)
 
-	// 			tinymce.get('job_summery').setContent(data.template.job_summery);
+				tinymce.get('job_summery').setContent(data.template.job_summery);
 
-	// 			tinymce.get('responsibilities').setContent(data.template.responsibilities);
+				tinymce.get('responsibilities').setContent(data.template.responsibilities);
 
-	// 			tinymce.get('qualification').setContent(data.template.qualification);
+				tinymce.get('qualification').setContent(data.template.qualification);
 
-	// 			tinymce.get('certification').setContent(data.template.certification);
+				tinymce.get('certification').setContent(data.template.certification);
 
-	// 			tinymce.get('experience').setContent(data.template.experience);
+				tinymce.get('experience').setContent(data.template.experience);
 
-	// 			tinymce.get('about_company').setContent(data.template.about_company);
+				tinymce.get('about_company').setContent(data.template.about_company);
 
-	// 		@endif
+			@endif
 
 
 

@@ -66,7 +66,7 @@ Show company  Details
                           </div> 
                           <div class="clearfix"></div> 
                         </div> 
-                            <div class="card-body"> 
+                            <div class="card-body" style="overflow-x: scroll"> 
                             @include('backend.partials.message') 
                             
                             <table id="dataTable" width="100%" cellspacing="0" class="table table-bordered"> 

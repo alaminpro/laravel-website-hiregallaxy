@@ -4,9 +4,9 @@
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
 		<div class="container-fluid nav-container">
 			@if (Auth::check() && Auth::user()->is_company)
-      		<label for="check">
-        		<button class="fa fa-bars btn btn-primary" onclick="toggleSidebar()" id="sidebar_btn"></button>
-        		<button class="fa fa-close btn btn-danger btn-close-sidebar" onclick="toggleOffSidebar()" id="sidebar_close"></button>
+      		<label for="check" >
+        		<button class="fa fa-bars btn btn-primary" id="sidebar_btn"></button>
+        		<button class="fa fa-close btn btn-danger btn-close-sidebar" id="sidebar_close"></button>
       		</label>
       		<div class="sidebar" id="sidebar">
 			  <a href="{{ route('employers.dashboard') }}"><i class="fa fa-desktop"></i><span>Dashboard</span></a>
@@ -46,9 +46,9 @@
 				<ul class="navbar-nav ml-auto">
 					@if (Auth::check() && Auth::user()->is_company)
 					<li class="nav-item">
-						<a class="nav-link post-job-button" href="{{ route('jobs.post') }}">
+						<a class="nav-link post-job-button" href="{{ route('jobs.post') }}" title="post job">
 							<i class="fa fa-plus"></i>
-							Post a Job
+						<span class="hidden_sm_job_text">	Post a Job</span>
 						</a>
 					</li>
 					@endif
@@ -60,12 +60,14 @@
 						<a href="{{ Auth::user()->is_company ? route('employers.messages') : route('candidates.messages') }}">
 							<i class="fa fa-envelope"></i> 
 							<span class="message-count">
-								{{ count(Auth::user()->received_messages->where('is_seen',0)) }}
-								New 
+								{{ count(Auth::user()->received_messages->where('is_seen',0)) }} 
 							</span>
-								Message
+							<span class="message__hidden">	New Message</span>
 						</a>
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdownAccountButton"><img src="{{ App\Helpers\ReturnPathHelper::getUserImage(Auth::user()->id) }}" class="account-img"> {{ Auth::user()->name }}</a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdownAccountButton">
+							<img src="{{ App\Helpers\ReturnPathHelper::getUserImage(Auth::user()->id) }}" class="account-img">
+				 
+							 {{ str_limit(Auth::user()->name , $limit = 3, $end = '..') }}</a>
 						<div class="dropdown-menu dropdown-menu-account" aria-labelledby="dropdownAccountButton">
 							@if(auth()->check() && auth()->user()->type == 1)
 								<a class="dropdown-item dropdown-account-item" href="{{ route('team.dashboard', auth()->user()->id) }}"><i class="fa fa-dashboard"></i> Dashboard</a>
@@ -99,23 +101,4 @@
 	</div>
 </div>
 
-<!-- script for side bar -->
-<script>
-	function toggleSidebar(){
-			$("#sidebar").removeClass("turn-off");
-			$("#sidebar").addClass("active");
-			$("#sidebar_btn").addClass("btn-close");
-			// $("#sidebar_close").removeClass("#sidebar_close")
-			$("#sidebar_close").addClass("btn-active");
-			// $("#sidebar").addClass("turn-off");
-		}
-
-	function toggleOffSidebar(){
-		// $("#sidebar").removeClass("active");
-		$("#sidebar").removeClass("active");
-		$("#sidebar").addClass("turn-off");
-		$("#sidebar_btn").removeClass("btn-close");
-		$("#sidebar_btn").addClass("btn-active");
-		$("#sidebar_close").removeClass("btn-active");
-	}
-</script>
+ 

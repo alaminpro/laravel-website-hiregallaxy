@@ -10,10 +10,7 @@ Posted Jobs | {{ App\Models\Setting::first()->site_title }}
 
 
 
-@section('stylesheets')
-
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
-
+@section('stylesheets') 
 <style type="text/css">
 
 	.mb-4{
@@ -50,9 +47,7 @@ $_filter = request()->filter ?? '';
 
 					<div class="col-md-3">
 
-						<div class="single-dashboard-link card card-default p-3 text-center"
-
-							onclick="location.href='{{ route('employers.jobs.posted') }}'">
+						<div id="posted__jobs"  class="single-dashboard-link card card-default p-3 text-center" >
 
 							<span class="">
 
@@ -72,9 +67,7 @@ $_filter = request()->filter ?? '';
 
 					<div class="col-md-3">
 
-						<div class="single-dashboard-link card card-default p-3 text-center"
-
-							onclick="location.href='{{ route('employers.jobs.listed', 'Live') }}'">
+						<div id="live__jobs"   class="single-dashboard-link card card-default p-3 text-center">
 
 							<span class="">
 
@@ -104,9 +97,8 @@ $_filter = request()->filter ?? '';
 
 					<div class="col-md-3">
 
-						<div class="single-dashboard-link card card-default p-3 text-center"
-
-							onclick="location.href='{{ route('employers.jobs.listed', 'In-progress') }}'">
+						<div id="progress__jobs"   class="single-dashboard-link card card-default p-3 text-center" 
+							>
 
 							<span class="">
 
@@ -136,9 +128,7 @@ $_filter = request()->filter ?? '';
 
 					<div class="col-md-3">
 
-						<div class="single-dashboard-link card card-default p-3 text-center"
-
-							onclick="location.href='{{ route('employers.jobs.listed', 'Archived') }}'">
+						<div id="archived__jobs"  class="single-dashboard-link card card-default p-3 text-center">
 
 							<span class="">
 
@@ -166,239 +156,12 @@ $_filter = request()->filter ?? '';
 
 					</div>
 
+				</div> 
+
+				<div class="content__area">
+					<div class="main-content"></div>
+					<div class="loader"></div>
 				</div>
-
-				<!-- <div class="row">
-
-					<div class="col-md-4">
-
-						<form action="">
-
-							<div class="form-group">
-
-								<select class="form-control" name="filter" onchange="submit()">
-
-									<option value="" {{$_filter=='' ? 'selected' : ''}}>Filter Status: View All</option>
-
-									<option value="active" {{$_filter=='active' ? 'selected' : ''}}>Active</option>
-
-									<option value="inactive" {{$_filter=='inactive' ? 'selected' : ''}}>Inactive</option>
-
-								</select>
-
-							</div>
-
-						</form>
-
-					</div>
-
-				</div> -->
-
-				<div class="employer-detail-main">
-
-					<h5 class="text-theme">
-
-						Posted Jobs
-
-					</h5>
-
-					<!-- @foreach ($jobs as  $key => $single_job)
-
-					@include('frontend.pages.partials.single-job-search')
-
-					@endforeach -->
-
-<!-- ==========================================================================================================================================
-		Data table code for posted jobs
-	===========================================================================================================================================
- -->					
-
- 					<hr>
-					<div class="table-responsive">
-					<table class="table table-hover table-striped col-sm-12" id="dataTable" style="font-size: 13px !important">
-
-						<thead>
-
-							<th style="padding:5px 22px 10px 6px !important">#</th>
-
-							<th style="padding:5px 22px 10px 6px !important">Job Title</th>
-
-							<th style="padding:5px 22px 10px 6px !important">Company/Project</th>
-
-							<th style="padding:5px 22px 10px 6px !important">Job Locations</th>
-
-							<th style="padding:5px 22px 10px 6px !important">Job Posted Date</th>
-
-							<th style="padding:5px 22px 10px 6px !important">Job Deadline Date</th>*
-
-							<th style="padding:5px 22px 10px 6px !important">Job Archieved Date</th>
-
-							<th style="padding:5px 22px 10px 6px !important">Status</th>
-
-							<th style="padding:5px 22px 10px 6px !important">Actions</th>
-
-						</thead>
-
-						<tbody>
-
-							@php
-								$i = 1;
-							@endphp
-							
-							@foreach ($jobs as  $key => $single_job)
-
-							<tr>
-
-								<td> {{ $i }} </td>
-
-								<td>
-
-									<p class="pointer" onclick="location.href='{{ route('jobs.show', $single_job->slug) }}'">
-										{{ $single_job->title }}
-									</p>
-
-								</td>
-
-								<td>
-									@php
-									$company = App\Models\Company::where('id', $single_job->company_id)->first()
-								@endphp
-								{{ $company ? $company->name : '---'  }}
-								</td>
-
-								<td>
-									{{ $single_job->country->name }}
-								</td>
-
-								<td>
-									{{ $single_job->created_at }}
-								</td>
-
-								<td>
-									{{ $single_job->deadline }}
-								</td>
-
-								<td>
-									{{ $single_job->archived_at != null ?  $single_job->archived_at : 'Not Archived' }}
-								</td>
-
-								<td>
-
-									@php
-
-									$flag = 0;
-
-									$timezone = date_default_timezone_get();
-
-									$date = date('Y/m/d H:i:s');
-
-									$getActiveJobs = \App\Models\Job::where('user_id',$user->id)->where( 'deadline', '>', $date)->get();
-
-									foreach($getActiveJobs as $value => $activeJob){
-										if($activeJob->id == $single_job->id){
-											$flag = 1;
-										}
-									}
-
-									@endphp
-
-									@if($flag == 1)
-										<p style="background-color: #4BB543; padding: 5px 10px; color: #fff;">Active</p>
-
-									@elseif($single_job->archived == 1)
-										<p style="background-color: #0000CD; padding: 5px 10px; color: #fff;">Archived</p>										
-									@else
-										<p style="background-color: #8B0000; padding: 5px 10px; color: #fff;">In-Progress</p>
-									@endif
-
-									@php
-
-									$flag = 0;
-
-									@endphp
-
-								</td>
-
-								<td>
-
-									<a href="{{ route('jobs.edit', $single_job->slug) }}" class="btn btn-outline-success" title="Edit Job">
-
-										<i class="fa fa-edit"></i>
-
-									</a>
-
-									<a href="{{ route('employers.jobs.applications', $single_job->slug) }}" class="btn btn-outline-yellow"
-
-										title="View All Applications ({{ count($single_job->activities) }})">
-
-										<i class="fa fa-eye"></i>
-
-										<span class="badge badge-danger">{{ count($single_job->activities) }}</span>
-
-									</a>
-
-									<form method="post" action="{{ route('employers.jobs.delete', $single_job->slug) }}" class="ml-1"
-
-										style="display:inline" onsubmit="return confirm('Are you sure to delete the job permanently ?')">
-
-										@csrf
-
-										<button class="btn btn-outline-danger" type="submit" title="Delete Job" style="border-radius: 20px!important;
-
-										padding: 4px 20px!important">
-
-											<i class="fa fa-trash"></i>
-
-										</button>
-
-									</form>
-
-								</td>
-
-							</tr>
-
-							@php
-								$i = $i + 1;
-							@endphp
-
-							@endforeach
-
-						</tbody>
-
-					</table>
-					</div>
-
-<!-- ==========================================================================================================================================
-		Code ends
-	===========================================================================================================================================
- -->					
-
-					<!-- <div class="mt-3">
-
-						{{ $jobs->appends(request()->query())->links() }}
-
-					</div>
-
- -->
-
-					@if (count($jobs) == 0)
-
-					<p class="mt-4">
-
-						<span class="alert alert-danger">
-
-							Sorry !! No {{ucwords(request()->filter)}} jobs found !!
-
-						</span>
-
-					</p>
-
-					@endif
-
-				</div>
-
-
-
 			</div>
 
 		</div>
@@ -413,25 +176,6 @@ $_filter = request()->filter ?? '';
 
 @section('scripts')
 
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
-<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
-
-<script>
-
-$("#dataTable").dataTable();
-
-$(function() {
-
-	$( ".datepicker" ).datepicker({
-
-		dateFormat: 'yy-mm-dd'
-
-	});
-
-});
-
-</script>
-
+<script src="{{ asset('js/postjob.js') }}"></script> 
 
 @endsection

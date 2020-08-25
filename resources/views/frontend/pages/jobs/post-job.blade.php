@@ -1070,129 +1070,129 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 
 
-	// 	@if($enable_editing)
+		@if($enable_editing)
 
 
 
-	// 	tinymce.init({
+		tinymce.init({
 
-	// 		selector:'#job_summery',
+			selector:'#job_summery',
 
-	// 		plugins: "{{ config('constants.tiny_plugins') }}",
+			plugins: "{{ config('constants.tiny_plugins') }}",
 
-	// 		toolbar: "{{ config('constants.tiny_toolbar') }}",
+			toolbar: "{{ config('constants.tiny_toolbar') }}",
 
-	// 		contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
 
-	// 		autoresize_bottom_margin: 0,
+			autoresize_bottom_margin: 0,
 
-	// 		image_advtab: true,
+			image_advtab: true,
 
-	// 		menubar:false,
+			menubar:false,
 
-	// 	  });
+		  });
 
 
 
-	// 	tinymce.init({
+		tinymce.init({
 
-	// 		selector:'#responsibilities',
+			selector:'#responsibilities',
 
-	// 		plugins: "{{ config('constants.tiny_plugins') }}",
+			plugins: "{{ config('constants.tiny_plugins') }}",
 
-	// 		toolbar: "{{ config('constants.tiny_toolbar') }}",
+			toolbar: "{{ config('constants.tiny_toolbar') }}",
 
-	// 		contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
 
-	// 		autoresize_bottom_margin: 0,
+			autoresize_bottom_margin: 0,
 
-	// 		image_advtab: true,
+			image_advtab: true,
 
-	// 		menubar:false,
+			menubar:false,
 
-	// 	  });
+		  });
 
 
 
-	// 	tinymce.init({
+		tinymce.init({
 
-	// 		selector:'#qualification',
+			selector:'#qualification',
 
-	// 		plugins: "{{ config('constants.tiny_plugins') }}",
+			plugins: "{{ config('constants.tiny_plugins') }}",
 
-	// 		toolbar: "{{ config('constants.tiny_toolbar') }}",
+			toolbar: "{{ config('constants.tiny_toolbar') }}",
 
-	// 		contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
 
-	// 		autoresize_bottom_margin: 0,
+			autoresize_bottom_margin: 0,
 
-	// 		image_advtab: true,
+			image_advtab: true,
 
-	// 		menubar:false,
+			menubar:false,
 
-	// 	  });
+		  });
 
 
 
-	// 	tinymce.init({
+		tinymce.init({
 
-	// 		selector:'#certification',
+			selector:'#certification',
 
-	// 		plugins: "{{ config('constants.tiny_plugins') }}",
+			plugins: "{{ config('constants.tiny_plugins') }}",
 
-	// 		toolbar: "{{ config('constants.tiny_toolbar') }}",
+			toolbar: "{{ config('constants.tiny_toolbar') }}",
 
-	// 		contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
 
-	// 		autoresize_bottom_margin: 0,
+			autoresize_bottom_margin: 0,
 
-	// 		image_advtab: true,
+			image_advtab: true,
 
-	// 		menubar:false,
+			menubar:false,
 
-	// 	  });
+		  });
 
 
 
-	// 	tinymce.init({
+		tinymce.init({
 
-	// 		selector:'#experience',
+			selector:'#experience',
 
-	// 		plugins: "{{ config('constants.tiny_plugins') }}",
+			plugins: "{{ config('constants.tiny_plugins') }}",
 
-	// 		toolbar: "{{ config('constants.tiny_toolbar') }}",
+			toolbar: "{{ config('constants.tiny_toolbar') }}",
 
-	// 		contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
 
-	// 		autoresize_bottom_margin: 0,
+			autoresize_bottom_margin: 0,
 
-	// 		image_advtab: true,
+			image_advtab: true,
 
-	// 		menubar:false,
+			menubar:false,
 
-	// 	  });
+		  });
 
 
 
-	// 	tinymce.init({
+		tinymce.init({
 
-	// 		selector:'#about_company',
+			selector:'#about_company',
 
-	// 		plugins: "{{ config('constants.tiny_plugins') }}",
+			plugins: "{{ config('constants.tiny_plugins') }}",
 
-	// 		toolbar: "{{ config('constants.tiny_toolbar') }}",
+			toolbar: "{{ config('constants.tiny_toolbar') }}",
 
-	// 		contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+			contextmenu: "{{ config('constants.tiny_contextmenu') }}",
 
-	// 		autoresize_bottom_margin: 0,
+			autoresize_bottom_margin: 0,
 
-	// 		image_advtab: true,
+			image_advtab: true,
 
-	// 		menubar:false,
+			menubar:false,
 
-	// 	  });
+		  });
 
-	// 	@endif
+		@endif
 
 
 

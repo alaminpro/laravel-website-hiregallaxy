@@ -161,42 +161,9 @@ class JobsController extends Controller
 
     }
 
-    /**
-
-     * searchJob
-
-     *
-
-     * @param  Request $request
-
-     * @return [type]
-
-     */
-
-    public function searchJob(Request $request)
+    private function jobsearchs($request)
     {
-
-        // Fetch User City
-
-        // $ip = $_SERVER['REMOTE_ADDR'];
-
-        // if ($ip == "::1") {
-
-        //     $ip = "128.100.33.149";
-
-        // }
-
-        // $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
-
-        // $user_city = $details->city;
-
-        // if (!is_null(Country::where('name', $user_city)->first())) {
-
-        //     $city_id = Country::where('name', $user_city)->first()->id;
-
-        // }
-
-        $search = $country = $country_id = $category_id = null;
+        $search = $category = $country = $country_id = $category_id = null;
 
         $salary_min = 0;
 
@@ -380,12 +347,6 @@ class JobsController extends Controller
 
         $jobs = Job::with('results')->whereIn('id', $job_ids)->paginate($paginateNumber);
 
-        // if (isset($city_id) && !is_null($city_id) && $city_id != '' && $city_id != 0) {
-
-        //     $jobs = Job::whereIn('id', $job_ids)->orderByRaw(DB::raw("FIELD(country_id , '$city_id') DESC"))->orderBy('id', 'DESC')->paginate($paginateNumber);
-
-        // }
-
         $total_jobs = count($jobs);
 
         $pageNo = $pageNo != 0 ? $pageNo - 1 : $pageNo;
@@ -394,6 +355,28 @@ class JobsController extends Controller
 
         return view('frontend.pages.jobs.index', compact('jobs', 'categories', 'pageNoText', 'search', 'country', 'category'));
 
+    }
+    /**
+
+     * searchJob
+
+     *
+
+     * @param  Request $request
+
+     * @return [type]
+
+     */
+
+    public function searchJob(Request $request)
+    {
+        // return $request->job;
+
+        if ($request->has('job')) {
+            return $this->jobsearchs($request);
+
+        }
+        return 'Still development';
     }
 
     /**

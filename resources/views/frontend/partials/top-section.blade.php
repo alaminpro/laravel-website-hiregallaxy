@@ -1,86 +1,85 @@
 @if (Route::is('index'))
-<div class="row header-index">
-	<!-- Home Search Section -->
-	<div class="col-md-12">
-		<div class="home-top">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-md-10">
-						<h3 class="top-title wow fadeInUp">
-							The Coolest Way to Get Your <br> Dream Job
-						</h3>
-						<p class="top-description  wow fadeInLeft">Find Job, Employment, and Career Oppurtunities
-						</p>
-						@include('frontend.pages.partials.search', ['route' => route('jobs.search') ])
-						<div class="companies-more">
-							<div class="row">
-								<div class="wow slideInLeft col-4">
-									<div>
-										<span class="icon">
-											<i class="fa fa-globe" aria-hidden="true"></i>
-										</span>
-										<span class="counts-more">
-											<span class="count-thing">
-												{{ count(App\Models\Country::select('id')->get()) }}
-											</span>
-											<br>
-											<span class="company-more-name">
-												Cities
-											</span>
-										</span>
-									</div>
-								</div>
-								<div class="wow slideInDown col-4">
-									<div>
-										<span class="icon">
-											<i class="fa fa-line-chart" aria-hidden="true"></i>
-										</span>
-										<span class="counts-more">
-											<span class="count-thing">
-												@php
-												$companies_count = count(App\User::where('is_company',
-												1)->where('status',
-												1)->get());
-												@endphp
-												{{ $companies_count }}
-											</span>
-											<br>
-											<span class="company-more-name">
-												{{ $companies_count > 1 ? 'Companies':'Company' }}
-											</span>
-										</span>
-									</div>
-								</div>
-								<div class="wow slideInRight col-4">
-									<div>
-										<span class="icon">
-											<i class="fa fa-user-o" aria-hidden="true"></i>
-										</span>
-										<span class="counts-more">
-											<span class="count-thing">
-												@php
-												$candidate_counts = count(App\User::where('is_company',
-												0)->where('status',
-												1)->get());
-												@endphp
-												{{ $candidate_counts }}
-											</span>
-											<br>
-											<span class="company-more-name">
-												{{ $candidate_counts > 1 ? 'Candidates':'Candidate' }}
-											</span>
-										</span>
-									</div>
-								</div>
+<div class="home-top header-index">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<h3 class="top-title wow fadeInUp custom__title"> 
+					Simplify your hiring and job search process, get <span class="text-danger">prescreened</span> candidates to your inbox!
+				</h3>
+				<p class="top-description  wow fadeInLeft custom__description">
+					Discover
+				</p>
+			
+				@include('frontend.pages.partials.search', ['route' => route('jobs.search') ])
+				<div class="companies-more">
+					<div class="row">
+						<div class="wow slideInLeft col-sm-4 custom__back ">
+							<div class=" d-flex align-items-center">
+								<span class="icon">
+									<i class="fa fa-globe" aria-hidden="true"></i>
+								</span>
+								<span class="counts-more">
+									<span class="count-thing">
+										{{ count(App\Models\Country::select('id')->get()) }}
+									</span>
+									<br>
+									<span class="company-more-name">
+										Cities
+									</span>
+								</span>
+							</div>
+						</div>
+						<div class="wow slideInDown col-sm-4 custom__back">
+							<div class="d-flex align-items-center">
+								<span class="icon">
+									<i class="fa fa-line-chart" aria-hidden="true"></i>
+								</span>
+								<span class="counts-more">
+									<span class="count-thing">
+										@php
+										$companies_count = count(App\User::where('is_company',
+										1)->where('status',
+										1)->get());
+										@endphp
+										{{ $companies_count }}
+									</span>
+									<br>
+									<span class="company-more-name">
+										{{ $companies_count > 1 ? 'Companies':'Company' }}
+									</span>
+								</span>
+							</div>
+						</div>
+						<div class="wow slideInRight col-sm-4  custom__back">
+							<div class="d-flex align-items-center">
+								<span class="icon">
+									<i class="fa fa-user-o" aria-hidden="true"></i>
+								</span>
+								<span class="counts-more">
+									<span class="count-thing">
+										@php
+										$candidate_counts = count(App\User::where('is_company',
+										0)->where('status',
+										1)->get());
+										@endphp
+										{{ $candidate_counts }}
+									</span>
+									<br>
+									<span class="company-more-name">
+										{{ $candidate_counts > 1 ? 'Candidates':'Candidate' }}
+									</span>
+								</span>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div class="col-lg-6 d-lg-flex d-none align-items-center">
+				<img src="{{ asset('images/team.png') }}" class="img-fluid" alt="">
+			</div>
 		</div>
 	</div>
 </div>
-
 
 
 
@@ -882,6 +881,10 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 
 					Privacy Policy
 
+					@elseif(Route::is('about_us'))
+
+					About us
+
 
 
 					@else
@@ -1080,6 +1083,11 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 						<li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
 
 						<li class="breadcrumb-item active" aria-current="page">Privacy Policy</li>
+
+						@elseif(Route::is('about_us'))
+ 
+
+						<li class="breadcrumb-item active" aria-current="page">About-us</li>
 
 						@else
 
