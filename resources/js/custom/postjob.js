@@ -165,8 +165,7 @@ $(function(){
             },
             data: {action: method, status: status, id: id, _token: token},
             dataType: 'JSON',
-            type: 'POST', 
-            async: false,
+            type: 'POST',  
             success: function (res) {
                 if(res.status === 'success'){   
                     contents.append(res.html); 
@@ -175,7 +174,10 @@ $(function(){
             },
             complete: function(){
                 loader.empty();
-            }
+            },   error: function(err){
+                //Show error 
+                alert(err);
+             }
         });  
     }
  

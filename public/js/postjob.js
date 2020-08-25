@@ -261,7 +261,6 @@ $(function () {
       },
       dataType: 'JSON',
       type: 'POST',
-      async: false,
       success: function success(res) {
         if (res.status === 'success') {
           contents.append(res.html);
@@ -270,6 +269,10 @@ $(function () {
       },
       complete: function complete() {
         loader.empty();
+      },
+      error: function error(err) {
+        //Show error 
+        alert(err);
       }
     });
   }

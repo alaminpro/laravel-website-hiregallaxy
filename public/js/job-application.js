@@ -434,7 +434,6 @@ $(function () {
       },
       dataType: 'JSON',
       type: 'POST',
-      async: false,
       success: function success(res) {
         if (res.status === 'success') {
           contents.append(res.html);
