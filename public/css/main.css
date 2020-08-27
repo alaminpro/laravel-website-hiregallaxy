@@ -1,8 +1,4 @@
 @charset "UTF-8";
-body {
-  font-family: Nunito;
-}
-
 p {
   margin-top: 0;
   margin-bottom: 0.3rem;
@@ -402,8 +398,7 @@ label {
 }
 
 .header-index {
-  background-image: url(/images/header.jpg);
-  color: #fff;
+  color: #6e6e6e;
   padding-bottom: 0;
 }
 
@@ -543,6 +538,8 @@ a.dropdown-account-item {
   background: #fff;
   border-radius: 25px;
   padding: 5px 10px 5px 20px;
+  box-shadow: 0px 5px 9px -4px #1d1d1d2e;
+  border: 1px solid #f0f0f0;
 }
 
 .job-searchbox .form-control {
@@ -623,7 +620,11 @@ span.counts-more {
 .company-more-name {
   font-size: 14px;
   font-weight: 100;
-  color: #f9f5f5;
+  color: #363636;
+}
+
+.icon {
+  color: #656565;
 }
 
 .how-work,
@@ -1719,13 +1720,13 @@ ul.footer-links {
 @media (max-width: 600px) {
   .job-searchbox .form-control {
     border: 0 solid !important;
-    border-right: 0 solid gray !important;
+    border-right: 0 solid #f0f0f0 !important;
     border-radius: 0;
     text-align: center;
   }
 
   .filter-option-inner-inner {
-    border-right: 0 solid gray !important;
+    border-right: 0 solid #f0f0f0 !important;
   }
 
   .package-item {
@@ -2675,10 +2676,11 @@ label #sidebar_btn:hover {
   font-size: 34px;
   margin-top: 50px;
   text-align: left;
+  color: #565656;
 }
 
 .custom__description {
-  color: #fff;
+  color: #565656;
   font-size: 40px;
   padding-bottom: 26px;
   font-weight: bold;
@@ -2707,14 +2709,12 @@ label #sidebar_btn:hover {
   border-radius: 0;
 }
 .job-searchbox .dropdown {
-  border-right: 1px solid #ccc;
-  border-left: 1px solid #ccc;
+  border-right: 1px solid #f0f0f0;
+  border-left: 1px solid #f0f0f0;
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: center;
           justify-content: center;
-  -webkit-box-align: center;
-          align-items: center;
 }
 .job-searchbox .dropdown button {
   background: transparent;
@@ -2726,6 +2726,7 @@ label #sidebar_btn:hover {
           justify-content: center;
   -webkit-box-align: center;
           align-items: center;
+  margin-right: 10px;
 }
 .job-searchbox .input__submit button {
   border: none;
@@ -2736,7 +2737,33 @@ label #sidebar_btn:hover {
 }
 .job-searchbox .form-control {
   height: 50px;
-  border-color: #ccc !important;
+  border-color: #f0f0f0 !important;
+  font-size: 16px;
+}
+
+.dropdown button.dropdown-toggle:hover {
+  background: #ececec;
+}
+
+.input__submit:hover {
+  background: #ececec;
+}
+
+.advanced__search_btn:hover {
+  background: #ececec !important;
+}
+
+.advanced__search_mobile {
+  display: none;
+}
+
+.advanced__search_mobile .advanced__search_btn {
+  border: none;
+  padding: 10px 20px;
+  background: #fff;
+  font-size: 18px;
+  color: #707070;
+  border-radius: 20px;
 }
 
 .advanced__search .advanced__search_btn {
@@ -2746,11 +2773,23 @@ label #sidebar_btn:hover {
   font-size: 18px;
   color: #707070;
   border-radius: 20px;
+  border: 1px solid #f0f0f0;
+  margin-left: 10px;
+  box-shadow: 0px 5px 9px -4px #1d1d1d2e;
+}
+
+.btn.dropdown-toggle.btn-light {
+  background: #fff;
+  box-shadow: 0px 4px 5px -5px #ccc;
+}
+
+.filter-option-inner-inner {
+  color: #6c7b92 !important;
+  border-right: 1px solid #efefef !important;
 }
 
 .search__form {
   padding: 10px;
-  background: #3558cab8;
 }
 
 .trending_job_cetegory {
@@ -2758,6 +2797,7 @@ label #sidebar_btn:hover {
 }
 .trending_job_cetegory .trending__title {
   font-size: 24px;
+  font-weight: bold;
 }
 .trending_job_cetegory .trending__tag {
   list-style: none;
@@ -2771,6 +2811,9 @@ label #sidebar_btn:hover {
   padding: 8px 15px;
   border-radius: 50px;
   box-shadow: 0px 0px 5px -1px #b9b9b9;
+}
+.trending_job_cetegory .trending__tag li a {
+  color: #525252;
 }
 
 .row {
@@ -2810,10 +2853,6 @@ label #sidebar_btn:hover {
   display: flex;
 }
 
-.job-searchbox .input__submit {
-  border-right: 1px solid #ccc;
-}
-
 .job-searchbox .input__submit button {
   padding: 10px 15px;
 }
@@ -2829,7 +2868,53 @@ label #sidebar_btn:hover {
   text-align: left;
 }
 
+.candidate-searchbox .form-control {
+  border: 1px solid #ced4da;
+  border-radius: 24px;
+}
+
+.job_search_candidate {
+  display: none;
+}
+
+.company__input {
+  width: 360px;
+}
+
 @media (max-width: 600px) {
+  .dropdown.bootstrap-select {
+    width: 100% !important;
+  }
+
+  .single-job-short .float-right {
+    float: none !important;
+  }
+  .single-job-short .apply-now-button {
+    width: 100%;
+  }
+
+  .employee-header-section .float-right {
+    float: none !important;
+  }
+
+  .top-title {
+    font-weight: 600;
+    font-size: 1.8rem;
+    margin-top: 50px;
+  }
+
+  .left-sidebar .toggleNav {
+    float: none !important;
+  }
+
+  .advanced__search {
+    display: none;
+  }
+
+  .advanced__search_mobile {
+    display: block;
+  }
+
   .job-searchbox .form-control {
     border-right: none;
     background: transparent;
@@ -2853,9 +2938,11 @@ label #sidebar_btn:hover {
   }
 
   .custom__back {
-    background: #3a54b8;
+    background: #fff;
     margin-bottom: 5px;
     padding: 10px 25px;
+    box-shadow: 0px 5px 9px -4px #1d1d1d2e;
+    margin: 5px 0;
   }
 
   .companies-more {

@@ -81,12 +81,7 @@
 	</div>
 </div>
 
-
-
-
-
-
-
+ 
 
 @elseif(Route::is('jobs'))
 
@@ -464,29 +459,20 @@
 					Find Perfect Candidate
 
 				</h3>
-
-
-
-				{{--  @include('frontend.pages.partials.search', ['route' => route('candidates.search') ])  --}}
-
-
+ 
 
 				<form action="{{ route('candidates.search') }}" method="get">
 
-					<div class="job-searchbox candidate-searchbox">
+					<div class="candidate-searchbox py-5">
 
-						<div class="row">
-
-							<div class="col-sm-5 col-xs-5">
-
+						<div class="d-md-flex justify-content-center">
+							<div class="input">
 								<input type="text" name="search" class="form-control"
 
-									placeholder="Enter Job Title, Candidate Name">
-
+							placeholder="Enter Job Title, Candidate Name"> 
 							</div>
-
-							<div class="col-sm-4 col-xs-4">
-
+							<div class="position px-md-4">
+								
 								<select name="category" id="category" class="selectpicker" data-live-search="true">
 
 									<option data-icon="fa fa-navicon" value="all">All Positions</option>
@@ -498,11 +484,8 @@
 									@endforeach
 
 								</select>
-
-							</div>
-
-							<div class="col-sm-3 col-xs-3">
-
+							</div> 
+							<div class="search">
 								<button type="submit" class="btn btn-info search-button">
 
 									Search
@@ -510,7 +493,6 @@
 								</button>
 
 							</div>
-
 						</div>
 
 					</div> <!-- End Searchbox -->
@@ -561,7 +543,7 @@
 
 		<div class="row justify-content-center">
 
-			<div class="col-md-6">
+			<div class="col-md-12">
 
 
 
@@ -573,30 +555,19 @@
 
 
 
-				<form action="{{ route('employers.search') }}" method="get">
+				<form action="{{ route('employers.search') }}" method="get"> 
+					<div class="candidate-searchbox py-5"> 
+						<div class="d-md-flex justify-content-center">
+							<div class="input">
+								<input type="text" name="search" class="form-control company__input"
 
-					<div class="job-searchbox">
+								placeholder="Enter Job Title, Employer Name">
+							</div> 
+							<button type="submit" class="btn btn-info ml-4 search-button">
 
-						<div class="row">
+								Search
 
-							<div class="col-sm-9 col-xs-9">
-
-								<input type="text" name="search" class="form-control"
-
-									placeholder="Enter Job Title, Employer Name">
-
-							</div>
-
-							<div class="col-sm-3 col-xs-3">
-
-								<button type="submit" class="btn btn-info search-button">
-
-									Search
-
-								</button>
-
-							</div>
-
+							</button>  
 						</div>
 
 					</div> <!-- End Searchbox -->
@@ -898,29 +869,18 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 				@if(Route::is('employers.search'))
 
 				<form action="{{ route('employers.search') }}" method="get">
+					<div class="candidate-searchbox py-5"> 
+						<div class="d-md-flex justify-content-center">
+							<div class="input">
+								<input type="text" name="search" class="form-control company__input"
 
-					<div class="job-searchbox">
+								placeholder="Enter Job Title, Employer Name">
+							</div> 
+							<button type="submit" class="btn btn-info ml-4 search-button">
 
-						<div class="row">
+								Search
 
-							<div class="col-sm-9 col-xs-9">
-
-								<input type="text" name="search" class="form-control"
-
-									placeholder="Enter Job Title, Employer Name">
-
-							</div>
-
-							<div class="col-sm-3 col-xs-3">
-
-								<button type="submit" class="btn btn-info search-button">
-
-									Search
-
-								</button>
-
-							</div>
-
+							</button>  
 						</div>
 
 					</div> <!-- End Searchbox -->
@@ -935,20 +895,16 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 
 				<form action="{{ route('candidates.search') }}" method="get">
 
-					<div class="job-searchbox candidate-searchbox">
+					<div class="candidate-searchbox py-5">
 
-						<div class="row">
-
-							<div class="col-sm-5 col-xs-5">
-
+						<div class="d-md-flex justify-content-center">
+							<div class="input pb-2 pb-md-0">
 								<input type="text" name="search" class="form-control"
 
-									placeholder="Enter Job Title, Candidate Name">
-
+							placeholder="Enter Job Title, Candidate Name"> 
 							</div>
-
-							<div class="col-sm-4 col-xs-4">
-
+							<div class="position px-md-4">
+								
 								<select name="category" id="category" class="selectpicker" data-live-search="true">
 
 									<option data-icon="fa fa-navicon" value="all">All Positions</option>
@@ -960,22 +916,18 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 									@endforeach
 
 								</select>
-
-							</div>
-
-							<div class="col-sm-3 col-xs-3">
-
-								<button type="submit" class="btn btn-info search-button">
+							</div> 
+							<div class="search pt-2 pt-md-0">
+								<button type="submit" class="btn btn-info search-button w-100 w-md-auto">
 
 									Search
 
 								</button>
 
 							</div>
-
 						</div>
 
-					</div> <!-- End Searchbox -->
+					</div> <!-- End Searchbox --> 
 
 				</form>
 

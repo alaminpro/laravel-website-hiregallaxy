@@ -356,6 +356,242 @@ class JobsController extends Controller
         return view('frontend.pages.jobs.index', compact('jobs', 'categories', 'pageNoText', 'search', 'country', 'category'));
 
     }
+    public function candaditeSearch($request)
+    {
+
+        $search = $categories = $category = $country = $country_id = $category_id = null;
+
+        $categories = Category::orderBy('name', 'asc')->where('status', 1)->get();
+
+        $paginateNumber = 20;
+
+        // You are watching text
+
+        if ($request->page) {
+
+            $pageNo = $request->page;
+
+        } else {
+
+            $pageNo = 0;
+
+        }
+
+        $pdo = DB::connection()->getPdo();
+
+        $sql = 'select users.id
+
+                from users
+
+                left join candidate_profiles on users.id = candidate_profiles.user_id
+
+                left join locations on locations.id = users.location_id
+
+                where is_company = 0 and status=1
+
+        ';
+
+        if ($request->search && $request->search != '') {
+
+            $sql .= " and users.name like '%$request->search%' or users.about like '%$request->search%'";
+
+        }
+
+        if ($request->country && $request->country != 'all') {
+
+            $country = $request->country;
+
+            $country_id = Country::where('name', $country)->first()->id;
+
+            $sql .= " and locations.country_id = $country_id ";
+
+        }
+
+        if ($request->category != null && $request->category != 'all') {
+
+            $category = $request->category;
+
+            $category_id = Category::where('slug', $category)->first()->id;
+
+            $sql .= " and candidate_profiles.sector = $category_id ";
+
+        }
+
+        $experience_id = null;
+
+        if ($request->experience != null && $request->experience != '') {
+
+            $experience_id = Experience::where('slug', $request->experience)->first()->id;
+
+            $sql .= " and candidate_profiles.experience_id = $experience_id";
+
+        }
+
+        $gender = null;
+
+        if ($request->gender != null && $request->gender != '') {
+
+            $sql .= " and candidate_profiles.gender = '$request->gender'";
+
+        }
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute();
+
+        $user_ids = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        $users = User::whereIn('id', $user_ids)->paginate($paginateNumber);
+
+        $total_users = count($users);
+
+        $pageNoText = $paginateNumber * $pageNo . ' to ' . ($pageNo * $paginateNumber + $total_users);
+
+        return view('frontend.pages.candidates.index', compact('users', 'categories', 'pageNoText', 'search', 'country', 'category'));
+
+    }
+    public function CompanySearch($request)
+    {
+        $search = $country = $category = $country_id = $category_id = null;
+
+        $categories = Category::orderBy('name', 'asc')->where('status', 1)->get();
+
+        $paginateNumber = 20;
+
+        // You are watching text
+
+        if ($request->page) {
+
+            $pageNo = $request->page;
+
+        } else {
+
+            $pageNo = 0;
+
+        }
+
+        $pdo = DB::connection()->getPdo();
+
+        $sql = 'select users.id
+
+                from users
+
+                left join company_profiles on users.id = company_profiles.user_id
+
+                left join locations on locations.id = users.location_id
+
+                left join jobs on jobs.user_id = users.id
+
+                where users.is_company=1 and users.status=1
+
+        ';
+
+        if ($request->search && $request->search != '') {
+
+            //$sql .= " and users.name like '%$request->search%' or users.about like '%$request->search%' or jobs.title like '%$request->search%'";
+
+            $sql .= " and users.name like '%$request->search%' ";
+
+        }
+
+        if ($request->country && $request->country != 'all') {
+
+            $country = $request->country;
+
+            $country_id = Country::where('name', $country)->first()->id;
+
+            $sql .= " and locations.country_id = $country_id ";
+
+        }
+
+        if ($request->category != null && $request->category != 'all') {
+
+            $category = $request->category;
+
+            $category_id = Category::where('slug', $category)->first()->id;
+
+            $sql .= " and company_profiles.category_id = $category_id ";
+
+        }
+
+        $team = null;
+
+        if ($request->team != null && $request->team != '') {
+
+            $sql .= " and company_profiles.team_member = '$request->team'";
+
+        }
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute();
+
+        $user_ids = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        $users = User::whereIn('id', $user_ids)->paginate($paginateNumber);
+
+        $total_users = count($users);
+
+        $pageNoText = $paginateNumber * $pageNo . ' to ' . ($pageNo * $paginateNumber + $total_users);
+
+        return view('frontend.pages.employers.index', compact('users', 'categories', 'pageNoText', 'search', 'country', 'category'));
+
+    }
+    public function JobDescriptionSearch($request)
+    {
+        $search = $category = $category_id = null;
+
+        $categories = Category::orderBy('name', 'asc')->where('status', 1)->get();
+
+        $paginateNumber = 15;
+
+        // You are watching text
+
+        if ($request->page) {
+
+            $pageNo = $request->page;
+
+        } else {
+
+            $pageNo = 0;
+
+        }
+
+        $pdo = DB::connection()->getPdo();
+
+        $sql = 'select * from templates ';
+
+        if ($request->search && $request->search != '') {
+
+            // $sql .= " and templates.name like '%$request->search%' ";
+
+        }
+
+        if ($request->category != null && $request->category != 'all') {
+
+            $category = $request->category;
+
+            $category_id = Category::where('slug', $category)->first()->id;
+
+            $sql .= " and templates.category_id=$category_id";
+
+        }
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute();
+
+        $template_ids = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        $templates = Template::whereIn('id', $template_ids)->paginate($paginateNumber);
+
+        $total_template = count($templates);
+
+        $pageNoText = $paginateNumber * $pageNo . ' to ' . ($pageNo * $paginateNumber + $total_template);
+
+        return view('frontend.pages.description.index', compact('templates', 'categories', 'pageNoText'));
+
+    }
     /**
 
      * searchJob
@@ -374,9 +610,17 @@ class JobsController extends Controller
 
         if ($request->has('job')) {
             return $this->jobsearchs($request);
-
         }
-        return 'Still development';
+        if ($request->has('candidate')) {
+            return $this->candaditeSearch($request);
+        }
+        if ($request->has('company')) {
+            return $this->CompanySearch($request);
+        }
+        if ($request->has('job_description')) {
+            return $this->JobDescriptionSearch($request);
+        }
+
     }
 
     /**
@@ -398,7 +642,7 @@ class JobsController extends Controller
 
         // for exam result validation
 
-        $result;
+        $result = '';
 
         if (auth()->user()) {
 

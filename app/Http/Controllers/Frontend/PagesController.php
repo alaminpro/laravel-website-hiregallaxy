@@ -28,6 +28,7 @@ class PagesController extends Controller
 
     public function index()
     {
+        $top_job_cate = Category::withCount('jobs')->orderBy('jobs_count', 'desc')->take(15)->get();
 
         $categories = Category::orderBy('name', 'asc')->where('is_featured', 1)->where('status', 1)->limit(20)->get();
 
@@ -41,7 +42,7 @@ class PagesController extends Controller
 
         $reviews = SiteReview::where('is_confirmed', 1)->get();
 
-        return view('frontend.pages.index', compact('categories', 'recent_jobs', 'featured_jobs', 'countries', 'reviews'));
+        return view('frontend.pages.index', compact('top_job_cate', 'categories', 'recent_jobs', 'featured_jobs', 'countries', 'reviews'));
 
     }
 

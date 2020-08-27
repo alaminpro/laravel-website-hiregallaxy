@@ -85,7 +85,7 @@ class EmployersController extends Controller
     public function search(Request $request)
     {
 
-        $search = $country = $country_id = $category_id = null;
+        $search = $country = $category = $country_id = $category_id = null;
 
         $categories = Category::orderBy('name', 'asc')->where('status', 1)->get();
 

@@ -1,4 +1,36 @@
 @media (max-width: 600px) {
+    .dropdown.bootstrap-select {
+        width: 100% !important;
+    }
+    .single-job-short{
+        .float-right{
+            float: none !important;
+        }
+        .apply-now-button{
+            width: 100%;
+        }
+    }
+    .employee-header-section{
+        .float-right{
+            float: none !important;
+        }
+    }
+    .top-title {
+        font-weight: 600;
+        font-size: 1.8rem;
+        margin-top: 50px;
+    }
+    .left-sidebar{
+        .toggleNav{
+            float: none !important;
+        }
+    }
+    .advanced__search{
+        display: none;
+    }
+    .advanced__search_mobile{
+        display: block;
+    }
     .job-searchbox .form-control { 
         border-right: none; 
         background: transparent;
@@ -17,9 +49,11 @@
         font-size: 38px !important;
     }
     .custom__back{ 
-        background: #3a54b8;
+        background: #fff;
         margin-bottom: 5px;
         padding: 10px 25px;
+        box-shadow: 0px 5px 9px -4px #1d1d1d2e;
+        margin: 5px 0;
  
     }
     .companies-more {
@@ -72,7 +106,7 @@
             padding: 10px 30px !important; 
         }
     } 
-   
+    
 }
 
 @media (max-width: 768px) {

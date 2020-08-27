@@ -6,13 +6,13 @@
 
 
 
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
+<div class="d-flex align-items-center justify-content-between mb-4">
 
-  <h1 class="h3 mb-0 float-left">Manage Candidates</h1>
+  <h1 class="h3 mb-0 float-left common__title">Manage Candidates</h1>
 
   <div class="breadcrumb-holder float-right">
 
-    <ol class="breadcrumb float-right">
+    <ol class="breadcrumb float-right m-0">
 
       <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
 
@@ -30,7 +30,7 @@
 
 
 
-<div class="main-body">
+<div class="main-body w-100">
 
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 
@@ -48,7 +48,7 @@
 
       <div class="card-body">
 
-        @include('backend.partials.mes
+        @include('backend.partials.message')
 
 
 

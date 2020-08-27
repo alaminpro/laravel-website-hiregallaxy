@@ -38,10 +38,7 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link {{ Route::is('jobs') || Route::is('jobs.show') ? 'nav-link-active' : '' }}" href="{{ route('jobs') }}">Job</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link {{ Route::is('contacts') ? 'nav-link-active' : '' }}" href="{{ route('contacts') }}">Contact</a>
-					</li>
+					</li> 
 				</ul>
 				<ul class="navbar-nav ml-auto">
 					@if (Auth::check() && Auth::user()->is_company)

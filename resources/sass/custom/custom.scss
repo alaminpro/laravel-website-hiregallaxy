@@ -263,9 +263,10 @@
 	font-size: 34px;
 	margin-top: 50px;
 	text-align: left;
+	color: #565656;
 }
 .custom__description{ 
-		color: #fff;
+		color: #565656;
 		font-size: 40px;
 		padding-bottom: 26px;
 		font-weight: bold;
@@ -274,8 +275,8 @@
 .input__city .form-control{
 	border: none !important; 
 }
-.job-searchbox{ 
-
+.job-searchbox{   
+	
 	padding: 0px 10px 0px 20px !important; 
 	width: 100%;
 	.input__search{
@@ -290,19 +291,21 @@
 		border-radius: 0; 
 	}
 	.dropdown {
-		border-right: 1px solid #ccc;
-		border-left: 1px solid #ccc;
+		border-right: 1px solid #f0f0f0;
+		border-left: 1px solid #f0f0f0;
 		display: flex;
-		justify-content: center;
-		align-items: center;
+		justify-content: center; 
 		button{
 			background: transparent;
 		}
 	}
+
+
 	.input__submit {
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		margin-right: 10px;
 		button {
 			border: none;
 			padding: 10px;
@@ -313,9 +316,32 @@
 	}
 	.form-control{ 
 		height: 50px;
-		border-color:  #ccc !important;
+		border-color:  #f0f0f0 !important;
+		font-size: 16px;
 	}
 	
+}
+.dropdown button.dropdown-toggle:hover{
+	background: rgb(236, 236, 236);
+}
+.input__submit:hover{
+	background: rgb(236, 236, 236);
+}
+.advanced__search_btn:hover{
+	background: rgb(236, 236, 236) !important;
+}
+.advanced__search_mobile{
+	display: none;
+}
+.advanced__search_mobile{ 
+	.advanced__search_btn{
+		border: none;
+		padding: 10px 20px;
+		background: #fff;
+		font-size: 18px;
+		color: #707070;
+		border-radius: 20px; 
+	}
 }
 .advanced__search{ 
 	.advanced__search_btn{
@@ -325,16 +351,27 @@
 		font-size: 18px;
 		color: #707070;
 		border-radius: 20px;
+		border: 1px solid #f0f0f0;
+			margin-left: 10px;
+			box-shadow: 0px 5px 9px -4px #1d1d1d2e;
 	}
 }
+.btn.dropdown-toggle.btn-light {
+	background: #fff;
+	box-shadow: 0px 4px 5px -5px #ccc;
+}
+.filter-option-inner-inner {
+	color: #6c7b92 !important;
+	border-right: 1px solid #efefef !important;
+}
 .search__form {
-	padding: 10px;
-	background: #3558cab8;
+	padding: 10px;  
 }
 .trending_job_cetegory{
 	padding: 50px 0;
 	.trending__title{
 		font-size: 24px;
+		font-weight: bold;
 	}
 	.trending__tag{
 		list-style: none;
@@ -346,6 +383,9 @@
 			padding: 8px 15px;
 			border-radius: 50px;
 			box-shadow: 0px 0px 5px -1px #b9b9b9;
+			a{
+				color: #525252;
+			}
 		}
 	}
 }.row {
@@ -375,14 +415,12 @@
 .custom__search_bar{
 	display: flex;
 }
-.job-searchbox .input__submit { 
-	border-right: 1px solid #ccc;
-}
+ 
 .job-searchbox .input__submit button { 
 	padding: 10px 15px; 
 }
 .job-searchbox{
-	display: flex;
+	display: flex; 
 }
 .advanced__seach_show{ 
 	display: none;
@@ -390,3 +428,15 @@
 	text-align: left;
 }
  
+.candidate-searchbox {
+	.form-control{ 
+			border: 1px solid #ced4da;
+			border-radius: 24px; 
+	}
+}
+.job_search_candidate{
+	display: none;
+}
+.company__input{
+	width: 360px;
+}
