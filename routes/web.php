@@ -42,6 +42,8 @@ Route::get('/about-us', 'Frontend\PagesController@about_us')->name('about_us');
 
 Route::get('/candidates/personality/{id}', 'Frontend\EmployersController@Personality')->name('public.personality');
 
+Route::get('/job-description/{id}', 'Frontend\JobsController@JobDescription')->name('jobDescription');
+
 /*** Employers **/
 
 Route::group(['prefix' => 'employers', 'middleware' => ['checkTeam']], function () {

@@ -26,7 +26,7 @@
 
 				<label for="category{{ $cat->id }}"></label>
 
-				{{ $cat->name }} ({{ count(App\Models\CompanyProfile::where('category_id', $cat->id)->get()) }})
+				{{ $cat->name }} ({{ count(App\Models\Template::where('category_id', $cat->id)->get()) }})
 
 			</div>
 

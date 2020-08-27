@@ -539,13 +539,12 @@ class JobsController extends Controller
     }
     public function JobDescriptionSearch($request)
     {
+
         $search = $category = $category_id = null;
 
         $categories = Category::orderBy('name', 'asc')->where('status', 1)->get();
 
         $paginateNumber = 15;
-
-        // You are watching text
 
         if ($request->page) {
 
@@ -556,15 +555,10 @@ class JobsController extends Controller
             $pageNo = 0;
 
         }
-
-        $pdo = DB::connection()->getPdo();
-
-        $sql = 'select * from templates ';
+        $templates = Template::with('category');
 
         if ($request->search && $request->search != '') {
-
-            // $sql .= " and templates.name like '%$request->search%' ";
-
+            $templates->where('name', 'LIKE', "%$request->search%");
         }
 
         if ($request->category != null && $request->category != 'all') {
@@ -573,17 +567,10 @@ class JobsController extends Controller
 
             $category_id = Category::where('slug', $category)->first()->id;
 
-            $sql .= " and templates.category_id=$category_id";
-
+            $templates->where('category_id', $category_id);
         }
 
-        $stmt = $pdo->prepare($sql);
-
-        $stmt->execute();
-
-        $template_ids = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-        $templates = Template::whereIn('id', $template_ids)->paginate($paginateNumber);
+        $templates = $templates->paginate($paginateNumber);
 
         $total_template = count($templates);
 
@@ -591,6 +578,11 @@ class JobsController extends Controller
 
         return view('frontend.pages.description.index', compact('templates', 'categories', 'pageNoText'));
 
+    }
+    public function JobDescription($id)
+    {
+        $template = Template::with('category')->where('id', $id)->first();
+        return view('frontend.pages.description.show', compact('template'));
     }
     /**
 

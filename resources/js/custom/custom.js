@@ -18,16 +18,16 @@ $(function(){
         let val =el.attr('data-id');
         if(val == 'jobs'){
             jobs()
-            $('.top-title').html('Search Jobs')
+            $('.changes_dynamic_title').html('Search Jobs')
         }else if(val == 'company'){
             company();
-            $('.top-title').html('Search Company')
+            $('.changes_dynamic_title').html('Search Company')
         }else if(val == 'candidate'){
             candidate();
-            $('.top-title').html('Search Candidate')
+            $('.changes_dynamic_title').html('Search Candidate')
         }else if(val == 'job_description'){
             job_description();
-            $('.top-title').html('Search Job Description')
+            $('.changes_dynamic_title').html('Search Job Description')
         }
     })
     
@@ -84,7 +84,7 @@ let searchParams = new URLSearchParams(window.location.search)
 if(searchParams.has('candidate')){
     let selector =  $('.input__search .form-control');
     selector.attr('placeholder', 'Find Candidate: name, keywords'); 
-    $('.top-title').html('Search Candidate')
+    $('.changes_dynamic_title').html('Search Candidate')
     $('.breadcrumb-item.active').html('Search Candidate') 
     
     $('#cadidateSearchForm').attr('action','/jobs/search')
@@ -92,12 +92,12 @@ if(searchParams.has('candidate')){
 if(searchParams.has('company')){
     let selector =  $('.input__search .form-control');
     selector.attr('placeholder', 'Find Company: name, keywords'); 
-    $('.top-title').html('Search Company')
+    $('.changes_dynamic_title').html('Search Company')
     $('#employerSearchForm').attr('action','/jobs/search')
 }
 if(searchParams.has('job_description')){
     let selector =  $('.input__search .form-control');
     selector.attr('placeholder', 'Find job description: title, keywords'); 
-    $('.top-title').html('Search Job Description')
+    $('.changes_dynamic_title').html('Search Job Description')
     $('#JobDesSearchForm').attr('action','/jobs/search')
 }

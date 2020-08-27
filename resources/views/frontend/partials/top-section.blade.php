@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6">
-				<h3 class="top-title wow fadeInUp custom__title"> 
+				<h3 class="top-title changes_dynamic_title wow fadeInUp custom__title"> 
 					Simplify your hiring and job search process, get <span class="text-danger">prescreened</span> candidates to your inbox!
 				</h3>
 				<p class="top-description  wow fadeInLeft custom__description">
@@ -430,13 +430,46 @@
 	</div>
 
 </div>
+@elseif(Route::is('jobDescription'))
+
+<div class="home-top">
+
+	<div class="container">
+
+		<div class="row justify-content-center">
+
+			<div class="col-md-10">
+ 
+				<h3 class="top-title wow fadeInUp mb-3">
+
+					Job Description
+
+				</h3>
+
+				<div class="navbar-breadcrumb">
+
+					<ol class="breadcrumb">
+
+						<li class="breadcrumb-item"><a href="{{ route('employers.dashboard') }}">Home</a></li>
+ 
+						<li class="breadcrumb-item active" aria-current="page">job Description</l>
+
+					</ol>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
 
 
 @elseif(Route::is('jobs.show'))
 
-<div class="home-top">
-
-
+<div class="home-top"> 
 
 </div>
 

@@ -97,7 +97,20 @@ Employers | {{ App\Models\Setting::first()->site_title }}
 
 					@foreach ($templates as $key => $template)
 
-                    wow
+                    <div class="single-job-short single-template d-flex align-items-center justify-content-between px-4"> 
+                    
+                        <div class="ml-2 single-job-description">
+                    
+                            <h4><a href="{{ route('jobDescription', $template->id) }}">{{ $template->name }}</a></h4>  
+                            <p class="text-theme mb-2">   {{ $template->category->name }}</p> 
+                               <p class="mt-2">
+                            {!! $template->job_summery !!}
+                                
+                            </p>
+                    
+                        </div> 
+                        <a class="btn btn-secondary ml-4" href="{{ route('jobDescription', $template->id) }}">view</a>
+                    </div> 
 
 					@endforeach
 
