@@ -58,6 +58,20 @@
 					@endforeach
 	
 				</select>
+				<select name="type" id="type" class="selectpicker ml-0 ml-md-4 mt-4 mt-md-0" data-live-search="true">
+	
+					<option value="all">Select Type</option>
+	
+					@foreach (App\Models\JobType::orderBy('name', 'asc')->get() as $exp)
+	
+					<option value="{{ $exp->id }}">{{ $exp->name }}</option>
+	
+					@endforeach
+	
+				</select>
+				<div class="datepicker">
+					<input type="text" name="date" id="datepicker" placeholder="Posted Date">
+				</div>
 			</div>
 			<div class="job_search_candidate">
 				<select name="category" disabled id="category" class="selectpicker" data-live-search="true">

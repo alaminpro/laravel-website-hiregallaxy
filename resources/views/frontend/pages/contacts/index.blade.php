@@ -41,28 +41,13 @@ Job Details | Hire Gallaxy
 @section('content')
 
 <section class="employer-page contact-page">
-
-	<div class="header-company-profile">
-
-		<div class="row justify-content-center">
-
-			<div class="col-md-12">
-
-				<iframe
-
-					src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1994.5599547346028!2d-111.87951918408517!3d60.00579038190064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x53c989166ee410d9%3A0xe901a8a21b2f1dc9!2sService+Canada+Centre!5e0!3m2!1sen!2sbd!4v1566398880225!5m2!1sen!2sbd"
-
-					width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> </div>
-
-		</div>
-
-	</div>
+ 
 
 	<div class="container sec-pad">
 
 		<div class="row">
 
-			<div class="col-sm-8">
+			<div class="col-sm-8 offset-sm-2">
 
 				<div class="contact-detail-main">
 
@@ -189,7 +174,7 @@ Job Details | Hire Gallaxy
 				</div>
 
 			</div>
-
+{{-- 
 			<div class="col-sm-4">
 
 				<div class="employer-detail-sidebar contact-sidebar">
@@ -268,7 +253,7 @@ Job Details | Hire Gallaxy
 
 				</div>
 
-			</div>
+			</div> --}}
 
 		</div>
 
@@ -284,40 +269,5 @@ Job Details | Hire Gallaxy
 
 @section('scripts')
 
-<script>
-
-	function initMap() {
-
-
-
-		var canada = {lat: 55.585901, lng: -105.750596};
-
-
-
-		var map = new google.maps.Map(
-
-			document.getElementById('map'), {
-
-				zoom: 4, center: canada
-
-			});
-
-		var marker = new google.maps.Marker({position: canada, map: map});
-
-	}
-
-</script>
-
-{{-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1CiLnpV_HJb9NYaaEa-0dPEueVXvPSoE&callback=initMap"></script>
-
---}}
-
-<script async defer
-
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDPIIpJ0Op0cnkUYoa_btm-Qde-bOfs1k&callback=initMap">
-
-
-
-</script>
-
+ 
 @endsection

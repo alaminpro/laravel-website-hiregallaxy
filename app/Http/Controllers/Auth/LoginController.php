@@ -113,16 +113,10 @@ class LoginController extends Controller
             if (Auth::guard('web')->attempt(['username' => $request->username, 'password' => $request->password, 'status' => 1], $request->remember)) {
 
                 // check whether the user is employer or not
-                $check = User::where('username', $request->username)->orWhere('email', $request->username)->where('is_company', 1)->first();
+                $check = User::where('username', $request->username)->orWhere('email', $request->username)->where('is_company', 0)->first();
                 if (!is_null($check)) {
-                    if ($check->type == 1) {
-                        return redirect()->intended(route('team.dashboard', $check->id));
-                    } else {
-                        return redirect()->intended(route('employers.dashboard'));
-                    }
+                    return redirect()->intended(route('candidates.dashboard'));
                 } else {
-                    //If successful then redirect to the intended location
-
                     return redirect()->intended(route('index'));
                 }
 

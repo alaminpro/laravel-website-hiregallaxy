@@ -10,7 +10,7 @@
 
 				<div class="col-md-3">
 
-					<h3 class="footer-title text-uppercase">Comapny</h3>
+					<h3 class="footer-title text-uppercase">Company</h3>
 
 					 
 					<ul class="footer-links">

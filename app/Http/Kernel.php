@@ -111,6 +111,8 @@ class Kernel extends HttpKernel
 
         'role' => \App\Http\Middleware\Role::class,
         'checkTeam' => \App\Http\Middleware\checkTeam::class,
+        'checkCandidate' => \App\Http\Middleware\CheckCandidate::class,
+        'checkEmployer' => \App\Http\Middleware\CheckEmployer::class,
 
     ];
 

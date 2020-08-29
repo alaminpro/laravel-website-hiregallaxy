@@ -43,6 +43,7 @@
 	<button onclick="topFunction()" id="scroll-btn" title="Scroll to top"><i class="fa fa-chevron-up"></i></button>
 	<!-- JS Files -->
 	@include('frontend.partials.scripts')
+	
 	@stack('scripts_stack')
 	@yield('scripts')
 	<!-- JS Files -->

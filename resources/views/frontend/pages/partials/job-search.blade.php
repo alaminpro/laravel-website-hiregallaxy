@@ -2,44 +2,6 @@
 	<input type="hidden" name="job">
 	<div class="sidebar-widget">
 
-		<div class="sidebar-list-item">
-
-			<h3>
-
-				Jobs By Positions
-
-			</h3>
-
-			<hr class="sidebar-border">
-
-			<div class="clearfix"></div>
-
-			@foreach (App\Models\Category::orderBy('name', 'asc')->get() as $cat)
-
-			<div class="squaredFour">
-
-				<input type="checkbox" value="{{ $cat->slug }}" id="category{{ $cat->id }}" name="category"
-
-					onchange="submitSearch()"
-
-					{{ isset($_GET['category']) && ($_GET['category'] == $cat->slug) ? 'checked' : '' }} />
-			
-				<label for="category{{ $cat->id }}"></label>
-
-				{{ $cat->name }}
-
-				({{ count(App\Models\Job::where('status_id', 1)->where('category_id', $cat->id)->get()) }})
-
-			</div>
-
-			@endforeach
-
-		</div>
-
-	</div>
-
-
-
 	<!-- Location -->
 
 	<div class="sidebar-widget">
@@ -95,6 +57,44 @@
 		</div>
 
 	</div>
+		<div class="sidebar-list-item">
+
+			<h3>
+
+				Jobs By Positions
+
+			</h3>
+
+			<hr class="sidebar-border">
+
+			<div class="clearfix"></div>
+
+			@foreach (App\Models\Category::orderBy('name', 'asc')->get() as $cat)
+
+			<div class="squaredFour">
+
+				<input type="checkbox" value="{{ $cat->slug }}" id="category{{ $cat->id }}" name="category"
+
+					onchange="submitSearch()"
+
+					{{ isset($_GET['category']) && ($_GET['category'] == $cat->slug) ? 'checked' : '' }} />
+			
+				<label for="category{{ $cat->id }}"></label>
+
+				{{ $cat->name }}
+
+				({{ count(App\Models\Job::where('status_id', 1)->where('category_id', $cat->id)->get()) }})
+
+			</div>
+
+			@endforeach
+
+		</div>
+
+	</div>
+
+
+
 
 
 

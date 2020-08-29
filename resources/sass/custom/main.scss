@@ -406,7 +406,7 @@ a.dropdown-account-item {
 .ver-divider {
     width: 0;
     border-right: 1px solid #fafafa;
-    height: calc(4.375rem, -2rem);
+    height: 40px;
     margin: auto 1rem;
 }
 .navbar-dark .navbar-nav .nav-link:focus,
@@ -441,7 +441,7 @@ a.dropdown-account-item {
     border-radius: 25px;
     padding: 5px 10px 5px 20px;
     box-shadow: 0px 5px 9px -4px #1d1d1d2e;
-    border: 1px solid #f0f0f0; 
+    border: 1px solid #c1c1c1; 
 }
 .job-searchbox .form-control {
     border: 0 solid !important;
@@ -775,8 +775,7 @@ td.package-text {
     font-size: 30px;
 }
 .app-text {
-    color: #ff7c39;
-    font-family: cursive;
+    color: #ff7c39; 
     margin: 10px 7px;
 }
 .download-app-text {
@@ -1402,7 +1401,6 @@ ul.footer-links {
     color: #fb6003;
     font-size: 30px;
     font-weight: 700;
-    font-family: serif;
     border: 1px solid #eee;
     padding: 5px;
 }
@@ -1414,18 +1412,16 @@ ul.footer-links {
 .left-sidebar .filter-option-inner-inner {
     border-right: 0 !important;
 }
-.left-sidebar .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
-    width: 300px !important;
-}
+ 
 @media (max-width: 600px) {
     .job-searchbox .form-control {
         border: 0 solid !important;
-        border-right: 0 solid #f0f0f0 !important;
+        border-right: 0 solid #c1c1c1;
         border-radius: 0;
         text-align: center;
     }
     .filter-option-inner-inner {
-        border-right: 0 solid #f0f0f0 !important;
+        border-right: 0 solid #c1c1c1 !important;
     }
     .package-item {
         margin-top: 40px;

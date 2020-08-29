@@ -291,8 +291,8 @@
 		border-radius: 0; 
 	}
 	.dropdown {
-		border-right: 1px solid #f0f0f0;
-		border-left: 1px solid #f0f0f0;
+		border-right: 1px solid #c1c1c1;
+		border-left: 1px solid #c1c1c1;
 		display: flex;
 		justify-content: center; 
 		button{
@@ -316,7 +316,7 @@
 	}
 	.form-control{ 
 		height: 50px;
-		border-color:  #f0f0f0 !important;
+		border-color:  #c1c1c1 !important;
 		font-size: 16px;
 	}
 	
@@ -351,7 +351,7 @@
 		font-size: 18px;
 		color: #707070;
 		border-radius: 20px;
-		border: 1px solid #f0f0f0;
+		border: 1px solid #c1c1c1;
 			margin-left: 10px;
 			box-shadow: 0px 5px 9px -4px #1d1d1d2e;
 	}
@@ -439,4 +439,23 @@
 }
 .company__input{
 	width: 360px;
+}
+.input__search.input__search_description .form-control{
+	border-right: 0 !important;
+}
+.input__city.input__city_description{
+	display: none;
+}
+.job_search .datepicker input {
+	border: 1px solid #f2f2f2;
+	padding: 7px 10px;
+	margin: 0px 5px;
+	border-radius: 5px;
+	box-shadow: 0px 2px 9px -5px #d9d9d9;
+}
+.job_search{
+	display: flex;
+}.single-job-short img {
+	width: 70px;
+	padding: 10px;
 }

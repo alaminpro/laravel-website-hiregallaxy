@@ -39,16 +39,17 @@
 					<li class="nav-item">
 						<a class="nav-link {{ Route::is('jobs') || Route::is('jobs.show') ? 'nav-link-active' : '' }}" href="{{ route('jobs') }}">Job</a>
 					</li> 
+					<li class="nav-item">
+						<a class="nav-link {{ Route::is('description') || Route::is('description') ? 'nav-link-active' : '' }}" href="{{ route('description') }}">Job Description</a>
+					</li> 
 				</ul>
-				<ul class="navbar-nav ml-auto">
-					@if (Auth::check() && Auth::user()->is_company)
+				<ul class="navbar-nav ml-auto"> 
 					<li class="nav-item">
 						<a class="nav-link post-job-button" href="{{ route('jobs.post') }}" title="post job">
 							<i class="fa fa-plus"></i>
 						<span class="hidden_sm_job_text">	Post a Job</span>
 						</a>
-					</li>
-					@endif
+					</li> 
 				</ul>
 
 				@if (Auth::check())

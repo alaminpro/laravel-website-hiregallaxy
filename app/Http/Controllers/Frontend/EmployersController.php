@@ -27,7 +27,7 @@ class EmployersController extends Controller
     public function index(Request $request)
     {
 
-        $paginateNumber = 20;
+        $paginateNumber = 10;
 
         // You are watching text
 
@@ -89,7 +89,7 @@ class EmployersController extends Controller
 
         $categories = Category::orderBy('name', 'asc')->where('status', 1)->get();
 
-        $paginateNumber = 20;
+        $paginateNumber = 10;
 
         // You are watching text
 

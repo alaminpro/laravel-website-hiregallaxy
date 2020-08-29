@@ -1,6 +1,13 @@
 
 // Fonts 
+@font-face {
+  font-family: 'Arial';
+  src: url(/public/fonts/arial.ttf);
+}
 
+html{
+  font-family: 'Arial', sans-serif !important;
+}
 // Variables
 @import 'variables';
 

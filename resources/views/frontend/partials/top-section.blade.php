@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6">
-				<h3 class="top-title changes_dynamic_title wow fadeInUp custom__title"> 
+				<h3 class="top-title  wow fadeInUp custom__title"> 
 					Simplify your hiring and job search process, get <span class="text-danger">prescreened</span> candidates to your inbox!
 				</h3>
 				<p class="top-description  wow fadeInLeft custom__description">
@@ -95,7 +95,7 @@
 
 
 
-				<h3 class="top-title wow fadeInUp mb-3">
+				<h3 class="top-title wow fadeInUp mb-3 changes_dynamic_title">
 
 					Find Your Dream Job
 
@@ -112,6 +112,69 @@
 						<li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
 
 						<li class="breadcrumb-item active" aria-current="page">Jobs</li>
+
+					</ol>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+@elseif(Route::is('description') || Route::is('description.search'))
+
+<div class="home-top">
+
+	<div class="container">
+
+		<div class="row justify-content-center">
+
+			<div class="col-md-10">
+
+
+
+				<h3 class="top-title wow fadeInUp mb-3 changes_dynamic_title">
+
+					Find perfect Job description
+
+				</h3>
+ 
+				<form action="{{ route('description.search') }}" method="get">
+
+					<div class="candidate-searchbox py-5">
+
+						<div class="d-md-flex justify-content-center">
+							<div class="input w-md-50 w-100">
+								<input type="text" name="search" class="form-control"
+
+								placeholder="Enter Job Description Title"> 
+							</div>
+						 
+							<div class="search">
+								<button type="submit" class="ml-4 btn btn-info search-button">
+
+									Search
+
+								</button>
+
+							</div>
+						</div>
+
+					</div> <!-- End Searchbox -->
+
+				</form>
+
+
+				<div class="navbar-breadcrumb">
+
+					<ol class="breadcrumb">
+
+						<li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
+
+						<li class="breadcrumb-item active" aria-current="page">Job description</li>
 
 					</ol>
 
@@ -820,7 +883,7 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 
 
 
-				<h3 class="top-title wow fadeInUp">
+				<h3 class="top-title wow fadeInUp ">
 
 					@if(Route::is('contacts'))
 
@@ -855,7 +918,7 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 
 					@elseif(Route::is('jobs.search'))
 
-					Search Jobs
+					<span class="changes_dynamic_title">Search Jobs</span>
 
 					@elseif(Route::is('candidates.search'))
 

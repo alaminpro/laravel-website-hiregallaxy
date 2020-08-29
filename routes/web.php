@@ -42,11 +42,12 @@ Route::get('/about-us', 'Frontend\PagesController@about_us')->name('about_us');
 
 Route::get('/candidates/personality/{id}', 'Frontend\EmployersController@Personality')->name('public.personality');
 
-Route::get('/job-description/{id}', 'Frontend\JobsController@JobDescription')->name('jobDescription');
-
+Route::get('/job-description', 'Frontend\JobsController@Description')->name('description');
+Route::get('/job-description/view/{id}', 'Frontend\JobsController@JobDescription')->name('jobDescription');
+Route::get('job-description/search', 'Frontend\JobsController@searchJobDescription')->name('description.search');
 /*** Employers **/
 
-Route::group(['prefix' => 'employers', 'middleware' => ['checkTeam']], function () {
+Route::group(['prefix' => 'employers', 'middleware' => ['checkTeam', 'checkEmployer']], function () {
 
     Route::get('', 'Frontend\EmployersController@index')->name('employers');
 
@@ -133,7 +134,7 @@ Route::group(['prefix' => 'team'], function () {
 
 /*** candidates **/
 
-Route::group(['prefix' => 'candidates'], function () {
+Route::group(['prefix' => 'candidates', 'middleware' => ['checkCandidate']], function () {
 
     Route::get('', 'Frontend\CandidatesController@index')->name('candidates');
 
@@ -231,8 +232,6 @@ Route::get('/contact-us', 'Frontend\ContactsController@index')->name('contacts')
 
 Route::post('/contact-us', 'Frontend\ContactsController@store')->name('contacts.store');
 
-Route::post('/contact-us/delete/{id}', 'Frontend\ContactsController@destroy')->name('contacts.delete');
-
 /*** jobs **/
 
 Route::group(['prefix' => 'jobs'], function () {
@@ -283,15 +282,15 @@ Route::group(['prefix' => 'jobs'], function () {
 
 });
 
-Route::group(['prefix' => 'messages'], function () {
+// Route::group(['prefix' => 'messages'], function () {
 
-    Route::get('', 'Frontend\ContactsController@getMessages')->name('messages');
+//     Route::get('', 'Frontend\ContactsController@getMessages')->name('messages');
 
-    Route::post('/store', 'Frontend\ContactsController@store')->name('messages.store');
+//     Route::post('/store', 'Frontend\ContactsController@store')->name('messages.store');
 
-    Route::post('/view/{id}', 'Frontend\ContactsController@viewMessage')->name('messages.show');
+//     Route::post('/view/{id}', 'Frontend\ContactsController@viewMessage')->name('messages.show');
 
-});
+// });
 
 Route::group(['prefix' => 'users'], function () {
 
@@ -374,7 +373,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::post('/password/reset', 'Auth\Admin\ResetPasswordController@reset')->name('password.reset.post');
 
     Route::get('/change-password', 'Backend\PagesController@changePasswordForm')->name('password.changeForm');
-
     Route::post('/change-password', 'Backend\PagesController@changePassword')->name('password.change');
 
     /**
@@ -660,6 +658,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('question/file_browser', "Backend\PersonalityQuestionController@fileBrowser")->middleware('role:super-admin,admin,editor');
 
     });
+
+    Route::get('/contacts', 'Backend\ContactController@index')->name('contact.index');
+    Route::get('/contacts/view/{id}', 'Backend\ContactController@view')->name('contact.view');
+    Route::get('/contacts/delete/{id}', 'Backend\ContactController@destroy')->name('contact.destroy');
 
     /**
 
