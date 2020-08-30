@@ -107,6 +107,12 @@
     .job-searchbox .input__submit {
         border-right: none; 
     }
+    .job-searchbox .input__search {
+        border-bottom: 1px solid #e6e6e6 !important; 
+    }
+    .hidden_sm_job_text{
+        display: inline !important;
+    }
     .custom__search_bar{
         border-top: 1px solid #e5e5e5;
         justify-content: center;

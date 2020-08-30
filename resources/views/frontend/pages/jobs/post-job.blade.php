@@ -180,7 +180,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 								</div>
 
-								<div class="col-md-4">
+								<div class="@if(auth()->check()) col-md-4 @else col-md-8 @endif">
 									<label for="conpany_id">Job title</label>
 									<input type="search" autocomplete="off" 
 										class="text-center text-theme form-control border-0 border-bottom mb-3"
@@ -194,6 +194,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 									{{-- <input type="hidden" name="template_id" id="template_id"> --}}
 
 								</div>
+								@if(auth()->check())
 								<div class="col-md-4">
 									<div class="form-group">
 										<label for="conpany_id">Company</label>
@@ -217,6 +218,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 										</select>
 									</div>
 								</div>
+								@endif
 
 							</div>
 
