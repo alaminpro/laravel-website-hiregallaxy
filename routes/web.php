@@ -45,6 +45,7 @@ Route::get('/candidates/personality/{id}', 'Frontend\EmployersController@Persona
 Route::get('/job-description', 'Frontend\JobsController@Description')->name('description');
 Route::get('/job-description/view/{id}', 'Frontend\JobsController@JobDescription')->name('jobDescription');
 Route::get('job-description/search', 'Frontend\JobsController@searchJobDescription')->name('description.search');
+Route::get('testimonials', 'HomeController@Testimonial')->name('testimonial');
 /*** Employers **/
 
 Route::group(['prefix' => 'employers', 'middleware' => ['checkTeam', 'checkEmployer']], function () {
@@ -282,15 +283,15 @@ Route::group(['prefix' => 'jobs'], function () {
 
 });
 
-// Route::group(['prefix' => 'messages'], function () {
+Route::group(['prefix' => 'messages'], function () {
 
-//     Route::get('', 'Frontend\ContactsController@getMessages')->name('messages');
+    Route::get('', 'Frontend\ContactsController@getMessages')->name('messages');
 
-//     Route::post('/store', 'Frontend\ContactsController@store')->name('messages.store');
+    Route::post('/store', 'Frontend\ContactsController@store')->name('messages.store');
 
-//     Route::post('/view/{id}', 'Frontend\ContactsController@viewMessage')->name('messages.show');
+    Route::post('/view/{id}', 'Frontend\ContactsController@viewMessage')->name('messages.show');
 
-// });
+});
 
 Route::group(['prefix' => 'users'], function () {
 

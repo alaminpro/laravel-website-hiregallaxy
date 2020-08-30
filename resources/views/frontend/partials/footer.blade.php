@@ -61,7 +61,7 @@
 
 						<li>
 
-							<a href=""><i class="fa fa-caret-right"></i> Testimonials</a>
+							<a href="{{ route('testimonial') }}"><i class="fa fa-caret-right"></i> Testimonials</a>
 
 						</li> 
 				

@@ -137,15 +137,21 @@ class EmployersController extends Controller
 
         }
 
-        if ($request->category != null && $request->category != 'all') {
+        if ($request->sector) {
+            $sectors = implode(',', $request->sector);
 
-            $category = $request->category;
-
-            $category_id = Category::where('slug', $category)->first()->id;
-
-            $sql .= " and company_profiles.category_id = $category_id ";
+            $sql .= " and company_profiles.sector_id like '%$sectors%' ";
 
         }
+        // if ($request->category != null && $request->category != 'all') {
+
+        //     $category = $request->category;
+
+        //     $category_id = Category::where('slug', $category)->first()->id;
+
+        //     $sql .= " and company_profiles.category_id = $category_id ";
+
+        // }
 
         $team = null;
 

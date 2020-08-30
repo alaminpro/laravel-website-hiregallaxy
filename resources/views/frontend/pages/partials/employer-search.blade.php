@@ -7,7 +7,7 @@
 	
 				<h3>
 	
-					Jobs By City
+					Company By City
 	
 				</h3>
 	
@@ -55,7 +55,7 @@
 
 			<h3>
 
-				All Positions
+				All Sectors
 
 			</h3>
 
@@ -63,24 +63,18 @@
 
 			<div class="clearfix"></div>
 
-			@foreach (App\Models\Category::orderBy('name', 'asc')->get() as $cat)
+			<select name="sector[]"   id="sector" class="selectpicker" data-live-search="true" multiple>
+ 
+				<option data-icon="fa fa-navicon" value="all">All Sectors</option>
 
-			<div class="squaredFour">
+				@foreach (App\Models\Sector::orderBy('name', 'asc')->get() as $sector)
 
-				<input type="checkbox" value="{{ $cat->slug }}" id="category{{ $cat->id }}" name="category"
+				<option value="{{ $sector->id }}">{{ $sector->name }}</option>
 
-					onchange="submitSearch()"
+				@endforeach
 
-					{{ isset($_GET['category']) && ($_GET['category'] == $cat->slug) ? 'checked' : '' }} />
-
-				<label for="category{{ $cat->id }}"></label>
-
-				{{ $cat->name }} ({{ count(App\Models\CompanyProfile::where('category_id', $cat->id)->get()) }})
-
-			</div>
-
-			@endforeach
-
+			</select> 
+			<button type="submit" class="btn btn-warning mt-2">Search</button> 
 		</div>
 
 	</div>

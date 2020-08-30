@@ -2,7 +2,7 @@
 <div class="home-top header-index">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-7">
 				<h3 class="top-title  wow fadeInUp custom__title"> 
 					Simplify your hiring and job search process, get <span class="text-danger">prescreened</span> candidates to your inbox!
 				</h3>
@@ -74,7 +74,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6 d-lg-flex d-none align-items-center">
+			<div class="col-lg-5 d-lg-flex d-none align-items-center">
 				<img src="{{ asset('images/team.png') }}" class="img-fluid" alt="">
 			</div>
 		</div>
@@ -328,6 +328,43 @@
 						<li class="breadcrumb-item"><a href="{{ route('team.dashboard') }}">Dashboard</a></li>
 
 						<li class="breadcrumb-item active" aria-current="page">Candidates</li>
+
+					</ol>
+
+				</div> 
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+@elseif(Route::is('testimonial'))
+
+<div class="home-top">
+
+	<div class="container">
+
+		<div class="row justify-content-center">
+
+			<div class="col-md-12">
+
+
+
+				<h3 class="top-title wow fadeInUp mb-3">
+
+					Testimonials
+
+				</h3>
+
+				 <div class="navbar-breadcrumb">
+
+					<ol class="breadcrumb">
+
+						<li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
+
+						<li class="breadcrumb-item active" aria-current="page">testimonials</li>
 
 					</ol>
 

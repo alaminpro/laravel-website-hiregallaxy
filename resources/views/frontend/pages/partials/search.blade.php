@@ -86,6 +86,19 @@
 	
 				</select> 
 			</div>
+			<div class="job_search_company">
+				<select name="sector[]" disabled id="sector" class="selectpicker" data-live-search="true" multiple>
+
+					<option data-icon="fa fa-navicon" value="all">All Sectors</option>
+	
+					@foreach (App\Models\Sector::orderBy('name', 'asc')->get() as $sector)
+	
+					<option value="{{ $sector->id }}">{{ $sector->name }}</option>
+	
+					@endforeach
+	
+				</select> 
+			</div>
 		</div>
 	</form>
  
