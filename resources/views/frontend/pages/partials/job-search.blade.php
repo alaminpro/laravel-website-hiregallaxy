@@ -4,24 +4,18 @@
 
 	<!-- Location -->
 
-	<div class="sidebar-widget">
-
+ 
 		<div class="sidebar-list-item">
 
 			<h3>
 
-				Jobs By City
+				Jobs By Positions
 
 			</h3>
 
 			<hr class="sidebar-border">
-
-			<div class="clearfix"></div>
-
-
-
-			<select name="country" onchange="submitSearch()" id="country" class="selectpicker" data-live-search="true">
-
+			<div class="my-4">	<select name="country" onchange="submitSearch()" id="country" class="selectpicker" data-live-search="true">
+	
 				<option data-icon="fa fa-map-marker" value="all">All Locations</option>
 
 				@foreach (App\Models\State::orderBy('name', 'asc')->get() as $state)
@@ -40,11 +34,7 @@
 
 					{{ isset($_GET['country']) && ($_GET['country'] == $countrySingle->name) ? 'selected' : '' }}>
 
-					&nbsp; &nbsp; {{ $countrySingle->name }}
-
-					({{ count(App\Models\Job::where('status_id', 1)->where('country_id', $countrySingle->id)->get()) }})
-
-				</option>
+					&nbsp; &nbsp; {{ $countrySingle->name }}</option>
 
 				@endforeach
 
@@ -52,21 +42,7 @@
 
 				@endforeach
 
-			</select>
-
-		</div>
-
-	</div>
-		<div class="sidebar-list-item">
-
-			<h3>
-
-				Jobs By Positions
-
-			</h3>
-
-			<hr class="sidebar-border">
-
+			</select></div>
 			<div class="clearfix"></div>
 
 			@foreach (App\Models\Category::orderBy('name', 'asc')->get() as $cat)

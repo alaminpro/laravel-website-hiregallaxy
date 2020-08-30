@@ -476,3 +476,21 @@
 .select2-container--default .select2-selection--multiple .select2-selection__choice { 
 	width: 160px !important;
 }
+.alpha {
+	background: transparent;
+	border: none;
+	font-size: 18px;
+	padding: 5px;
+	margin: 5px 10px;
+	font-weight: bold;
+	&:hover{
+		text-decoration: underline;
+	}
+}
+.job__body {
+	margin-bottom: 20px;
+	h3{
+		border-bottom: 3px solid #333;
+		width: 190px
+	}
+}

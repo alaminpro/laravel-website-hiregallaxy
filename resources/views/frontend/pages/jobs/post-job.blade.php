@@ -180,7 +180,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 								</div>
 
-								<div class="@if(auth()->check()) col-md-4 @else col-md-8 @endif">
+								<div class="@if(auth()->check() && auth()->user()->type == 1) col-md-4 @else col-md-8 @endif">
 									<label for="conpany_id">Job title</label>
 									<input type="search" autocomplete="off" 
 										class="text-center text-theme form-control border-0 border-bottom mb-3"
@@ -194,27 +194,15 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 									{{-- <input type="hidden" name="template_id" id="template_id"> --}}
 
 								</div>
-								@if(auth()->check())
+								@if(auth()->check() && auth()->user()->type == 1)
 								<div class="col-md-4">
 									<div class="form-group">
 										<label for="conpany_id">Company</label>
 										<select name="company_id" id="conpany_id" class="form-control" value="{{ old('company_id') }}">
-											<option value="">Select Company</option>
-											@if(auth()->check() )
-											@if(auth()->user()->type == 1)
-												@foreach(App\Models\Company::where('assign_id', auth()->user()->id)->get() as $company)
-													<option value="{{ $company->id }}" >{{ $company->name }}</option>
-												@endforeach
-											@else
-												@foreach(App\Models\Company::where('user_id', auth()->user()->id)->get() as $company)
-													<option value="{{ $company->id }}">{{ $company->name }}</option>
-												@endforeach
-											@endif
-											@else
-												@foreach(App\Models\Company::get() as $company)
-													<option value="{{ $company->id }}">{{ $company->name }}</option>
-												@endforeach
-											@endif
+											<option value="">Select Company</option> 
+											@foreach(App\Models\Company::where('assign_id', auth()->user()->id)->get() as $company)
+											<option value="{{ $company->id }}" >{{ $company->name }}</option>
+										@endforeach  
 										</select>
 									</div>
 								</div>

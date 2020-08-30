@@ -1,55 +1,7 @@
 <form action="{{ $route }}" method="get" id="cadidateSearchForm">
 	<input type="hidden" name="candidate" >
 	<div class="sidebar-widget">
-		<div class="sidebar-widget">
-
-			<div class="sidebar-list-item">
-	
-				<h3>
-	
-					Candidate By City
-	
-				</h3>
-	
-				<hr class="sidebar-border">
-	
-				<div class="clearfix"></div>
-	
-	
-	
-				<select name="country" onchange="submitSearch()" id="country" class="selectpicker" data-live-search="true">
-	
-					<option data-icon="fa fa-map-marker" value="all">All Locations</option>
-	
-					@foreach (App\Models\State::orderBy('name', 'asc')->get() as $state)
-	
-					<option value="" disabled style="font-weight: bolder;font-size: 16px;">
-	
-						{{ $state->name }}
-	
-					</option>
-	
-	
-	
-					@foreach ($state->cities()->orderBy('name', 'asc')->get() as $countrySingle)
-	
-					<option value="{{ $countrySingle->name }}"
-	
-						{{ isset($_GET['country']) && ($_GET['country'] == $countrySingle->name) ? 'selected' : '' }}>
-	
-						&nbsp; &nbsp; {{ $countrySingle->name }}</option>
-	
-					@endforeach
-	
-	
-	
-					@endforeach
-	
-				</select>
-	
-			</div>
-	
-		</div>
+		 
 	
 		<div class="sidebar-list-item">
 
@@ -60,7 +12,36 @@
 			</h3>
 
 			<hr class="sidebar-border">
+			<div class="my-4">	<select name="country" onchange="submitSearch()" id="country" class="selectpicker" data-live-search="true">
+	
+				<option data-icon="fa fa-map-marker" value="all">All Locations</option>
 
+				@foreach (App\Models\State::orderBy('name', 'asc')->get() as $state)
+
+				<option value="" disabled style="font-weight: bolder;font-size: 16px;">
+
+					{{ $state->name }}
+
+				</option>
+
+
+
+				@foreach ($state->cities()->orderBy('name', 'asc')->get() as $countrySingle)
+
+				<option value="{{ $countrySingle->name }}"
+
+					{{ isset($_GET['country']) && ($_GET['country'] == $countrySingle->name) ? 'selected' : '' }}>
+
+					&nbsp; &nbsp; {{ $countrySingle->name }}</option>
+
+				@endforeach
+
+
+
+				@endforeach
+
+			</select></div>
+		 
 			<div class="clearfix"></div>
 
 			@foreach (App\Models\Category::orderBy('name', 'asc')->get() as $cat)

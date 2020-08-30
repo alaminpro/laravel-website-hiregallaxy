@@ -26,17 +26,45 @@ Employers | {{ App\Models\Setting::first()->site_title }}
 
 <section class="employer-page sec-pad">
 
-	<div class="container">
+	<div class="container"> 
+	 
+		<form action="" method="get" id="JobDesSearchForm">
+			<input type="hidden" name="job_description">
+			<div class="row">
+				<div class="col-lg-4">	<h5 class="text-theme bold mb-4 float-left">We have found <span class="text-yellow">{{ count($templates) }}</span>
 
-		<h5 class="text-theme bold mb-4 float-left">We have found <span class="text-yellow">{{ count($templates) }}</span>
-
-			Matches for you </h5> 
-		   
-
-		<div class="clearfix"></div>
-
-
-
+					Matches for you </h5> </div>
+				<div class="col-lg-8">
+					<div class="abcd">
+						<button type="submit" class="alpha" value="a" name="alpha"  onchange="submitSearch()">A</button>
+						<button type="submit" class="alpha" value="b" name="alpha"  onchange="submitSearch()">B</button>
+						<button type="submit" class="alpha" value="c" name="alpha"  onchange="submitSearch()">C</button>
+						<button type="submit" class="alpha" value="d" name="alpha"  onchange="submitSearch()">D</button>
+						<button type="submit" class="alpha" value="e" name="alpha"  onchange="submitSearch()">E</button>
+						<button type="submit" class="alpha" value="f" name="alpha"  onchange="submitSearch()">F</button>
+						<button type="submit" class="alpha" value="g" name="alpha"  onchange="submitSearch()">G</button>
+						<button type="submit" class="alpha" value="h" name="alpha"  onchange="submitSearch()">H</button>
+						<button type="submit" class="alpha" value="i" name="alpha"  onchange="submitSearch()">I</button>
+						<button type="submit" class="alpha" value="j" name="alpha"  onchange="submitSearch()">J</button>
+						<button type="submit" class="alpha" value="k" name="alpha"  onchange="submitSearch()">K</button>
+						<button type="submit" class="alpha" value="l" name="alpha"  onchange="submitSearch()">L</button>
+						<button type="submit" class="alpha" value="m" name="alpha"  onchange="submitSearch()">M</button>
+						<button type="submit" class="alpha" value="n" name="alpha"  onchange="submitSearch()">N</button>
+						<button type="submit" class="alpha" value="o" name="alpha"  onchange="submitSearch()">O</button>
+						<button type="submit" class="alpha" value="q" name="alpha"  onchange="submitSearch()">Q</button>
+						<button type="submit" class="alpha" value="r" name="alpha"  onchange="submitSearch()">R</button>
+						<button type="submit" class="alpha" value="s" name="alpha"  onchange="submitSearch()">S</button>
+						<button type="submit" class="alpha" value="t" name="alpha"  onchange="submitSearch()">T</button>
+						<button type="submit" class="alpha" value="u" name="alpha"  onchange="submitSearch()">U</button>
+						<button type="submit" class="alpha" value="v" name="alpha"  onchange="submitSearch()">V</button>
+						<button type="submit" class="alpha" value="w" name="alpha"  onchange="submitSearch()">W</button>
+						<button type="submit" class="alpha" value="x" name="alpha"  onchange="submitSearch()">X</button>
+						<button type="submit" class="alpha" value="y" name="alpha"  onchange="submitSearch()">Y</button>
+						<button type="submit" class="alpha" value="z" name="alpha"  onchange="submitSearch()">Z</button>
+					</div>
+				</div>
+			</div>
+		
 		<div class="row">
 
 			<div class="col-md-4">
@@ -66,7 +94,7 @@ Employers | {{ App\Models\Setting::first()->site_title }}
 			</div>
 
 			<div class="col-md-8">
-
+				
 				<div class="page-employer">
 
 					<div class="employee-header-section">
@@ -143,7 +171,7 @@ Employers | {{ App\Models\Setting::first()->site_title }}
 			</div>
 
 		</div>
-
+	</form>
  
 	</div>
 

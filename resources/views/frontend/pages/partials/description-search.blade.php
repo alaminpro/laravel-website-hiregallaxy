@@ -1,39 +1,30 @@
-<form action="" method="get" id="JobDesSearchForm">
-	<input type="hidden" name="job_description">
+
 	<div class="sidebar-widget">
 
 		<div class="sidebar-list-item">
 
 			<h3>
 
-				All Categories
+				Job description by postion
 
 			</h3>
 
 			<hr class="sidebar-border">
 
 			<div class="clearfix"></div>
+			<select name="category"  id="categorys" class="selectpicker" data-live-search="true" onchange="submitSearch()">
 
-			@foreach (App\Models\Category::orderBy('name', 'asc')->get() as $cat)
+				<option data-icon="fa fa-navicon" value="all">All Postions</option>
 
-			<div class="squaredFour">
+				@foreach (App\Models\Category::orderBy('name', 'asc')->get() as $cat)
 
-				<input type="checkbox" value="{{ $cat->slug }}" id="category{{ $cat->id }}" name="category"
+				<option value="{{ $cat->slug }}">{{ $cat->name }}</option>
 
-					onchange="submitSearch()"
+				@endforeach
 
-					{{ isset($_GET['category']) && ($_GET['category'] == $cat->slug) ? 'checked' : '' }} />
-
-				<label for="category{{ $cat->id }}"></label>
-
-				{{ $cat->name }} ({{ count(App\Models\Template::where('category_id', $cat->id)->get()) }})
-
-			</div>
-
-			@endforeach
-
+			</select> 
+		 
 		</div>
 
 	</div> 
 
-</form>

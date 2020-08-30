@@ -75,6 +75,7 @@ $(function(){
         $('.advanced__seach_show').find('.text__alert').remove();
         $('.job_search_candidate').show();  
         $('.job_search_candidate #category').attr('disabled', false) 
+        $('.job_search_candidate #experience').attr('disabled', false) 
         $('.job_search_candidate .dropdown-toggle').removeClass('disabled') 
         $('.job_search_candidate .dropdown-toggle').removeClass('disabled')  
     }
@@ -100,6 +101,7 @@ $(function(){
         $('.job_search_candidate').hide();
         $('.job_search_company').hide();
         $('.job_search_candidate #category').attr('disabled', true);
+        $('.job_search_candidate #experience').attr('disabled', true);
         $('.input__search').removeClass('input__search_description');  
         $('.input__city').removeClass('input__city_description'); 
         $('.input__city .form-control').removeAttr('disabled');

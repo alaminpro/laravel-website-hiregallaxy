@@ -85,6 +85,17 @@
 					@endforeach
 	
 				</select> 
+				<select name="experience"  disabled id="experience" class="selectpicker ml-0 ml-md-4 mt-4 mt-md-0" data-live-search="true">
+	
+					<option data-icon="fa fa-star" value="all">All Experience</option>
+	
+					@foreach (App\Models\Experience::orderBy('name', 'asc')->get() as $exp)
+	
+					<option value="{{ $exp->slug }}">{{ $exp->name }}</option>
+	
+					@endforeach
+	
+				</select>
 			</div>
 			<div class="job_search_company">
 				<select name="sector[]" disabled id="sector" class="selectpicker" data-live-search="true" multiple>

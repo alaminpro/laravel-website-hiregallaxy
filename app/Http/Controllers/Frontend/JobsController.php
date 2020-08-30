@@ -405,7 +405,7 @@ class JobsController extends Controller
 
         $experience_id = null;
 
-        if ($request->experience != null && $request->experience != '') {
+        if ($request->experience != null && $request->experience != 'all') {
 
             $experience_id = Experience::where('slug', $request->experience)->first()->id;
 
@@ -551,6 +551,12 @@ class JobsController extends Controller
             $category_id = Category::where('slug', $category)->first()->id;
 
             $templates->where('category_id', $category_id);
+        }
+        if ($request->alpha != null && $request->alpha != '') {
+
+            $alpha = $request->alpha;
+
+            $templates->where('name', 'like', $alpha . '%');
         }
 
         $templates = $templates->paginate($paginateNumber);
@@ -781,7 +787,6 @@ class JobsController extends Controller
             'apply_type_id' => 'required',
             'location' => 'nullable',
             'deadline' => 'required',
-            'company_id' => 'required',
 
         ]);
 
@@ -941,7 +946,6 @@ class JobsController extends Controller
             'apply_type_id' => 'required',
             'location' => 'nullable',
             'deadline' => 'required',
-            'company_id' => 'required',
 
         ]);
 

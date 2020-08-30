@@ -67,10 +67,6 @@ class PagesController extends Controller
     public function about_us()
     {
 
-        return \App\Models\Category::with(['jobs' => function ($q) {
-            return $q->where('id', '>', 20)->count();
-        }])->get();
-
         $about = Setting::first()->about_us;
 
         return view('frontend.pages.about', compact('about'));

@@ -24,48 +24,28 @@ Job Description - {{ $template->name }} | {{ App\Models\Setting::first()->site_t
 
 	<div class="container"> 
         <div class="single-job-short single-template  px-4"> 
-                <table class="table table-bordered table-responsive">
-                    <tr>
-                        <td>Name</td>
-                        <td>:</td>
-                        <td>{{ $template->name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Categoriy</td>
-                        <td>:</td>
-                        <td>{{ $template->category->name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Job Summery</td>
-                        <td>:</td>
-                        <td>{!! $template->job_summery  !!}</td>
-                    </tr>
-                    <tr>
-                        <td>Responsibilities</td>
-                        <td>:</td>
-                        <td>{!! $template->responsibilities  !!}</td>
-                    </tr>
-                    <tr>
-                        <td>Job Summery</td>
-                        <td>:</td>
-                        <td>{!! $template->job_summery  !!}</td>
-                    </tr>
-                    <tr>
-                        <td>Qualification</td>
-                        <td>:</td>
-                        <td>{!! $template->qualification  !!}</td>
-                    </tr>
-                    <tr>
-                        <td>Certification</td>
-                        <td>:</td>
-                        <td>{!! $template->certification  !!}</td>
-                    </tr>
-                    <tr>
-                        <td>About Company</td>
-                        <td>:</td>
-                        <td>{!! $template->about_company  !!}</td>
-                    </tr>
-                </table>
+                <div class="job__header mb-3">
+                   <strong>Job:</strong> {{ $template->name }}
+                    <br>
+                    <br>
+                   <strong> Category:</strong> {{ $template->category->name }}
+                </div>
+                <div class="job__body">
+                    <h3>Job summery</h3>
+                    <p>{!! $template->job_summery  !!}</p>
+                </div>
+                <div class="job__body">
+                    <h3>Responsibilities</h3>
+                    <p>{!! $template->responsibilities  !!}</p>
+                </div>
+                <div class="job__body">
+                    <h3>Qualification</h3>
+                    <p>{!! $template->qualification  !!}</p>
+                </div>
+                <div class="job__body">
+                    <h3>Certification</h3>
+                    <p>{!! $template->certification  !!}</p>
+                </div> 
         </div> 
 	</div>
 
