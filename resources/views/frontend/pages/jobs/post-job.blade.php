@@ -197,7 +197,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 								@if(auth()->check() && auth()->user()->type == 1)
 								<div class="col-md-4">
 									<div class="form-group">
-										<label for="conpany_id">Company</label>
+										<label for="conpany_id">Company <span class="text-success">(optional)</span></label>
 										<select name="company_id" id="conpany_id" class="form-control" value="{{ old('company_id') }}">
 											<option value="">Select Company</option> 
 											@foreach(App\Models\Company::where('assign_id', auth()->user()->id)->get() as $company)

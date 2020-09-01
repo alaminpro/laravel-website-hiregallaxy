@@ -63,9 +63,10 @@
               <tr>
 
                 <th>Sl</th> 
-                <th>first name</th> 
-                <th>email</th> 
-                <th>subject</th> 
+                <th>Name</th> 
+                <th>Email</th> 
+                <th>Subject</th> 
+                <th>Date</th> 
                 <th>Manage</th>
 
               </tr>
@@ -83,6 +84,7 @@
                     <td> {!! $contact->name !!}</td> 
                     <td> {!! $contact->email !!}</td> 
                     <td> {!! $contact->subject !!}</td> 
+                    <td> {!! Carbon\Carbon::parse($contact->created_at)->format('d-m-Y') !!}</td> 
  
 
                     <td>

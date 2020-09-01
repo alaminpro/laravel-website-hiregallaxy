@@ -51,6 +51,7 @@ Employers | {{ App\Models\Setting::first()->site_title }}
 						<button type="submit" class="alpha" value="m" name="alpha"  onchange="submitSearch()">M</button>
 						<button type="submit" class="alpha" value="n" name="alpha"  onchange="submitSearch()">N</button>
 						<button type="submit" class="alpha" value="o" name="alpha"  onchange="submitSearch()">O</button>
+						<button type="submit" class="alpha" value="P" name="alpha"  onchange="submitSearch()">P</button>
 						<button type="submit" class="alpha" value="q" name="alpha"  onchange="submitSearch()">Q</button>
 						<button type="submit" class="alpha" value="r" name="alpha"  onchange="submitSearch()">R</button>
 						<button type="submit" class="alpha" value="s" name="alpha"  onchange="submitSearch()">S</button>

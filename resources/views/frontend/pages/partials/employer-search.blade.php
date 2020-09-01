@@ -1,13 +1,11 @@
 <form action="{{ $route }}" method="get" id="employerSearchForm">
 	<input type="hidden" name="company">
-	<div class="sidebar-widget">
-		<div class="sidebar-widget">
-
+	<div class="sidebar-widget"> 
 			<div class="sidebar-list-item">
-	
+		
 				<h3>
 	
-					Company By City
+					Employer By City
 	
 				</h3>
 	
@@ -48,9 +46,10 @@
 				</select>
 	
 			</div>
-	
 		</div>
-	
+	</div>
+	<div class="sidebar-widget">
+		
 		<div class="sidebar-list-item">
 
 			<h3>

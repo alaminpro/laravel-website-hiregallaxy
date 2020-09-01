@@ -25,10 +25,8 @@ Job Description - {{ $template->name }} | {{ App\Models\Setting::first()->site_t
 	<div class="container"> 
         <div class="single-job-short single-template  px-4"> 
                 <div class="job__header mb-3">
-                   <strong>Job:</strong> {{ $template->name }}
-                    <br>
-                    <br>
-                   <strong> Category:</strong> {{ $template->category->name }}
+                   <h3><strong>Job:</strong> {{ $template->name }}</h3>
+                    <br> 
                 </div>
                 <div class="job__body">
                     <h3>Job summery</h3>

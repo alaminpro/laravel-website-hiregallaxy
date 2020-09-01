@@ -1,19 +1,22 @@
 <form action="{{ $route }}" method="get" id="cadidateSearchForm">
 	<input type="hidden" name="candidate" >
-	<div class="sidebar-widget">
-		 
-	
+	<div class="sidebar-widget"> 
 		<div class="sidebar-list-item">
-
+	
 			<h3>
 
-				Candidate By Positions
+				Candidate  By City
 
 			</h3>
 
 			<hr class="sidebar-border">
-			<div class="my-4">	<select name="country" onchange="submitSearch()" id="country" class="selectpicker" data-live-search="true">
-	
+
+			<div class="clearfix"></div>
+
+
+
+			<select name="country" onchange="submitSearch()" id="country" class="selectpicker" data-live-search="true">
+
 				<option data-icon="fa fa-map-marker" value="all">All Locations</option>
 
 				@foreach (App\Models\State::orderBy('name', 'asc')->get() as $state)
@@ -24,43 +27,52 @@
 
 				</option>
 
-
-
 				@foreach ($state->cities()->orderBy('name', 'asc')->get() as $countrySingle)
 
 				<option value="{{ $countrySingle->name }}"
 
 					{{ isset($_GET['country']) && ($_GET['country'] == $countrySingle->name) ? 'selected' : '' }}>
 
-					&nbsp; &nbsp; {{ $countrySingle->name }}</option>
+					&nbsp;&nbsp; {{ $countrySingle->name }}
+
+					({{ count(App\Models\Job::where('status_id', 1)->where('country_id', $countrySingle->id)->get()) }})
+
+				</option>
 
 				@endforeach
 
-
-
 				@endforeach
 
-			</select></div>
-		 
-			<div class="clearfix"></div>
+			</select>
 
-			@foreach (App\Models\Category::orderBy('name', 'asc')->get() as $cat)
+		</div>
+	</div> 
+	<div class="sidebar-widget">
+	 
+	
+		<div class="sidebar-list-item">
 
-			<div class="squaredFour">
+			<h3>
 
-				<input type="checkbox" value="{{ $cat->slug }}" id="category{{ $cat->id }}" name="category"
+				Candidate By Positions
 
-					onchange="submitSearch()"
+			</h3>
 
-					{{ isset($_GET['category']) && ($_GET['category'] == $cat->slug) ? 'checked' : '' }} />
-
-				<label for="category{{ $cat->id }}"></label>
-
-				{{ $cat->name }} ({{ count(App\Models\CandidateProfile::where('sector', $cat->id)->get()) }})
-
-			</div>
-
-			@endforeach
+			<hr class="sidebar-border">
+			<div class="my-4">
+					<select name="category" onchange="submitSearch()"  id="category" class="selectpicker" data-live-search="true" >
+ 
+					<option data-icon="fa fa-navicon" value="all">All Positions</option>
+	
+					@foreach (App\Models\Category::orderBy('name', 'asc')->get() as $cat)
+	
+					<option  value="{{ $cat->slug }}" {{ isset($_GET['category']) && ($_GET['category'] == $cat->slug) ? 'checked' : '' }}>	 	{{ $cat->name }}</option>
+	
+					@endforeach
+	
+				</select> 
+		</div>
+		  
 
 		</div>
 
