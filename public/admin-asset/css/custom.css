@@ -146,9 +146,18 @@ div {
 	justify-content: center;
 	align-items: center;
 }
+.custom__sidebar_show{
+    display: none;
+}
 @media (max-width: 600px) {
     .common__title{
         font-size: 18px;
+    }
+    .view__site{
+        display: none;
+    }
+    .breadcrumb-holder.float-right{
+        float: none !important;
     }
 }
 @media (max-width: 440px) {
@@ -159,3 +168,28 @@ div {
         font-size: 14px;
     }
 }
+
+@media (max-width: 1100px) {
+  .navbar-nav .nav-link{
+      font-size: 14px !important;
+  }
+}
+@media (max-width: 991px) {
+  .navbar__custom li{
+      display: none;
+  }
+  .custom__sidebar_show{
+        display: block;
+    }
+}
+@media (max-width: 768px) { 
+  .custom__sidebar_show{
+        display: none;
+    }
+  .custom__sidebar_show.toggled{
+        display: block;
+        width: 130px !important;
+        overflow: visible !important;
+    }
+}
+

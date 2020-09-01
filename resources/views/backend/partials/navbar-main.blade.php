@@ -6,7 +6,7 @@
 
   <!-- Sidebar Toggle (Topbar) -->
 
-  <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+  <button id="sidebarToggleTop" class="btn btn-link d-lg-none rounded-circle mr-3">
 
     <i class="fa fa-bars"></i>
 
@@ -40,7 +40,7 @@
 
   <!-- Topbar Navbar -->
 
-  <ul class="navbar-nav">
+  <ul class="navbar-nav navbar__custom">
 
     <a class="nav-link" href="{{ route('admin.index') }}" id="alertsDropdown" role="button" aria-expanded="false">
 
@@ -383,7 +383,7 @@
 
         target="_blank">
 
-        <i class="fas fa-eye fa-fw"></i> View Site
+        <i class="fas fa-eye fa-fw"></i><span class="view__site">View Site</span>
 
       </a>
 
