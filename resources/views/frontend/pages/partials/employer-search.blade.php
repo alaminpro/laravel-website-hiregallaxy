@@ -45,8 +45,7 @@
 	
 				</select>
 	
-			</div>
-		</div>
+			</div> 
 	</div>
 	<div class="sidebar-widget">
 		

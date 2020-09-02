@@ -10,7 +10,7 @@
 					Discover
 				</p>
 			
-				@include('frontend.pages.partials.search', ['route' => route('jobs.search') ])
+				@include('frontend.pages.partials.search', ['route' => route('searches') ])
 				<div class="companies-more">
 					<div class="row">
 						<div class="wow slideInLeft col-sm-4 custom__back ">
@@ -83,6 +83,41 @@
 
  
 
+@elseif(Route::is('searches'))
+
+<div class="home-top">
+
+	<div class="container">
+
+		<div class="row justify-content-center">
+
+			<div class="col-md-10"> 
+
+				<h3 class="top-title wow fadeInUp mb-3 changes_dynamic_title">
+
+					Find Your Dream Job
+
+				</h3>
+				@include('frontend.pages.partials.search', ['route' => route('searches') ]) 
+				<div class="navbar-breadcrumb">
+
+					<ol class="breadcrumb">
+
+						<li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
+
+						<li class="breadcrumb-item active" aria-current="page">Jobs</li>
+
+					</ol>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
 @elseif(Route::is('jobs'))
 
 <div class="home-top">
@@ -91,19 +126,82 @@
 
 		<div class="row justify-content-center">
 
-			<div class="col-md-10">
-
-
+			<div class="col-md-10"> 
 
 				<h3 class="top-title wow fadeInUp mb-3 changes_dynamic_title">
 
 					Find Your Dream Job
 
 				</h3>
+				<form action="{{ route('jobs.search') }}" method="get">
 
-				@include('frontend.pages.partials.search', ['route' => route('jobs.search') ])
-
-
+					<div class="d-flex">
+						<div class="job-searchbox">  
+							<div class="input__search">
+								<input type="text" name="job" class="form-control" placeholder="Find Job: title, keywords">
+							</div>
+			
+							<div class="input__city">
+								<input type="text" name="location" class="form-control" placeholder="Where: city">
+							</div> 
+							<div class="custom__search_bar"> 
+								<div class="input__submit">
+									<button type="submit"><i class="fa fa-search"></i></button>
+								</div>
+								<div class="advanced__search_mobile">
+									<button class="advanced__search_btn" type="button"><i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+						</div> <!-- End Searchbox -->
+						<div class="advanced__search">
+							<button class="advanced__search_btn" type="button"><i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+							</button>
+						</div>
+					</div>
+					<div class="advanced__seach_show">
+						<div class="job_search">
+							<select name="category" id="category" class="selectpicker" data-live-search="true">
+			
+								<option data-icon="fa fa-navicon" value="all">All Postions</option>
+				
+								@foreach (App\Models\Category::orderBy('name', 'asc')->get() as $category)
+				
+								<option value="{{ $category->slug }}">{{ $category->name }}</option>
+				
+								@endforeach
+				
+							</select>
+							<select name="experience" id="experience" class="selectpicker ml-0 ml-md-4 mt-4 mt-md-0" data-live-search="true">
+				
+								<option data-icon="fa fa-star" value="all">All Experience</option>
+				
+								@foreach (App\Models\Experience::orderBy('name', 'asc')->get() as $exp)
+				
+								<option value="{{ $exp->slug }}">{{ $exp->name }}</option>
+				
+								@endforeach
+				
+							</select>
+							<select name="type" id="type" class="selectpicker ml-0 ml-md-4 mt-4 mt-md-0" data-live-search="true">
+				
+								<option value="all">Select Type</option>
+				
+								@foreach (App\Models\JobType::orderBy('name', 'asc')->get() as $exp)
+				
+								<option value="{{ $exp->id }}">{{ $exp->name }}</option>
+				
+								@endforeach
+				
+							</select>
+							<div class="datepicker">
+								<input type="text" name="date" id="datepicker" placeholder="Posted Date">
+							</div>
+						</div>
+						 
+					</div>
+				
+				</form>
 
 				<div class="navbar-breadcrumb">
 

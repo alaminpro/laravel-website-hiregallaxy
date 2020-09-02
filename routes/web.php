@@ -233,6 +233,7 @@ Route::get('/contact-us', 'Frontend\ContactsController@index')->name('contacts')
 
 Route::post('/contact-us', 'Frontend\ContactsController@store')->name('contacts.store');
 
+Route::get('/search', 'HomeController@searches')->name('searches');
 /*** jobs **/
 
 Route::group(['prefix' => 'jobs'], function () {
