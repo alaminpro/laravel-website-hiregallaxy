@@ -13,6 +13,10 @@ export default {
         assign: {
             type: Boolean,
             required: false
+        },
+        team: {
+            type: Number,
+            required: false
         }
     },
     data() {
@@ -83,7 +87,8 @@ export default {
         let vm = this;
         axios.get(url, {
             params: {
-                assign: vm.assign
+                assign: vm.assign,
+                team_id: vm.team,
             }
         }).then(res => {
             this.datas = res.data

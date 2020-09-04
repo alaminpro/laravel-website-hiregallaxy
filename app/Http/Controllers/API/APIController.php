@@ -91,9 +91,15 @@ class APIController extends Controller
             return response('Sorry !! You are not an authenticated Employer !!');
 
         }
-        $user = User::where('id', auth()->user()->id)
-            ->with('teams')
-            ->first();
+        if ($request->has('team_id') && $request->team_id != '') {
+            $user = User::where('id', $request->team_id)
+                ->with('teams')
+                ->first();
+        } else {
+            $user = User::where('id', auth()->user()->id)
+                ->with('teams')
+                ->first();
+        }
 
         $collection = collect($user->teams);
         $filtered_id = $collection->pluck('id');
@@ -107,15 +113,22 @@ class APIController extends Controller
         $hired_count = JobActivity::whereIn('company_id', $filtered_id)->where('status', 'Hired')->count();
         $reject_count = JobActivity::whereIn('company_id', $filtered_id)->where('status', 'Rejected')->count();
 
-        $total_job = Job::where('user_id', auth()->user()->id)->count() + $team_job_count;
         $total_companies;
-        if ($request->assign == true) {
-            $total_companies = Company::where('assign_id', auth()->user()->id)->count();
+        if ($request->assign == 'true' && $request->team_id) {
+
+            $total_companies = Company::where('assign_id', $request->team_id)->count();
         } else {
             $total_companies = Company::where('user_id', auth()->user()->id)->count();
         }
 
-        $total_applicant = JobActivity::where('company_id', auth()->user()->id)->get()->count() + $applicant_count;
+        if ($request->has('team_id') && $request->team_id != '') {
+            $total_job = Job::where('user_id', $request->team_id)->count() + $team_job_count;
+            $total_applicant = JobActivity::where('company_id', $request->team_id)->get()->count() + $applicant_count;
+        } else {
+            $total_job = Job::where('user_id', auth()->user()->id)->count() + $team_job_count;
+            $total_applicant = JobActivity::where('company_id', auth()->user()->id)->get()->count() + $applicant_count;
+        }
+
         $total_new_count = JobActivity::where('company_id', $user->id)->where('status', 'New')->get()->count() + $new_count;
         $total_short_count = JobActivity::where('company_id', $user->id)->where('status', 'Shortlisted')->get()->count() + $short_count;
         $total_interview_count = JobActivity::where('company_id', $user->id)->where('status', 'Interview')->get()->count() + $interview_count;
@@ -132,9 +145,15 @@ class APIController extends Controller
 
         }
 
-        $user = User::where('id', auth()->user()->id)
-            ->with('teams')
-            ->first();
+        if ($request->has('team_id') && $request->team_id != '') {
+            $user = User::where('id', $request->team_id)
+                ->with('teams')
+                ->first();
+        } else {
+            $user = User::where('id', auth()->user()->id)
+                ->with('teams')
+                ->first();
+        }
 
         $collection = collect($user->teams);
         $filtered_id = $collection->pluck('id');
@@ -148,16 +167,21 @@ class APIController extends Controller
         $hired_count = JobActivity::whereIn('company_id', $filtered_id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('status', 'Hired')->count();
         $reject_count = JobActivity::whereIn('company_id', $filtered_id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('status', 'Rejected')->count();
 
-        $total_job = Job::where('user_id', auth()->user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count() + $team_job_count;
-        if ($request->assign == true) {
-            $total_companies = Company::where('assign_id', auth()->user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
-
+        $total_companies;
+        if ($request->assign == 'true' && $request->team_id) {
+            $total_companies = Company::where('assign_id', $request->team_id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
         } else {
             $total_companies = Company::where('user_id', auth()->user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
-
         }
 
-        $total_applicant = JobActivity::where('company_id', auth()->user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get()->count() + $applicant_count;
+        if ($request->has('team_id') && $request->team_id != '') {
+            $total_job = Job::where('user_id', $request->team_id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count() + $team_job_count;
+            $total_applicant = JobActivity::where('company_id', $request->team_id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get()->count() + $applicant_count;
+        } else {
+            $total_job = Job::where('user_id', auth()->user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count() + $team_job_count;
+            $total_applicant = JobActivity::where('company_id', auth()->user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get()->count() + $applicant_count;
+        }
+
         $total_new_count = JobActivity::where('company_id', $user->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('status', 'New')->get()->count() + $new_count;
         $total_short_count = JobActivity::where('company_id', $user->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('status', 'Shortlisted')->get()->count() + $short_count;
         $total_interview_count = JobActivity::where('company_id', $user->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('status', 'Interview')->get()->count() + $interview_count;
@@ -174,9 +198,15 @@ class APIController extends Controller
         }
         if ($request->has('year') && $request->year != '') {
 
-            $user = User::where('id', auth()->user()->id)
-                ->with('teams')
-                ->first();
+            if ($request->has('team_id') && $request->team_id != '') {
+                $user = User::where('id', $request->team_id)
+                    ->with('teams')
+                    ->first();
+            } else {
+                $user = User::where('id', auth()->user()->id)
+                    ->with('teams')
+                    ->first();
+            }
 
             $collection = collect($user->teams);
             $filtered_id = $collection->pluck('id');
@@ -190,14 +220,21 @@ class APIController extends Controller
             $hired_count = JobActivity::whereIn('company_id', $filtered_id)->whereYear('created_at', $request->year)->where('status', 'Hired')->count();
             $reject_count = JobActivity::whereIn('company_id', $filtered_id)->whereYear('created_at', $request->year)->where('status', 'Rejected')->count();
 
-            $total_job = Job::where('user_id', auth()->user()->id)->whereYear('created_at', $request->year)->count() + $team_job_count;
-            if ($request->assign == true) {
-                $total_companies = Company::where('assign_id', auth()->user()->id)->whereYear('created_at', $request->year)->count();
+            $total_companies;
+            if ($request->assign == 'true' && $request->team_id) {
+                $total_companies = Company::where('assign_id', $request->team_id)->whereYear('created_at', $request->year)->count();
             } else {
                 $total_companies = Company::where('user_id', auth()->user()->id)->whereYear('created_at', $request->year)->count();
-
             }
-            $total_applicant = JobActivity::where('company_id', auth()->user()->id)->whereYear('created_at', $request->year)->get()->count() + $applicant_count;
+
+            if ($request->has('team_id') && $request->team_id != '') {
+                $total_job = Job::where('user_id', $request->team_id)->whereYear('created_at', $request->year)->count() + $team_job_count;
+                $total_applicant = JobActivity::where('company_id', $request->team_id)->whereYear('created_at', $request->year)->get()->count() + $applicant_count;
+            } else {
+                $total_job = Job::where('user_id', auth()->user()->id)->whereYear('created_at', $request->year)->count() + $team_job_count;
+                $total_applicant = JobActivity::where('company_id', auth()->user()->id)->whereYear('created_at', $request->year)->get()->count() + $applicant_count;
+            }
+
             $total_new_count = JobActivity::where('company_id', $user->id)->whereYear('created_at', $request->year)->where('status', 'New')->get()->count() + $new_count;
             $total_short_count = JobActivity::where('company_id', $user->id)->whereYear('created_at', $request->year)->where('status', 'Shortlisted')->get()->count() + $short_count;
             $total_interview_count = JobActivity::where('company_id', $user->id)->whereYear('created_at', $request->year)->where('status', 'Interview')->get()->count() + $interview_count;
@@ -218,10 +255,15 @@ class APIController extends Controller
 
         if ($request->has('month') && $request->month != '') {
             $month = Carbon::parse($request->month)->month;
-            $user = User::where('id', auth()->user()->id)
-                ->with('teams')
-                ->first();
-
+            if ($request->has('team_id') && $request->team_id != '') {
+                $user = User::where('id', $request->team_id)
+                    ->with('teams')
+                    ->first();
+            } else {
+                $user = User::where('id', auth()->user()->id)
+                    ->with('teams')
+                    ->first();
+            }
             $collection = collect($user->teams);
             $filtered_id = $collection->pluck('id');
 
@@ -242,17 +284,21 @@ class APIController extends Controller
             $reject_count = JobActivity::whereIn('company_id', $filtered_id)
                 ->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->where('status', 'Rejected')->count();
 
-            $total_job = Job::where('user_id', auth()->user()->id)
-                ->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->count() + $team_job_count;
-            if ($request->assign == true) {
-                $total_companies = Company::where('assign_id', auth()->user()->id)
-                    ->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->count();
+            $total_companies;
+            if ($request->assign == 'true' && $request->team_id) {
+                $total_companies = Company::where('assign_id', $request->team_id)->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->count();
             } else {
-                $total_companies = Company::where('user_id', auth()->user()->id)
-                    ->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->count();
+                $total_companies = Company::where('user_id', auth()->user()->id)->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->count();
             }
-            $total_applicant = JobActivity::where('company_id', auth()->user()->id)
-                ->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->get()->count() + $applicant_count;
+
+            if ($request->has('team_id') && $request->team_id != '') {
+                $total_job = Job::where('user_id', $request->team_id)->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->count() + $team_job_count;
+                $total_applicant = JobActivity::where('company_id', $request->team_id)->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->get()->count() + $applicant_count;
+            } else {
+                $total_job = Job::where('user_id', auth()->user()->id)->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->count() + $team_job_count;
+                $total_applicant = JobActivity::where('company_id', auth()->user()->id)->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->get()->count() + $applicant_count;
+            }
+
             $total_new_count = JobActivity::where('company_id', $user->id)
                 ->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->where('status', 'New')->get()->count() + $new_count;
             $total_short_count = JobActivity::where('company_id', $user->id)

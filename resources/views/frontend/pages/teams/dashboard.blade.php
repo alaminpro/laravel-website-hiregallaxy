@@ -289,7 +289,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 					</div>
 
 				</div>
-				<filter-component :assign="true"></filter-component>	
+				<filter-component :assign="true" team_id="{{ $user->id }}"></filter-component>	
 			</div>
 
 

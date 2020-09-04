@@ -27,7 +27,7 @@
             </li>
         </ul>
     </div>
-    <chart :data.sync='filters.datas' :assign='assign'></chart>
+    <chart :data.sync='filters.datas' :assign='assign' :team="team_id"></chart>
 </div>
 </template>
 
@@ -37,7 +37,7 @@ export default {
     components: {
         chart
     },
-    props: ['assign'],
+    props: ['assign', 'team_id'],
     data() {
         return {
             years: [],
@@ -69,7 +69,8 @@ export default {
                 let vm = this;
                 axios.get(url, {
                     params: {
-                        assign: vm.assign
+                        assign: vm.assign,
+                        team_id: vm.team_id
                     }
                 }).then(res => {
                     this.filters.datas = res.data
@@ -86,7 +87,8 @@ export default {
                 let vm = this;
                 axios.get(url, {
                     params: {
-                        assign: vm.assign
+                        assign: vm.assign,
+                        team_id: vm.team_id
                     }
                 }).then(res => {
                     this.filters.datas = res.data
@@ -104,7 +106,8 @@ export default {
             axios.get(url, {
                 params: {
                     year: vm.year,
-                    assign: vm.assign
+                    assign: vm.assign,
+                    team_id: vm.team_id
                 }
             }).then(res => {
                 this.filters.datas = res.data
@@ -120,7 +123,8 @@ export default {
                 params: {
                     year: vm.year,
                     month: vm.month,
-                    assign: vm.assign
+                    assign: vm.assign,
+                    team_id: vm.team_id
                 }
             }).then(res => {
                 this.filters.datas = res.data
