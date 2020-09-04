@@ -64,7 +64,7 @@
 	
 					@foreach (App\Models\JobType::orderBy('name', 'asc')->get() as $exp)
 	
-					<option value="{{ $exp->id }}">{{ $exp->name }}</option>
+					<option value="{{ $exp->name }}">{{ $exp->name }}</option>
 	
 					@endforeach
 	

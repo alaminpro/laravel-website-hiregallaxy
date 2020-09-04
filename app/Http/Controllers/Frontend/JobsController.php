@@ -301,8 +301,8 @@ class JobsController extends Controller
 
         $type_id = null;
         if ($request->type != null && $request->type != 'all') {
-            $type_id = $request->type;
-            $sql .= " and jobs.type_id = $type_id";
+            $type = \DB::table('job_types')->where('name', $request->type)->first();
+            $sql .= " and jobs.type_id = $type->id";
         }
         if ($request->date != null && $request->date != '') {
             $date = $request->date;

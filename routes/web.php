@@ -39,7 +39,7 @@ Route::get('/terms-and-service', 'Frontend\PagesController@termsAndService')->na
 
 Route::get('/privacy-policy', 'Frontend\PagesController@privacyPolicy')->name('privacy');
 Route::get('/about-us', 'Frontend\PagesController@about_us')->name('about_us');
-
+Route::get('/search', 'HomeController@searches')->name('searches');
 Route::get('/candidates/personality/{id}', 'Frontend\EmployersController@Personality')->name('public.personality');
 
 Route::get('/job-description', 'Frontend\JobsController@Description')->name('description');
@@ -233,7 +233,6 @@ Route::get('/contact-us', 'Frontend\ContactsController@index')->name('contacts')
 
 Route::post('/contact-us', 'Frontend\ContactsController@store')->name('contacts.store');
 
-Route::get('/search', 'HomeController@searches')->name('searches');
 /*** jobs **/
 
 Route::group(['prefix' => 'jobs'], function () {

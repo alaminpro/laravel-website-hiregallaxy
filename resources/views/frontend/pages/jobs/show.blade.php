@@ -201,7 +201,8 @@
 										</div>
 
 									</div>
-
+									@if(auth()->check())
+									@if(auth()->user()->is_company == 0)
 									<div class="mt-3 d-flex align-items-center">
 
 
@@ -283,8 +284,19 @@
 										@endif 
 
 									</div>
+									@endif
+									@else
+									<div class="mt-3 d-flex align-items-center">
+									
+										<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button m-0 mb-2"
 
+											onclick="applyJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}','{{ $job->user->id }}')">
 
+											Apply Now
+
+										</a>
+									</div>
+									@endif
 
 								</div>
 

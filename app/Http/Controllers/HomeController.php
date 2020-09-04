@@ -27,13 +27,6 @@ class HomeController extends Controller
 
      */
 
-    public function __construct()
-    {
-
-        $this->middleware('auth')->except('Testimonial');
-
-    }
-
     /**
 
      * Show the application dashboard.

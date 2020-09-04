@@ -29,12 +29,11 @@
 		</p>
 
 		<p><i class="fa fa-clock-o time-icon"></i> {{ $single_job->type->name }} </p>
+ 
 
+		  {{-- @if (Route::is('index'))  
 
-
-		{{-- @if (Route::is('index')) --}}
-
-		{{-- <p class="mt-0"> 
+		<p class="mt-0"> 
 
 	
 
@@ -96,135 +95,146 @@
 
 			@endif
 
-		</p> --}}
-
-	   
+		</p> --}} 
 
 	</div>
 
 
+	@if(auth()->check())
+		@if(auth()->user()->is_company == 0)
+		<div class="float-right mb-3 text-right">
 
-	<div class="float-right mb-3 text-right">
 
 
+			@if (Route::is('employers.jobs.posted'))
 
-		@if (Route::is('employers.jobs.posted'))
+			<a href="{{ route('jobs.edit', $single_job->slug) }}" class="btn btn-outline-success" title="Edit Job">
 
-		<a href="{{ route('jobs.edit', $single_job->slug) }}" class="btn btn-outline-success" title="Edit Job">
-
-			<i class="fa fa-edit"></i>
-
-		</a>
-
-		<a href="{{ route('employers.jobs.applications', $single_job->slug) }}" class="btn btn-outline-yellow"
-
-			title="View All Applications ({{ count($single_job->activities) }})">
-
-			<i class="fa fa-eye"></i>
-
-			<span class="badge badge-danger">{{ count($single_job->activities) }}</span>
-
-		</a>
-
-		<form method="post" action="{{ route('employers.jobs.delete', $single_job->slug) }}" class="ml-1"
-
-			style="display:inline" onsubmit="return confirm('Are you sure to delete the job permanently ?')">
-
-			@csrf
-
-			<button class="btn btn-outline-danger" type="submit" title="Delete Job" style="border-radius: 20px!important;
-
-			padding: 4px 20px!important">
-
-				<i class="fa fa-trash"></i>
-
-			</button>
-
-		</form>
-
-		@else
-
-		@if (Auth::check())
-
-		<favorite-component url="{{ url('/') }}" id="{{ $single_job->id }}" api_token="{{ Auth::user()->api_token }}">
-
-		</favorite-component>
-
-		@else
-
-		<favorite-component url="{{ url('/') }}" id="{{ $single_job->id }}" api_token="0"></favorite-component>
-
-		@endif
-
-		<br>
-
-		@if (!Route::is('index')) 
-
-	  
-
-		@if (Auth::check())
-
-			@if (Auth::user()->hasAppliedJob($single_job->id))
-
-				<a href="#update-apply-job-modal" data-toggle="modal" class="btn btn-outline-success"
-
-					onclick="applyUpdateJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
-
-					<span class="text-success"><i class="fa fa-check"></i> Already Applied</span>
-
-				</a>
-
-			@else
-
-			@php
-
-				$result = \App\Models\Result::where('job_id', $single_job->id)->where('user_id', auth()->user()->id)->first();
-
-			@endphp
-
-			@if($result)
-
-				<a href="#apply-job-modal" data-toggle="modal" class="btn btn-outline-yellow"
-
-						onclick="applyJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
-
-						Apply Now
-
-					</a>    
-
-				@else
-
-					<a href="{{route('exam', $single_job->id)}}" class="btn btn-outline-yellow" >
-
-						Apply Now  
-
-					</a>
-
-				@endif  
-
-			@endif
-
-		@else
-
-			<a href="#apply-job-modal" data-toggle="modal" class="btn btn-outline-yellow"
-
-				onclick="applyJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
-
-				Apply Now
+				<i class="fa fa-edit"></i>
 
 			</a>
 
+			<a href="{{ route('employers.jobs.applications', $single_job->slug) }}" class="btn btn-outline-yellow"
+
+				title="View All Applications ({{ count($single_job->activities) }})">
+
+				<i class="fa fa-eye"></i>
+
+				<span class="badge badge-danger">{{ count($single_job->activities) }}</span>
+
+			</a>
+
+			<form method="post" action="{{ route('employers.jobs.delete', $single_job->slug) }}" class="ml-1"
+
+				style="display:inline" onsubmit="return confirm('Are you sure to delete the job permanently ?')">
+
+				@csrf
+
+				<button class="btn btn-outline-danger" type="submit" title="Delete Job" style="border-radius: 20px!important;
+
+				padding: 4px 20px!important">
+
+					<i class="fa fa-trash"></i>
+
+				</button>
+
+			</form>
+
+			@else
+
+			@if (Auth::check())
+
+			<favorite-component url="{{ url('/') }}" id="{{ $single_job->id }}" api_token="{{ Auth::user()->api_token }}">
+
+			</favorite-component>
+
+			@else
+
+			<favorite-component url="{{ url('/') }}" id="{{ $single_job->id }}" api_token="0"></favorite-component>
+
+			@endif
+
+			<br>
+
+			@if (!Route::is('index')) 
+
+		
+
+			@if (Auth::check())
+
+				@if (Auth::user()->hasAppliedJob($single_job->id))
+
+					<a href="#update-apply-job-modal" data-toggle="modal" class="btn btn-outline-success"
+
+						onclick="applyUpdateJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
+
+						<span class="text-success"><i class="fa fa-check"></i> Already Applied</span>
+
+					</a>
+
+				@else
+
+				@php
+
+					$result = \App\Models\Result::where('job_id', $single_job->id)->where('user_id', auth()->user()->id)->first();
+
+				@endphp
+
+				@if($result)
+
+					<a href="#apply-job-modal" data-toggle="modal" class="btn btn-outline-yellow"
+
+							onclick="applyJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
+
+							Apply Now
+
+						</a>    
+
+					@else
+
+						<a href="{{route('exam', $single_job->id)}}" class="btn btn-outline-yellow" >
+
+							Apply Now  
+
+						</a>
+
+					@endif  
+
+				@endif
+
+			@else
+
+				<a href="#apply-job-modal" data-toggle="modal" class="btn btn-outline-yellow"
+
+					onclick="applyJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
+
+					Apply Now
+
+				</a>
+
+			@endif
+
+		
+
+			@endif 
+
+			@endif 
+
+
+
+		</div>
 		@endif
+	@else
+	<div class="float-right mb-3 text-right">
+		<a href="#apply-job-modal" data-toggle="modal" class="btn btn-outline-yellow mt-4"
 
-	
+					onclick="applyJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
 
-		@endif 
+					Apply Now
 
-		@endif 
-
-
-
+				</a>
 	</div>
+	@endif
 
 	<div class="clearfix"></div>
 

@@ -26,6 +26,8 @@
     "dependencies": {
         "autoprefixer": "^9.8.6",
         "browserslist": "^4.14.0",
-        "caniuse-lite": "^1.0.30001118"
+        "caniuse-lite": "^1.0.30001118",
+        "chart.js": "^2.9.3",
+        "vue-chartjs": "^3.5.1"
     }
 }

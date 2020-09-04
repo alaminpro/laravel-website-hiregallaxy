@@ -19,6 +19,10 @@ Vue.component('personality-component', require('./components/Exam/PersonalityCom
 
 Vue.component('aptitude-component', require('./components/Exam/AptitudeComponent.vue').default);
 
+Vue.component('filter-component', require('./components/Chart/FilterComponent.vue').default);
+
+Vue.component('chart-component', require('./components/Chart/ChartComponent.vue').default);
+
 
 
 export const bus = new Vue();

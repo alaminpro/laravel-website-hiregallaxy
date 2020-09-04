@@ -290,7 +290,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 					</div>
 
 				</div>
-
+				<filter-component></filter-component>	
 			</div>
 
 
