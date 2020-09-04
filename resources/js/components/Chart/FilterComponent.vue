@@ -27,7 +27,7 @@
             </li>
         </ul>
     </div>
-    <chart :data.sync='filters.datas'></chart>
+    <chart :data.sync='filters.datas' :assign='assign'></chart>
 </div>
 </template>
 
@@ -37,6 +37,7 @@ export default {
     components: {
         chart
     },
+    props: ['assign'],
     data() {
         return {
             years: [],
@@ -66,7 +67,11 @@ export default {
             if (this.allActive != true) {
                 let url = "/api/employer/datas";
                 let vm = this;
-                axios.get(url).then(res => {
+                axios.get(url, {
+                    params: {
+                        assign: vm.assign
+                    }
+                }).then(res => {
                     this.filters.datas = res.data
                 });
                 this.allActive = true;
@@ -79,7 +84,11 @@ export default {
             if (this.weeklyActive != true) {
                 let url = "/api/employer/datas/weekly";
                 let vm = this;
-                axios.get(url).then(res => {
+                axios.get(url, {
+                    params: {
+                        assign: vm.assign
+                    }
+                }).then(res => {
                     this.filters.datas = res.data
                 });
                 this.allActive = false;
@@ -94,7 +103,8 @@ export default {
             let vm = this;
             axios.get(url, {
                 params: {
-                    year: vm.year
+                    year: vm.year,
+                    assign: vm.assign
                 }
             }).then(res => {
                 this.filters.datas = res.data
@@ -109,7 +119,8 @@ export default {
             axios.get(url, {
                 params: {
                     year: vm.year,
-                    month: vm.month
+                    month: vm.month,
+                    assign: vm.assign
                 }
             }).then(res => {
                 this.filters.datas = res.data

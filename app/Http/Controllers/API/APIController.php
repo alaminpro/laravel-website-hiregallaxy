@@ -85,13 +85,12 @@ class APIController extends Controller
 
     }
 
-    public function EmployerData()
+    public function EmployerData(Request $request)
     {
         if (!Auth::check()) {
             return response('Sorry !! You are not an authenticated Employer !!');
 
         }
-
         $user = User::where('id', auth()->user()->id)
             ->with('teams')
             ->first();
@@ -108,8 +107,14 @@ class APIController extends Controller
         $hired_count = JobActivity::whereIn('company_id', $filtered_id)->where('status', 'Hired')->count();
         $reject_count = JobActivity::whereIn('company_id', $filtered_id)->where('status', 'Rejected')->count();
 
-        $total_job = count($user->jobs) + $team_job_count;
-        $total_companies = $user->companies()->count();
+        $total_job = Job::where('user_id', auth()->user()->id)->count() + $team_job_count;
+        $total_companies;
+        if ($request->assign == true) {
+            $total_companies = Company::where('assign_id', auth()->user()->id)->count();
+        } else {
+            $total_companies = Company::where('user_id', auth()->user()->id)->count();
+        }
+
         $total_applicant = JobActivity::where('company_id', auth()->user()->id)->get()->count() + $applicant_count;
         $total_new_count = JobActivity::where('company_id', $user->id)->where('status', 'New')->get()->count() + $new_count;
         $total_short_count = JobActivity::where('company_id', $user->id)->where('status', 'Shortlisted')->get()->count() + $short_count;
@@ -120,7 +125,7 @@ class APIController extends Controller
         return [$total_job, $total_companies, $total_applicant, $total_new_count, $total_short_count, $total_interview_count, $total_offered_count, $total_hired_count, $total_reject_count];
     }
 
-    public function weeklyData()
+    public function weeklyData(Request $request)
     {
         if (!Auth::check()) {
             return response('Sorry !! You are not an authenticated Employer !!');
@@ -144,7 +149,13 @@ class APIController extends Controller
         $reject_count = JobActivity::whereIn('company_id', $filtered_id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('status', 'Rejected')->count();
 
         $total_job = Job::where('user_id', auth()->user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count() + $team_job_count;
-        $total_companies = Company::where('user_id', auth()->user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+        if ($request->assign == true) {
+            $total_companies = Company::where('assign_id', auth()->user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+
+        } else {
+            $total_companies = Company::where('user_id', auth()->user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+
+        }
 
         $total_applicant = JobActivity::where('company_id', auth()->user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get()->count() + $applicant_count;
         $total_new_count = JobActivity::where('company_id', $user->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('status', 'New')->get()->count() + $new_count;
@@ -180,8 +191,12 @@ class APIController extends Controller
             $reject_count = JobActivity::whereIn('company_id', $filtered_id)->whereYear('created_at', $request->year)->where('status', 'Rejected')->count();
 
             $total_job = Job::where('user_id', auth()->user()->id)->whereYear('created_at', $request->year)->count() + $team_job_count;
-            $total_companies = Company::where('user_id', auth()->user()->id)->whereYear('created_at', $request->year)->count();
+            if ($request->assign == true) {
+                $total_companies = Company::where('assign_id', auth()->user()->id)->whereYear('created_at', $request->year)->count();
+            } else {
+                $total_companies = Company::where('user_id', auth()->user()->id)->whereYear('created_at', $request->year)->count();
 
+            }
             $total_applicant = JobActivity::where('company_id', auth()->user()->id)->whereYear('created_at', $request->year)->get()->count() + $applicant_count;
             $total_new_count = JobActivity::where('company_id', $user->id)->whereYear('created_at', $request->year)->where('status', 'New')->get()->count() + $new_count;
             $total_short_count = JobActivity::where('company_id', $user->id)->whereYear('created_at', $request->year)->where('status', 'Shortlisted')->get()->count() + $short_count;
@@ -229,9 +244,13 @@ class APIController extends Controller
 
             $total_job = Job::where('user_id', auth()->user()->id)
                 ->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->count() + $team_job_count;
-            $total_companies = Company::where('user_id', auth()->user()->id)
-                ->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->count();
-
+            if ($request->assign == true) {
+                $total_companies = Company::where('assign_id', auth()->user()->id)
+                    ->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->count();
+            } else {
+                $total_companies = Company::where('user_id', auth()->user()->id)
+                    ->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->count();
+            }
             $total_applicant = JobActivity::where('company_id', auth()->user()->id)
                 ->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->get()->count() + $applicant_count;
             $total_new_count = JobActivity::where('company_id', $user->id)
