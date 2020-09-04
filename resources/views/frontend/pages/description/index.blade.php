@@ -28,7 +28,7 @@ Employers | {{ App\Models\Setting::first()->site_title }}
 
 	<div class="container"> 
 	 
-		<form action="" method="get" id="JobDesSearchForm">
+		<form action="{{ route('description.search') }}" method="get" id="JobDesSearchForms">
 			<input type="hidden" name="job_description">
 			<div class="row">
 				<div class="col-lg-4">	<h5 class="text-theme bold mb-4 float-left">We have found <span class="text-yellow">{{ count($templates) }}</span>
@@ -51,7 +51,7 @@ Employers | {{ App\Models\Setting::first()->site_title }}
 						<button type="submit" class="alpha" value="m" name="alpha"  onchange="submitSearch()">M</button>
 						<button type="submit" class="alpha" value="n" name="alpha"  onchange="submitSearch()">N</button>
 						<button type="submit" class="alpha" value="o" name="alpha"  onchange="submitSearch()">O</button>
-						<button type="submit" class="alpha" value="P" name="alpha"  onchange="submitSearch()">P</button>
+						<button type="submit" class="alpha" value="p" name="alpha"  onchange="submitSearch()">P</button>
 						<button type="submit" class="alpha" value="q" name="alpha"  onchange="submitSearch()">Q</button>
 						<button type="submit" class="alpha" value="r" name="alpha"  onchange="submitSearch()">R</button>
 						<button type="submit" class="alpha" value="s" name="alpha"  onchange="submitSearch()">S</button>
@@ -212,7 +212,7 @@ Employers | {{ App\Models\Setting::first()->site_title }}
 
 	function submitSearch(event){
 
-		 $("#JobDesSearchForm").submit();
+		 $("#JobDesSearchForms").submit();
 
 	}
 

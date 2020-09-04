@@ -342,7 +342,54 @@ class JobsController extends Controller
         return view('frontend.pages.jobs.index', compact('jobs', 'categories', 'pageNoText', 'search', 'country', 'category'));
 
     }
+    public function JobDescriptionSearch($request)
+    {
 
+        $search = $category = $category_id = null;
+
+        $categories = Category::orderBy('name', 'asc')->where('status', 1)->get();
+
+        $paginateNumber = 15;
+
+        if ($request->page) {
+
+            $pageNo = $request->page;
+
+        } else {
+
+            $pageNo = 0;
+
+        }
+        $templates = Template::with('category');
+
+        if ($request->search && $request->search != '') {
+            $templates->where('name', 'LIKE', "%$request->search%");
+        }
+
+        if ($request->category != null && $request->category != 'all') {
+
+            $category = $request->category;
+
+            $category_id = Category::where('slug', $category)->first()->id;
+
+            $templates->where('category_id', $category_id);
+        }
+        if ($request->alpha != null && $request->alpha != '') {
+
+            $alpha = $request->alpha;
+
+            $templates->where('name', 'like', $alpha . '%');
+        }
+
+        $templates = $templates->paginate($paginateNumber);
+
+        $total_template = count($templates);
+
+        $pageNoText = $paginateNumber * $pageNo . ' to ' . ($pageNo * $paginateNumber + $total_template);
+
+        return view('frontend.pages.description.index', compact('templates', 'categories', 'pageNoText'));
+
+    }
     public function Description(Request $request)
     {
         $search = $category = $category_id = null;
