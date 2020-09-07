@@ -10,7 +10,7 @@
                 <i class="fa fa-ellipsis-v text-muted"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink"> 
-                <a  class="dropdown-item"  href="{{ Auth::user()->is_company ? route('employers.show', Auth::user()->username) : route('candidates.show', Auth::user()->username) }}">  Profile</a>
+                <a  class="dropdown-item"  href="{{ Auth::user()->is_company ? route('employers.show', $conversation->receive->username) : route('candidates.show',  $conversation->sender->username) }}">  Profile</a>
                 <a data-receive="{!! auth()->id() === $conversation->sender_id ? $conversation->receive_id : $conversation->sender_id !!}" href="javascript:void(0)" class="dropdown-item text-danger delete_conversation" data-id="{!! $conversation->id !!}">Delete</a>
             </div>
         </div>
@@ -29,7 +29,8 @@
                     {!! $message->seen() !!}
                     @include('frontend.pages.messages.message')
                 @endforeach
-                
+             @else   
+             <h5 class="text-muted text-center pt-5 no_conversiation">No conversation Start yet!</h5>
             @endif
             
         </ul>

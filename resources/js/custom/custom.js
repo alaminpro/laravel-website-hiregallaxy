@@ -177,6 +177,7 @@ $(function(){
                             $(this).parent().prepend(this);
                         });
                         $('.message-box .list-messages ul .mCSB_container').append(res.html);
+                        $('.no_conversiation').remove();
                         $('#conversation-'+id).find('p').html('You: '+message);
                         $('.message-box .list-messages ul').mCustomScrollbar("scrollTo","bottom",{scrollInertia:0}); 
                             let datas = {
