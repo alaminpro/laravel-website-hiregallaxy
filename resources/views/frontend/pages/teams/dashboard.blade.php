@@ -379,11 +379,12 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 								@php
 
-									$messages = count($user->received_messages()->where('is_seen', 0)->get());
+								$messages = count($user->unread());
 
-								@endphp
+							@endphp
 
-								{{ $messages }} Message{{ $messages > 1 ? 's' : '' }}
+							{{ $messages }} Message{{ $messages > 1 ? 's' : '' }}
+
 
 							</h6>
 

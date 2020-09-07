@@ -13,7 +13,7 @@
 			  <a href="{{ route('employers.jobs.posted') }}"><i class="fa fa-bell"></i><span>My Posted Job</span></a>
 			  <!-- <a href="{{ route('employers.applicants') }}"><i class="fa fa-users"></i><span>Applicants</span></a> -->
 			  <a href="{{ route('employers.search.candidates') }}"><i class="fa fa-search"></i><span>Search Cadidates</span></a>
-			  <a href="{{ route('employers.messages') }}"><i class="fa fa-envelope"></i><span>Messages</span></a>
+			  <a href="{{ route('messages') }}"><i class="fa fa-envelope"></i><span>Messages</span></a>
 			  <a href="{{ route('employers.show', Auth::user()->username) }}"><i class="fa fa-edit"></i><span>Edit My Profile</span></a>
 			</div>
       		@endif
@@ -55,7 +55,7 @@
 				@if (Auth::check())
 				<div class="float-right">
 					<div class="top-authentication-links custom-auth-links">
-						<a href="{{ Auth::user()->is_company ? route('employers.messages') : route('candidates.messages') }}">
+						<a href="{{   route('messages') }}">
 							<i class="fa fa-envelope"></i> 
 							<span class="message-count">
 								{{ count(Auth::user()->received_messages->where('is_seen',0)) }} 

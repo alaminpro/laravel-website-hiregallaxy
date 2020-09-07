@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Conversation;
 use App\Http\Controllers\Controller;
+use App\Message;
 use App\Models\CandidateProfile;
 use App\Models\Experience;
 use App\Models\Job;
@@ -11,6 +13,7 @@ use App\Models\UserQualification;
 use App\User;
 use Auth;
 use DB;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class AjaxController extends Controller
@@ -273,5 +276,99 @@ class AjaxController extends Controller
         }
         return response()->json(['status' => 'error']);
 
+    }
+
+    public function send_message()
+    {
+        if ($this->request->id && $this->request->text) {
+            if (\auth()->check()) {
+                $conversation = Conversation::where('id', $this->request->id)->first();
+                if ($conversation) {
+                    $receive_id = $conversation->receive_id;
+                    $sender_id = $conversation->sender_id;
+                    if (\auth()->id() === $conversation->receive_id) {
+                        $sender_id = $conversation->receive_id;
+                        $receive_id = $conversation->sender_id;
+                    }
+                    $message = new Message();
+                    $message->message = $this->request->text;
+                    $message->user_id = \auth()->id();
+                    $message->conversation_id = $conversation->id;
+                    $message->seen = 0;
+                    $message->save();
+
+                    $conversation->last_message = $this->request->text;
+                    $conversation->updated_at = date('Y-m-d H:i:s');
+                    $conversation->save();
+                    $conv = $conversation;
+                    $html = view('frontend.pages.messages.message', compact('message'))->render();
+                    $html_receive = true;
+                    $receive_html = view('frontend.pages.messages.message', compact('message', 'html_receive'))->render();
+                    $conversation_html = view('frontend.pages.messages.item', compact('conv', 'html_receive'))->render();
+                    return response()->json([
+                        'status' => 'success',
+                        'html' => $html,
+                        'id' => $message->id,
+                        'receive_html' => $receive_html,
+                        'conversation_html' => $conversation_html,
+                        'message' => $message->message,
+                    ]);
+                }
+            } else {
+                return response()->json(['status' => 'login']);
+            }
+        }
+        return response()->json(['status' => 'error']);
+    }
+
+    public function load_messages()
+    {
+        if ($this->request->id && $this->request->page && \auth()->check()) {
+            $conversation = Conversation::with('messages', 'sender', 'receive')->where('id', $this->request->id)->where(function (Builder $query) {
+                $query->where('sender_id', \auth()->id())->orWhere('receive_id', \auth()->id());
+            })->first();
+            if ($conversation) {
+                $messages = $conversation->messages()->paginate(20);
+                if ($messages->count()) {
+                    $html = '';
+                    foreach ($messages->reverse() as $message) {
+                        $html .= view('frontend.pages.messages.message', compact('message'))->render();
+                    }
+                    return response()->json(['status' => 'success', 'html' => $html]);
+                } else {
+                    return response()->json(['status' => 'empty']);
+                }
+            }
+        }
+        return response()->json(['status' => 'error']);
+    }
+    public function delete_conversation()
+    {
+        if ($this->request->id && \auth()->check()) {
+            $conversation = Conversation::where('id', $this->request->id)->where(function (Builder $builder) {
+                $builder->where('sender_id', auth()->id())->orWhere('receive_id', auth()->id());
+            })->first();
+
+            if ($conversation) {
+                Message::where('conversation_id', $this->request->id)->delete();
+                $conversation->delete();
+            }
+            return response()->json(['status' => 'success']);
+        }
+        return response()->json(['status' => 'error']);
+    }
+    public function load_conversation()
+    {
+        if ($this->request->id && \auth()->check()) {
+            $conversation = Conversation::with('messages', 'sender', 'receive')->where('id', $this->request->id)->where(function (Builder $query) {
+                $query->where('sender_id', \auth()->id())->orWhere('receive_id', \auth()->id());
+            })->first();
+            if ($conversation) {
+                Message::where('conversation_id', $conversation->id)->where('user_id', '!=', \auth()->id())->update(['seen' => 1]);
+                $html = view('frontend.pages.messages.conversation', compact('conversation'))->render();
+                return response()->json(['status' => 'success', 'html' => $html, 'unread' => \auth()->user()->unread()->count(), 'url' => route('message', ['id' => $conversation->id])]);
+            }
+        }
+        return response()->json(['status' => 'error']);
     }
 }

@@ -1,8 +1,11 @@
 <!-- Vue App JS -->  
 <script>
     var ajax_url = '{{  route('ajax')  }}'; 
+    var socket_url = 'https://socket.hiregallaxy.com/'; 
 </script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 <script src="{{ asset('js/app.js') }}"></script> 
+<script src="{{ asset('js/jquery.mcustomscrollbar.min.js') }}"></script> 
  
 <style>
 
@@ -15,6 +18,15 @@
 </style>
 
 <script>
+	var socket = io(socket_url, { 
+        transports: ['polling','websocket']
+	});
+	
+	socket.emit('test', 'alamin');
+
+	socket.on('test', function(d){
+		console.log(d)
+	})
 
 	$(window).on('load', function(){
 

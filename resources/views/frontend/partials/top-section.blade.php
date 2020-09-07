@@ -2,7 +2,7 @@
 <div class="home-top header-index">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-7">
+			<div class="col-lg-6">
 				<h3 class="top-title  wow fadeInUp custom__title"> 
 					Simplify your hiring and job search process, get <span class="text-danger">prescreened</span> candidates to your inbox!
 				</h3>
@@ -74,7 +74,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-5 d-lg-flex d-none align-items-center">
+			<div class="col-lg-6 d-lg-flex d-none align-items-center">
 				<img src="{{ asset('images/team.png') }}" class="img-fluid" alt="">
 			</div>
 		</div>
@@ -994,7 +994,7 @@
 
 @elseif(Route::is('employers.dashboard') || Route::is('teams') || Route::is('team.create') || Route::is('team.dashboard') || Route::is('candidates.dashboard') || Route::is('employers.jobs.posted') ||
  Route::is('team.jobs.posted') ||
-Route::is('employers.search.candidates') || Route::is('team.search.candidates') || Route::is('candidates.jobs.favorite') || Route::is('employers.messages') || Route::is('team.messages') ||
+Route::is('employers.search.candidates') || Route::is('team.search.candidates') || Route::is('candidates.jobs.favorite') || Route::is('employers.messages') || Route::is('messages') || Route::is('message') || Route::is('team.messages') ||
 
 Route::is('candidates.messages') || Route::is('employers.jobs.applications') || Route::is('team.jobs.applications') ||Route::is('candidates.jobs.applied'))
 

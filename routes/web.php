@@ -48,70 +48,70 @@ Route::get('job-description/search', 'Frontend\JobsController@searchJobDescripti
 Route::get('testimonials', 'HomeController@Testimonial')->name('testimonial');
 /*** Employers **/
 
-Route::group(['prefix' => 'employers', 'middleware' => ['checkTeam', 'checkEmployer']], function () {
+Route::group(['prefix' => 'employers'], function () {
 
     Route::get('', 'Frontend\EmployersController@index')->name('employers');
-
-    // todos routes
-
-    Route::get('todos/get', 'Frontend\TodosController@getAll')->name('todos.getAll');
-
-    Route::post('todos/toggle/{id}', 'Frontend\TodosController@toggleTodo')->name('todos.toogle');
-
-    Route::resource('todos', 'Frontend\TodosController');
-
     Route::get('/view/{username}', 'Frontend\EmployersController@show')->name('employers.show');
 
-    // About
+    Route::group(['middleware' => ['checkTeam', 'checkEmployer']], function () {
+        // todos routes
 
-    Route::post('/about/update/{id}', 'Frontend\EmployersController@updateAbout')->name('employers.about.update');
+        Route::get('todos/get', 'Frontend\TodosController@getAll')->name('todos.getAll');
 
-    Route::post('/profile/update/{id}', 'Frontend\EmployersController@updateProfile')->name('employers.profile.update');
+        Route::post('todos/toggle/{id}', 'Frontend\TodosController@toggleTodo')->name('todos.toogle');
 
-    Route::post('/applicants/update/{id}', 'Frontend\EmployersController@applicantUpdate')->name('employers.applicants.update');
+        Route::resource('todos', 'Frontend\TodosController');
 
-    Route::get('/search', 'Frontend\EmployersController@search')->name('employers.search');
+        // About
 
-    Route::get('/dashboard', 'Frontend\EmployersController@dashboard')->name('employers.dashboard');
+        Route::post('/about/update/{id}', 'Frontend\EmployersController@updateAbout')->name('employers.about.update');
 
-    Route::get('/applicants', 'Frontend\EmployersController@applicants')->name('employers.applicants');
+        Route::post('/profile/update/{id}', 'Frontend\EmployersController@updateProfile')->name('employers.profile.update');
 
-    Route::get('/edit/{id}', 'Frontend\EmployersController@applicantEdit')->name('employers.applicants.edit');
+        Route::post('/applicants/update/{id}', 'Frontend\EmployersController@applicantUpdate')->name('employers.applicants.update');
 
-    Route::get('/search-candidates', 'Frontend\EmployersController@searchCadidates')->name('employers.search.candidates');
+        Route::get('/search', 'Frontend\EmployersController@search')->name('employers.search');
 
-    Route::get('/posted-jobs', 'Frontend\EmployersController@postedJobs')->name('employers.jobs.posted');
+        Route::get('/dashboard', 'Frontend\EmployersController@dashboard')->name('employers.dashboard');
 
-    Route::get('/listed-jobs/{status}', 'Frontend\EmployersController@listedJobs')->name('employers.jobs.listed');
+        Route::get('/applicants', 'Frontend\EmployersController@applicants')->name('employers.applicants');
 
-    Route::post('/posted-jobs/delete/{slug}', 'Frontend\EmployersController@deleteJob')->name('employers.jobs.delete');
+        Route::get('/edit/{id}', 'Frontend\EmployersController@applicantEdit')->name('employers.applicants.edit');
 
-    Route::get('{slug}/applications', 'Frontend\EmployersController@jobApplications')->name('employers.jobs.applications');
+        Route::get('/search-candidates', 'Frontend\EmployersController@searchCadidates')->name('employers.search.candidates');
 
-    Route::get('/{status}/listed-applicants/{slug}', 'Frontend\EmployersController@applicantList')->name('employers.listed');
+        Route::get('/posted-jobs', 'Frontend\EmployersController@postedJobs')->name('employers.jobs.posted');
 
-    Route::get('/candidate/{status}', 'Frontend\EmployersController@candidatesDisplay')->name('employers.candidate');
+        Route::get('/listed-jobs/{status}', 'Frontend\EmployersController@listedJobs')->name('employers.jobs.listed');
 
-    Route::get('/total', 'Frontend\EmployersController@totalApplications')->name('employers.total');
+        Route::post('/posted-jobs/delete/{slug}', 'Frontend\EmployersController@deleteJob')->name('employers.jobs.delete');
 
-    Route::get('/messages', 'Frontend\EmployersController@messages')->name('employers.messages');
+        Route::get('{slug}/applications', 'Frontend\EmployersController@jobApplications')->name('employers.jobs.applications');
 
-    Route::group(['prefix' => 'teams'], function () {
-        Route::get('', 'Frontend\TeamController@index')->name('teams');
-        Route::get('/create', 'Frontend\TeamController@create')->name('team.create');
-        Route::post('/store', 'Frontend\TeamController@store')->name('team.store');
-        Route::get('/delete/{id}/{status}', 'Frontend\TeamController@destroy')->name('team.delete');
+        Route::get('/{status}/listed-applicants/{slug}', 'Frontend\EmployersController@applicantList')->name('employers.listed');
+
+        Route::get('/candidate/{status}', 'Frontend\EmployersController@candidatesDisplay')->name('employers.candidate');
+
+        Route::get('/total', 'Frontend\EmployersController@totalApplications')->name('employers.total');
+
+        // Route::get('/messages', 'Frontend\EmployersController@messages')->name('employers.messages');
+
+        Route::group(['prefix' => 'teams'], function () {
+            Route::get('', 'Frontend\TeamController@index')->name('teams');
+            Route::get('/create', 'Frontend\TeamController@create')->name('team.create');
+            Route::post('/store', 'Frontend\TeamController@store')->name('team.store');
+            Route::get('/delete/{id}/{status}', 'Frontend\TeamController@destroy')->name('team.delete');
+        });
+        Route::group(['prefix' => 'companies'], function () {
+            Route::get('', 'Frontend\CompanyController@index')->name('companies');
+            Route::get('/create', 'Frontend\CompanyController@create')->name('company.create');
+            Route::post('/store', 'Frontend\CompanyController@store')->name('company.store');
+            Route::get('/show/{id}', 'Frontend\CompanyController@show')->name('company.show');
+            Route::get('/edit/{id}', 'Frontend\CompanyController@edit')->name('company.edit');
+            Route::post('/update/{id}', 'Frontend\CompanyController@update')->name('company.update');
+            Route::get('/delete/{id}', 'Frontend\CompanyController@destroy')->name('company.delete');
+        });
     });
-    Route::group(['prefix' => 'companies'], function () {
-        Route::get('', 'Frontend\CompanyController@index')->name('companies');
-        Route::get('/create', 'Frontend\CompanyController@create')->name('company.create');
-        Route::post('/store', 'Frontend\CompanyController@store')->name('company.store');
-        Route::get('/show/{id}', 'Frontend\CompanyController@show')->name('company.show');
-        Route::get('/edit/{id}', 'Frontend\CompanyController@edit')->name('company.edit');
-        Route::post('/update/{id}', 'Frontend\CompanyController@update')->name('company.update');
-        Route::get('/delete/{id}', 'Frontend\CompanyController@destroy')->name('company.delete');
-    });
-
 });
 
 Route::group(['prefix' => 'team'], function () {
@@ -135,7 +135,7 @@ Route::group(['prefix' => 'team'], function () {
 
 /*** candidates **/
 
-Route::group(['prefix' => 'candidates', 'middleware' => ['checkCandidate']], function () {
+Route::group(['prefix' => 'candidates'], function () {
 
     Route::get('', 'Frontend\CandidatesController@index')->name('candidates');
 
@@ -145,85 +145,87 @@ Route::group(['prefix' => 'candidates', 'middleware' => ['checkCandidate']], fun
 
     Route::get('/search', 'Frontend\CandidatesController@search')->name('candidates.search');
 
-    // Experience
+    Route::group(['middleware' => ['checkCandidate']], function () {
+        // Experience
 
-    Route::post('/add-experience', 'Frontend\ExperiencesController@store')->name('candidates.experience.store');
+        Route::post('/add-experience', 'Frontend\ExperiencesController@store')->name('candidates.experience.store');
 
-    Route::post('/update-experience/{id}', 'Frontend\ExperiencesController@update')->name('candidates.experience.update');
+        Route::post('/update-experience/{id}', 'Frontend\ExperiencesController@update')->name('candidates.experience.update');
 
-    Route::post('/delete-experience/{id}', 'Frontend\ExperiencesController@destroy')->name('candidates.experience.delete');
+        Route::post('/delete-experience/{id}', 'Frontend\ExperiencesController@destroy')->name('candidates.experience.delete');
 
-    // Education
+        // Education
 
-    Route::post('/add-education', 'Frontend\EducationsController@store')->name('candidates.education.store');
+        Route::post('/add-education', 'Frontend\EducationsController@store')->name('candidates.education.store');
 
-    Route::post('/update-education/{id}', 'Frontend\EducationsController@update')->name('candidates.education.update');
+        Route::post('/update-education/{id}', 'Frontend\EducationsController@update')->name('candidates.education.update');
 
-    Route::post('/delete-education/{id}', 'Frontend\EducationsController@destroy')->name('candidates.education.delete');
+        Route::post('/delete-education/{id}', 'Frontend\EducationsController@destroy')->name('candidates.education.delete');
 
-    // Awards
+        // Awards
 
-    Route::post('/add-award', 'Frontend\AwardsController@store')->name('candidates.award.store');
+        Route::post('/add-award', 'Frontend\AwardsController@store')->name('candidates.award.store');
 
-    Route::post('/update-award/{id}', 'Frontend\AwardsController@update')->name('candidates.award.update');
+        Route::post('/update-award/{id}', 'Frontend\AwardsController@update')->name('candidates.award.update');
 
-    Route::post('/delete-award/{id}', 'Frontend\AwardsController@destroy')->name('candidates.award.delete');
+        Route::post('/delete-award/{id}', 'Frontend\AwardsController@destroy')->name('candidates.award.delete');
 
-    // Skills
+        // Skills
 
-    Route::post('/add-skill', 'Frontend\SkillsController@store')->name('candidates.skill.store');
+        Route::post('/add-skill', 'Frontend\SkillsController@store')->name('candidates.skill.store');
 
-    Route::post('/update-skill/{id}', 'Frontend\SkillsController@update')->name('candidates.skill.update');
+        Route::post('/update-skill/{id}', 'Frontend\SkillsController@update')->name('candidates.skill.update');
 
-    Route::post('/delete-skill/{id}', 'Frontend\SkillsController@destroy')->name('candidates.skill.delete');
+        Route::post('/delete-skill/{id}', 'Frontend\SkillsController@destroy')->name('candidates.skill.delete');
 
-    // Portfolio
+        // Portfolio
 
-    Route::post('/addportfolio', 'Frontend\PortfoliosController@store')->name('candidates.portfolio.store');
+        Route::post('/addportfolio', 'Frontend\PortfoliosController@store')->name('candidates.portfolio.store');
 
-    Route::post('/update-portfolio/{id}', 'Frontend\PortfoliosController@update')->name('candidates.portfolio.update');
+        Route::post('/update-portfolio/{id}', 'Frontend\PortfoliosController@update')->name('candidates.portfolio.update');
 
-    Route::post('/delete-portfolio/{id}', 'Frontend\PortfoliosController@destroy')->name('candidates.portfolio.delete');
+        Route::post('/delete-portfolio/{id}', 'Frontend\PortfoliosController@destroy')->name('candidates.portfolio.delete');
 
-    // About
+        // About
 
-    Route::post('/about/update/{id}', 'Frontend\CandidatesController@updateAbout')->name('candidates.about.update');
+        Route::post('/about/update/{id}', 'Frontend\CandidatesController@updateAbout')->name('candidates.about.update');
 
-    Route::post('/profile/update/{id}', 'Frontend\CandidatesController@updateProfile')->name('candidates.profile.update');
+        Route::post('/profile/update/{id}', 'Frontend\CandidatesController@updateProfile')->name('candidates.profile.update');
 
-    Route::get('/dashboard', 'Frontend\CandidatesController@dashboard')->name('candidates.dashboard');
+        Route::get('/dashboard', 'Frontend\CandidatesController@dashboard')->name('candidates.dashboard');
 
-    Route::get('/personality', 'Frontend\CandidatesController@Personality')->name('candidates.personality');
+        Route::get('/personality', 'Frontend\CandidatesController@Personality')->name('candidates.personality');
 
-    Route::group(['prefix' => 'personality'], function () {
+        Route::group(['prefix' => 'personality'], function () {
 
-        Route::get('/test/{id}', 'Frontend\PersonalityController@index')->name('personality');
+            Route::get('/test/{id}', 'Frontend\PersonalityController@index')->name('personality');
 
-        Route::get('/questions/{id}', 'Frontend\PersonalityController@questions');
+            Route::get('/questions/{id}', 'Frontend\PersonalityController@questions');
 
-        Route::post('/result', 'Frontend\PersonalityController@Results');
+            Route::post('/result', 'Frontend\PersonalityController@Results');
 
-        Route::get('/check-status', 'Frontend\PersonalityController@examStatus');
+            Route::get('/check-status', 'Frontend\PersonalityController@examStatus');
 
+        });
+
+        Route::group(['prefix' => 'aptitude'], function () {
+
+            Route::get('/test/{id}', 'Frontend\AptitudeResultController@index')->name('aptitude');
+
+            Route::get('/questions/{id}', 'Frontend\AptitudeResultController@questions');
+
+            Route::post('/questions/results', 'Frontend\AptitudeResultController@Results');
+
+            Route::get('/check-status', 'Frontend\AptitudeResultController@examStatus');
+
+        });
+
+        // Route::get('/messages', 'Frontend\CandidatesController@messages')->name('candidates.messages');
+
+        Route::get('/favorite-jobs', 'Frontend\CandidatesController@favoriteJobs')->name('candidates.jobs.favorite');
+
+        Route::get('/applied-jobs', 'Frontend\CandidatesController@appliedJobs')->name('candidates.jobs.applied');
     });
-
-    Route::group(['prefix' => 'aptitude'], function () {
-
-        Route::get('/test/{id}', 'Frontend\AptitudeResultController@index')->name('aptitude');
-
-        Route::get('/questions/{id}', 'Frontend\AptitudeResultController@questions');
-
-        Route::post('/questions/results', 'Frontend\AptitudeResultController@Results');
-
-        Route::get('/check-status', 'Frontend\AptitudeResultController@examStatus');
-
-    });
-
-    Route::get('/messages', 'Frontend\CandidatesController@messages')->name('candidates.messages');
-
-    Route::get('/favorite-jobs', 'Frontend\CandidatesController@favoriteJobs')->name('candidates.jobs.favorite');
-
-    Route::get('/applied-jobs', 'Frontend\CandidatesController@appliedJobs')->name('candidates.jobs.applied');
 
 });
 
@@ -717,3 +719,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     });
 
 });
+
+Route::get('messages', 'Frontend\MessageController@messages')->name('messages');
+Route::get('message/{id}', 'Frontend\MessageController@message')->name('message');
+Route::get('chat/{id}', 'Frontend\MessageController@startChat')->name('chat');

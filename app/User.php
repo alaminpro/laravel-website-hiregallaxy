@@ -69,7 +69,10 @@ class User extends Authenticatable
         );
 
     }
-
+    public function unread()
+    {
+        return Message::where('seen', 0)->get();
+    }
     // for applicants
     public function hiredApplicants()
     {

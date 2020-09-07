@@ -21,6 +21,7 @@
 <!-- Owl Carousel CSS -->
 <link rel="stylesheet" href="{{ asset('js/owl-carousel/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ asset('js/owl-carousel/owl.theme.default.min.css') }}"> 
+<link rel="stylesheet" href="{{ asset('css/jquery.mcustomscrollbar.css') }}"> 
 
 <!-- script for datatables -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> 

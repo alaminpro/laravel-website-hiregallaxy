@@ -44,6 +44,7 @@
 	<!-- JS Files -->
 	@include('frontend.partials.scripts')
 	
+
 	@stack('scripts_stack')
 	@yield('scripts')
 	<!-- JS Files -->

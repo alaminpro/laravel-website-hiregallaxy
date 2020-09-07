@@ -1,4 +1,9 @@
-$(function(){ 
+$(function(){  
+        
+    var token = $('meta[name=csrf_token]').attr('content'); 
+
+
+
      $( "#datepicker" ).datepicker({
         dateFormat: "yy-mm-dd"
     }); 
@@ -109,6 +114,165 @@ $(function(){
     $('.advanced__search_btn').click(function(){
         $('.advanced__seach_show').slideToggle();
     })
+
+
+
+
+    function isHTML(str) {
+        var a = document.createElement('div');
+        a.innerHTML = str;
+
+        for (var c = a.childNodes, i = c.length; i--; ) {
+            if (c[i].nodeType == 1) return true;
+        }
+
+        return false;
+    }
+
+    $(document).on('click','.conversations .message-box .delete_conversation', function (event) {
+        var el = $(event.currentTarget);
+        var id = el.attr('data-id');
+        var receive_id = el.attr('data-receive');
+        var conf = confirm('Are you sure?');
+        if(conf) {
+            $.ajax({
+                url: ajax_url,
+                data: {action: 'delete_conversation', id: id, _token: token},
+                dataType: 'JSON',
+                type: 'POST',
+                success: function (res) {
+                    if (res.status === 'success') {
+                        $('.conversations .message-box').empty();
+                        $('#conversation-' + id).remove(); 
+                    } else if (res.status === 'login') {
+                        $('.modal').modal('hide');
+                        $('#modalLogin').modal('show');
+                    }
+                }
+            })
+        }
+    });
+
+  
+ 
+    $(document).on('keyup','.conversations .message-box input.message-input',function (event) {
+        event.preventDefault();
+        var el = $(event.currentTarget);
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        var id = el.attr('data-id');
+        var receive_id = el.attr('data-receive');
+        var sender_id = el.attr('data-sender');
+        var sender_name = el.attr('data-sendername'); 
+        if (keycode === 13) { 
+            var message = el.val();
+            $.ajax({
+                url: ajax_url,
+                data: {action: 'send_message', id: id, text: message, _token: token},
+                dataType: 'JSON',
+                type: 'POST',
+                success: function (res) {
+                    el.val('');
+                    if(res.status === 'success'){
+                        $('#conversation-'+id).each(function () {
+                            $(this).parent().prepend(this);
+                        });
+                        $('.message-box .list-messages ul .mCSB_container').append(res.html);
+                        $('#conversation-'+id).find('p').html('You: '+message);
+                        $('.message-box .list-messages ul').mCustomScrollbar("scrollTo","bottom",{scrollInertia:0}); 
+                            let datas = {
+                                message: message,
+                                sender_id: parseInt(sender_id), 
+                                receiver_id: parseInt(receive_id), 
+                                id: parseInt(id), 
+                            }
+                           
+                    }
+                    else if(res.status === 'login'){
+                        $('.modal').modal('hide');
+                        $('#signInModal').modal('show');
+                    }
+                    else if(res.status === 'wait'){
+                        $('.message-box .write-message').addClass('waiting');
+                    }
+                }
+            })
+        } 
+    });
+    function functionHide() {
+        if (navigator.userAgent.match(/Android/i)
+            || navigator.userAgent.match(/webOS/i)
+            || navigator.userAgent.match(/iPhone/i)
+
+            || navigator.userAgent.match(/BlackBerry/i)
+            || navigator.userAgent.match(/Windows Phone/i)
+        )
+        {
+            $('.list-conversations').hide();
+            $('.list-conversations').hide("slide", { direction: "left" }, 1000);
+            $('.message-box').show();
+        } 
+    }
+    $(document).on('click', '.conversations .list-conversations .conversation-item', function (event) {
+        var el = $(event.currentTarget);
+        var id = el.attr('data-id');
+        $.ajax({
+            url:ajax_url,
+            data: {action: 'load_conversation', id: id, _token: token},
+            dataType: 'JSON',
+            type: 'POST',
+            success: function (res) {
+                if(res.status === 'success'){
+                    $('.conversations .list-conversations .conversation-item').removeClass('active');
+                    el.addClass('active');
+                    $('.conversations .message-box').empty();
+                    $('.conversations .message-box').append(res.html);
+                    functionHide();
+                    if(res.unread === 0){
+                        $('#message-sidebar .badge').empty()
+                    }
+                    else{
+                        $('#message-sidebar .badge').text(res.unread);
+                    }
+                    window.history.pushState({}, null, res.url);
+                    $('.conversations .message-box .list-messages ul').mCustomScrollbar().mCustomScrollbar("scrollTo","bottom",{scrollInertia:0});
+                   }
+            }
+        })
+    });
+
+
+    $('.list-messages ul li.load_more_message').click(function (event) {
+        var el = $(event.currentTarget);
+        var page = el.attr('data-page');
+        page = parseInt(page)+1;
+        var id = el.attr('data-id');
+        $.ajax({
+            url:ajax_url,
+            data: {action: 'load_messages', page: page, id: id, _token: token},
+            dataType: 'JSON',
+            type: 'POST',
+            success: function (res) {
+                if(res.status === 'success'){
+                    el.after(res.html);
+                    el.attr('data-page', page);
+                }
+                else if(res.status === 'empty'){
+                    el.remove();
+                }
+            }
+        })
+    });
+
+    if($('.conversations .message-box .list-messages ul').length){
+        $('.conversations .message-box .list-messages ul').mCustomScrollbar().mCustomScrollbar("scrollTo","bottom",{scrollInertia:0});
+    }
+    if($('.conversations .list-conversations ul').length){
+        $('.conversations .list-conversations ul').mCustomScrollbar().mCustomScrollbar();
+    }
+
+
+
+    
 });
 
 let searchParams = new URLSearchParams(window.location.search)
@@ -162,3 +326,5 @@ if(searchParams.has('job_description')){
     $('#datepicker').attr('disabled', true) 
     $('#type').attr('disabled', true) 
 }
+
+

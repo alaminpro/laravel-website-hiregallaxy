@@ -371,7 +371,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 							<div class="single-dashboard-link card card-default p-3 text-center"
 
-								onclick="location.href='{{ route('employers.messages') }}'">
+								onclick="location.href='{{ route('messages') }}'">
 
 								<i class="fa fa-envelope font30"></i>
 
@@ -379,19 +379,13 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 									@php
 
-										$messages = count($user->received_messages()->where('is_seen', 0)->get());
+										$messages = count($user->unread());
 
 									@endphp
 
 									{{ $messages }} Message{{ $messages > 1 ? 's' : '' }}
 
-								</h6>
-
-								<p>
-
-									Total
-
-								</p>
+								</h6> 
 
 							</div>
 

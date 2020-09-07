@@ -1,0 +1,41 @@
+<div id="message-box-{!! $conversation->id !!}" class="h-100">
+    <div class="title-conversation clearfix">
+        <span style="float:left;">
+            <h5 style="font-weight:700 !important;" class="m-0 p-0 text-muted">
+                @ {!! auth()->id() === $conversation->sender_id ?  $conversation->receive->username : $conversation->sender->username!!}
+            </h5>
+        </span>
+        <div class="dropdown float-right"> 
+            <a class="dropdown-toggle p-3" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-ellipsis-v text-muted"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink"> 
+                <a  class="dropdown-item"  href="{{ Auth::user()->is_company ? route('employers.show', Auth::user()->username) : route('candidates.show', Auth::user()->username) }}">  Profile</a>
+                <a data-receive="{!! auth()->id() === $conversation->sender_id ? $conversation->receive_id : $conversation->sender_id !!}" href="javascript:void(0)" class="dropdown-item text-danger delete_conversation" data-id="{!! $conversation->id !!}">Delete</a>
+            </div>
+        </div>
+    </div>
+    <div class="list-messages">
+        <a href="{{url('/messages')}}"  class="meanmenu-reveal meanicon-bar d-md-none d-lg-none" >
+            <i class="fa fa-arrow-left"></i>
+        </a>
+        <ul class="list-unstyled mb-0">
+            
+            @if($conversation->messages()->count())
+                @if($conversation->messages()->count() > 20)
+                    <li class="load_more_message" data-id="{!! $conversation->id !!}" data-page="1"><span>Load more</span></li>
+                @endif
+                @foreach(collect($conversation->messages()->get()->take(20))->reverse() as $message)
+                    {!! $message->seen() !!}
+                    @include('frontend.pages.messages.message')
+                @endforeach
+                
+            @endif
+            
+        </ul>
+        <div class="write-message{!! auth()->id() == $conversation->sender_id && $conversation->waiting == 1 && !empty($conversation->last_message)?' waiting':'' !!}">
+            
+            <input  data-sendername="{!! auth()->user()->username !!}" data-sender="{!! auth()->id() !!}" data-receive="{!! auth()->id() === $conversation->sender_id ? $conversation->receive_id : $conversation->sender_id !!}" data-id="{!! $conversation->id !!}" placeholder="Type your message..." class="message-input">
+        </div>
+    </div>
+</div>
