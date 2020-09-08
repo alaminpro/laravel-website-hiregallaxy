@@ -305,6 +305,7 @@ $(function(){
             || navigator.userAgent.match(/Windows Phone/i)
         )
         {
+            $('.conversation-item').removeClass('active');
             $('.list-conversations').hide();
             $('.list-conversations').hide("slide", { direction: "left" }, 1000);
             $('.message-box').show();
