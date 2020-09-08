@@ -305,13 +305,22 @@ $(function(){
             || navigator.userAgent.match(/Windows Phone/i)
         )
         {
-            $('.conversation-item').removeClass('active');
+            $('.list-conversations .conversation-item').removeClass('active');
             $('.list-conversations').hide();
             $('.list-conversations').hide("slide", { direction: "left" }, 1000);
             $('.message-box').show();
         } 
     }
- 
+    if (navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/webOS/i)
+        || navigator.userAgent.match(/iPhone/i)
+
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)
+    )
+    {
+        $('.list-conversations .conversation-item').removeClass('active'); 
+    } 
 
 
     $('.list-messages ul li.load_more_message').click(function (event) {
