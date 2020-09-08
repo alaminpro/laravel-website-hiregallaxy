@@ -40,7 +40,7 @@ Messages | {{ App\Models\Setting::first()->site_title }}
       
             @if($conversation)
                 @include('frontend.pages.messages.conversation')
-            @else <div class="text-center mt-5">Lets go find some people to <b>follow and chat</b> with<br><a href="/browse" class="btn btn-primary mt-2"><b>Search!</b></a></div>
+            @else  <h5 class="text-muted text-center pt-5 no_conversiation">No conversation Start yet!</h5>
             @endif
 
         </div>

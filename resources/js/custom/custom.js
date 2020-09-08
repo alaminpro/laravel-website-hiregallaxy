@@ -7,19 +7,21 @@ $(function(){
      $( "#datepicker" ).datepicker({
         dateFormat: "yy-mm-dd"
     }); 
-
+  
     $('#sidebar_btn').click(function(){
         $("#sidebar").removeClass("turn-off");
         $("#sidebar").addClass("active");
         $("#sidebar_btn").addClass("btn-close"); 
         $("#sidebar_close").addClass("btn-active"); 
+        $('.control__nav').addClass('control__item')
     })
     $('#sidebar_close').click(function(){
         $("#sidebar").removeClass("active");
 		$("#sidebar").addClass("turn-off");
 		$("#sidebar_btn").removeClass("btn-close");
 		$("#sidebar_btn").addClass("btn-active");
-		$("#sidebar_close").removeClass("btn-active");
+        $("#sidebar_close").removeClass("btn-active");
+        $('.control__nav').removeClass('control__item')
     })
 
     $('.custom__search_bar .dropdown-item').click(function(){
@@ -155,6 +157,20 @@ $(function(){
 
   
  
+    $(document).on('click','.seen--message',function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: ajax_url,
+            data: { action: 'seen', _token: token},
+            dataType: 'JSON',
+            type: 'POST',
+            success: function (res) {
+                if(res.status == 'success'){
+                    window.location.href  = res.route;
+                }
+            }
+        });
+    });
     $(document).on('keyup','.conversations .message-box input.message-input',function (event) {
         event.preventDefault();
         var el = $(event.currentTarget);
@@ -179,13 +195,18 @@ $(function(){
                         $('.message-box .list-messages ul .mCSB_container').append(res.html);
                         $('.no_conversiation').remove();
                         $('#conversation-'+id).find('p').html('You: '+message);
-                        $('.message-box .list-messages ul').mCustomScrollbar("scrollTo","bottom",{scrollInertia:0}); 
-                            let datas = {
-                                message: message,
-                                sender_id: parseInt(sender_id), 
-                                receiver_id: parseInt(receive_id), 
-                                id: parseInt(id), 
-                            }
+                        $('.message-box .list-messages ul').mCustomScrollbar("scrollTo","bottom",{scrollInertia:0});  
+                            $.ajax({
+                                url: ajax_url,
+                                data: { action: 'seen', _token: token},
+                                dataType: 'JSON',
+                                type: 'POST',
+                                success: function (res) {
+                                    if(res.status == 'success'){
+                                        window.location.href  = res.route;
+                                    }
+                                }
+                            });
                            
                     }
                     else if(res.status === 'login'){
@@ -199,6 +220,82 @@ $(function(){
             })
         } 
     });
+
+
+    $(document).on('click','.conversations .icon__sending i',function (event) {
+        event.preventDefault();
+        var el = $('.message-input');
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        var id = el.attr('data-id');
+        var receive_id = el.attr('data-receive');
+        var sender_id = el.attr('data-sender');
+        var sender_name = el.attr('data-sendername');  
+            var message = el.val();
+            $.ajax({
+                url: ajax_url,
+                data: {action: 'send_message', id: id, text: message, _token: token},
+                dataType: 'JSON',
+                type: 'POST',
+                success: function (res) {
+                    el.val('');
+                    if(res.status === 'success'){
+                        $('#conversation-'+id).each(function () {
+                            $(this).parent().prepend(this);
+                        });
+                        $('.message-box .list-messages ul .mCSB_container').append(res.html);
+                        $('.no_conversiation').remove();
+                        $('#conversation-'+id).find('p').html('You: '+message);
+                        $('.message-box .list-messages ul').mCustomScrollbar("scrollTo","bottom",{scrollInertia:0});  
+                            $.ajax({
+                                url: ajax_url,
+                                data: { action: 'seen', _token: token},
+                                dataType: 'JSON',
+                                type: 'POST',
+                                success: function (res) { 
+                                }
+                            });
+                           
+                    }
+                    else if(res.status === 'login'){
+                        $('.modal').modal('hide');
+                        $('#signInModal').modal('show');
+                    }
+                    else if(res.status === 'wait'){
+                        $('.message-box .write-message').addClass('waiting');
+                    }
+                }
+            }) 
+    });
+
+
+    $(document).on('click', '.conversations .list-conversations .conversation-item', function (event) {
+        var el = $(event.currentTarget);
+        var id = el.attr('data-id');
+        $.ajax({
+            url:ajax_url,
+            data: {action: 'load_conversation', id: id, _token: token},
+            dataType: 'JSON',
+            type: 'POST',
+            success: function (res) {
+                if(res.status === 'success'){
+                    functionHide(); 
+                    $('.conversations .list-conversations .conversation-item').removeClass('active');
+                    el.addClass('active');
+                    $('.conversations .message-box').empty();
+                    $('.conversations .message-box').append(res.html); 
+                    if(res.unread === 0){
+                        $('#message-sidebar .badge').empty()
+                    }
+                    else{
+                        $('#message-sidebar .badge').text(res.unread);
+                    }
+                    window.history.pushState({}, null, res.url);
+                    $('.conversations .message-box .list-messages ul').mCustomScrollbar().mCustomScrollbar("scrollTo","bottom",{scrollInertia:0});
+                   }
+            }
+        })
+    });
+
     function functionHide() {
         if (navigator.userAgent.match(/Android/i)
             || navigator.userAgent.match(/webOS/i)
@@ -213,33 +310,7 @@ $(function(){
             $('.message-box').show();
         } 
     }
-    $(document).on('click', '.conversations .list-conversations .conversation-item', function (event) {
-        var el = $(event.currentTarget);
-        var id = el.attr('data-id');
-        $.ajax({
-            url:ajax_url,
-            data: {action: 'load_conversation', id: id, _token: token},
-            dataType: 'JSON',
-            type: 'POST',
-            success: function (res) {
-                if(res.status === 'success'){
-                    $('.conversations .list-conversations .conversation-item').removeClass('active');
-                    el.addClass('active');
-                    $('.conversations .message-box').empty();
-                    $('.conversations .message-box').append(res.html);
-                    functionHide();
-                    if(res.unread === 0){
-                        $('#message-sidebar .badge').empty()
-                    }
-                    else{
-                        $('#message-sidebar .badge').text(res.unread);
-                    }
-                    window.history.pushState({}, null, res.url);
-                    $('.conversations .message-box .list-messages ul').mCustomScrollbar().mCustomScrollbar("scrollTo","bottom",{scrollInertia:0});
-                   }
-            }
-        })
-    });
+ 
 
 
     $('.list-messages ul li.load_more_message').click(function (event) {

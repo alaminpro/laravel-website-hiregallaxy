@@ -1,6 +1,9 @@
 <div id="message-box-{!! $conversation->id !!}" class="h-100">
     <div class="title-conversation clearfix">
-        <span style="float:left;">
+        <span style="float:left;" class="d-flex d-md-block align-items-center">
+            <a href="{{url('/messages')}}"  class="meanmenu-reveal meanicon-bar d-md-none d-lg-none" >
+                <i class="fa fa-arrow-left"></i>
+            </a>
             <h5 style="font-weight:700 !important;" class="m-0 p-0 text-muted">
                 @ {!! auth()->id() === $conversation->sender_id ?  $conversation->receive->username : $conversation->sender->username!!}
             </h5>
@@ -15,10 +18,7 @@
             </div>
         </div>
     </div>
-    <div class="list-messages">
-        <a href="{{url('/messages')}}"  class="meanmenu-reveal meanicon-bar d-md-none d-lg-none" >
-            <i class="fa fa-arrow-left"></i>
-        </a>
+    <div class="list-messages"> 
         <ul class="list-unstyled mb-0">
             
             @if($conversation->messages()->count())
@@ -34,9 +34,13 @@
             @endif
             
         </ul>
-        <div class="write-message{!! auth()->id() == $conversation->sender_id && $conversation->waiting == 1 && !empty($conversation->last_message)?' waiting':'' !!}">
+        <div class="position-relative write-message{!! auth()->id() == $conversation->sender_id && $conversation->waiting == 1 && !empty($conversation->last_message)?' waiting':'' !!}">
             
             <input  data-sendername="{!! auth()->user()->username !!}" data-sender="{!! auth()->id() !!}" data-receive="{!! auth()->id() === $conversation->sender_id ? $conversation->receive_id : $conversation->sender_id !!}" data-id="{!! $conversation->id !!}" placeholder="Type your message..." class="message-input">
+            <div class="icon__sending">
+                <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+
+            </div>
         </div>
     </div>
 </div>

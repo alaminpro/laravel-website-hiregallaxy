@@ -2827,12 +2827,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 				<div class="widget widget-profile mb-3 position-relative"> 
 
 
-					@if(auth()->check() && auth()->user()->is_company == 1)
-					<span class="nav-item position-absolute chat__icon" >
-						<a href="{!! route('chat',['id'=>$user->id]) !!}"
-							class="btn-chatter"><i class="fa fa-comment"></i> Chat Now</a>
-					</span>
-					@endif
+					
 
 					<img src="{{ App\Helpers\ReturnPathHelper::getUserImage($user->id) }}" class="img img-fluid">
 

@@ -248,7 +248,7 @@ $user = $data['user'];
 
         <div class="width100">
 
-            <div class="width100">
+            <div class="width50Left">
 
                 <img src="{{ App\Helpers\ReturnPathHelper::getUserImage($user->id) }}" class="profile-img">
 
@@ -628,41 +628,31 @@ $user = $data['user'];
 
                 <thead>
 
-                    <tr>
-
-                        <td>No.</td>
-
-                        <td>Skill Name</td>
-
-                        <td>Skill Proficiency</td>
-
-                    </tr>
-
+                   
                 </thead>
 
-                <tbody>
-
-                    @foreach ($user->skills as $sk)
-
-                    <tr>
-
-                        <td>{{ $loop->index+1 }}</td>
-
+                <tbody> 
+                    <tr> 
+                        <td><strong class="text-bold">Skill Name:</strong></td> 
+                        @foreach ($user->skills as $sk)
                         <td>
 
                             {{ $sk->skill->name }}
 
-                        </td>
-
+                        </td> 
+                        @endforeach
+                    </tr>
+                    <tr> 
+                        <td><strong class="text-bold">Skill Proficiency: </strong></td> 
+                        @foreach ($user->skills as $sk)
                         <td>
 
                             {{ $sk->percentage }}%
 
-                        </td>
-
+                        </td> 
+                        @endforeach
                     </tr>
 
-                    @endforeach
 
                 </tbody>
 

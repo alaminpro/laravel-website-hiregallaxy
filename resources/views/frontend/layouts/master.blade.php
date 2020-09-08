@@ -16,19 +16,9 @@
 	<div id="app">
 		{{-- <div id="preloader">
 			<div id="preloader-status">&nbsp;</div>
-		</div> --}}
-		<!-- Header -->
-		<div class="">
-			<!-- Top Header -->
-			<!-- @include('frontend.partials.top-header') -->
-			<!-- Top Header -->
-			<!-- Navbar -->
-			@include('frontend.partials.nav')
-			<!-- Navbar -->
-			<!-- Home Top -->
-			@include('frontend.partials.top-section')
-			<!-- Home Top -->
-		</div>
+		</div> --}} 
+		@include('frontend.partials.nav') 
+		@include('frontend.partials.top-section') 
 		<!-- Header -->
 		@if (!Route::is('register'))
 		@include('frontend.partials.messages')

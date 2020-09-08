@@ -66,6 +66,7 @@
             <th style="padding:5px 22px 10px 6px !important">Status</th>
 
             <th style="padding:5px 22px 10px 6px !important">Edit</th>
+            <th style="padding:5px 22px 10px 6px !important">contact</th>
 
 
         </thead>
@@ -271,6 +272,12 @@
                     =====================================================================================
                     -->
 
+                </td>
+                <td> 
+					<span class="nav-item  " >
+						<a href="{!! route('chat',['id'=>$application->user_id]) !!}"
+							class="btn-chatter"><i class="fa fa-comment"></i> Chat Now</a>
+					</span> 
                 </td>
 
             </tr>

@@ -371,4 +371,13 @@ class AjaxController extends Controller
         }
         return response()->json(['status' => 'error']);
     }
+
+    public function seen()
+    {
+        if (auth()->check()) {
+            Message::where('user_id', auth()->user()->id)->update(['seen' => 1]);
+            return response()->json(['status' => 'success', 'route' => route('messages')]);
+        }
+        return response()->json(['status' => 'error']);
+    }
 }

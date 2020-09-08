@@ -369,9 +369,9 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 						</div>  
 						<div class="col-sm-6 col-md-6 col-lg-4 mb-2 px-1">
 
-							<div class="single-dashboard-link card card-default p-3 text-center"
+							<div class="single-dashboard-link card card-default p-3 text-center seen--message"
 
-								onclick="location.href='{{ route('messages') }}'">
+							  >
 
 								<i class="fa fa-envelope font30"></i>
 
