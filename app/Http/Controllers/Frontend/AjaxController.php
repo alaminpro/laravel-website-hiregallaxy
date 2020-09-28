@@ -74,7 +74,7 @@ class AjaxController extends Controller
         $status = $this->request->status;
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -239,7 +239,7 @@ class AjaxController extends Controller
 
         if (request()->has('delete')) {
             DB::table('job_activities')->where('id', $applicant->id)->delete();
-            session()->flash('success', 'Applicant deleted successfully !!');
+            session()->flash('success', 'Applicant deleted successfully  ');
         }
 
         $html = view('frontend.pages.ajax-load.employers.job-application-load', compact('user', 'applicant', 'job', 'applications', 'experience', 'education', 'filter', 'expreience_data'))->render();
@@ -251,7 +251,7 @@ class AjaxController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 

@@ -77,13 +77,13 @@
 
 					<div class="footer-social">
 
-						<a href="{{ App\Models\Setting::first()->facebook_link }}"><i class="fa fa-facebook facebook-icon"></i></a>
+						<a href="{{ App\Models\Setting::first()->facebook_link ? App\Models\Setting::first()->facebook_link : '#' }}"><i class="fa fa-facebook facebook-icon"></i></a>
 
-						<a href="{{ App\Models\Setting::first()->twitter_link }}"><i class="fa fa-twitter twitter-icon"></i></a>
+						<a href="{{ App\Models\Setting::first()->twitter_link ? App\Models\Setting::first()->twitter_link: '#' }}"><i class="fa fa-twitter twitter-icon"></i></a>
 
-						<a href="{{ App\Models\Setting::first()->google_plus_link }}"><i class="fa fa-google-plus google-plus-icon"></i></a>
+						<a href="{{ App\Models\Setting::first()->google_plus_link ? App\Models\Setting::first()->google_plus_link : '#' }}"><i class="fa fa-google-plus google-plus-icon"></i></a>
 
-						<a href="{{ App\Models\Setting::first()->linkedin_link }}"><i class="fa fa-linkedin linkedin-icon"></i></a>
+						<a href="{{ App\Models\Setting::first()->linkedin_link ? App\Models\Setting::first()->linkedin_link : '#' }}"><i class="fa fa-linkedin linkedin-icon"></i></a>
 
 					</div>
 

@@ -125,14 +125,14 @@ class HomeController extends Controller
         left join categories on jobs.category_id = categories.id
 
         left join job_types on job_types.id = jobs.type_id
-
+        left join countries on countries.id = jobs.country_id
         where 1 = 1
 
         ';
 
-        if ($request->search && $request->search != '') {
+        if ($request->job && $request->job != '') {
 
-            $sql .= " and jobs.title like '%$request->search%' or jobs.description like '%$request->search%'";
+            $sql .= " and jobs.title like '%$request->job%' or jobs.description like '%$request->job%'";
 
         }
 
@@ -151,7 +151,13 @@ class HomeController extends Controller
             }
 
         }
+        if ($request->location && $request->location != '') {
 
+            $location = $request->location;
+
+            $sql .= "and countries.name like '%$location%'";
+
+        }
         if ($request->category != null && $request->category != 'all') {
 
             $category = $request->category;
@@ -266,19 +272,21 @@ class HomeController extends Controller
 
         ';
 
-        if ($request->search && $request->search != '') {
+        if ($request->company && $request->company != '') {
 
-            $sql .= " and users.name like '%$request->search%' or users.about like '%$request->search%'";
+            $sql .= " and users.name like '%$request->company%' or users.about like '%$request->company%'";
 
         }
 
-        if ($request->country && $request->country != 'all') {
+        if ($request->location && $request->location != '') {
 
-            $country = $request->country;
+            $location = $request->location;
 
-            $country_id = Country::where('name', $country)->first()->id;
-
-            $sql .= " and locations.country_id = $country_id ";
+            $country = Country::where('name', 'like', '%' . $location . '%')->first();
+            if ($country) {
+                $country_id = $country->id;
+                $sql .= " and locations.country_id = $country_id ";
+            }
 
         }
 
@@ -361,21 +369,21 @@ class HomeController extends Controller
 
         ';
 
-        if ($request->search && $request->search != '') {
+        if ($request->candidate && $request->candidate != '') {
 
-            //$sql .= " and users.name like '%$request->search%' or users.about like '%$request->search%' or jobs.title like '%$request->search%'";
-
-            $sql .= " and users.name like '%$request->search%' ";
+            $sql .= " and users.name like '%$request->candidate%' ";
 
         }
 
-        if ($request->country && $request->country != 'all') {
+        if ($request->location && $request->location != '') {
 
-            $country = $request->country;
+            $location = $request->location;
 
-            $country_id = Country::where('name', $country)->first()->id;
-
-            $sql .= " and locations.country_id = $country_id ";
+            $country = Country::where('name', 'like', '%' . $location . '%')->first();
+            if ($country) {
+                $country_id = $country->id;
+                $sql .= " and locations.country_id = $country_id ";
+            }
 
         }
 
@@ -429,8 +437,8 @@ class HomeController extends Controller
         }
         $templates = Template::with('category');
 
-        if ($request->search && $request->search != '') {
-            $templates->where('name', 'LIKE', "%$request->search%");
+        if ($request->job_description && $request->job_description != '') {
+            $templates->where('name', 'LIKE', "%$request->job_description%");
         }
 
         if ($request->category != null && $request->category != 'all') {

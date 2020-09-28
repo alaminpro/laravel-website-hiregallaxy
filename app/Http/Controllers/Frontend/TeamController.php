@@ -70,7 +70,7 @@ class TeamController extends Controller
     public function postedJobs($id)
     {
         if (!Auth::check()) {
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
             return redirect()->route('index');
         }
 
@@ -107,7 +107,7 @@ class TeamController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -183,7 +183,7 @@ class TeamController extends Controller
         }
         if (request()->has('delete')) {
             DB::table('job_activities')->where('id', $applicant->id)->delete();
-            session()->flash('success', 'Applicant deleted successfully !!');
+            session()->flash('success', 'Applicant deleted successfully  ');
         }
         return view('frontend.pages.teams.job-applications', compact('id', 'slug', 'user', 'applicant', 'job', 'applications', 'experience', 'education', 'filter', 'expreience_data'));
 
@@ -194,7 +194,7 @@ class TeamController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -223,7 +223,7 @@ class TeamController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -251,7 +251,7 @@ class TeamController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -276,7 +276,7 @@ class TeamController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -500,7 +500,7 @@ class TeamController extends Controller
 
         if (is_null($user)) {
 
-            session()->flash('error', 'No Team has been found !!');
+            session()->flash('error', 'No Team has been found  ');
 
             return redirect()->route('team.dashboard');
 
@@ -513,7 +513,7 @@ class TeamController extends Controller
 
         if (!Auth::check() && Auth::id() != $user_id) {
 
-            session()->flash('error', 'Sorry !! You are not permitted to do this action');
+            session()->flash('error', 'Sorry   You are not permitted to do this action');
 
             return redirect()->route('index');
 
@@ -571,7 +571,7 @@ class TeamController extends Controller
 
         ]);
 
-        session()->flash('success', 'Your profile information has been updated !!');
+        session()->flash('success', 'Your profile information has been updated  ');
 
         return redirect()->route('index');
 
@@ -615,7 +615,7 @@ class TeamController extends Controller
 
                 'email.email' => 'Please give a valid email address',
 
-                'email.unique' => 'Sorry !! An email is already exists',
+                'email.unique' => 'Sorry   An email is already exists',
 
                 'name.required' => 'Please give your name',
 

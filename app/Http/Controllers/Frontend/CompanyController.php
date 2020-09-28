@@ -54,7 +54,7 @@ class CompanyController extends Controller
 
                 'email.required' => 'Please give an email address',
                 'email.email' => 'Please give a valid email address',
-                'email.unique' => 'Sorry !! An email is already exists',
+                'email.unique' => 'Sorry   An email is already exists',
                 'name.required' => 'Please give your name',
             ]
 
@@ -144,7 +144,7 @@ class CompanyController extends Controller
 
             'email.required' => 'Please give an email address',
             'email.email' => 'Please give a valid email address',
-            'email.unique' => 'Sorry !! An email is already exists',
+            'email.unique' => 'Sorry   An email is already exists',
             'name.required' => 'Please give your name',
         ]
 

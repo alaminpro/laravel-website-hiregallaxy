@@ -16,7 +16,7 @@ class CheckEmployer
     public function handle($request, Closure $next)
     {
         if (auth()->check() && auth()->user()->is_company != 1) {
-            return redirect()->route('index');
+            return redirect()->intended(route('index'));
         }
         return $next($request);
     }

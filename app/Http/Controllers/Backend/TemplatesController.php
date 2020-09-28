@@ -275,7 +275,7 @@ class TemplatesController extends Controller
 
         }
 
-        session()->flash('success', 'Template has been deleted successfully !!');
+        session()->flash('success', 'Template has been deleted successfully  ');
 
         return back();
 

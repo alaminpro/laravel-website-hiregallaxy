@@ -1256,14 +1256,9 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 						@elseif(Route::is('terms'))
 
 
-
-						<li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
-
 						<li class="breadcrumb-item active" aria-current="page">Terms and Service</li>
 
 						@elseif(Route::is('privacy'))
-
-						<li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
 
 						<li class="breadcrumb-item active" aria-current="page">Privacy Policy</li>
 

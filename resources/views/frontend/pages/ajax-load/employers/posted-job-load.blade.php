@@ -12,17 +12,17 @@
 
 				<th style="padding:5px 22px 10px 6px !important">#</th>
 
-				<th style="padding:5px 22px 10px 6px !important">Job Title</th>
+				<th style="padding:5px 22px 10px 6px !important">Title</th>
 
 				<th style="padding:5px 22px 10px 6px !important">Company/Project</th>
 
-				<th style="padding:5px 22px 10px 6px !important">Job Locations</th>
+				<th style="padding:5px 22px 10px 6px !important">Locations</th>
 
-				<th style="padding:5px 22px 10px 6px !important">Job Posted Date</th>
+				<th style="padding:5px 22px 10px 6px !important">Posted Date</th>
 
-				<th style="padding:5px 22px 10px 6px !important">Job Deadline Date</th>
+				<th style="padding:5px 22px 10px 6px !important">Deadline Date</th>
 
-				<th style="padding:5px 22px 10px 6px !important">Job Archieved Date</th>
+				<th style="padding:5px 22px 10px 6px !important">Archieved Date</th>
 
 				<th style="padding:5px 22px 10px 6px !important">Status</th>
 

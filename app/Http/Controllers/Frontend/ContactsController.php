@@ -23,7 +23,7 @@ class ContactsController extends Controller
 
         // if (!Auth::check()) {
 
-        //        session()->flash('error', 'Sorry !! You are not permitted to apply job !!');
+        //        session()->flash('error', 'Sorry   You are not permitted to apply job  ');
 
         //        return back();
 
@@ -45,7 +45,7 @@ class ContactsController extends Controller
 
         if (Auth::check() && Auth::id() == $request->to_user_id) {
 
-            session()->flash('error', 'Sorry !! can not send message to yourself !!');
+            session()->flash('error', 'Sorry   can not send message to yourself  ');
 
             return back();
 
@@ -111,11 +111,11 @@ class ContactsController extends Controller
 
         $contact->save();
 
-        $message = "Success !! Message has been sent successfully !!";
+        $message = "Success   Message has been sent successfully  ";
 
         if ($request->is_admin == 1) {
 
-            $message = "Your Message has been sent successfully to the Hire Gallaxy Support Panel !! <br />Please wait before support team's interaction";
+            $message = "Your Message has been sent successfully to the Hire Gallaxy Support Panel   <br />Please wait before support team's interaction";
 
         }
 

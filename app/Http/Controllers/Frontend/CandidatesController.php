@@ -55,7 +55,7 @@ class CandidatesController extends Controller
 
         if (is_null($user)) {
 
-            session()->flash('error', 'No Candidate has been found !!');
+            session()->flash('error', 'No Candidate has been found  ');
 
             return redirect()->route('candidates');
 
@@ -193,7 +193,7 @@ class CandidatesController extends Controller
 
         if (!Auth::check() && Auth::id() != $user_id) {
 
-            session()->flash('error', 'Sorry !! You are not permitted to do this action');
+            session()->flash('error', 'Sorry   You are not permitted to do this action');
 
             return back();
 
@@ -209,7 +209,7 @@ class CandidatesController extends Controller
 
         $user->about = $request->about;
 
-        session()->flash('success', 'Your profile about information has been updated !!');
+        session()->flash('success', 'Your profile about information has been updated  ');
 
         $user->save();
 
@@ -222,7 +222,7 @@ class CandidatesController extends Controller
 
         if (!Auth::check() && Auth::id() != $user_id) {
 
-            session()->flash('error', 'Sorry !! You are not permitted to do this action');
+            session()->flash('error', 'Sorry   You are not permitted to do this action');
 
             return back();
 
@@ -254,7 +254,7 @@ class CandidatesController extends Controller
 
         ], [
 
-            'career_level_id.required' => 'Please select your career level !!',
+            'career_level_id.required' => 'Please select your career level  ',
 
         ]);
 
@@ -272,7 +272,7 @@ class CandidatesController extends Controller
 
         if ($request->profile_picture) {
 
-            $user->profile_picture = ImageUploadHelper::update('profile_picture', $request->file('profile_picture'), 'pr-' . time(), 'public/images/users', 'public/images/users/' . $user->profile_picture);
+            $user->profile_picture = ImageUploadHelper::update('profile_picture', $request->file('profile_picture'), 'pr-' . time(), 'images/users', 'images/users/' . $user->profile_picture);
 
         }
 
@@ -310,7 +310,7 @@ class CandidatesController extends Controller
 
         }
 
-        session()->flash('success', 'Your profile information has been updated !!');
+        session()->flash('success', 'Your profile information has been updated  ');
 
         return back();
 
@@ -321,7 +321,7 @@ class CandidatesController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return back();
 
@@ -360,7 +360,7 @@ class CandidatesController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return back();
 
@@ -381,7 +381,7 @@ class CandidatesController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return back();
 
@@ -404,7 +404,7 @@ class CandidatesController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return back();
 
@@ -441,7 +441,7 @@ class CandidatesController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return back();
 

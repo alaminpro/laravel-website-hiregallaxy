@@ -48,7 +48,19 @@
 				<li class="nav-item">
 					<a class="nav-link {{ Route::is('description') || Route::is('description') ? 'nav-link-active' : '' }}" href="{{ route('description') }}">Job Description</a>
 				</li> 
-			</ul>
+			</ul> 
+			<ul class="navbar-nav ml-auto"> 
+				@if (App\User::userCanPost(Auth::id()))
+				<li class="nav-item">
+					<a class="nav-link post-job-button" href="{{ route('jobs.post') }}" title="post job">
+						<i class="fa fa-plus"></i>
+					<span class="hidden_sm_job_text">	Post a Job</span>
+					</a>
+				</li> 
+				@endif
+			</ul> 
+
+			@guest
 			<ul class="navbar-nav ml-auto"> 
 				<li class="nav-item">
 					<a class="nav-link post-job-button" href="{{ route('jobs.post') }}" title="post job">
@@ -57,6 +69,7 @@
 					</a>
 				</li> 
 			</ul>
+			@endguest
 
 			@if (Auth::check())
 			<div class="float-right">
@@ -91,9 +104,9 @@
 			@else
 			<div class="float-right">
 				<div class="top-authentication-links">
-					<a href="{{ route('register') }}" class="btn-primary">Join Us</a>
+					<a href="{{ route('register') }}" class="btn-primary join__btn">Join Us</a>
 					@if (!Route::is('login'))
-					<a href="#signInModal" data-toggle="modal" class="btn-secondary">Login</a>
+					<a href="#signInModal" data-toggle="modal" class="btn-secondary login_btn">Login</a>
 					@endif
 				</div>
 			</div>

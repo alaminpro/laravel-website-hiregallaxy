@@ -49,7 +49,7 @@ Route::get('testimonials', 'HomeController@Testimonial')->name('testimonial');
 /*** Employers **/
 
 Route::group(['prefix' => 'employers'], function () {
-
+    Route::get('/search', 'Frontend\EmployersController@search')->name('employers.search');
     Route::get('', 'Frontend\EmployersController@index')->name('employers');
     Route::get('/view/{username}', 'Frontend\EmployersController@show')->name('employers.show');
 
@@ -69,8 +69,6 @@ Route::group(['prefix' => 'employers'], function () {
         Route::post('/profile/update/{id}', 'Frontend\EmployersController@updateProfile')->name('employers.profile.update');
 
         Route::post('/applicants/update/{id}', 'Frontend\EmployersController@applicantUpdate')->name('employers.applicants.update');
-
-        Route::get('/search', 'Frontend\EmployersController@search')->name('employers.search');
 
         Route::get('/dashboard', 'Frontend\EmployersController@dashboard')->name('employers.dashboard');
 

@@ -7,6 +7,7 @@ use App\Models\UserCategory;
 use App\Models\UserExperience;
 use App\Models\UserQualification;
 use App\Models\UserSector;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -71,7 +72,11 @@ class User extends Authenticatable
     }
     public function unread()
     {
-        return Message::where('user_id', $this->id)->where('seen', 0)->get();
+        $user_id = $this->id;
+        return Message::where('seen', 0)->where('user_id', '!=', $user_id)
+            ->leftJoin('conversations', 'messages.conversation_id', '=', 'conversations.id')->where(function (Builder $query) use ($user_id) {
+            $query->where('sender_id', $user_id)->orWhere('receive_id', $user_id);
+        })->get();
     }
     // for applicants
     public function hiredApplicants()
@@ -365,11 +370,11 @@ class User extends Authenticatable
 
      *
 
-     * Check if the user can post job or not !!
+     * Check if the user can post job or not
 
      * @param  integer $user_id Employer ID
 
-     * @return boolean          true if employer can post and false if not !!
+     * @return boolean          true if employer can post and false if not
 
      */
 

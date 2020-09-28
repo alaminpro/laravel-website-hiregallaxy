@@ -15,7 +15,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 @section('stylesheets')
 
 
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 @endsection
 
 
@@ -205,9 +205,9 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 															class="required">*</span></label>
 
 													<input type="text" class="form-control" name="job_title"
-
+													maxlength="200"
 														id="job_title" placeholder="Enter Job Title" required>
-
+														<span class="text-muted " style="font-size: 12px">CHARS MAX 200</span>
 												</div>
 
 												<div class="col-md-6">
@@ -234,7 +234,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 															class="required">*</span></label>
 
-													<input type="date" class="form-control" name="start_date"
+													<input type="text" class="form-control datepicker1" name="start_date"
 
 														id="start_date" placeholder="Enter Job Start Date" required>
 
@@ -242,21 +242,23 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 												<div class="col-md-6">
 
-													<label for="end_date">Job End
+													<label for="end_date" class="d-flex">Job End
 
-														<input type="checkbox" name="is_current_job" id="is_current_job"
+														<div class="d-flex align-items-center">
+															<input type="checkbox" name="is_current_job" id="is_current_job"
 
 															value="1" class="ml-3" />
 
-														<label class="font12 text-muted" for="is_current_job">
+														<label class="font12 text-muted m-0 pl-2" for="is_current_job">
 
 															Current Job
 
 														</label>
+														</div>
 
 													</label>
 
-													<input type="date" class="form-control" name="end_date"
+													<input type="text" class="form-control datepicker2" name="end_date"
 
 														id="end_date" placeholder="Enter Job End Date">
 
@@ -331,9 +333,9 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 															class="required">*</span></label>
 
 													<textarea name="description" id="description" class="form-control"
-
+													maxlength="1000"
 														rows="3" required></textarea>
-
+														<span class="text-muted">CHARS MAX 1000</span>
 												</div>
 
 											</div>
@@ -384,9 +386,9 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 									<span>
 
-										<span class="text-yellow bold font16">{{ $exp->company_name }} /</span>
-
-										<span class="text-muted"> {{ $exp->start_date }} -
+										<span class="text-yellow bold font16">{{ $exp->company_name }} </span>
+										@if($exp->is_current_job || $exp->end_date)
+										<span class="text-muted"> / {{ $exp->start_date }} -
 
 											@if ($exp->is_current_job)
 
@@ -399,6 +401,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 											@endif
 
 										</span>
+										@endif
 
 									</span>
 
@@ -495,8 +498,9 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 																<input type="text" class="form-control" name="job_title"
 
 																	id="job_title" placeholder="Enter Job Title"
-
+																	maxlength="200"
 																	value="{{ $exp->job_title }}" required>
+																	<span class="text-muted " style="font-size: 12px">CHARS MAX 200</span>
 
 															</div>
 
@@ -528,9 +532,9 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 																		class="required">*</span></label>
 
-																<input type="date" class="form-control"
+																<input type="text" class="form-control datepicker1"
 
-																	name="start_date" id="start_date"
+																	name="start_date" id="datepicker1"
 
 																	placeholder="Enter Job Start Date"
 
@@ -558,9 +562,9 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 																</label>
 
-																<input type="date" class="form-control" name="end_date"
+																<input type="text" class="form-control datepicker2" name="end_date"
 
-																	id="end_date" placeholder="Enter Job End Date"
+																	id="datepicker2" placeholder="Enter Job End Date"
 
 																	value="{{ $exp->end_date }}">
 
@@ -642,14 +646,14 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 																<label for="start_date">Job Details <span
 
-																		class="required">*</span></label>
+																		class="required">*</span> </label>
 
 																<textarea name="description" id="description"
 
 																	class="form-control" rows="3"
-
+																	maxlength="1000"
 																	required>{{ $exp->description }}</textarea>
-
+																	<span class="text-muted">CHARS MAX 1000</span>
 															</div>
 
 														</div>
@@ -868,13 +872,13 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 												<div class="col-md-4">
 
-													<label for="start_date">Qualification Start Date <span
+													<label for="start_dates">Qualification Start Date <span
 
 															class="required">*</span></label>
 
-													<input type="date" class="form-control" name="start_date"
+													<input type="text" class="form-control qualification_date_start" name="start_date"
 
-														id="start_date" placeholder="Enter Qualification Start Date"
+														id="start_dates" placeholder="Enter Qualification Start Date"
 
 														required>
 
@@ -882,15 +886,15 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 												<div class="col-md-4">
 
-													<label for="end_date">Qualification End
+													<label for="end_dates">Qualification End
 
 
 
 													</label>
 
-													<input type="date" class="form-control" name="end_date"
+													<input type="text" class="form-control qualification_date_end" name="end_date"
 
-														id="end_date" placeholder="Enter Qualification End Date">
+														id="end_dates" placeholder="Enter Qualification End Date">
 
 												</div>
 
@@ -958,10 +962,10 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 															class="required">*</span></label>
 
-													<textarea name="description" id="description" class="form-control"
+													<textarea name="description" maxlength="1000" id="description" class="form-control"
 
 														rows="3" required></textarea>
-
+														<span class="text-muted">CHARS MAX 1000</span>
 												</div>
 
 											</div>
@@ -1301,9 +1305,9 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 																<textarea name="description" id="description"
 
 																	class="form-control" rows="3"
-
+																	maxlength="1000"
 																	required>{{ $qualification->description }}</textarea>
-
+																	<span class="text-muted">CHARS MAX 1000</span>
 															</div>
 
 														</div>
@@ -1533,9 +1537,9 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 															class="required">*</span></label>
 
 													<textarea name="description" id="description" class="form-control"
-
+													maxlength="1000"
 														rows="3" required></textarea>
-
+														<span class="text-muted">CHARS MAX 1000</span>
 												</div>
 
 											</div>
@@ -1737,11 +1741,11 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 																	class="required">*</span></label>
 
 															<textarea name="description" id="description"
-
+															maxlength="1000"
 																class="form-control" rows="3"
 
 																required>{{ $award->description }}</textarea>
-
+																<span class="text-muted">CHARS MAX 1000</span>
 														</div>
 
 													</div>
@@ -1948,7 +1952,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 													<input type="number" class="form-control" name="percentage"
 
-														id="percentage" placeholder="Enter % you coverd">
+														id="percentage" max="100" min="0" data-parsley-trigger="input" placeholder="Enter % you coverd">
 
 												</div>
 
@@ -2131,7 +2135,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 															<input type="number" class="form-control" name="percentage"
 
 																id="percentage" placeholder="Enter % you coverd"
-
+																max="100" data-parsley-trigger="input"
 																value="{{ $sk->percentage }}">
 
 														</div>
@@ -2314,9 +2318,9 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 															optional</span></label>
 
-													<input type="url" class="form-control" name="link" id="link"
+													<input type="text" class="form-control" name="link" id="link"
 
-														placeholder="Enter Portfolio link">
+														placeholder="Enter Portfolio link"  data-parsley-valid-url >
 
 												</div>
 
@@ -2334,7 +2338,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 													<input type="file" class="form-control" name="image" id="image"
 
-														placeholder="Enter Featured Image" required>
+														placeholder="Enter Featured Image" required style="padding-bottom: 35px" accept="image/*">
 
 												</div>
 
@@ -2346,7 +2350,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 													<input type="file" class="form-control" name="file" id="file"
 
-														placeholder="Enter Portfolio file">
+														placeholder="Enter Portfolio file" style="padding-bottom: 35px" accept=".zip,.rar,.7zip">
 
 												</div>
 
@@ -2602,7 +2606,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 																			name="image" id="image"
 
-																			placeholder="Enter Featured Image">
+																			placeholder="Enter Featured Image" style="padding-bottom: 35px;">
 
 																	</div>
 
@@ -2632,7 +2636,8 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 																			name="file" id="file"
 
-																			placeholder="Enter Portfolio file">
+																			placeholder="Enter Portfolio file"
+																			style="padding-bottom: 35px;">
 
 																	</div>
 
@@ -2893,7 +2898,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 													<input type="file" name="profile_picture" id="profile_picture"
 
-														class="form-control" />
+														class="form-control" style="padding-bottom: 35px;"/>
 
 												</div>
 
@@ -2983,7 +2988,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 															class="text-info font12">optional</span></label>
 
-													<input type="file" name="cv" id="cv" class="form-control" />
+													<input type="file" name="cv" id="cv" class="form-control" style="padding-bottom: 35px;" />
 
 												</div>
 
@@ -3370,7 +3375,49 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 
 @section('scripts')
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+	window.Parsley
+  .addValidator('validUrl', { 
+    validateString: function(value, requirement) {
+		var regExp = /^(https?|s?ftp|git):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
 
+		return '' !== value ? regExp.test( value ) : false;
+    },
+    messages: {
+      en: 'Must be a valid strict URL %s', 
+    }
+  }); 
+  $( function() {
+	// $( "" ).datepicker({ { minDate: new Date(2020, 1 - 1, 1) }  });
+	var year = (new Date).getFullYear();
+	var month = (new Date).getMonth();
+	var date = (new Date).getDate();
+	$('.datepicker1').datepicker({
+		format: 'YYYY-MM-DD',   
+		maxDate: new Date(year, month,date),
+		changeMonth: true,
+      changeYear: true
+    
+	})
+    $( ".datepicker2" ).datepicker({
+		format: 'YYYY-MM-DD',   
+		changeMonth: true,
+      changeYear: true
+	});
+    $( ".qualification_date_start" ).datepicker({
+		format: 'YYYY-MM-DD',   
+		changeMonth: true,
+      changeYear: true
+	});
+    $( ".qualification_date_end" ).datepicker({
+		format: 'YYYY-MM-DD',   
+		changeMonth: true,
+      changeYear: true
+	});
+  } );
+</script>
 
 
 @endsection

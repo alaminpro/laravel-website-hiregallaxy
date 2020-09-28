@@ -75,7 +75,7 @@ class APIController extends Controller
 
             $review->save();
 
-            return json_encode(['status' => 'success', 'message' => 'Your review has been taken successfully !!']);
+            return json_encode(['status' => 'success', 'message' => 'Your review has been taken successfully  ']);
 
         } else {
 
@@ -88,7 +88,7 @@ class APIController extends Controller
     public function EmployerData(Request $request)
     {
         if (!Auth::check()) {
-            return response('Sorry !! You are not an authenticated Employer !!');
+            return response('Sorry   You are not an authenticated Employer  ');
 
         }
         if ($request->has('team_id') && $request->team_id != '') {
@@ -141,7 +141,7 @@ class APIController extends Controller
     public function weeklyData(Request $request)
     {
         if (!Auth::check()) {
-            return response('Sorry !! You are not an authenticated Employer !!');
+            return response('Sorry   You are not an authenticated Employer  ');
 
         }
 
@@ -193,7 +193,7 @@ class APIController extends Controller
     public function YearlyData(Request $request)
     {
         if (!Auth::check()) {
-            return response('Sorry !! You are not an authenticated Employer !!');
+            return response('Sorry   You are not an authenticated Employer  ');
 
         }
         if ($request->has('year') && $request->year != '') {
@@ -243,13 +243,13 @@ class APIController extends Controller
             $total_reject_count = JobActivity::where('company_id', $user->id)->whereYear('created_at', $request->year)->where('status', 'Rejected')->get()->count() + $reject_count;
             return [$total_job, $total_companies, $total_applicant, $total_new_count, $total_short_count, $total_interview_count, $total_offered_count, $total_hired_count, $total_reject_count];
         }
-        return response('Sorry !! Something went wrong !!');
+        return response('Sorry   Something went wrong  ');
     }
 
     public function MonthlyData(Request $request)
     {
         if (!Auth::check()) {
-            return response('Sorry !! You are not an authenticated Employer !!');
+            return response('Sorry   You are not an authenticated Employer  ');
 
         }
 
@@ -313,7 +313,7 @@ class APIController extends Controller
                 ->whereYear('created_at', $request->year != '' ? $request->year : Carbon::now()->year)->whereMonth('created_at', $month)->where('status', 'Rejected')->get()->count() + $reject_count;
             return [$total_job, $total_companies, $total_applicant, $total_new_count, $total_short_count, $total_interview_count, $total_offered_count, $total_hired_count, $total_reject_count];
         }
-        return response('Sorry !! Something went wrong !!');
+        return response('Sorry   Something went wrong  ');
     }
 
 }

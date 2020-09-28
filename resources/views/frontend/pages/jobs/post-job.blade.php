@@ -138,7 +138,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 				<div class="col-11">
 
-
+					@if (Auth::check())
 
 					<form action="{{ route('jobs.store') }}" method="post" enctype="multipart/form-data"
 
@@ -812,7 +812,19 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 
 					</form>
+					@else 
 
+					<div class="d-flex justify-content-center">
+						<a href="#signInModal" data-toggle="modal"
+
+						class="btn btn-primary btn-login pt-2 pb-2 font18">
+
+						Please Login to Post
+
+					</a>
+
+					</div>
+					@endif
 				</div>
 
 			</div>
@@ -920,8 +932,16 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 <script>
 
 	$(function() {
-
-		$( "#deadline" ).datepicker();
+		var year = (new Date).getFullYear();
+	var month = (new Date).getMonth();
+	var date = (new Date).getDate();
+		$( "#deadline" ).datepicker({
+		format: 'YYYY-MM-DD',   
+		minDate: new Date(year, month,date),
+		changeMonth: true,
+      changeYear: true
+    
+	});
 
 	});
 

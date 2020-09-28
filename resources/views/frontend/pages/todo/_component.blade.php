@@ -50,7 +50,7 @@
 
 		<div class="card">
 
-			<div class="card-header text-white bg-warning">
+			<div class="card-header text-dark bg-warning">
 
 				Pending Tasks 
 				<button class=" btn-add pull-right" id="createTodoBtn"> <strong>+</strong></button>
@@ -312,6 +312,7 @@
 					url: `${todosIndexRoute}/${id}`,
 
 					type: 'delete',
+					data : { "_token": "{{ csrf_token() }}" }
 
 				})
 
@@ -324,6 +325,7 @@
 					}
 
 				});
+				
 
 
 

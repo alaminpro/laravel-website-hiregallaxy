@@ -38,13 +38,13 @@
 
 						<div class="col-md-12">
 
-							<label for="expected_salary">Expected Salary <span class="required">*</span>
+							<label for="expected_salary" class="d-flex">Expected Salary <span class="required">*</span>
 
-								<input type="checkbox" name="is_salary_negotiable" id="is_salary_negotiable" value="1"
+								<input type="checkbox" @if(!auth()->check()) disabled @endif name="is_salary_negotiable" id="is_salary_negotiable" value="1"
 
 									class="ml-3" />
 
-								<span class="font12"><label for="is_salary_negotiable">(Salary
+								<span class="font12 ml-2"><label for="is_salary_negotiable">(Salary
 
 										Negotiable)</label></span>
 
@@ -54,7 +54,7 @@
 
 								<div class="col-md-6 pr-0">
 
-									<input type="number" class="form-control" id="expected_salary"
+									<input type="number" class="form-control" id="expected_salary"  @if(!auth()->check()) disabled @endif
 
 										name="expected_salary" placeholder="Your Expected Salary" min="0" required>
 
@@ -84,7 +84,7 @@
 
 								</span></label>
 
-							<textarea name="cover_letter" id="apply_job_description" cols="30" rows="5"
+							<textarea name="cover_letter"  @if(!auth()->check()) disabled @endif   @if(auth()->check()) id="apply_job_description" @endif  cols="30" rows="5"
 
 								class="form-control" placeholder="Your Cover Letter to the Employer"></textarea>
 
@@ -104,7 +104,7 @@
 
 							</label>
 
-							<input type="file" class="form-control" name="cv_file" id="cover_letter_cv">
+							<input type="file" class="form-control"  @if(!auth()->check()) disabled @endif name="cv_file" id="cover_letter_cv">
 
 						</div>
 
@@ -140,7 +140,7 @@
 
 						<div class="form-check">
 
-							<input class="form-check-input" type="checkbox" id="acceptTerm" required>
+							<input class="form-check-input" type="checkbox" id="acceptTerm" required @if(!auth()->check()) disabled @endif>
 
 							<label class="form-check-label ml-3" for="acceptTerm">
 

@@ -179,15 +179,20 @@ class JobsController extends Controller
 
             $country = $request->country;
 
-            $country_id = Country::where('name', $country)->first()->id;
+            $country_id = Country::where('name', $country)->first();
 
+            if ($country_id) {
+                $country_id = $country_id->id;
+            }
         }
 
         if ($request->category != null && $request->category != 'all') {
 
             $category = $request->category;
-
-            $category_id = Category::where('slug', $category)->first()->id;
+            $cate = Category::where('slug', $category)->first();
+            if ($cate) {
+                $category_id = $cate->id;
+            }
 
         }
 
@@ -237,13 +242,15 @@ class JobsController extends Controller
 
         left join job_types on job_types.id = jobs.type_id
 
+        left join countries on countries.id = jobs.country_id
+
         where 1 = 1
 
         ';
 
-        if ($request->search && $request->search != '') {
+        if ($request->job && $request->job != '') {
 
-            $sql .= " and jobs.title like '%$request->search%' or jobs.description like '%$request->search%'";
+            $sql .= " and jobs.title like '%$request->job%' or jobs.description like '%$request->job%'";
 
         }
 
@@ -260,6 +267,13 @@ class JobsController extends Controller
                 $sql .= " and jobs.country_id = $country_id ";
 
             }
+
+        }
+        if ($request->location && $request->location != '') {
+
+            $location = $request->location;
+
+            $sql .= "and countries.name like '%$location%'";
 
         }
 
@@ -370,8 +384,11 @@ class JobsController extends Controller
 
             $category = $request->category;
 
-            $category_id = Category::where('slug', $category)->first()->id;
-
+            $category = $request->category;
+            $cate = Category::where('slug', $category)->first();
+            if ($cate) {
+                $category_id = $cate->id;
+            }
             $templates->where('category_id', $category_id);
         }
         if ($request->alpha != null && $request->alpha != '') {
@@ -496,7 +513,7 @@ class JobsController extends Controller
 
         }
 
-        session()->flash('error', 'Sorry !! No job has found !!');
+        session()->flash('error', 'Sorry   No job has found  ');
 
         return redirect()->route('index');
 
@@ -584,7 +601,7 @@ class JobsController extends Controller
 
         if (!Auth::check() || !User::userCanPost(Auth::id())) {
 
-            session()->flash('error', 'Sorry !! You are not permitted to post a job !!');
+            session()->flash('error', 'Sorry   You are not permitted to post a job  ');
 
             return redirect()->route('jobs');
 
@@ -651,7 +668,7 @@ class JobsController extends Controller
         $job->save();
         $job->skills()->sync($request->skills);
 
-        session()->flash('success', 'Job has been posted successfully !!');
+        session()->flash('success', 'Job has been posted successfully  ');
         return redirect()->route('jobs');
 
     }
@@ -673,7 +690,7 @@ class JobsController extends Controller
 
         if (!Auth::check() || !User::userCanPost(Auth::id())) {
 
-            session()->flash('error', 'Sorry !! You are not permitted to edit the job !!');
+            session()->flash('error', 'Sorry   You are not permitted to edit the job  ');
 
             return redirect()->route('jobs');
 
@@ -683,7 +700,7 @@ class JobsController extends Controller
 
         if (is_null($job)) {
 
-            session()->flash('error', 'Sorry !! No job has found !!');
+            session()->flash('error', 'Sorry   No job has found  ');
 
             return redirect()->route('index');
 
@@ -691,7 +708,7 @@ class JobsController extends Controller
 
         if (!Auth::check() && Auth::user()->id != $job->id) {
 
-            session()->flash('error', 'Sorry !! You are not authenticated to edit this job !!');
+            session()->flash('error', 'Sorry   You are not authenticated to edit this job  ');
 
             return redirect()->route('index');
 
@@ -743,7 +760,7 @@ class JobsController extends Controller
     {
         if (!Auth::check() || !User::userCanPost(Auth::id())) {
 
-            session()->flash('error', 'Sorry !! You are not permitted to post a job !!');
+            session()->flash('error', 'Sorry   You are not permitted to post a job  ');
 
             return redirect()->route('jobs');
 
@@ -809,7 +826,7 @@ class JobsController extends Controller
         $job->save();
         $job->skills()->sync($request->skills);
 
-        session()->flash('success', 'Job has been posted successfully !!');
+        session()->flash('success', 'Job has been posted successfully  ');
         return redirect()->route('jobs');
 
     }
@@ -829,7 +846,7 @@ class JobsController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not permitted to apply job !!');
+            session()->flash('error', 'Sorry   You are not permitted to apply job  ');
 
             return back();
 
@@ -849,7 +866,7 @@ class JobsController extends Controller
 
         if (JobActivity::where('user_id', Auth::id())->where('job_id', $request->job_id)->first() != null) {
 
-            session()->flash('error', 'Sorry !! You have already applied for this job !!');
+            session()->flash('error', 'Sorry   You have already applied for this job  ');
 
             return back();
 
@@ -912,7 +929,7 @@ class JobsController extends Controller
 
         $jobActivity->save();
 
-        session()->flash('success', 'You have applied successfully for the job !!');
+        session()->flash('success', 'You have applied successfully for the job  ');
 
         return redirect()->route('jobs');
 
@@ -933,7 +950,7 @@ class JobsController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not permitted to apply job !!');
+            session()->flash('error', 'Sorry   You are not permitted to apply job  ');
 
             return back();
 
@@ -955,7 +972,7 @@ class JobsController extends Controller
 
         if ($jobActivity->user_id != Auth::id()) {
 
-            session()->flash('error', 'Sorry !! You are not authenticated to update the application !!');
+            session()->flash('error', 'Sorry   You are not authenticated to update the application  ');
 
             return back();
 
@@ -1019,7 +1036,7 @@ class JobsController extends Controller
 
         $jobActivity->save();
 
-        session()->flash('success', 'You have successfully updated the application !!');
+        session()->flash('success', 'You have successfully updated the application  ');
 
         return redirect()->route('jobs');
 

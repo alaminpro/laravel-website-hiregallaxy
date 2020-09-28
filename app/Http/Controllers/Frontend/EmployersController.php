@@ -58,7 +58,7 @@ class EmployersController extends Controller
 
         if (is_null($user)) {
 
-            session()->flash('error', 'No Employer has been found !!');
+            session()->flash('error', 'No Employer has been found  ');
 
             return redirect()->route('employers');
 
@@ -72,9 +72,11 @@ class EmployersController extends Controller
 
         $company = CompanyProfile::where('user_id', $user->id)->first();
 
-        $company->total_view = $company->total_view + 1;
+        if ($company) {
+            $company->total_view = $company->total_view + 1;
 
-        $company->save();
+            $company->save();
+        }
 
         $results = Result::where('status', 1)->select('job_id')->get();
 
@@ -182,7 +184,7 @@ class EmployersController extends Controller
 
         if (!Auth::check() && Auth::id() != $user_id) {
 
-            session()->flash('error', 'Sorry !! You are not permitted to do this action');
+            session()->flash('error', 'Sorry   You are not permitted to do this action');
 
             return redirect()->route('index');
 
@@ -198,7 +200,7 @@ class EmployersController extends Controller
 
         $user->about = $request->about;
 
-        session()->flash('success', 'Your profile about information has been updated !!');
+        session()->flash('success', 'Your profile about information has been updated  ');
 
         $user->save();
 
@@ -212,7 +214,7 @@ class EmployersController extends Controller
 
         // if (!Auth::check() && Auth::id() != $user_id) {
 
-        //     session()->flash('error', 'Sorry !! You are not permitted to do this action');
+        //     session()->flash('error', 'Sorry   You are not permitted to do this action');
 
         //     return redirect()->route('index');
 
@@ -220,7 +222,7 @@ class EmployersController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -233,33 +235,33 @@ class EmployersController extends Controller
             date_default_timezone_set($timezone);
             $date = date('Y-m-d H:i:s', time());
             DB::table('job_activities')->where('id', $id)->update(array('status' => $request->status, 'hired_at' => $date));
-            session()->flash('success', 'Applicant status has been updated !!');
+            session()->flash('success', 'Applicant status has been updated  ');
         } elseif ($request->status == 'Rejected') {
             $timezone = date_default_timezone_get();
             date_default_timezone_set($timezone);
             $date = date('Y-m-d H:i:s', time());
             DB::table('job_activities')->where('id', $id)->update(array('status' => $request->status, 'rejected_at' => $date));
-            session()->flash('success', 'Applicant status has been updated !!');
+            session()->flash('success', 'Applicant status has been updated  ');
         } elseif ($request->status == 'Shortlisted') {
             $timezone = date_default_timezone_get();
             date_default_timezone_set($timezone);
             $date = date('Y-m-d H:i:s', time());
             DB::table('job_activities')->where('id', $id)->update(array('status' => $request->status, 'shortlisted_at' => $date));
-            session()->flash('success', 'Applicant status has been updated !!');
+            session()->flash('success', 'Applicant status has been updated  ');
         } elseif ($request->status == 'Interview') {
             $timezone = date_default_timezone_get();
             date_default_timezone_set($timezone);
             $date = date('Y-m-d H:i:s', time());
             DB::table('job_activities')->where('id', $id)->update(array('status' => $request->status, 'interview_at' => $date));
-            session()->flash('success', 'Applicant status has been updated !!');
+            session()->flash('success', 'Applicant status has been updated  ');
         } elseif ($request->status == 'Offered') {
             $timezone = date_default_timezone_get();
             date_default_timezone_set($timezone);
             $date = date('Y-m-d H:i:s', time());
             DB::table('job_activities')->where('id', $id)->update(array('status' => $request->status, 'offered_at' => $date));
-            session()->flash('success', 'Applicant status has been updated !!');
+            session()->flash('success', 'Applicant status has been updated  ');
         } else {
-            session()->flash('success', 'Applicant status has been updated !!');
+            session()->flash('success', 'Applicant status has been updated  ');
         }
 
         return redirect()->back();
@@ -276,7 +278,7 @@ class EmployersController extends Controller
 
         if (!Auth::check() && Auth::id() != $user_id) {
 
-            session()->flash('error', 'Sorry !! You are not permitted to do this action');
+            session()->flash('error', 'Sorry   You are not permitted to do this action');
 
             return redirect()->route('index');
 
@@ -290,15 +292,15 @@ class EmployersController extends Controller
 
             'profile_picture' => 'nullable|image',
 
-            'website' => 'nullable|url',
+            'website' => 'nullable',
 
-            'facebook_link' => 'nullable|url',
+            'facebook_link' => 'nullable',
 
-            'twitter_link' => 'nullable|url',
+            'twitter_link' => 'nullable',
 
-            'linkedin_link' => 'nullable|url',
+            'linkedin_link' => 'nullable',
 
-            'google_plus_link' => 'nullable|url',
+            'google_plus_link' => 'nullable',
 
         ]);
 
@@ -315,6 +317,7 @@ class EmployersController extends Controller
         $user->linkedin_link = $request->linkedin_link;
 
         $user->google_plus_link = $request->google_plus_link;
+        $user->whatsapp = $request->whatsapp;
 
         $user->phone_no = $request->phone_no;
 
@@ -364,9 +367,9 @@ class EmployersController extends Controller
 
         }
 
-        session()->flash('success', 'Your profile information has been updated !!');
+        session()->flash('success', 'Your profile information has been updated  ');
 
-        return redirect()->route('index');
+        return redirect()->route('employers.show', $user->username);
 
     }
 
@@ -375,7 +378,7 @@ class EmployersController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -410,7 +413,7 @@ class EmployersController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -433,7 +436,7 @@ class EmployersController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -457,7 +460,7 @@ class EmployersController extends Controller
 
     //     if (!Auth::check()) {
 
-    //         session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+    //         session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
     //         return redirect()->route('index');
 
@@ -494,7 +497,7 @@ class EmployersController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -707,7 +710,7 @@ class EmployersController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -730,7 +733,7 @@ class EmployersController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -775,7 +778,7 @@ class EmployersController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -824,7 +827,7 @@ class EmployersController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -849,7 +852,7 @@ class EmployersController extends Controller
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -877,7 +880,7 @@ Dashboard icons
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -902,11 +905,11 @@ Dashboard icons
     public function totalApplications()
     {
 
-        //session()->flash('success', 'We are here!!');
+        //session()->flash('success', 'We are here ');
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 
@@ -949,7 +952,7 @@ end
 
             if (!Auth::check() && $job->user_id !== Auth::id()) {
 
-                session()->flash('error', 'Sorry !! You are not an authenticated Employer to delete this job !!');
+                session()->flash('error', 'Sorry   You are not an authenticated Employer to delete this job  ');
 
                 return redirect()->route('index');
 
@@ -993,11 +996,11 @@ end
 
             $job->delete();
 
-            session()->flash('success', 'Job has been deleted !!');
+            session()->flash('success', 'Job has been deleted  ');
 
         } else {
 
-            session()->flash('error', 'No job has been found !!');
+            session()->flash('error', 'No job has been found  ');
 
         }
 
@@ -1010,7 +1013,7 @@ end
 
         if (!Auth::check()) {
 
-            session()->flash('error', 'Sorry !! You are not an authenticated Employer !!');
+            session()->flash('error', 'Sorry   You are not an authenticated Employer  ');
 
             return redirect()->route('index');
 

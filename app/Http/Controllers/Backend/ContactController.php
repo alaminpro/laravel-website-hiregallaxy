@@ -40,7 +40,7 @@ class ContactController extends Controller
             $contact->delete();
 
         }
-        session()->flash('error', 'Message Deleted !!');
+        session()->flash('error', 'Message Deleted  ');
 
         return back();
 

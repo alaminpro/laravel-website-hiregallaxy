@@ -60,7 +60,7 @@
 
 			<hr class="sidebar-border">
 			<div class="my-4">
-					<select name="category" onchange="submitSearch()"  id="category" class="selectpicker" data-live-search="true" >
+					<select name="category" onchange="submitSearch()"  id="cate" class="selectpicker" data-live-search="true" >
  
 					<option data-icon="fa fa-navicon" value="all">All Positions</option>
 	

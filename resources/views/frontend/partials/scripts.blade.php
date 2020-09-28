@@ -16,27 +16,7 @@
 	}
 
 </style>
-
-<script>
-	var socket = io(socket_url, { 
-        transports: ['polling','websocket']
-	});
-	
-	socket.emit('test', 'alamin');
-
-	socket.on('test', function(d){
-		console.log(d)
-	})
-
-	$(window).on('load', function(){
-
-		$("#preloader-status").fadeOut();
-
-		$("#preloader").delay(10).fadeOut("slow");
-
-	});
-
-</script>
+ 
 
 
 

@@ -11,7 +11,7 @@
             @else
                 <strong>{!! $conv->sender['username'] !!}</strong>
             @endif
-            <p class="mb-0">{!! isHTML($conv->last_message)?'<i class="far fa-image"></i> Image': \Str::words($conv->last_message, 3, $end = '...') !!}</p>
+            
         </div>
     </div>
 </li> 

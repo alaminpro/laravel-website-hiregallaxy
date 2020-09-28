@@ -215,6 +215,16 @@ Employers | {{ App\Models\Setting::first()->site_title }}
 		 $("#JobDesSearchForms").submit();
 
 	}
+	$.urlParam = function (name) {
+		var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+						.exec(window.location.search);
+
+		return (results !== null) ? results[1] || 0 : false;
+	}
+	if($.urlParam('category')){
+		$('select[name=category]').val($.urlParam('category'));
+	$('.selectpicker').selectpicker('refresh');
+	}
 
 </script>
 

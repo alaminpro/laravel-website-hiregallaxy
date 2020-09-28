@@ -1,4 +1,4 @@
-<div class="header-top">
+{{-- <div class="header-top">
 	<div class="container">
 		@if (Auth::check())
 		<div class="float-right">
@@ -35,4 +35,4 @@
 		@endif
 		<div class="clearfix"></div>
 	</div>
-</div>
+</div> --}}

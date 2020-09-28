@@ -114,7 +114,7 @@ Sign Up | Hire Gallaxy
 
 
 
-                        <form action="{{ route('register') }}" method="post" data-parsley-validate>
+                        <form action="{{ route('register') }}" method="post" data-parsley-validate="">
 
                             @csrf
 
@@ -136,7 +136,7 @@ Sign Up | Hire Gallaxy
 
                                     <label for="username">Username <span class="required">*</span></label>
 
-                                    <input type="text" class="form-control" name="username" id="username" placeholder="Write Your Username" required  value="{{ old('username') }}" data-parsley-type="alphanum">
+                                    <input type="text" class="form-control" name="username" id="username" placeholder="Write Your Username" required  value="{{ old('username') }}" >
 
                                 </div>
 
@@ -230,7 +230,7 @@ Sign Up | Hire Gallaxy
 
                                     <label for="password">Password <span class="required">*</span></label>
 
-                                    <input type="password" class="form-control" name="password" id="passwordCandidate" minlength="8" placeholder="Write A Strong Password"  required>
+                                    <input type="password" data-parsley-trigger="input" class="form-control" name="password" id="passwordCandidate" minlength="8" placeholder="Write A Strong Password"  required>
 
                                 </div>
 
@@ -238,7 +238,7 @@ Sign Up | Hire Gallaxy
 
                                     <label for="password_confirmation">Confirm Password <span class="required">*</span></label>
 
-                                    <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Write Password Again" data-parsley-equalto="#passwordCandidate"  minlength="8" required>
+                                    <input type="password" data-parsley-trigger="input" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Write Password Again" data-parsley-equalto="#passwordCandidate"  minlength="8" required>
 
                                 </div>
 
@@ -248,7 +248,7 @@ Sign Up | Hire Gallaxy
 
 		<div class="form-check">
 
-			<input class="form-check-input" type="checkbox" id="employerSendMessage" checked>
+			<input class="form-check-input" type="checkbox" id="employerSendMessage">
 
 			<label class="form-check-label ml-3" for="employerSendMessage">
 
@@ -524,7 +524,7 @@ Sign Up | Hire Gallaxy
 
                                     <label for="password">Password <span class="required">*</span></label>
 
-                                    <input type="password" class="form-control" name="password" id="passwordEm" placeholder="Write A Strong Password" maxlength="8" required>
+                                    <input type="password" data-parsley-trigger="input"  class="form-control" name="password" id="passwordEm" placeholder="Write A Strong Password" minlength="8" required>
 
                                 </div>
 
@@ -532,7 +532,7 @@ Sign Up | Hire Gallaxy
 
                                     <label for="password_confirmation">Confirm Password <span class="required">*</span></label>
 
-                                    <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Write Password Again" maxlength="8" data-parsley-equalto="#passwordEm" required>
+                                    <input type="password" data-parsley-trigger="input" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Write Password Again" minlength="8" data-parsley-equalto="#passwordEm" required>
 
                                 </div>
 
@@ -683,10 +683,11 @@ Sign Up | Hire Gallaxy
 
 
 @section('scripts')
-
+ 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <script>
       $('.select2').select2();
+      
 </script>
 
 @endsection

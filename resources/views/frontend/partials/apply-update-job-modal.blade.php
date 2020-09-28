@@ -39,13 +39,13 @@
 
 						<div class="col-md-12">
 
-							<label for="expected_salary">Expected Salary <span class="required">*</span>
+							<label for="expected_salary" class="d-flex">Expected Salary <span class="required">*</span>
 
 								<input type="checkbox" name="is_salary_negotiable" id="is_salary_negotiable_update"
 
 									value="1" class="ml-3" />
 
-								<span class="font12"><label for="is_salary_negotiable_update">(Salary
+								<span class="font12 ml-2"><label for="is_salary_negotiable_update ">(Salary
 
 										Negotiable)</label></span>
 
@@ -143,9 +143,9 @@
 
 						<div class="form-check">
 
-							<input class="form-check-input" type="checkbox" id="acceptTerm" required checked>
+							<input class="form-check-input" type="checkbox" id="acceptTerms" required checked>
 
-							<label class="form-check-label ml-3" for="acceptTerm">
+							<label class="form-check-label ml-3" for="acceptTerms">
 
 								Accept our <a href="" class="text-yellow">Terms and Condition</a> and <a href=""
 

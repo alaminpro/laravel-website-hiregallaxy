@@ -69,7 +69,7 @@ class LoginController extends Controller
 
         if (Auth::check()) {
 
-            session()->flash('success', 'You are already logged in !!');
+            session()->flash('success', 'You are already logged in');
 
             return redirect()->route('index');
 
@@ -136,7 +136,7 @@ class LoginController extends Controller
 
                 $user->notify(new VerifyEmailUser($user));
 
-                Session::flash('message', "Your account is not verified yet !! Please activate your account. An email has sent to your account. Please verify !!");
+                Session::flash('message', "Your account is not verified yet. Please activate your account. An email has sent to your account. Please verify.");
 
                 return redirect()->route('login');
 
@@ -144,7 +144,7 @@ class LoginController extends Controller
 
             if ($user->status == 2) {
 
-                Session::flash('message', "Your account has been suspended !! Please contact with administrator !!");
+                Session::flash('message', "Your account has been suspended. Please contact with administrator");
 
                 return redirect()->route('index');
 

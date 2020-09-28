@@ -166,7 +166,7 @@ class RegisterController extends Controller
 
                 'username.max' => 'Please give your username between 30 characters',
 
-                'username.unique' => 'Sorry !! A username is already exists',
+                'username.unique' => 'Sorry A username is already exists',
 
                 'street_address.required' => 'Please give your street address',
 
@@ -176,7 +176,7 @@ class RegisterController extends Controller
 
                 'email.email' => 'Please give a valid email address',
 
-                'email.unique' => 'Sorry !! An email is already exists',
+                'email.unique' => 'Sorry An email is already exists',
 
                 'name.required' => 'Please give your name',
 
@@ -253,7 +253,7 @@ class RegisterController extends Controller
 
             $company->save();
 
-            $message = "An Employer Profile has been created successfully !! Please check your email and confirm !!";
+            $message = "An Employer Profile has been created successfully Please check your email and confirm";
 
         } else {
 
@@ -279,7 +279,7 @@ class RegisterController extends Controller
 
             $userCategory->save();
 
-            $message = "A Candidate Profile has been created successfully !! Please check your email and confirm !!";
+            $message = "A Candidate Profile has been created successfully Please check your email and confirm";
 
         }
 
@@ -289,11 +289,11 @@ class RegisterController extends Controller
 
         if ($request->is_company == 1) {
 
-            return redirect('/register?type=employer#registration');
+            return redirect('/login');
 
         } else {
 
-            return redirect('/register?type=candidate#registration');
+            return redirect('/login');
 
         }
 

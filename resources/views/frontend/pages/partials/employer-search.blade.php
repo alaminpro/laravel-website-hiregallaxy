@@ -108,12 +108,16 @@
 
 					{{ isset($_GET['team']) && ($_GET['team'] == $teamSizeSingle->id) ? 'checked' : '' }} />
 
-				<label for="team{{ $teamSizeSingle->id }}"></label>
-
-				{{ $teamSizeSingle->name }}
+				<label for="team{{ $teamSizeSingle->id }}"	class="position-relative" style="left: -28px">
+					<span class="position-absolute" style="margin-left: 30px; width: 200px">
+						{{ $teamSizeSingle->name }}
 
 				({{ count(App\Models\CompanyProfile::where('team_member', $teamSizeSingle->id)->get()) }})
 
+					</span>
+				</label>
+
+				
 			</div>
 
 			@endforeach

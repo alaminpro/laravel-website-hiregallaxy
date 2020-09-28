@@ -195,18 +195,7 @@ $(function(){
                         $('.message-box .list-messages ul .mCSB_container').append(res.html);
                         $('.no_conversiation').remove();
                         $('#conversation-'+id).find('p').html('You: '+message);
-                        $('.message-box .list-messages ul').mCustomScrollbar("scrollTo","bottom",{scrollInertia:0});  
-                            $.ajax({
-                                url: ajax_url,
-                                data: { action: 'seen', _token: token},
-                                dataType: 'JSON',
-                                type: 'POST',
-                                success: function (res) {
-                                    if(res.status == 'success'){
-                                        window.location.href  = res.route;
-                                    }
-                                }
-                            });
+                        $('.message-box .list-messages ul').mCustomScrollbar("scrollTo","bottom",{scrollInertia:0});   
                            
                     }
                     else if(res.status === 'login'){
@@ -246,14 +235,7 @@ $(function(){
                         $('.no_conversiation').remove();
                         $('#conversation-'+id).find('p').html('You: '+message);
                         $('.message-box .list-messages ul').mCustomScrollbar("scrollTo","bottom",{scrollInertia:0});  
-                            $.ajax({
-                                url: ajax_url,
-                                data: { action: 'seen', _token: token},
-                                dataType: 'JSON',
-                                type: 'POST',
-                                success: function (res) { 
-                                }
-                            });
+                             
                            
                     }
                     else if(res.status === 'login'){
@@ -366,7 +348,7 @@ if(searchParams.has('candidate')){
     $('.breadcrumb-item.active').html('Search Candidate') 
     $('#experience').attr('disabled', true) 
     $('.job_search').hide();
-    $('#cadidateSearchForm').attr('action','/jobs/search')
+    $('#cadidateSearchForm').attr('action','/candidates/search')
      $('.job_search_candidate').show(); 
     $('.job_search_candidate #category').attr('disabled', false) 
     $('.job_search #category').attr('disabled', true) 
@@ -382,7 +364,7 @@ if(searchParams.has('company')){
     $('.breadcrumb-item.active').html('Search Company')
     selector.attr('name', 'company'); 
     $('.changes_dynamic_title').html('Search Company')
-    $('#employerSearchForm').attr('action','/jobs/search') 
+    $('#employerSearchForm').attr('action','/employers/search') 
     $('.job_search').hide();
     $('#sector').attr('disabled', false)
     $('#datepicker').attr('disabled', true) 
@@ -397,7 +379,7 @@ if(searchParams.has('job_description')){
     selector.attr('name', 'job_description'); 
     $('.changes_dynamic_title').html('Search Job Description')
     $('.breadcrumb-item.active').html('Search Job Description')
-    $('#JobDesSearchForm').attr('action','/jobs/search')
+    $('#JobDesSearchForm').attr('action','/job-description/')
     $('.input__search').addClass('input__search_description');  
     $('.input__city').addClass('input__city_description'); 
     $('.input__city .form-control').attr('disabled',true);

@@ -229,7 +229,7 @@
 
 												@if($result)
 
-														<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button m-0  mb-2"
+														<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button m-0  mb-2 mr-3"
 
 															onclick="applyJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}','{{ $job->user->id }}')">
 
@@ -239,7 +239,7 @@
 
 													@else
 
-														<a href="{{route('exam', $job->id)}}" class="btn apply-now-button m-0  mb-2" >
+														<a href="{{route('exam', $job->id)}}" class="btn apply-now-button m-0  mb-2  mr-3" >
 
 															Apply Now
 

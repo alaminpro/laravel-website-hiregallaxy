@@ -14,11 +14,9 @@ export default {
             type: Boolean,
             required: false
         },
-        team: {
-            type: Number,
-            required: false
-        }
+
     },
+    props: ['team'],
     data() {
         return {
             suggest: 200,

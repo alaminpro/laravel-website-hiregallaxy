@@ -168,8 +168,8 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 																			optional</span></label>
 
-																	<input type="text" name="website" id="website"
-																	data-parsley-valid-url
+																	<input type="url" name="website" id="website"
+
 																		class="form-control"
 
 																		value="{{ $user->website }}" />
@@ -300,7 +300,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 																			optional</span></label>
 
-																	<input type="text" name="facebook_link" data-parsley-valid-url
+																	<input type="url" name="facebook_link"
 
 																		id="facebook_link" class="form-control"
 
@@ -316,10 +316,10 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 																			optional</span></label>
 
-																	<input type="text" name="linkedin_link"
+																	<input type="url" name="linkedin_link"
 
 																		id="linkedin_link" class="form-control"
-																		data-parsley-valid-url
+
 																		value="{{ $user->linkedin_link }}" />
 
 																</div>
@@ -334,10 +334,10 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 																			optional</span></label>
 
-																	<input type="text" name="twitter_link"
+																	<input type="url" name="twitter_link"
 
 																		id="twitter_link" class="form-control"
-																		data-parsley-valid-url
+
 																		value="{{ $user->twitter_link }}" />
 
 																</div>
@@ -352,26 +352,11 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 																			optional</span></label>
 
-																	<input type="text" name="google_plus_link"
+																	<input type="url" name="google_plus_link"
 
 																		id="google_plus_link" class="form-control"
-																		data-parsley-valid-url
+
 																		value="{{ $user->google_plus_link }}" />
-
-																</div>
-																<div class="col-md-6">
-
-																	<label for="google_plus_link">Whatsapp <span
-
-																			class="text-info font12">
-
-																			optional</span></label>
-
-																	<input type="text" name="whatsapp"
-
-																		id="whatsup" class="form-control"
-
-																		value="{{ $user->Whatsapp }}" />
 
 																</div>
 
@@ -483,24 +468,21 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 										<div class="footer-social">
 
-											<a target="_blank" href="{{ $user->facebook_link ?$user->facebook_link : '#' }}"><i
+											<a href="{{ $user->facebook_link }}"><i
 
 													class="fa fa-facebook facebook-icon"></i></a>
 
-											<a  target="_blank"  href="{{ $user->twitter_link ?  $user->twitter_link  : '#' }}"><i
+											<a href="{{ $user->twitter_link }}"><i
 
 													class="fa fa-twitter twitter-icon"></i></a>
 
-											<a  target="_blank"  href="{{ $user->googple_plus_link ? $user->googple_plus_link: '#' }}"><i
+											<a href="{{ $user->googple_plus_link }}"><i
 
 													class="fa fa-google-plus google-plus-icon"></i></a>
 
-											<a  target="_blank"  href="{{ $user->linkedin_link ? $user->linkedin_link : '#' }}"><i
+											<a href="{{ $user->linkedin_link }}"><i
 
 													class="fa fa-linkedin linkedin-icon"></i></a>
-											<a  target="_blank"  href="{{ $user->whatsapp ? 'https://api.whatsapp.com/send?phone='. $user->whatsapp : '#' }}"><i
-
-													class="fa fa-whatsapp whatsapp-icon"></i></a>
 
 										</div>
 
@@ -941,17 +923,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 <script>
 
 	$(".select2").select2();
-	window.Parsley
-  .addValidator('validUrl', { 
-    validateString: function(value, requirement) {
-		var regExp = /^(https?|s?ftp|git):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
 
-		return '' !== value ? regExp.test( value ) : false;
-    },
-    messages: {
-      en: 'Must be a valid strict URL %s', 
-    }
-  }); 
 </script>
- 
+
 @endsection

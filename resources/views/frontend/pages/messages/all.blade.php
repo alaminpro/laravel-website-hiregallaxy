@@ -17,10 +17,16 @@ Messages | {{ App\Models\Setting::first()->site_title }}
 @section('content')
 <section class="employer-page sec-pad pt-0">
   <div class="conversations clearfix main-contents container">
+    <div class="page-title text-capitalize m-0">
+        <h2 class="m-0">All Conversations</h2>
+    </div>
       <div class="main-content__message py-5">  
         <div class="float-left list-conversations"> 
-            <div class="page-title text-capitalize m-0">
-                <h2 class="m-0">All Conversations</h2>
+            <div class="search-conversation">
+                <form action=""> 
+                    <input type="text" placeholder="Search" name="search">
+                     <button type="submit" class="border-0 bg-transparent"><i class="fa fa-search"></i></button>
+                </form>
             </div>
             <ul class="list-unstyled mb-0">
                 @if($conversations->count())
