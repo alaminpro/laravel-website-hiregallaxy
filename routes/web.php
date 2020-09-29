@@ -275,7 +275,7 @@ Route::group(['prefix' => 'jobs'], function () {
 
         Route::get('/check-skill', 'Frontend\ExamController@checkSkill');
 
-        Route::post('/questions/results', 'Frontend\ExamController@Results');
+        Route::post('/questions/results/final', 'Frontend\ExamController@Results');
 
         Route::get('/check-exam-status', 'Frontend\ExamController@examStatus');
 

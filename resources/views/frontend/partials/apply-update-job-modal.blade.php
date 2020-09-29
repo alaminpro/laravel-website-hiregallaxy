@@ -145,7 +145,7 @@
 
 							<input class="form-check-input" type="checkbox" id="acceptTerms" required checked>
 
-							<label class="form-check-label ml-3" for="acceptTerms">
+							<label class="form-check-label ml-1 mt-1" for="acceptTerms">
 
 								Accept our <a href="" class="text-yellow">Terms and Condition</a> and <a href=""
 

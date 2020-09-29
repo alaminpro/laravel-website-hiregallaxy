@@ -121,12 +121,11 @@
 		
 
 			@endif 
-
-			@endif 
-
+ 
 
 
 		</div>
+		@endif
 		@endif
  
 

@@ -142,7 +142,7 @@
 
 							<input class="form-check-input" type="checkbox" id="acceptTerm" required @if(!auth()->check()) disabled @endif>
 
-							<label class="form-check-label ml-3" for="acceptTerm">
+							<label class="form-check-label ml-1 mt-1" for="acceptTerm">
 
 								Accept our <a href="" class="text-yellow">Terms and Condition</a> and <a href=""
 

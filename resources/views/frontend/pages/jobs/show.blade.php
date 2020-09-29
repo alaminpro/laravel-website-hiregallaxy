@@ -720,7 +720,7 @@
 
 								<input class="form-check-input" type="checkbox" id="gridCheck">
 
-								<label class="form-check-label ml-3" for="gridCheck">
+								<label class="form-check-label ml-2" for="gridCheck">
 
 									Accept our <a href="" class="text-yellow">Terms and Condition</a> and <a href=""
 
@@ -764,7 +764,18 @@
 
 @section('scripts')
 
+<script>
+	$.urlParam = function (name) {
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+                      .exec(window.location.search);
 
+    return (results !== null) ? results[1] || 0 : false;
+}
+
+if($.urlParam('modal') == 'true'){
+	$("#apply-job-modal").modal('show');
+}
+</script>
 
 @endsection
 
