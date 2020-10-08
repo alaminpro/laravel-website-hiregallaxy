@@ -98,7 +98,7 @@
 
           <div class="copyright text-center my-auto">
 
-            <span>Copyright &copy; HireGallaxy {{ date('Y') }}</span>
+            <span>Copyright &copy; Joblrs {{ date('Y') }}</span>
 
           </div>
 

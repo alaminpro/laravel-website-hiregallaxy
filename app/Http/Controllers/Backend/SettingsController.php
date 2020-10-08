@@ -70,7 +70,7 @@ class SettingsController extends Controller
 
     //     $settings->like_vote_value = $request->like_vote_value;
 
-    //     $settings->website_logo = ImageUploadHelper::upload('website_logo', $request->file('website_logo'), time(), 'public/website-images/settings');
+    //     $settings->website_logo = ImageUploadHelper::upload('website_logo', $request->file('website_logo'), time(), 'website-images/settings');
 
     //     $settings->save();
 
@@ -122,13 +122,13 @@ class SettingsController extends Controller
 
         if ($request->site_logo) {
 
-            $settings->site_logo = UploadHelper::update('site_logo', $request->file('site_logo'), time(), 'public/images', $settings->site_logo);
+            $settings->site_logo = UploadHelper::update('site_logo', $request->file('site_logo'), time(), 'images', $settings->site_logo);
 
         }
 
         if ($request->site_favicon) {
 
-            $settings->site_favicon = UploadHelper::update('site_favicon', $request->file('site_favicon'), time(), 'public/images', $settings->site_favicon);
+            $settings->site_favicon = UploadHelper::update('site_favicon', $request->file('site_favicon'), time(), 'images', $settings->site_favicon);
 
         }
 

@@ -620,7 +620,7 @@ class JobsController extends Controller
 
         $job = new Job();
         $job->title = $request->title;
-        $job->slug = StringHelper::createSlug($request->job_title, 'Job', 'slug');
+        $job->slug = StringHelper::createSlug($request->title, 'Job', 'slug');
         $job->email = $request->email;
         $job->description = $request->description;
         $job->category_id = $request->category_id;

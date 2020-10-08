@@ -136,10 +136,8 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 			<div class="row justify-content-center">
 
-				<div class="col-11">
-
-					@if (Auth::check())
-
+				<div class="col-11"> 
+			 
 					<form action="{{ route('jobs.store') }}" method="post" enctype="multipart/form-data"
 
 						data-parsley-validate autocomplete="off">
@@ -812,19 +810,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 
 					</form>
-					@else 
-
-					<div class="d-flex justify-content-center">
-						<a href="#signInModal" data-toggle="modal"
-
-						class="btn btn-primary btn-login pt-2 pb-2 font18">
-
-						Please Login to Post
-
-					</a>
-
-					</div>
-					@endif
+				 
 				</div>
 
 			</div>

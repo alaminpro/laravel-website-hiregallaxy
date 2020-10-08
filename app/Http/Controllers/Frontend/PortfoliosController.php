@@ -131,15 +131,15 @@ class PortfoliosController extends Controller
 
             if (!is_null($userPortfolio->image)) {
 
-                if (file_exists('public/images/portfolios/' . $userPortfolio->image)) {
+                if (file_exists('images/portfolios/' . $userPortfolio->image)) {
 
-                    unlink('public/images/portfolios/' . $userPortfolio->image);
+                    unlink('images/portfolios/' . $userPortfolio->image);
 
                 }
 
             }
 
-            $userPortfolio->image = ImageUploadHelper::update('image', $request->file('image'), time(), 'public/images/portfolios', 'public/images/portfolios/' . $userPortfolio->image);
+            $userPortfolio->image = ImageUploadHelper::update('image', $request->file('image'), time(), 'images/portfolios', 'images/portfolios/' . $userPortfolio->image);
 
         }
 
@@ -147,15 +147,15 @@ class PortfoliosController extends Controller
 
             if (!is_null($userPortfolio->file)) {
 
-                if (file_exists('public/files/portfolios/' . $userPortfolio->file)) {
+                if (file_exists('files/portfolios/' . $userPortfolio->file)) {
 
-                    unlink('public/files/portfolios/' . $userPortfolio->file);
+                    unlink('files/portfolios/' . $userPortfolio->file);
 
                 }
 
             }
 
-            $userPortfolio->file = UploadHelper::upload('file', $request->file('file'), time(), 'public/files/portfolios');
+            $userPortfolio->file = UploadHelper::upload('file', $request->file('file'), time(), 'files/portfolios');
 
         }
 
@@ -194,9 +194,9 @@ class PortfoliosController extends Controller
 
         if (!is_null($userPortfolio->file)) {
 
-            if (file_exists('public/files/portfolios/' . $userPortfolio->file)) {
+            if (file_exists('files/portfolios/' . $userPortfolio->file)) {
 
-                unlink('public/files/portfolios/' . $userPortfolio->file);
+                unlink('files/portfolios/' . $userPortfolio->file);
 
             }
 
@@ -204,9 +204,9 @@ class PortfoliosController extends Controller
 
         if (!is_null($userPortfolio->image)) {
 
-            if (file_exists('public/images/portfolios/' . $userPortfolio->image)) {
+            if (file_exists('images/portfolios/' . $userPortfolio->image)) {
 
-                unlink('public/images/portfolios/' . $userPortfolio->image);
+                unlink('images/portfolios/' . $userPortfolio->image);
 
             }
 

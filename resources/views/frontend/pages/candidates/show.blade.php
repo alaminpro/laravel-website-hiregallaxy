@@ -378,11 +378,11 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 							<div class="single-work-experience">
 
-								<i class="fa fa-circle-o experience-circle font24 text-yellow float-left"></i>
+								<i class="fa fa-circle-o experience-circle font24 text-yellow float-left pr-3"></i>
 
 								<span class="hr-span"></span>
 
-								<div class="work-history float-left ml-3">
+								<div class="work-history   ml-3">
 
 									<span>
 
@@ -1010,13 +1010,13 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 							<div class="single-work-experience">
 
-								<i class="fa fa-circle-o experience-circle font24 text-yellow float-left"></i>
+								<i class="fa fa-circle-o experience-circle font24 text-yellow float-left pr-3"></i>
 
 								<span class="hr-span"></span>
 
-								<div class="work-history float-left ml-2">
+								<div class="work-history ml-2">
 
-									<span>
+									<spa>
 
 										<span
 
@@ -1032,9 +1032,9 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 										</span>
 
-									</span>
+									</spa>
 
-									<p class="font-weight-bold text-theme font18">{{ $qualification->major_subject }} -
+									<p class="font-weight-bold text-theme font18 ">{{ $qualification->major_subject }} -
 
 										{{ $qualification->certificate_degree_name }}</p>
 

@@ -7,7 +7,9 @@
 				<button class="fa fa-close btn btn-danger btn-close-sidebar" id="sidebar_close"></button>
 			  </label>
 			<a class="navbar-brand" href="{{ route('index') }}">
-				<h3 class="font-3">Hiregalaxy</h3>
+				<img src="{{ asset('images/'.App\Models\Setting::first()->site_logo) }}"
+
+				style="width: 140px;margin-top: 0px;" class="float-left" />
 			</a>
 		</div>
 	  
@@ -22,7 +24,9 @@
 		</div>
 		@else
 		<a class="navbar-brand" href="{{ route('index') }}">
-			<h3 class="font-3">Hiregalaxy</h3>
+			<img src="{{ asset('images/'.App\Models\Setting::first()->site_logo) }}"
+
+			style="width: 140px;margin-top: 0px;" class="float-left" />
 		</a>
 		  @endif
 

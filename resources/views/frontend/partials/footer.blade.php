@@ -122,7 +122,7 @@
 <section class="footer-bottom-section">  
 	<div class="container text-center">
 
-		&copy; {{ date('Y') }} HireGallaxy, All rights reseved
+		&copy; {{ date('Y') }} Joblrs, All rights reseved
 
 	</div>
 

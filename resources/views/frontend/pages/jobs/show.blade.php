@@ -36,7 +36,7 @@
 
 					<div class="row">
 
-						<div class="col-sm-2 text-center mb-4">
+						<div class="col-sm-2 text-center mb-4 pt-5 pt-md-0">
 
 							<img src="{{ App\Helpers\ReturnPathHelper::getUserImage( $job->user->id) }}"
 
@@ -46,7 +46,7 @@
 
 						<div class="col-sm-8">
 
-							<div class="pl-5">
+							<div class="pl-0 pl-md-5">
 
 								<div class="single-job-description">
 
@@ -492,7 +492,7 @@
 
 						<div>
 
-							{!! $job->user->about !!}
+							{!! $job->about_company !!}
 
 						</div>
 
@@ -767,14 +767,13 @@
 <script>
 	$.urlParam = function (name) {
     var results = new RegExp('[\?&]' + name + '=([^&#]*)')
-                      .exec(window.location.search);
-
+                      .exec(window.location.search); 
     return (results !== null) ? results[1] || 0 : false;
-}
-
+} 
 if($.urlParam('modal') == 'true'){
 	$("#apply-job-modal").modal('show');
-}
+	applyJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}','{{ $job->user->id }}');
+} 
 </script>
 
 @endsection

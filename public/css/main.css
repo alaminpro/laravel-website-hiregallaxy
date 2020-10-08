@@ -465,7 +465,7 @@ a.dropdown-account-item {
 }
 
 .bg-dark {
-  background: #3558ca !important;
+  background: #ffffff !important;
 }
 
 .logo {
@@ -507,7 +507,7 @@ a.dropdown-account-item {
 .navbar-dark .navbar-nav .nav-link {
   border-radius: 5px;
   margin-right: 10px;
-  color: #fff;
+  color: #202020;
   font-weight: 300;
   font-size: 15px;
   padding: 10px 20px 10px 20px;
