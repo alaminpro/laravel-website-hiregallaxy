@@ -35,7 +35,7 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
-			<ul class="navbar-nav ml-auto">
+			<ul class="navbar-nav ml-auto py-3">
 				<li class="nav-item ">
 					<a class="nav-link {{ Route::is('index') ? 'nav-link-active' : '' }}" href="{{ route('index') }}">Home<span class="sr-only">(current)</span>
 					</a>
@@ -78,14 +78,14 @@
 			@if (Auth::check())
 			<div class="float-right">
 				<div class="top-authentication-links custom-auth-links">
-					<a class="seen--message" href="javascript:void(0)">
+					<a class="seen--message py-2" href="javascript:void(0)">
 						<i class="fa fa-envelope"></i> 
 						<span class="message-count">
 							{{ count(Auth::user()->unread()) }} 
 						</span>
 						<span class="message__hidden">	New Message</span>
 					</a>
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdownAccountButton">
+					<a href="#" class="dropdown-toggle  py-2" data-toggle="dropdown" id="dropdownAccountButton">
 						<img src="{{ App\Helpers\ReturnPathHelper::getUserImage(Auth::user()->id) }}" class="account-img">
 			 
 						 {{ str_limit(Auth::user()->name , $limit = 3, $end = '..') }}</a>

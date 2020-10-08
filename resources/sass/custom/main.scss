@@ -1322,6 +1322,7 @@ ul.footer-links {
 .footer-area a,
 .footer-links li a {
     color: #cec9ca !important;
+    font-size: 18px;
 }
 .footer-links li a i {
     margin-right: 10px;
@@ -1468,9 +1469,10 @@ ul.footer-links {
         margin-top: 10px;
     }
     .navbar-dark .navbar-nav .nav-link {
-        color: #fff;
+        color: rgb(52, 52, 52);
         font-weight: 300;
         font-size: 15px;
+        
         padding: 5px 20px 5px 20px;
     }
 }
