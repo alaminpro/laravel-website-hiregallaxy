@@ -248,6 +248,8 @@ class RegisterController extends Controller
 
             $company->user_id = $user->id;
 
+            $company->country_id = $request->city;
+
             $company->sector_id = implode(',', $request->sector);
             $company->category_id = $request->category_id;
 
@@ -266,6 +268,8 @@ class RegisterController extends Controller
             $candidate->career_level_id = 1; // Beginner
 
             $candidate->user_id = $user->id;
+
+            $candidate->country_id = $request->city;
 
             $candidate->sector = $request->sector;
 

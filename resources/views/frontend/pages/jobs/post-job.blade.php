@@ -494,6 +494,25 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 							<div class="row form-group">
 
+								<div class="col-sm-4"> 
+                                    <label for="city">Your Country <span class="required">*</span></label>
+
+                                    <select name="city" id="city" class="form-control" required value="{{ old('city') }}">
+
+                                        <option value="">Select a Country</option>
+
+                                        @foreach (App\Models\City::orderBy('name', 'asc')->get() as $country)
+
+                    					<option value="{{ $country->id }}" >
+
+                    						{{ $country->name }}
+
+                    					</option> 
+                    					@endforeach
+
+                                    </select>   
+								</div>
+
 								<div class="col-sm-4">
 
 									<div class="row form-group">
@@ -543,7 +562,6 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 
 								</div>
-
 								<div class="col-sm-4">
 
 									<label for="type_id">Job Type <span class="required">*</span>
@@ -563,6 +581,17 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 									</select>
 
 								</div>
+
+
+
+							</div>
+
+
+
+							<!-- Sector, Segment, Discipline -->
+
+							<div class="row form-group">
+
 								<div class="col-sm-4">
 
 									<label for="category_id">Category <span class="required">*</span>
@@ -584,15 +613,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 								</div>
 
 
-
-							</div>
-
-
-
-							<!-- Sector, Segment, Discipline -->
-
-							<div class="row form-group">
-
+								
 								<div class="col-sm-4">
 
 									<label for="sector_id">Job Sector <span class="required">*</span>
@@ -633,6 +654,16 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 								</div>
 
+
+
+							</div>
+
+							<!-- Sector, Segment, Discipline -->
+
+
+
+							<div class="row form-group">
+
 								<div class="col-sm-4">
 
 									<label for="discipline_id">Job Discipline <span class="required">*</span>
@@ -652,16 +683,6 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 									</select>
 
 								</div>
-
-
-
-							</div>
-
-							<!-- Sector, Segment, Discipline -->
-
-
-
-							<div class="row form-group">
 
 								<div class="col-sm-4">
 
@@ -683,6 +704,8 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 								</div>
 
+
+
 								<div class="col-sm-4">
 
 									<label for="experience_id">Experience <span class="required">*</span>
@@ -703,8 +726,8 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 								</div>
 
-
-
+							</div>
+							<div class="row form-group">  
 								<div class="col-sm-4">
 
 									<label for="deadline">Application Deadline <span class="required">*</span>

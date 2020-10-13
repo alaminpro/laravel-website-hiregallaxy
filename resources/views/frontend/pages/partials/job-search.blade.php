@@ -5,7 +5,7 @@
 	
 			<h3>
 
-				Jobs  By City
+				Jobs  By Country
 
 			</h3>
 
@@ -16,6 +16,43 @@
 
 
 			<select name="country" onchange="submitSearch()" id="country" class="selectpicker" data-live-search="true">
+
+				<option data-icon="fa fa-map-marker" value="all">All Countries</option> 
+
+				@foreach (App\Models\City::orderBy('name', 'asc')->get() as $country)
+
+				<option value="{{ $country->name }}"
+
+					{{ isset($_GET['country']) && ($_GET['country'] == $country->name) ? 'selected' : '' }}>
+
+					&nbsp;&nbsp; {{ $country->name }}
+
+					({{ count(App\Models\Job::where('city_id', $country->id)->get()) }})
+
+				</option>
+
+				@endforeach 
+
+			</select>
+
+		</div>
+	</div> 
+	<div class="sidebar-widget"> 
+		<div class="sidebar-list-item">
+	
+			<h3>
+
+				Jobs  By City
+
+			</h3>
+
+			<hr class="sidebar-border">
+
+			<div class="clearfix"></div>
+
+
+
+			<select name="cities" onchange="submitSearch()" id="cities" class="selectpicker" data-live-search="true">
 
 				<option data-icon="fa fa-map-marker" value="all">All Locations</option>
 
@@ -31,7 +68,7 @@
 
 				<option value="{{ $countrySingle->name }}"
 
-					{{ isset($_GET['country']) && ($_GET['country'] == $countrySingle->name) ? 'selected' : '' }}>
+					{{ isset($_GET['cities']) && ($_GET['cities'] == $countrySingle->name) ? 'selected' : '' }}>
 
 					&nbsp;&nbsp; {{ $countrySingle->name }}
 

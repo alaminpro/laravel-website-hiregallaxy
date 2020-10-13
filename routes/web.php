@@ -685,6 +685,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     // State Manage
 
     Route::resource('states', 'Backend\StatesController')->middleware('role:super-admin,admin');
+    Route::resource('country', 'Backend\CountryController')->middleware('role:super-admin,admin');
 
     // Job Crawlers
 

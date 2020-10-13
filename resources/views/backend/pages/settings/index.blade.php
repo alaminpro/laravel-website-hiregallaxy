@@ -4,7 +4,7 @@
 
 @section('title')
 
-Settings | Hire Gallaxy
+Settings | Joblrs
 
 @endsection
 

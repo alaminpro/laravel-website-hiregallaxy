@@ -331,7 +331,7 @@ export default {
             }
             Axios.post('/jobs/exam/questions/results/final', data).then((res) => {
                 if (res.data.success == 'success') {
-                    window.location = 'https://hiregallaxy.com/jobs/view/' + res.data.job_id.slug + '?modal=true';
+                    window.location = 'https://joblrs.com/jobs/view/' + res.data.job_id.slug + '?modal=true';
                 }
             });
         },
@@ -341,7 +341,7 @@ export default {
             });
         },
         reload() {
-            window.location = 'https://hiregallaxy.com/jobs/';
+            window.location = 'https://joblrs.com/jobs/';
         }
     },
     created() {

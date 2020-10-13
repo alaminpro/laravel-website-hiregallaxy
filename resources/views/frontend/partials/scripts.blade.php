@@ -1,8 +1,5 @@
 <!-- Vue App JS -->  
-<script>
-    var ajax_url = '{{  route('ajax')  }}'; 
-    var socket_url = 'https://socket.hiregallaxy.com/'; 
-</script> 
+ 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 <script src="{{ asset('js/app.js') }}"></script> 
 <script src="{{ asset('js/jquery.mcustomscrollbar.min.js') }}"></script> 

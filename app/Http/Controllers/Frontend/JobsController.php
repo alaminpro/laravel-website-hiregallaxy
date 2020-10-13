@@ -6,6 +6,7 @@ use App\Helpers\StringHelper;
 use App\Helpers\UploadHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\City;
 use App\Models\Country;
 use App\Models\Currency;
 use App\Models\Discipline;
@@ -175,14 +176,14 @@ class JobsController extends Controller
 
         }
 
-        if ($request->country && $request->country != 'all') {
+        if ($request->city && $request->city != 'all') {
 
-            $country = $request->country;
+            $city = $request->city;
 
-            $country_id = Country::where('name', $country)->first();
+            $city_id = Country::where('name', $city)->first();
 
-            if ($country_id) {
-                $country_id = $country_id->id;
+            if ($city_id) {
+                $city_id = $city_id->id;
             }
         }
 
@@ -254,21 +255,38 @@ class JobsController extends Controller
 
         }
 
-        if ($request->country && $request->country != 'all') {
+        if ($request->cities && $request->cities != 'all') {
 
-            $country = $request->country;
+            $cities = $request->cities;
 
-            $country = Country::where('name', $country)->first();
+            $cities = Country::where('name', $cities)->first();
 
-            if (!is_null($country)) {
+            if (!is_null($cities)) {
 
-                $country_id = $country->id;
+                $cities_id = $cities->id;
 
-                $sql .= " and jobs.country_id = $country_id ";
+                $sql .= " and jobs.country_id = $cities_id ";
 
             }
 
         }
+
+        if ($request->country && $request->country != 'all') {
+
+            $country = $request->country;
+
+            $country = City::where('name', $country)->first();
+
+            if (!is_null($country)) {
+
+                $country = $country->id;
+
+                $sql .= " and jobs.city_id = $country ";
+
+            }
+
+        }
+
         if ($request->location && $request->location != '') {
 
             $location = $request->location;
@@ -546,7 +564,7 @@ class JobsController extends Controller
 
         $qualifications = Qualification::where('status', 1)->orderBy('name', 'asc')->get();
 
-        $skills = Skill::where('status', 1)->orderBy('name', 'asc')->get();
+        $skills = Skill::where('status', 1)->where('type', 0)->orderBy('name', 'asc')->get();
 
         $currencies = Currency::orderBy('priority', 'asc')->get();
 
@@ -560,7 +578,7 @@ class JobsController extends Controller
 
         $disciplines = Discipline::orderBy('name', 'asc')->select('name', 'id')->get();
 
-        $skills = Skill::orderBy('name', 'asc')->select('name', 'id')->get();
+        $skills = Skill::orderBy('name', 'asc')->where('type', 0)->select('name', 'id')->get();
 
         $last_id = Job::orderBy('id', 'DESC')->first();
 
@@ -665,6 +683,8 @@ class JobsController extends Controller
 
         $job->about_company = $request->about_company;
 
+        $job->city_id = $request->city;
+
         $job->save();
         $job->skills()->sync($request->skills);
 
@@ -724,7 +744,7 @@ class JobsController extends Controller
 
         $qualifications = Qualification::where('status', 1)->orderBy('name', 'asc')->get();
 
-        $skills = Skill::orderBy('name', 'asc')->select('name', 'id')->get();
+        $skills = Skill::orderBy('name', 'asc')->where('type', 0)->select('name', 'id')->get();
 
         $currencies = Currency::orderBy('priority', 'asc')->get();
 

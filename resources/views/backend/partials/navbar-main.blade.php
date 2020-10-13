@@ -75,6 +75,7 @@
         Route::is('admin.states.index') || 
 
         Route::is('admin.cities.index') || 
+        Route::is('admin.country.index') || 
 
         Route::is('admin.skill.index') || 
 
@@ -101,6 +102,7 @@
         <a class="dropdown-item" href="{{ route('admin.states.index') }}">States</a>
 
         <a class="dropdown-item" href="{{ route('admin.cities.index') }}">Cities</a>
+        <a class="dropdown-item" href="{{ route('admin.country.index') }}">Countries</a>
 
         <a class="dropdown-item" href="{{ route('admin.skill.index') }}">Skills</a>
 

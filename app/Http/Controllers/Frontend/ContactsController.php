@@ -115,7 +115,7 @@ class ContactsController extends Controller
 
         if ($request->is_admin == 1) {
 
-            $message = "Your Message has been sent successfully to the Hire Gallaxy Support Panel   <br />Please wait before support team's interaction";
+            $message = "Your Message has been sent successfully to the Joblrs Support Panel   <br />Please wait before support team's interaction";
 
         }
 

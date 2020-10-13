@@ -1,52 +1,84 @@
 <form action="{{ $route }}" method="get" id="employerSearchForm">
 	<input type="hidden" name="company">
 	<div class="sidebar-widget"> 
-			<div class="sidebar-list-item">
-		
-				<h3>
+		<div class="sidebar-list-item">
 	
-					Employer By City
+			<h3>
+
+				Employer  By Country
+
+			</h3>
+
+			<hr class="sidebar-border">
+
+			<div class="clearfix"></div>
+
+
+
+			<select name="country" onchange="submitSearch()" id="country" class="selectpicker" data-live-search="true">
+
+				<option data-icon="fa fa-map-marker" value="all">All Countries</option> 
+
+				@foreach (App\Models\City::orderBy('name', 'asc')->get() as $country)
+
+				<option value="{{ $country->name }}"
+
+					{{ isset($_GET['country']) && ($_GET['country'] == $country->name) ? 'selected' : '' }}>
+
+					&nbsp;&nbsp; {{ $country->name }} 
+				</option>
+
+				@endforeach 
+
+			</select>
+
+		</div>
+	</div> 
+	<div class="sidebar-widget"> 
+		<div class="sidebar-list-item">
 	
-				</h3>
-	
-				<hr class="sidebar-border">
-	
-				<div class="clearfix"></div>
-	
-	
-	
-				<select name="country" onchange="submitSearch()" id="country" class="selectpicker" data-live-search="true">
-	
-					<option data-icon="fa fa-map-marker" value="all">All Locations</option>
-	
-					@foreach (App\Models\State::orderBy('name', 'asc')->get() as $state)
-	
-					<option value="" disabled style="font-weight: bolder;font-size: 16px;">
-	
-						{{ $state->name }}
-	
-					</option>
-	
-					@foreach ($state->cities()->orderBy('name', 'asc')->get() as $countrySingle)
-	
-					<option value="{{ $countrySingle->name }}"
-	
-						{{ isset($_GET['country']) && ($_GET['country'] == $countrySingle->name) ? 'selected' : '' }}>
-	
-						&nbsp;&nbsp; {{ $countrySingle->name }}
-	
-						({{ count(App\Models\Job::where('status_id', 1)->where('country_id', $countrySingle->id)->get()) }})
-	
-					</option>
-	
-					@endforeach
-	
-					@endforeach
-	
-				</select>
-	
-			</div> 
-	</div>
+			<h3>
+
+				Employer  By City
+
+			</h3>
+
+			<hr class="sidebar-border">
+
+			<div class="clearfix"></div>
+
+
+
+			<select name="cities" onchange="submitSearch()" id="cities" class="selectpicker" data-live-search="true">
+
+				<option data-icon="fa fa-map-marker" value="all">All Locations</option>
+
+				@foreach (App\Models\State::orderBy('name', 'asc')->get() as $state)
+
+				<option value="" disabled style="font-weight: bolder;font-size: 16px;">
+
+					{{ $state->name }}
+
+				</option>
+
+				@foreach ($state->cities()->orderBy('name', 'asc')->get() as $countrySingle)
+
+				<option value="{{ $countrySingle->name }}"
+
+					{{ isset($_GET['cities']) && ($_GET['cities'] == $countrySingle->name) ? 'selected' : '' }}>
+
+					&nbsp;&nbsp; {{ $countrySingle->name }}
+ 
+				</option>
+
+				@endforeach
+
+				@endforeach
+
+			</select>
+
+		</div>
+	</div> 
 	<div class="sidebar-widget">
 		
 		<div class="sidebar-list-item">

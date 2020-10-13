@@ -7,6 +7,7 @@ use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
 use App\Models\CandidateProfile;
 use App\Models\Category;
+use App\Models\City;
 use App\Models\CompanyProfile;
 use App\Models\Country;
 use App\Models\Experience;
@@ -129,13 +130,25 @@ class EmployersController extends Controller
 
         }
 
+        if ($request->city && $request->city != 'all') {
+
+            $city_id = $request->city;
+
+            $city = Country::where('name', $city_id)->first();
+            if ($city) {
+                $sql .= " and locations.country_id = $city->id";
+            }
+
+        }
+
         if ($request->country && $request->country != 'all') {
 
-            $country = $request->country;
+            $country_id = $request->country;
 
-            $country_id = Country::where('name', $country)->first()->id;
-
-            $sql .= " and locations.country_id = $country_id ";
+            $country = City::where('name', $country_id)->first();
+            if ($country) {
+                $sql .= " and company_profiles.country_id = $country->id ";
+            }
 
         }
 

@@ -6,7 +6,7 @@
 
 @section('title')
 
-Job Details | Hire Gallaxy
+Job Details | Joblrs
 
 @endsection
 

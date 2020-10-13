@@ -108,7 +108,7 @@
 
 										<span class="mr-2">
 
-											<a href="www.hiregallaxy.com" target="_blank" class="text-link"><i
+											<a href="www.joblrs.com" target="_blank" class="text-link"><i
 
 													class="fa fa-globe"></i> {{ $job->user->website }}</a>
 

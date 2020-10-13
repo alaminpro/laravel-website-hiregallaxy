@@ -1919,12 +1919,27 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 											data-parsley-validate>
 
 											@csrf
+											<input type="hidden" value="" class="edit__skill" name='edit_skill_id'>
+											<div class="form-group">
+												<label for="edit_skill">Edit existing Skills</label> 
+												<select name="edit_skill" id="edit_skill" class="form-control">  
+													<option value="">Choose a skill to Edit</option>
+													@foreach ($skills as
 
+													$s)
+
+													<option data-edit-id="{{ $s['edit_id'] }}" value="{{ $s['id'] }}" data-percent="{{ $s['percentage'] }}">{{ $s['name'] }}</option>
+
+													@endforeach
+
+												</select>
+											</div>
+											<div class="border w-100 mb-3"></div>
 											<div class="row form-group">
 
 												<div class="col-md-12">
 
-													<label for="skill_id">Select Skill <span
+													<label for="skill_id">Add Skill <span
 
 															class="required">*</span></label>
 
@@ -1932,7 +1947,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 														<option value="">Choose a skill to add</option>
 
-														@foreach (App\Models\Skill::orderBy('name', 'asc')->get() as
+														@foreach (App\Models\Skill::orderBy('name', 'asc')->where('type', 1)->get() as
 
 														$skill)
 
@@ -1950,7 +1965,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 															class="required">*</span></label>
 
-													<input type="number" class="form-control" name="percentage"
+													<input type="number" class="form-control percentage_value" name="percentage"
 
 														id="percentage" max="100" min="0" data-parsley-trigger="input" placeholder="Enter % you coverd">
 
@@ -1984,252 +1999,10 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 
 
-						<div class="mt-4">
+						<div class="mt-5">
 
 							<div class="row">
-
-								@foreach ($user->skills as $sk)
-
-								<div class="col-md-6">
-
-									<div class="skill-div">
-
-
-
-										<h6 class="text-theme font16 font-weight-bold float-left">
-
-											{{ $sk->skill->name }}
-
-										</h6>
-
-										<div class="ml-0 float-left progress">
-
-											<div class="progress-bar progress-bar-striped" role="progressbar"
-
-												style="width: {{ $sk->percentage }}%"
-
-												aria-valuenow="{{ $sk->percentage }}" aria-valuemin="0"
-
-												aria-valuemax="100"></div>
-
-										</div>
-
-
-
-										@if (Auth::check() && Auth::id() == $user->id)
-
-										@if (Auth::id() == $sk->user_id)
-
-										<div class="float-right mtminus65px">
-
-											<div class="dropdown">
-
-												<i class="btn btn-edit fa fa-ellipsis-h" id="expMenu"
-
-													data-toggle="dropdown" aria-haspopup="true"
-
-													aria-expanded="false"></i>
-
-												<div class="dropdown-menu" aria-labelledby="expMenu">
-
-													<a class="dropdown-item" href="#editSkillMoal{{ $sk->id }}"
-
-														data-toggle="modal">
-
-														<i class="fa fa-edit"></i> Edit
-
-													</a>
-
-													<a class="dropdown-item" href="#deleteSkillModal{{ $sk->id }}"
-
-														data-toggle="modal">
-
-														<i class="fa fa-trash"></i> Delete
-
-													</a>
-
-												</div>
-
-											</div>
-
-										</div>
-
-										@endif
-
-										@endif
-
-										<div class="clearfix"></div>
-
-									</div>
-
-								</div>
-
-
-
-								<!-- Edit Skill -->
-
-								<div class="modal fade" id="editSkillMoal{{ $sk->id }}" tabindex="-1" role="dialog"
-
-									aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-									<div class="modal-dialog" role="document">
-
-										<div class="modal-content">
-
-											<div class="modal-header">
-
-												<h5 class="modal-title" id="exampleModalLabel">Edit Skill</h5>
-
-												<button type="button" class="close" data-dismiss="modal"
-
-													aria-label="Close">
-
-													<span aria-hidden="true">&times;</span>
-
-												</button>
-
-											</div>
-
-											<div class="modal-body">
-
-												<form action="{{ route('candidates.skill.update', $sk->id) }}"
-
-													method="post" data-parsley-validate>
-
-													@csrf
-
-													<div class="row form-group">
-
-														<div class="col-md-12">
-
-															<label for="skill_id">Select Skill <span
-
-																	class="required">*</span></label>
-
-															<select name="skill_id" id="skill_id" class="form-control">
-
-																<option value="">Choose a skill to add</option>
-
-																@foreach (App\Models\Skill::orderBy('name',
-
-																'asc')->get() as $skill)
-
-																<option value="{{ $skill->id }}"
-
-																	{{ $sk->skill_id == $skill->id ? 'selected' : '' }}>
-
-																	{{ $skill->name }}</option>
-
-																@endforeach
-
-															</select>
-
-														</div>
-
-														<div class="col-md-12">
-
-															<label for="percentage">Skill Covered <span
-
-																	class="required">*</span></label>
-
-															<input type="number" class="form-control" name="percentage"
-
-																id="percentage" placeholder="Enter % you coverd"
-																max="100" data-parsley-trigger="input"
-																value="{{ $sk->percentage }}">
-
-														</div>
-
-													</div>
-
-
-
-
-
-													<p class="text-left">
-
-														<button type="submit" class="btn btn-outline-success"><i
-
-																class="fa fa-check"></i> Update</button>
-
-													</p>
-
-												</form>
-
-											</div>
-
-										</div>
-
-									</div>
-
-								</div>
-
-
-
-								<!-- Delete Skill Modal -->
-
-								<div class="modal fade" id="deleteSkillModal{{ $sk->id }}" tabindex="-1" role="dialog"
-
-									aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-									<div class="modal-dialog" role="document">
-
-										<div class="modal-content">
-
-											<div class="modal-header">
-
-												<h5 class="modal-title" id="exampleModalLabel">Delete Skill</h5>
-
-												<button type="button" class="close" data-dismiss="modal"
-
-													aria-label="Close">
-
-													<span aria-hidden="true">&times;</span>
-
-												</button>
-
-											</div>
-
-											<div class="modal-body">
-
-												<form action="{{ route('candidates.skill.delete', $sk->id) }}"
-
-													method="post" data-parsley-validate>
-
-													@csrf
-
-													<p>
-
-														Are you sure to delete the skill -
-
-														"<mark>{{ $sk->skill->name }}</mark>"
-
-													</p>
-
-
-
-													<p class="text-center">
-
-														<button type="submit" class="btn btn-outline-success"><i
-
-																class="fa fa-check"></i> Confirm Delete</button>
-
-													</p>
-
-												</form>
-
-											</div>
-
-										</div>
-
-									</div>
-
-								</div>
-
-
-
-								@endforeach
-
+								<canvas id="myChart" ></canvas> 
 							</div>
 
 						</div>
@@ -3377,6 +3150,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 @section('scripts')
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <script>
 	window.Parsley
   .addValidator('validUrl', { 
@@ -3417,6 +3191,63 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
       changeYear: true
 	});
   } );
+
+
+  var label = {!! json_encode($label) !!};
+  var data ={!! json_encode($data) !!};
+
+  var ctx = document.getElementById('myChart');
+var myChart = new Chart(ctx, {
+    type: 'radar',
+	data: {
+		labels: label,
+		datasets: [{
+			label: 'skill',
+			data: data,
+			borderColor: '#6b68e7'
+		}]
+	},
+	options: {
+		legend: {
+				display: false
+			},
+			scale: {
+			angleLines: {
+				display: false
+			},
+			ticks: {
+				suggestedMin: 50,
+				suggestedMax: 100
+			}
+		},
+		tooltips: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+					return data.datasets[tooltipItem.datasetIndex].label + ": " + tooltipItem.yLabel + '%';
+				}
+            }
+        }
+	}
+});
+
+
+$('#edit_skill').on('change', function() {
+   var text = $(this).find(":selected").text()
+   var value = $(this).find(":selected").val()
+	if(value){
+		$(`#skill_id option[value=${value}]`).attr('selected','selected');
+		$('.percentage_value').val($(this).find(':selected').attr('data-percent')) 
+		$('.edit__skill').val($(this).find(':selected').attr('data-edit-id'))  
+	}else{
+		$(`#skill_id option`).removeAttr('selected');
+		$('.percentage_value').val('');
+		$('.edit__skill').val('');
+	}
+ 
+});
+
+
+
 </script>
 
 

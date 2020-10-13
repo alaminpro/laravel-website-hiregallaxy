@@ -324,11 +324,11 @@ class SubscriberController extends Controller
 
         $headers[] = "To: User <$to>";
 
-        $headers[] = 'From: Latest Job Posts <support@hiregallaxy.com>';
+        $headers[] = 'From: Latest Job Posts <support@joblrs.com>';
 
-        $headers[] = 'Cc: support@hiregallaxy.com';
+        $headers[] = 'Cc: support@joblrs.com';
 
-        $headers[] = 'Bcc: support@hiregallaxy.com';
+        $headers[] = 'Bcc: support@joblrs.com';
 
         // Mail it
 

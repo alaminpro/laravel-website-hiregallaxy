@@ -10,7 +10,10 @@
 		<h4 class="pointer" onclick="location.href='{{ route('jobs.show', $single_job->slug) }}'">{{ $single_job->title }}</h4> 
 		<p><i class="fa fa-shopping-bag category-icon"></i> {{ $single_job->category->name }}</p> 
 		<p><i class="fa fa-map-marker location-icon"></i> 
-			{{ $single_job->location != null ?  $single_job->location .',' : '' }} </i> {{ $single_job->country->name }} 
+			@php
+				$country = \App\Models\City::where('id', $single_job->city_id)->first();
+			@endphp
+			{{ $single_job->location != null ?  $single_job->location .',' : '' }} {{ $single_job->country->name }}{{ $country ? ', '. $country->name : '' }} 
 		</p> 
 		<p><i class="fa fa-clock-o time-icon"></i> {{ $single_job->type->name }} </p> 
 	 

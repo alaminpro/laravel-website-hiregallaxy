@@ -20,7 +20,7 @@
 
 
 
-  <title>@yield('title', 'Admin Panel | Hire Gallaxy')</title>
+  <title>@yield('title', 'Admin Panel | Joblrs')</title>
 
 
 

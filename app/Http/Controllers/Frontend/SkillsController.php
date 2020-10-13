@@ -31,7 +31,6 @@ class SkillsController extends Controller
 
     public function store(Request $request)
     {
-
         $this->validate($request, [
 
             'skill_id' => 'required',
@@ -39,8 +38,11 @@ class SkillsController extends Controller
             'percentage' => 'required',
 
         ]);
-
-        $userSkill = new UserSkill();
+        if ($request->edit_skill_id != '') {
+            $userSkill = UserSkill::find($request->edit_skill_id);
+        } else {
+            $userSkill = new UserSkill();
+        }
 
         $userSkill->user_id = Auth::id();
 
@@ -50,8 +52,13 @@ class SkillsController extends Controller
 
         $userSkill->save();
 
-        session()->flash('success', 'New Skill has been created for you .');
+        if ($request->edit_skill_id != '') {
 
+            session()->flash('success', 'New Skill has been Updated for you .');
+        } else {
+
+            session()->flash('success', 'New Skill has been created for you .');
+        }
         return back();
 
     }

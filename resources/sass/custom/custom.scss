@@ -856,11 +856,19 @@ input:focus {
 	list-style-type: decimal;
 	font-size: 24px;
 	line-height: 2;
+	margin-left: -12px;
 } 
 .home_text_personality{ 
 	font-size: 18px;
 	line-height: 1.5;
 }
 .page-area.home-page {
-    height: 80vh;
+    min-height: 80vh;
+}
+
+@media screen and (max-width: 600px){
+	.trending_job_cetegory .trending__tag{
+		padding: 0;
+		justify-content: center;
+	}
 }

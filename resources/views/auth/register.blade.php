@@ -4,7 +4,7 @@
 
 @section('title')
 
-Sign Up | Hire Gallaxy 
+Sign Up | Joblrs
 
 @endsection
 
@@ -174,16 +174,33 @@ Sign Up | Hire Gallaxy
 
                             </div>
 
+                            <div class="form-group">
+                                
+                                <label for="street_address">Street Address <span class="required">*</span></label>
 
+                                <input type="text" class="form-control" name="street_address" id="street_address" placeholder="Write Your Address" required  value="{{ old('street_address') }}">
+
+                            </div>
 
                             <div class="row form-group">
 
                                 <div class="col-md-6">
+                                    <label for="city">Your Country <span class="required">*</span></label>
 
-                                    <label for="street_address">Street Address <span class="required">*</span></label>
+                                    <select name="city" id="city" class="form-control" required value="{{ old('city') }}">
 
-                                    <input type="text" class="form-control" name="street_address" id="street_address" placeholder="Write Your Address" required  value="{{ old('street_address') }}">
+                                        <option value="">Select a Country</option>
 
+                                        @foreach (App\Models\City::orderBy('name', 'asc')->get() as $country)
+
+                    					<option value="{{ $country->id }}" >
+
+                    						{{ $country->name }}
+
+                    					</option> 
+                    					@endforeach
+
+                                    </select> 
                                 </div>
 
                                 <div class="col-md-6">
@@ -451,7 +468,7 @@ Sign Up | Hire Gallaxy
 
                             <div class="row form-group">
                                 
-                            <div class="col-md-12">
+                            <div class="col-md-6">
 
                                 <label for="sector" class="d-block">Sectors <span class="required">*</span></label>
 
@@ -469,17 +486,34 @@ Sign Up | Hire Gallaxy
                                 </select>
 
                             </div>
+                            <div class="col-md-6">
+
+                                <label for="street_address">Street Address <span class="required">*</span></label>
+
+                                <input type="text" class="form-control" name="street_address" id="street_address" placeholder="Write Your Address" required value="{{ old('street_address') }}" value="{{ old('street_address') }}">
+
                             </div>
-                            <div class="row form-group">
-
+                            </div>
+                            <div class="row form-group"> 
+                                
                                 <div class="col-md-6">
+                                    <label for="city">Your Country <span class="required">*</span></label>
 
-                                    <label for="street_address">Street Address <span class="required">*</span></label>
+                                    <select name="city" id="city" class="form-control" required value="{{ old('city') }}">
 
-                                    <input type="text" class="form-control" name="street_address" id="street_address" placeholder="Write Your Address" required value="{{ old('street_address') }}" value="{{ old('street_address') }}">
+                                        <option value="">Select a Country</option>
 
+                                        @foreach (App\Models\City::orderBy('name', 'asc')->get() as $country)
+
+                    					<option value="{{ $country->id }}" >
+
+                    						{{ $country->name }}
+
+                    					</option> 
+                    					@endforeach
+
+                                    </select> 
                                 </div>
-
                                 <div class="col-md-6">
 
                                     <label for="country">Your City <span class="required">*</span></label>
@@ -538,20 +572,9 @@ Sign Up | Hire Gallaxy
 
                             </div>
 
-                            	<div class="form-group">
-
-	
-
-
-
-
-
-                         
-
-                                <div class="col-8">
-
-                                    <a href="#signInModal" data-toggle="modal" class="text-yellow">Log in</a>
-
+                            	<div class="form-group"> 
+                                <div class="col-8 offset-2">
+ 
                                     <input type="submit" value="Sign Up" class="btn btn-block apply-now-button pt-2 pb-2 font20 ">
 
                                     <div class="mt-3 mb-3">

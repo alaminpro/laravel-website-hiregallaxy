@@ -75,7 +75,7 @@
 				</div>
 			</div>
 			<div class="col-lg-6 d-lg-flex d-none align-items-center">
-				<img src="{{ asset('images/team.png') }}" class="img-fluid" alt="">
+				<img src="{{ asset('images/team.png') }}" class="img-fluid" alt="team img">
 			</div>
 		</div>
 	</div>

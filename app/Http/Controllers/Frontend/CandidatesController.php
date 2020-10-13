@@ -7,11 +7,14 @@ use App\Helpers\UploadHelper;
 use App\Http\Controllers\Controller;
 use App\Models\AptitudeResult;
 use App\Models\Category;
+use App\Models\City;
 use App\Models\Country;
 use App\Models\Experience;
 use App\Models\Job;
 use App\Models\Personality;
 use App\Models\PersonalityResult;
+use App\Models\Skill;
+use App\Models\UserSkill;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -60,8 +63,29 @@ class CandidatesController extends Controller
             return redirect()->route('candidates');
 
         }
+        $label = [];
+        $data = [];
+        foreach ($user->skills as $skill) {
 
-        return view('frontend.pages.candidates.show', compact('user'));
+            $label[] = $skill->skill->name;
+            $data[] = $skill['percentage'];
+        }
+
+        $skills = $user->skills;
+        $existing_skills = [];
+        foreach ($skills as $key1 => $skill) {
+            $existing_skills[] = Skill::where('id', $skill->skill_id)->first();
+        }
+        $skills = [];
+        foreach ($existing_skills as $s) {
+            $skills[] = [
+                'edit_id' => UserSkill::where('user_id', $user->id)->where('skill_id', $s->id)->first()->id,
+                'id' => $s['id'],
+                'name' => $s['name'],
+                'percentage' => UserSkill::where('user_id', $user->id)->where('skill_id', $s->id)->first()->percentage,
+            ];
+        }
+        return view('frontend.pages.candidates.show', compact('user', 'label', 'data', 'skills'));
 
     }
 
@@ -125,13 +149,25 @@ class CandidatesController extends Controller
 
         }
 
+        if ($request->city && $request->city != 'all') {
+
+            $city_id = $request->city;
+
+            $city = Country::where('name', $city_id)->first();
+            if ($city) {
+                $sql .= " and locations.country_id = $city->id";
+            }
+
+        }
+
         if ($request->country && $request->country != 'all') {
 
-            $country = $request->country;
+            $country_id = $request->country;
 
-            $country_id = Country::where('name', $country)->first()->id;
-
-            $sql .= " and locations.country_id = $country_id ";
+            $country = City::where('name', $country_id)->first();
+            if ($country) {
+                $sql .= " and candidate_profiles.country_id = $country->id ";
+            }
 
         }
 
