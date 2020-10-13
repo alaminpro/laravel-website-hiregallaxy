@@ -392,3 +392,52 @@ if(searchParams.has('job_description')){
 }
 
 
+$(function(){
+    var token = $('meta[name=csrf_token]').attr('content'); 
+    $('.country__select').on('change',function(){
+        var el = $(this); 
+        $.ajax({
+            url: ajax_url,  
+            data: {action: 'show_city_country_select', id: el.val(), _token: token},
+            dataType: 'JSON',
+            type: 'POST',  
+            success: function (res) {
+                if(res.status == 'success'){   
+                    $('.city__showing').empty();
+                    $('.city__showing').append(res.html);
+
+                } 
+            }
+        });  
+    })
+
+    function getQueryParams(){
+        var queries = {};
+        $.each(document.location.search.substr(1).split('&'),function(c,q){
+            var i = q.split('=');
+           let new_arr = i.filter(function(item) {
+                return item !== ""
+            }) 
+           if(new_arr.length > 0){
+            queries[i[0].toString()] = i[1].toString();
+           }
+        });
+        return queries.country 
+    } 
+     if (typeof getQueryParams() !== "undefined") {
+        $.ajax({
+            url: ajax_url,  
+            data: {action: 'show_city_country_select_2', name: getQueryParams(), _token: token},
+            dataType: 'JSON',
+            type: 'POST',  
+            success: function (res) {
+                if(res.status == 'success'){   
+                    $('.load__select_country').empty();
+                    $('.load__select_country').append(res.html);
+
+                } 
+            }
+        });  
+    }
+  
+})

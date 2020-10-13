@@ -6,9 +6,11 @@ use App\Conversation;
 use App\Http\Controllers\Controller;
 use App\Message;
 use App\Models\CandidateProfile;
+use App\Models\City;
 use App\Models\Experience;
 use App\Models\Job;
 use App\Models\JobActivity;
+use App\Models\State;
 use App\Models\UserQualification;
 use App\User;
 use Auth;
@@ -379,5 +381,39 @@ class AjaxController extends Controller
             return response()->json(['status' => 'success', 'route' => route('messages')]);
         }
         return response()->json(['status' => 'error']);
+    }
+
+    public function show_city_country_select()
+    {
+        if ($this->request->id && $this->request->id != '') {
+            $id = $this->request->id;
+            $states = State::with(['cities' => function ($q) use ($id) {
+                $q->where('city_id', $id);
+            }])->orderBy('name', 'asc')->get();
+
+            $html = view('frontend.pages.ajax-load.city', compact('states'))->render();
+            return response()->json(['status' => 'success', 'html' => $html]);
+        } else {
+            return response()->json(['status' => 'error']);
+        }
+
+    }
+    public function show_city_country_select_2()
+    {
+        if ($this->request->name && $this->request->name != '') {
+            $country = City::where('name', $this->request->name)->first();
+            if ($country) {
+                $states = State::with(['cities' => function ($q) use ($country) {
+                    $q->where('city_id', $country->id);
+                }])->orderBy('name', 'asc')->get();
+
+                $html = view('frontend.pages.ajax-load.city_2', compact('states'))->render();
+                return response()->json(['status' => 'success', 'html' => $html]);
+            }
+
+        } else {
+            return response()->json(['status' => 'error']);
+        }
+
     }
 }

@@ -497,7 +497,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 								<div class="col-sm-4"> 
                                     <label for="city">Your Country <span class="required">*</span></label>
 
-                                    <select name="city" id="city" class="form-control" required value="{{ old('city') }}">
+                                    <select name="city" id="city" class="form-control country__select" required value="{{ old('city') }}">
 
                                         <option value="">Select a Country</option>
 
@@ -527,7 +527,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 											<label for="location">City <span class="required">*</span></label>
 
-											<select name="country" id="country" class="form-control" required>
+											<select name="country" id="country" class="form-control city__showing" required>
 
 												<option value="">Select a city</option>
 

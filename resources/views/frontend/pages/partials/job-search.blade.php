@@ -50,7 +50,7 @@
 
 			<div class="clearfix"></div>
 
-
+			<div class="load__select_country">
 
 			<select name="cities" onchange="submitSearch()" id="cities" class="selectpicker" data-live-search="true">
 
@@ -82,6 +82,7 @@
 
 			</select>
 
+		</div>
 		</div>
 	</div> 
 	<div class="sidebar-widget">

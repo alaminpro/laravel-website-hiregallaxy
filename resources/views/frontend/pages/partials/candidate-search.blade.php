@@ -15,7 +15,7 @@
 
 
 
-			<select name="country" onchange="submitSearch()" id="country" class="selectpicker" data-live-search="true">
+			<select name="country" onchange="submitSearch()" id="country" class="selectpicker country__select" data-live-search="true">
 
 				<option data-icon="fa fa-map-marker" value="all">All Countries</option> 
 
@@ -35,7 +35,7 @@
 
 		</div>
 	</div> 
-	<div class="sidebar-widget"> 
+	<div class="sidebar-widget "> 
 		<div class="sidebar-list-item">
 	
 			<h3>
@@ -48,9 +48,9 @@
 
 			<div class="clearfix"></div>
 
+			<div class="load__select_country">
 
-
-			<select name="cities" onchange="submitSearch()" id="cities" class="selectpicker" data-live-search="true">
+			<select name="cities" onchange="submitSearch()" id="cities" class="selectpicker city__showing" data-live-search="true">
 
 				<option data-icon="fa fa-map-marker" value="all">All Locations</option>
 
@@ -79,6 +79,7 @@
 
 			</select>
 
+		</div>
 		</div>
 	</div> 
 	<div class="sidebar-widget">

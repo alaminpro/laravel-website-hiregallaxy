@@ -187,7 +187,7 @@ Sign Up | Joblrs
                                 <div class="col-md-6">
                                     <label for="city">Your Country <span class="required">*</span></label>
 
-                                    <select name="city" id="city" class="form-control" required value="{{ old('city') }}">
+                                    <select name="city " id="city" class="form-control country__select" required value="{{ old('city') }}">
 
                                         <option value="">Select a Country</option>
 
@@ -207,7 +207,7 @@ Sign Up | Joblrs
 
                                     <label for="country">Your City <span class="required">*</span></label>
 
-                                    <select name="country" id="country" class="form-control" required value="{{ old('country') }}">
+                                    <select name="country" id="country" class="form-control city__showing" required value="{{ old('country') }}">
 
                                         <option value="">Select a city</option>
 
@@ -221,7 +221,7 @@ Sign Up | Joblrs
 
                     					@foreach ($state->cities()->orderBy('name', 'asc')->get() as $country)
 
-                    					<option value="{{ $country->id }}" {{ old('country') == $country->id ? 'selected':'' }}>
+                    					<option   value="{{ $country->id }}" {{ old('country') == $country->id ? 'selected':'' }}>
 
                     						&nbsp; &nbsp;
 
@@ -499,7 +499,7 @@ Sign Up | Joblrs
                                 <div class="col-md-6">
                                     <label for="city">Your Country <span class="required">*</span></label>
 
-                                    <select name="city" id="city" class="form-control" required value="{{ old('city') }}">
+                                    <select name="city" id="city" class="form-control country__select" required value="{{ old('city') }}">
 
                                         <option value="">Select a Country</option>
 
@@ -518,7 +518,7 @@ Sign Up | Joblrs
 
                                     <label for="country">Your City <span class="required">*</span></label>
 
-                                    <select name="country" id="country" class="form-control" required>
+                                    <select name="country" id="country" class="form-control city__showing" required>
 
                                         <option value="">Select a city</option>
 
@@ -532,7 +532,7 @@ Sign Up | Joblrs
 
                     					@foreach ($state->cities()->orderBy('name', 'asc')->get() as $country)
 
-                    					<option value="{{ $country->id }}" {{ old('country') == $country->id ? 'selected':'' }}>
+                    					<option  value="{{ $country->id }}" {{ old('country') == $country->id ? 'selected':'' }}>
 
                     						&nbsp; &nbsp;
 
@@ -710,7 +710,7 @@ Sign Up | Joblrs
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <script>
       $('.select2').select2();
-      
+       
 </script>
 
 @endsection
