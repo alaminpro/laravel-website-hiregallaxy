@@ -141,7 +141,7 @@
 
                     <div class="d-flex justify-content-center"> 
 
-                        <a href="{{ route('public.personality', $application->user_id)}}" class="mt-1 text-center btn-sm btn btn-outline-yellow"> <i class="fa fa-eye"></i> view</a> 
+                        <a target="_blank" href="{{ route('public.personality', $application->user_id)}}" class="mt-1 text-center btn-sm btn btn-outline-yellow"> <i class="fa fa-eye"></i> view</a> 
 
                     </div>
 

@@ -616,7 +616,6 @@ class JobsController extends Controller
 
     public function store(Request $request)
     {
-
         if (!Auth::check() || !User::userCanPost(Auth::id())) {
 
             session()->flash('error', 'Sorry   You are not permitted to post a job  ');
@@ -686,7 +685,9 @@ class JobsController extends Controller
         $job->city_id = $request->city;
 
         $job->save();
-        $job->skills()->sync($request->skills);
+        if ($request->has('job_skill_check') && $request->job_skill_check != '') {
+            $job->skills()->sync($request->skills);
+        }
 
         session()->flash('success', 'Job has been posted successfully  ');
         return redirect()->route('jobs');
@@ -778,6 +779,7 @@ class JobsController extends Controller
 
     public function update(Request $request, $slug)
     {
+
         if (!Auth::check() || !User::userCanPost(Auth::id())) {
 
             session()->flash('error', 'Sorry   You are not permitted to post a job  ');
@@ -844,7 +846,11 @@ class JobsController extends Controller
         $job->about_company = $request->about_company;
 
         $job->save();
-        $job->skills()->sync($request->skills);
+        if ($request->has('job_skill_check') && $request->job_skill_check != '') {
+            $job->skills()->sync($request->skills);
+        } else {
+            $job->skills()->delete();
+        }
 
         session()->flash('success', 'Job has been posted successfully  ');
         return redirect()->route('jobs');

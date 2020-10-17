@@ -27,7 +27,7 @@
             </li>
         </ul>
     </div>
-    <chart :data.sync='filters.datas' :assign='assign' :team="team_id"></chart>
+    <chart :data='filters.datas' :assign='assign' :team="team_id"></chart>
 </div>
 </template>
 
@@ -48,7 +48,7 @@ export default {
             month: '',
             year: '',
             filters: {
-                datas: [50]
+                datas: []
             },
             allActive: true,
             weeklyActive: false,

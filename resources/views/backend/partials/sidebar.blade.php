@@ -1,5 +1,7 @@
 <!-- Sidebar -->
-
+@php
+$editor_access = [];
+@endphp
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion custom__sidebar_show" id="accordionSidebar">
 
 
@@ -203,6 +205,7 @@ class="nav-item dropdown no-arrow {{ (Route::is('admin.question.index') || Route
   </li> 
   @else
 
+  @if(isset($editor_access))
       @if(count($editor_access) > 0)
 
       <li
@@ -253,6 +256,7 @@ class="nav-item dropdown no-arrow {{ (Route::is('admin.question.index') || Route
       
         </li> 
       @endif
+  @endif 
   @endif 
 
   @if(auth()->user()->hasRole('super-admin') or auth()->user()->hasRole('admin'))

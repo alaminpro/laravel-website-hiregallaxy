@@ -598,9 +598,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::get('delete_question/{question_id}', 'Backend\QuestionController@delete_question')->middleware('role:super-admin,admin,editor');
 
-    Route::post('/questions/upload', "Backend\QuestionController@upload")->middleware('role:super-admin,admin,editor');
+    Route::post('/questions/uploads', "Backend\QuestionController@upload")->middleware('role:super-admin,admin,editor');
 
-    Route::get('/questions/file_browser', "Backend\QuestionController@fileBrowser")->middleware('role:super-admin,admin,editor');
+    Route::get('question/file_browser', "Backend\QuestionController@fileBrowser")->middleware('role:super-admin,admin,editor');
 
     Route::get('question/view/{id}', 'Backend\QuestionController@show')->name('question.show')->middleware('role:super-admin,admin,editor');
 
@@ -610,7 +610,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::get('delete_aptitude/{question_id}', 'Backend\AptitudeController@delete_aptitude')->middleware('role:super-admin,admin,editor');
 
-    Route::post('/aptitude/upload', "Backend\AptitudeController@upload")->middleware('role:super-admin,admin,editor');
+    Route::post('/aptitudes/uploads', "Backend\AptitudeController@upload")->middleware('role:super-admin,admin,editor');
 
     Route::get('/aptitude/file_browser', "Backend\AptitudeController@fileBrowser")->middleware('role:super-admin,admin,editor');
 

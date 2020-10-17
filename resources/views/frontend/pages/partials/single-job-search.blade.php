@@ -13,7 +13,7 @@
 			@php
 				$country = \App\Models\City::where('id', $single_job->city_id)->first();
 			@endphp
-			{{ $single_job->location != null ?  $single_job->location .',' : '' }} {{ $single_job->country->name }}{{ $country ? ', '. $country->name : '' }} 
+			{{ $single_job->location != null ?  $single_job->location .',' : '' }} {{ $single_job->country ?  $single_job->country->name : '' }} {{ $country ? ', '. $country->name : '' }} 
 		</p> 
 		<p><i class="fa fa-clock-o time-icon"></i> {{ $single_job->type->name }} </p> 
 	 
@@ -87,7 +87,7 @@
 
 				@endphp
 
-				@if($result)
+				@if($result || !count($single_job->skills) > 0)
 
 					<a href="#apply-job-modal" data-toggle="modal" class="btn btn-outline-yellow"
 
@@ -101,7 +101,7 @@
 
 						<a href="{{route('exam', $single_job->id)}}" class="btn btn-outline-yellow" >
 
-							Apply Now  
+							Apply Now 
 
 						</a>
 

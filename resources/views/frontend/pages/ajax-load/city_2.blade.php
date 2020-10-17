@@ -27,3 +27,10 @@
         @endforeach
 
     </select>
+
+    
+<script>
+ 
+    $('.selectpicker').selectpicker('refresh'); 
+    
+</script>

@@ -56,7 +56,7 @@
 
           <a href="{{ url('admin/question') }}"
 
-            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class=" btn btn-sm btn-primary shadow-sm"><i
 
               class="fas fa-arrow-left fa-sm text-white-50"></i> All Questions</a>
 
@@ -316,11 +316,11 @@
 
         CKEDITOR.replace('question', {
 
-		    filebrowserUploadUrl: "{{asset('admin/questions/upload?_token=' . csrf_token()) }}&type=file",
+		    filebrowserUploadUrl: "{{asset('admin/questions/uploads?_token=' . csrf_token()) }}&type=file",
 
-		    imageUploadUrl: "{{asset('admin/questions/upload?_token='. csrf_token() )  }}&type=image",
+		    imageUploadUrl: "{{asset('admin/questions/uploads?_token='. csrf_token() )  }}&type=image",
 
-            filebrowserBrowseUrl: "{{asset('admin/question/file_browser') }}",
+            filebrowserBrowseUrl: "{{url('admin/question/file_browser') }}",
 
             filebrowserUploadMethod: 'form'
 
@@ -330,9 +330,9 @@
 
 		CKEDITOR.replace('answer_1', {
 
-		    filebrowserUploadUrl: "{{asset('admin/questions/upload?_token=' . csrf_token()) }}&type=file",
+		    filebrowserUploadUrl: "{{asset('admin/questions/uploads?_token=' . csrf_token()) }}&type=file",
 
-		    imageUploadUrl: "{{asset('admin/questions/upload?_token='. csrf_token() )  }}&type=image",
+		    imageUploadUrl: "{{asset('admin/questions/uploads?_token='. csrf_token() )  }}&type=image",
 
             filebrowserBrowseUrl: "{{asset('admin/question/file_browser') }}",
 
@@ -344,9 +344,9 @@
 
 		CKEDITOR.replace('answer_2', {
 
-		    filebrowserUploadUrl: "{{asset('admin/questions/upload?_token=' . csrf_token()) }}&type=file",
+		    filebrowserUploadUrl: "{{asset('admin/questions/uploads?_token=' . csrf_token()) }}&type=file",
 
-		    imageUploadUrl: "{{asset('admin/questions/upload?_token='. csrf_token() )  }}&type=image",
+		    imageUploadUrl: "{{asset('admin/questions/uploads?_token='. csrf_token() )  }}&type=image",
 
             filebrowserBrowseUrl: "{{asset('admin/question/file_browser') }}",
 
@@ -358,9 +358,9 @@
 
 		CKEDITOR.replace('answer_3', {
 
-		    filebrowserUploadUrl: "{{asset('admin/questions/upload?_token=' . csrf_token()) }}&type=file",
+		    filebrowserUploadUrl: "{{asset('admin/questions/uploads?_token=' . csrf_token()) }}&type=file",
 
-		    imageUploadUrl: "{{asset('admin/questions/upload?_token='. csrf_token() )  }}&type=image",
+		    imageUploadUrl: "{{asset('admin/questions/uploads?_token='. csrf_token() )  }}&type=image",
 
             filebrowserBrowseUrl: "{{asset('admin/question/file_browser') }}",
 
@@ -372,9 +372,9 @@
 
 		CKEDITOR.replace('answer_4', {
 
-		    filebrowserUploadUrl: "{{asset('admin/questions/upload?_token=' . csrf_token()) }}&type=file",
+		    filebrowserUploadUrl: "{{asset('admin/questions/uploads?_token=' . csrf_token()) }}&type=file",
 
-		    imageUploadUrl: "{{asset('admin/questions/upload?_token='. csrf_token() )  }}&type=image",
+		    imageUploadUrl: "{{asset('admin/questions/uploads?_token='. csrf_token() )  }}&type=image",
 
             filebrowserBrowseUrl: "{{asset('admin/question/file_browser') }}",
 

@@ -321,7 +321,33 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 							</div>
 
+							<div class="form-row w-100 px-1">
+								<div class="col-md-10 form-group">
 
+									<label for="skill">	<strong>Skill</strong></span>
+
+									</label>
+
+									<select multiple name="skills[]" id="skill" class="form-control skill_job_post"  @if(!count($job->skills) > 0) disabled @endif   >
+
+										  @foreach ($skills as $skill)
+
+										  <option value="{{ $skill->id }}" @foreach($job->skills as  $job_skill) @if($skill->id == $job_skill->id)selected="selected"@endif @endforeach >{{ $skill->name }}</option>
+
+										@endforeach
+
+									</select>
+
+								</div>
+								<div class="col-md-2 d-flex align-items-center">
+									<div class="button-switch mt-4 ml-4">
+										<input type="checkbox" id="switch-blue" name="job_skill_check" class="switch job__skill_onoff" @if(count($job->skills) > 0) checked @endif  />
+										<label for="switch-blue" class="lbl-off">Off</label>
+										<label for="switch-blue" class="lbl-on">On</label>
+									  </div>
+								  
+								</div>
+							</div>
 
 							<div class="form-row">
 
@@ -343,23 +369,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 								</div>
 
-								<div class="col-md-12 form-group">
-
-									<label for="skill">	<strong>Skill</strong></span>
-
-									</label>
-
-									<select multiple name="skills[]" id="skill" class="form-control" required>
-
-										  @foreach ($skills as $skill) 
-
-												<option value="{{ $skill->id }}" @foreach($job->skills as  $job_skill) @if($skill->id == $job_skill->id)selected="selected"@endif @endforeach >{{ $skill->name }}</option>
-
-											 @endforeach
-
-									</select>  
-
-								</div>
+							 
 
 								<div class="col-md-12 form-group" style="margin-bottom: -9px;">
 
@@ -478,7 +488,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 										@php
 											$city =  App\Models\City::where('id',$country->city_id)->first();
 										@endphp
-                    					<option value="{{ $country->id }}"	{{ $country->id == $city->id ? 'selected' : '' }} >
+                    					<option value="{{ $country->id }}" 	{{ $city ? $country->id == $city->id ? 'selected' : '': '' }} >
 
                     						{{ $country->name }}
 

@@ -94,6 +94,7 @@
 			</h3>
 
 			<hr class="sidebar-border">
+			<div class="load__select_position">
 			<div class="my-4">
 					<select name="category" onchange="submitSearch()"  id="cate" class="selectpicker" data-live-search="true" >
  
@@ -106,6 +107,7 @@
 					@endforeach
 	
 				</select> 
+		</div>
 		</div>
 		  
 

@@ -14,9 +14,11 @@ export default {
             type: Boolean,
             required: false
         },
-
+        team: {
+            type: String,
+            required: false
+        }
     },
-    props: ['team'],
     data() {
         return {
             suggest: 200,

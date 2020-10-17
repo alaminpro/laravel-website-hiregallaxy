@@ -222,7 +222,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 							<div class="form-row">
 
-								<div class="col-md-12 form-group">
+								<div class="col-md-12 form-group px-2">
 
 									<div class="row">
 
@@ -248,7 +248,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 								</div>
 
-								<div class="col-md-12 form-group">
+								<div class="col-md-12 form-group px-2">
 
 									<div class="row">
 
@@ -282,7 +282,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 							<div class="form-row">
 
-								<div class="col-md-12 form-group">
+								<div class="col-md-12 form-group px-2">
 
 									<div class="row">
 
@@ -308,7 +308,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 								</div>
 
-								<div class="col-md-12 form-group">
+								<div class="col-md-12 form-group px-2">
 
 									<div class="row">
 
@@ -340,11 +340,37 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 							</div>
 
+							<div class="form-row w-100 px-1">
+								<div class="col-md-10 form-group">
 
+									<label for="skill">	<strong>Skill</strong></span>
+
+									</label>
+
+									<select multiple name="skills[]" id="skill" class="form-control skill_job_post" disabled>
+
+										  @foreach ($skills as $skill)
+
+										<option value="{{ $skill->id }}">{{ $skill->name }}</option>
+
+										@endforeach
+
+									</select>
+
+								</div>
+								<div class="col-md-2 d-flex align-items-center">
+									<div class="button-switch mt-4 ml-4">
+										<input type="checkbox" id="switch-blue" name="job_skill_check" class="switch job__skill_onoff" />
+										<label for="switch-blue" class="lbl-off">Off</label>
+										<label for="switch-blue" class="lbl-on">On</label>
+									  </div>
+								  
+								</div>
+							</div>
 
 							<div class="form-row">
 
-								<div class="col-md-12 form-group">
+								<div class="col-md-12 form-group px-2">
 
 									<div class="row">
 
@@ -368,27 +394,8 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 									</div>
 
-								</div>
-
-								<div class="col-md-12 form-group">
-
-									<label for="skill">	<strong>Skill</strong></span>
-
-									</label>
-
-									<select multiple name="skills[]" id="skill" class="form-control" required>
-
-									  	@foreach ($skills as $skill)
-
-										<option value="{{ $skill->id }}">{{ $skill->name }}</option>
-
-										@endforeach
-
-									</select>
-
-								</div>
-
-								<div class="col-md-12 form-group" style="margin-bottom: -9px;">
+								</div>  
+								<div class="col-md-12 form-group px-2" style="margin-bottom: -9px;">
 
 									<div class="row">
 

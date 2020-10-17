@@ -227,7 +227,7 @@
 
 												@if (Auth::id() != $job->user_id)
 
-												@if($result)
+												@if($result || !count($job->skills) > 0)
 
 														<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button m-0  mb-2 mr-3"
 

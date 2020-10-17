@@ -6,7 +6,9 @@ use App\Conversation;
 use App\Http\Controllers\Controller;
 use App\Message;
 use App\Models\CandidateProfile;
+use App\Models\Category;
 use App\Models\City;
+use App\Models\Country;
 use App\Models\Experience;
 use App\Models\Job;
 use App\Models\JobActivity;
@@ -408,6 +410,22 @@ class AjaxController extends Controller
                 }])->orderBy('name', 'asc')->get();
 
                 $html = view('frontend.pages.ajax-load.city_2', compact('states'))->render();
+                return response()->json(['status' => 'success', 'html' => $html]);
+            }
+
+        } else {
+            return response()->json(['status' => 'error']);
+        }
+
+    }
+    public function show_city_position_select()
+    {
+        if ($this->request->name && $this->request->name != '') {
+            $country = Country::where('name', $this->request->name)->first();
+            if ($country) {
+                $cat_id = Job::where('country_id', $country->id)->select('category_id')->get();
+                $categories = Category::whereIn('id', $cat_id)->get();
+                $html = view('frontend.pages.ajax-load.position-load', compact('categories'))->render();
                 return response()->json(['status' => 'success', 'html' => $html]);
             }
 

@@ -30,19 +30,19 @@ class AppServiceProvider extends ServiceProvider
 
         // }
 
-        // if ($this->app->environment() === 'production') {
+        if ($this->app->environment() === 'production') {
 
-        //     \URL::forceScheme('https');
+            \URL::forceScheme('https');
 
-        //     $this->app['request']->server->set('HTTPS', true);
+            $this->app['request']->server->set('HTTPS', true);
 
-        // } else {
+        } else {
 
-        //     \URL::forceScheme('http');
+            \URL::forceScheme('http');
 
-        //     $this->app['request']->server->set('HTTPS', false);
+            $this->app['request']->server->set('HTTPS', false);
 
-        // }
+        }
 
     }
 

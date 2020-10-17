@@ -95,19 +95,25 @@
 
 			</h3>
 
-			<hr class="sidebar-border">
+			<hr class="sidebar-border"> 
+			<div class="load__select_position">
 			<div class="my-4">	
 				<select name="category" onchange="submitSearch()"  id="category" class="selectpicker" data-live-search="true" >
  
 					<option data-icon="fa fa-navicon" value="all">All Positions</option>
 	
-					@foreach (App\Models\Category::orderBy('name', 'asc')->get() as $cat)
-	
-					<option  value="{{ $cat->slug }}" {{ isset($_GET['category']) && ($_GET['category'] == $cat->slug) ? 'checked' : '' }}>	 	{{ $cat->name }}</option>
-	
+					@php
+						
+						$job_category_id =App\Models\Job::select('category_id')->get();
+
+					@endphp
+					@foreach (App\Models\Category::whereIn('id', $job_category_id)->orderBy('name', 'asc')->get() as $cat) 
+								<option  value="{{ $cat->slug }}" {{ isset($_GET['category']) && ($_GET['category'] == $cat->slug) ? 'checked' : '' }}>	 	{{ $cat->name }}</option>
+							 
 					@endforeach
 	
 				</select> 
+			</div>
 			</div>
 			<div class="clearfix"></div> 
 		</div>

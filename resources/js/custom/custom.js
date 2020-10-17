@@ -1,3 +1,5 @@
+import { parse } from 'querystring'; 
+
 $(function(){  
         
     var token = $('meta[name=csrf_token]').attr('content'); 
@@ -409,8 +411,7 @@ $(function(){
                 } 
             }
         });  
-    })
-
+    }) 
     function getQueryParams(){
         var queries = {};
         $.each(document.location.search.substr(1).split('&'),function(c,q){
@@ -427,17 +428,62 @@ $(function(){
      if (typeof getQueryParams() !== "undefined") {
         $.ajax({
             url: ajax_url,  
-            data: {action: 'show_city_country_select_2', name: getQueryParams(), _token: token},
+            data: {action: 'show_city_country_select_2', name: Object.keys(parse(getQueryParams()))[0], _token: token},
             dataType: 'JSON',
             type: 'POST',  
             success: function (res) {
-                if(res.status == 'success'){   
-                    $('.load__select_country').empty();
-                    $('.load__select_country').append(res.html);
-
+                if(res.status == 'success'){    
+                        $('.load__select_country').empty();
+                        $('.load__select_country').append(res.html);  
                 } 
             }
         });  
-    }
-  
+        
+    } 
+
+    function getQueryParams(){
+        var queries = {};
+        $.each(document.location.search.substr(1).split('&'),function(c,q){
+            var i = q.split('=');
+           let new_arr = i.filter(function(item) {
+                return item !== ""
+            }) 
+           if(new_arr.length > 0){
+            queries[i[0].toString()] = i[1].toString();
+           }
+        });
+        return queries.cities 
+    } 
+     if (typeof getQueryParams() !== "undefined") { 
+
+        $.ajax({
+            url: ajax_url,  
+            data: {action: 'show_city_position_select', name: Object.keys(parse(getQueryParams()))[0], _token: token},
+            dataType: 'JSON',
+            type: 'POST',  
+            success: function (res) {
+                if(res.status == 'success'){     
+                        $('.load__select_position').empty();
+                        $('.load__select_position').append(res.html);   
+                } 
+            }
+        });  
+        
+    } 
+
+    /**
+     * 
+     * start coding for job skill on off
+     */
+
+     $('.job__skill_onoff').change(function(e){
+         if (this.checked) { 
+              $('.skill_job_post').removeAttr('disabled')
+              $('.skill_job_post').attr('required', true)
+        } else { 
+            $('.skill_job_post').attr('disabled', true) 
+            $('.skill_job_post').removeAttr('required')
+        }
+     })
+
 })
