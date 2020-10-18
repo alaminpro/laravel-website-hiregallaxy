@@ -60,7 +60,7 @@ class AptitudeController extends Controller
     public function create()
     {
 
-        $skills = Skill::all();
+        $skills = Skill::where('status', 1)->all();
 
         $experiences = Experience::all();
 
@@ -207,7 +207,7 @@ class AptitudeController extends Controller
     public function edit(Aptitude $aptitude)
     {
 
-        $skills = Skill::all();
+        $skills = Skill::where('status', 1)->all();
 
         $experiences = Experience::all();
 

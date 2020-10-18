@@ -866,12 +866,7 @@ input:focus {
     min-height: 80vh;
 }
 
-@media screen and (max-width: 600px){
-	.trending_job_cetegory .trending__tag{
-		padding: 0;
-		justify-content: center;
-	}
-}
+
 
 .button-switch {
 	font-size: 1.5em;
@@ -960,3 +955,52 @@ input:focus {
 	background: #3498db;
   }
   
+
+  .login-model-remember .form-check-label{
+	  margin-top: 2px;
+  }
+  .candidate_input{
+	  width: 280px;
+  }
+  .job__id{
+	  
+	display: flex;
+
+	padding: 6px 12px;
+
+	border: 1px solid #ececec;
+
+	margin-left: 7px;
+  }
+  .job__title{
+	  border-bottom:  1px solid #5553b7 !important
+  }
+
+
+
+  .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+
+	height: 160px;
+
+}
+
+
+
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable,
+
+.ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
+
+	height: 160px;
+
+}
+
+
+  @media screen and (max-width: 600px){
+	.trending_job_cetegory .trending__tag{
+		padding: 0;
+		justify-content: center;
+	}
+	.candidate_input{
+		width: 100%;
+	}
+}

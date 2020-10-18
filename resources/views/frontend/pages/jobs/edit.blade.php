@@ -180,20 +180,14 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 										</div>
 
-										<div class="col-md-4">
+										<div class="@if(auth()->check() && auth()->user()->is_company == 1)col-md-4 @else col-md-8 @endif">
 
-											<input type="search" autocomplete="off"
-
-												class="text-center text-theme form-control border-0 border-bottom mb-3"
-
-												id="title" name="title" placeholder="Job Title"
-
-												style="border-bottom: 1px solid #5553b7!important;"
-
-												value="{{  $job->title }}">
-
-											<div id="searchTemplateArea"></div>
- 
+											<div class="pr-2"><input type="search" autocomplete="off" 
+												class="text-center text-theme form-control border-0  mb-3 job__title"
+		
+												id="title" name="title" value="{{ old('title') }}" placeholder="Job Title"
+		
+												> </div>
 
 										</div>
 										@if(auth()->check() && auth()->user()->is_company == 1)
@@ -402,20 +396,21 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 							<div class="row form-group">
 
 								<div class="col-sm-6">
-
+									<div class="d-flex align-items-center pb-3">
 									<label for="monthly_salary">Salary <span class="required">*</span> <span
 
 											class="text-muted font12">(Monthly Salary)</span>
 
-
-
+										</label>
+											<div class="d-flex align-items-center">
 										<input type="checkbox" name="is_salary_negotiable" id="is_salary_negotiable"
 
 											value="1" class="ml-3" {{ $job->is_salary_negotiable ? 'checked' : '' }}>
 
-										<label for="is_salary_negotiable">(Salary Negotiable)</label>
+										<label  class="m-0" for="is_salary_negotiable">(Salary Negotiable)</label>
 
-									</label>
+											</div>
+											</div>
 
 
 
@@ -461,7 +456,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 								<div class="col-sm-6">
 
-									<label for="email">Email <span class="required">*</span>
+									<label for="email" class=" pt-2">Email <span class="required">*</span>
 
 									</label>
 

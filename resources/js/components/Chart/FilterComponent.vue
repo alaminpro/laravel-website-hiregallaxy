@@ -156,6 +156,10 @@ export default {
             margin: 5px 5px;
         }
 
+        .form-control {
+            margin: 0;
+        }
+
         &--all-time {
             border: none;
             padding: 5px;

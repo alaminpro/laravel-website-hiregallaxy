@@ -1947,7 +1947,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 														<option value="">Choose a skill to add</option>
 
-														@foreach (App\Models\Skill::orderBy('name', 'asc')->where('type', 1)->get() as
+														@foreach (App\Models\Skill::where('status', 1)->orderBy('name', 'asc')->where('type', 1)->get() as
 
 														$skill)
 

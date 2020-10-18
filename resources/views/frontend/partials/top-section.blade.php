@@ -2,7 +2,7 @@
 <div class="home-top header-index">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-6 px-2">
 				<h3 class="top-title  wow fadeInUp custom__title"> 
 					Simplify your hiring and job search process, get <span class="text-danger">prescreened</span> candidates to your inbox!
 				</h3>
@@ -698,7 +698,7 @@
 
 						<div class="d-md-flex justify-content-center">
 							<div class="input">
-								<input type="text" name="search" class="form-control"
+								<input type="text" name="search" class="form-control candidate_input"
 
 							placeholder="Enter Job Title, Candidate Name"> 
 							</div>

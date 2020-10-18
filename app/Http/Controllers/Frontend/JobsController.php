@@ -578,7 +578,7 @@ class JobsController extends Controller
 
         $disciplines = Discipline::orderBy('name', 'asc')->select('name', 'id')->get();
 
-        $skills = Skill::orderBy('name', 'asc')->where('type', 0)->select('name', 'id')->get();
+        $skills = Skill::where('status', 1)->orderBy('name', 'asc')->where('type', 0)->select('name', 'id')->get();
 
         $last_id = Job::orderBy('id', 'DESC')->first();
 
@@ -745,7 +745,7 @@ class JobsController extends Controller
 
         $qualifications = Qualification::where('status', 1)->orderBy('name', 'asc')->get();
 
-        $skills = Skill::orderBy('name', 'asc')->where('type', 0)->select('name', 'id')->get();
+        $skills = Skill::where('status', 1)->orderBy('name', 'asc')->where('type', 0)->select('name', 'id')->get();
 
         $currencies = Currency::orderBy('priority', 'asc')->get();
 

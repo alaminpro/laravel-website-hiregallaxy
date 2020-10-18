@@ -67,22 +67,23 @@ class CandidatesController extends Controller
         $data = [];
         foreach ($user->skills as $skill) {
 
-            $label[] = $skill->skill->name;
+            $label[] = $skill->skill ? $skill->skill->name : '';
             $data[] = $skill['percentage'];
         }
 
         $skills = $user->skills;
         $existing_skills = [];
         foreach ($skills as $key1 => $skill) {
-            $existing_skills[] = Skill::where('id', $skill->skill_id)->first();
+            $existing_skills[] = Skill::where('status', 1)->where('id', $skill->skill_id)->first();
         }
         $skills = [];
         foreach ($existing_skills as $s) {
+            $skill = UserSkill::where('user_id', $user->id)->where('skill_id', $s != null ? $s->id : '')->first();
             $skills[] = [
-                'edit_id' => UserSkill::where('user_id', $user->id)->where('skill_id', $s->id)->first()->id,
+                'edit_id' => $skill ? $skill->id : '',
                 'id' => $s['id'],
                 'name' => $s['name'],
-                'percentage' => UserSkill::where('user_id', $user->id)->where('skill_id', $s->id)->first()->percentage,
+                'percentage' => $skill ? $skill->percentage : '',
             ];
         }
         return view('frontend.pages.candidates.show', compact('user', 'label', 'data', 'skills'));

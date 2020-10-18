@@ -71,9 +71,9 @@
 
 				@if (Auth::user()->hasAppliedJob($single_job->id))
 
-					<a href="#update-apply-job-modal" data-toggle="modal" class="btn btn-outline-success"
+					<a href="#update-apply-job-modal" data-toggle="modal" class="btn btn-outline-success applyUpdateJobData"
 
-						onclick="applyUpdateJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
+					data-job-id="{{ $single_job->id }}" data-currency="{{ $single_job->getCurrencyName() }}" data-auth-id="{{ Auth::id() }}" data-user-profile-cv="{{ Auth::user()->candidate ? Auth::user()->candidate->cv : '' }}">
 
 						<span class="text-success"><i class="fa fa-check"></i> Already Applied</span>
 
@@ -89,9 +89,9 @@
 
 				@if($result || !count($single_job->skills) > 0)
 
-					<a href="#apply-job-modal" data-toggle="modal" class="btn btn-outline-yellow"
+					<a href="#apply-job-modal" data-toggle="modal" class="btn btn-outline-yellow applyJobData"
 
-							onclick="applyJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
+					data-job-id="{{ $single_job->id }}" data-currency="{{ $single_job->getCurrencyName() }}">
 
 							Apply Now
 
@@ -111,9 +111,9 @@
 
 			@else
 
-				<a href="#apply-job-modal" data-toggle="modal" class="btn btn-outline-yellow"
+				<a href="#apply-job-modal" data-toggle="modal" class="btn btn-outline-yellow applyJobData"
 
-					onclick="applyJobDataSet({{ $single_job->id }}, '{{ $single_job->getCurrencyName() }}')">
+				data-job-id="{{ $single_job->id }}" data-currency="{{ $single_job->getCurrencyName() }}">
 
 					Apply Now
 

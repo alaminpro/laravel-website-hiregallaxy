@@ -213,9 +213,9 @@
 
 											<a href="#update-apply-job-modal" data-toggle="modal"
 
-												class="btn btn-outline-success"
-
-												onclick="applyUpdateJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}')">
+												class="btn btn-outline-success applyUpdateJobData"
+												data-auth-id="{{ Auth::id() }}" data-user-profile-cv="{{ Auth::user()->candidate ? Auth::user()->candidate->cv : '' }}"
+												data-job-id="{{ $single_job->id }}" data-currency="{{ $single_job->getCurrencyName() }}" data-company-id="{{ $job->user->id }}" >
 
 												<span class="text-success"><i class="fa fa-check"></i> Already
 
@@ -229,9 +229,9 @@
 
 												@if($result || !count($job->skills) > 0)
 
-														<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button m-0  mb-2 mr-3"
+														<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button m-0  mb-2 mr-3 applyJobData"
 
-															onclick="applyJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}','{{ $job->user->id }}')">
+														data-job-id="{{ $single_job->id }}" data-currency="{{ $single_job->getCurrencyName() }}" data-company-id="{{ $job->user->id }}"">
 
 															Apply Now
 
@@ -255,9 +255,9 @@
 
 										@else
 
-										<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button m-0 mb-2"
+										<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button m-0 mb-2 applyJobData"
 
-											onclick="applyJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}','{{ $job->user->id }}')">
+										data-job-id="{{ $single_job->id }}" data-currency="{{ $single_job->getCurrencyName() }}" data-company-id="{{ $job->user->id }}">
 
 											Apply Now
 
@@ -288,9 +288,9 @@
 									@else
 									<div class="mt-3 d-flex align-items-center">
 									
-										<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button m-0 mb-2"
+										<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button m-0 mb-2 applyJobData"
 
-											onclick="applyJobDataSet({{ $job->id }}, '{{ $job->getCurrencyName() }}','{{ $job->user->id }}')">
+										data-job-id="{{ $single_job->id }}" data-currency="{{ $single_job->getCurrencyName() }}" data-company-id="{{ $job->user->id }}">
 
 											Apply Now
 

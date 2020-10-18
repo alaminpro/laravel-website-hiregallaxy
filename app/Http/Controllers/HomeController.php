@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Country;
 use App\Models\Experience;
 use App\Models\Job;
+use App\Models\JobType;
 use App\Models\Sector;
 use App\Models\SiteReview;
 use App\Models\Template;
@@ -197,7 +198,8 @@ class HomeController extends Controller
         $type_id = null;
         if ($request->type != null && $request->type != 'all') {
             $type_id = $request->type;
-            $sql .= " and jobs.type_id = $type_id";
+            $type = JobType::where('name', $type_id)->first();
+            $sql .= " and jobs.type_id = $type->id";
         }
         if ($request->date != null && $request->date != '') {
             $date = $request->date;

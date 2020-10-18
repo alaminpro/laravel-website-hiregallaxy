@@ -50,10 +50,7 @@ i {
 .breadcrumb {
     background-color: transparent;
 }
-.navbar-breadcrumb {
-    margin-bottom: -60px;
-    margin-top: 10px;
-}
+ 
 .breadcrumb-item + .breadcrumb-item::before {
     font-family: FontAwesome;
     content: "\f101" !important;
@@ -268,7 +265,7 @@ label {
 #jobApplyCurrency,
 #jobApplyCurrencyUpdate {
     margin-top: -4px !important;
-    max-width: 75px;
+    max-width: 120px;
     font-weight: 700;
     color: #ff7c39;
     padding-left: 10px;

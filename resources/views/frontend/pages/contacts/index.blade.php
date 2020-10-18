@@ -43,7 +43,7 @@ Job Details | Joblrs
 <section class="employer-page contact-page">
  
 
-	<div class="container sec-pad">
+	<div class="container sec-pad px-4">
 
 		<div class="row">
 

@@ -12,7 +12,7 @@
 
 			<div class="modal-header mt-2">
 
-				<h4 class="modal-title text-theme font22 bold">Welcome back !!</h4>
+				<h4 class="modal-title text-theme font22 bold">Welcome back !</h4>
 
 				@if (!Route::is('login'))
 
@@ -96,25 +96,20 @@
 
 							<div class="mt-2">
 
-								<div class="float-left">
+								<div class="d-flex items-center flex-wrap justify-content-center">
 
 									<a href="{{ route('password.request') }}" class="text-yellow">Forget Password ?</a> 
 
-									<span class="text-yellow">|</span>
+									<span class="text-yellow px-1">|</span>
 
 									<a href="{{ route('register') }}" class="text-yellow">Sign Up</a>
+									<div class="form-group pl-3">
 
-								</div>
-
-								<div class="float-right">
-
-									<div class="form-group">
-
-										<div class="form-check">
+										<div class="form-check login-model-remember">
 
 											<input class="form-check-input" type="checkbox" id="remember_me">
 
-											<label class="form-check-label ml-3" for="remember_me">
+											<label class="form-check-label ml-2" for="remember_me">
 
 												Remember Me
 
@@ -124,7 +119,7 @@
 
 									</div>
 
-								</div>
+								</div> 
 
 								<div class="clearfix"></div>
 

@@ -122,8 +122,8 @@
 			 <p class=" home__new_text text-center text-md-left">The problem of managing multiple recruitment team at different location is <span class="font-weight-bold" style="text-decoration: underline">no more a point of worry</span> for recruitment agency. In Joblrs platform recruiter can add multiple team and monitor their performance.    
  				</p>
 				<div class="row">
-					<div class="col-lg-7 d-flex justify-content-center d-md-block"><img src="{{ asset('images/img-09.png') }}" alt="img-01" class="img-fluid"></div>
-					<div class="col-lg-5 d-flex justify-content-center d-md-block"><img src="{{ asset('images/img-08.png') }}" alt="img-01" class="img-fluid"></div> 
+					<div class="col-lg-6 d-flex justify-content-center d-md-block"><img src="{{ asset('images/img-09.png') }}" alt="img-01" class="img-fluid"></div>
+					<div class="col-lg-6 d-flex justify-content-center d-md-block"><img src="{{ asset('images/img-08.png') }}" alt="img-01" class="img-fluid"></div> 
 				</div>
 			</div>
 		</div> 	
@@ -135,50 +135,5 @@
 
 @section('scripts') 
 
-<!-- Client Review owl Carousel -->
-
-<script>
-
-	$('.owl-carousel').owlCarousel({
-
-		loop:true,
-
-		margin:10,
-
-		// nav:true,
-
-		items: 2,
-
-		responsive:{
-
-			0:{
-
-				items:1
-
-			},
-
-			600:{
-
-				items:2
-
-			},
-
-			1000:{
-
-				items:2
-
-			}
-
-		}
-
-	});
-
-	
-
-	
-
-</script>
-
-<!-- Client Review owl Carousel -->
-
+ 
 @endsection

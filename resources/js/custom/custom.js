@@ -485,5 +485,296 @@ $(function(){
             $('.skill_job_post').removeAttr('required')
         }
      })
-
+     $(document).on('click',function(e){
+        if(($(e.target).closest(".search__form").find('.advanced__search_btn').attr("class") != "advanced__search_btn")){
+            $('.advanced__seach_show').slideUp();
+        }
+    });
 })
+
+ 
+
+
+
+$("#is_salary_negotiable").change(function(){
+
+    
+
+    var expected_salary = $("#expected_salary");
+
+
+
+    if($(this).is(':checked')){
+
+        expected_salary.removeAttr('required');
+
+        expected_salary.attr('disabled', 'true');
+
+    }else{
+
+        expected_salary.removeAttr('disabled');
+
+        expected_salary.attr('required', 'true');
+
+    }
+
+});
+
+
+
+
+
+$("#use_profile_cv").change(function(){
+
+    var cover_letter_cv = $("#cover_letter_cv");
+
+
+
+    if($(this).is(':checked')){
+
+        cover_letter_cv.attr('disabled', 'true');
+
+    }else{
+
+        cover_letter_cv.removeAttr('disabled');
+
+    }
+
+});
+
+
+
+$("#use_profile_cv_update").change(function(){
+
+    var cover_letter_cv = $("#cover_letter_cv_update");
+
+
+
+    if($(this).is(':checked')){
+
+        cover_letter_cv.attr('disabled', 'true');
+
+    }else{
+
+        cover_letter_cv.removeAttr('disabled');
+
+    }
+
+});
+tinymce.init({
+
+    selector: '#aboutCompanyDescription',
+
+    height: 150,
+
+    menubar: false,
+
+    branding: false
+
+});
+
+
+
+tinymce.init({
+
+    selector: '#about',
+
+    height: 150,
+
+    menubar: false,
+
+    branding: false
+
+});
+
+
+
+tinymce.init({
+
+    selector: '#apply_job_description',
+
+    height: 150,
+
+    menubar: false,
+
+    branding: false
+
+});
+
+
+
+tinymce.init({
+
+    selector: '#apply_job_description_update',
+
+    height: 150,
+
+    menubar: false,
+
+    branding: false
+
+});
+
+
+$(function(){
+
+    $('.applyUpdateJobData').click(function(){
+        let el = $(this);
+        let job_id =  el.attr('data-job-id')
+        let currency =  el.attr('data-currency')
+        let company_id =  el.attr('data-company-id')
+        let auth_id =  el.attr('data-auth-id')
+        let user_profile_cv =  el.attr('data-user-profile-cv')
+
+	 	$('#job_id_for_apply_update').val(job_id);
+		 $('#company_id_update').val(company_id);
+	 	$('#jobApplyCurrencyUpdate').val(currency); 
+			// Fetch the data from server
+
+			$.get( "{{ url('/') }}" +"/api/job-activity/get/"+job_id+"/"+auth_id)
+
+			.done(function( data ) {
+
+				data = JSON.parse(data);
+
+				console.log(data);
+
+				if(data.status == 'success'){
+
+					var is_salary_negotiable = data.data.is_salary_negotiable;
+
+					var expected_salary = data.data.expected_salary;
+
+					var cover_letter = data.data.cover_letter;
+
+					var cv = data.data.cv;
+ 
+
+					if( cv == null){
+
+						cv = user_profile_cv;
+
+					}
+
+
+
+					if(cv == user_profile_cv){
+
+						$("#use_profile_cv_update").attr('checked', 'true');
+
+
+
+						var cover_letter_cv = $("#cover_letter_cv_update");
+
+						cover_letter_cv.attr('disabled', 'true');
+
+					}
+
+
+
+					if (user_profile_cv != null){
+
+						if(cv.length != 0){
+
+							$("#oldApplyCV").html("<a href='files/cv/"+cv+"' target='blank'><i class='fa fa-download'></i> Previous CV</a>")
+
+						}
+
+					}
+
+
+
+
+
+					if(is_salary_negotiable == 1){
+
+						$("#is_salary_negotiable_update").attr('checked', 'true');
+
+						var expected_salary_update = $("#expected_salary_update");
+
+						if($("#is_salary_negotiable_update").is(':checked')){
+
+							expected_salary_update.removeAttr('required');
+
+							expected_salary_update.attr('disabled', 'true');
+
+						}else{
+
+							expected_salary_update.removeAttr('disabled');
+
+							expected_salary_update.attr('required', 'true');
+
+						}
+
+					}else{
+
+						$("#expected_salary_update").val(expected_salary);
+
+					}
+
+
+
+					// text_editor.setData(cover_letter);
+
+					tinymce.get("apply_job_description_update").setContent(cover_letter);
+
+
+
+				}
+
+			}); 
+
+    });
+
+    $('.applyJobData').click(function(){
+        let el = $(this);
+       let job_id =  el.attr('data-job-id')
+       let currency =  el.attr('data-currency')
+       let company_id =  el.attr('data-company-id')
+
+       $('#job_id_for_apply').val(job_id);
+		$('#company_id_for_apply').val(company_id);
+
+		$('#jobApplyCurrency').val(currency);
+    })
+
+    $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("active");
+    });
+    new WOW().init(); 
+    $('.selectpicker').selectpicker();
+    $('.owl-carousel').owlCarousel({
+
+		loop:true,
+
+		margin:10,
+
+		// nav:true,
+
+		items: 2,
+
+		responsive:{
+
+			0:{
+
+				items:1
+
+			},
+
+			600:{
+
+				items:2
+
+			},
+
+			1000:{
+
+				items:2
+
+			}
+
+		}
+
+	});
+});

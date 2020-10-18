@@ -152,17 +152,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 								<div class="col-md-4">
 
-									<div id="job__id" style="
-
-												display: flex;
-
-												padding: 6px 12px;
-
-												border: 1px solid #ececec;
-
-												margin-left: 7px;
-
-									">
+									<div id="job__id" class="job__id">
 
 										<div class="job__label">
 
@@ -179,18 +169,12 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 								</div>
 
 								<div class="@if(auth()->check() && auth()->user()->is_company == 1)col-md-4 @else col-md-8 @endif">
-									<label for="conpany_id">Job title</label>
-									<input type="search" autocomplete="off" 
-										class="text-center text-theme form-control border-0 border-bottom mb-3"
+								 	<div class="pr-2"><input type="search" autocomplete="off" 
+										class="text-center text-theme form-control border-0  mb-3 job__title"
 
 										id="title" name="title" value="{{ old('title') }}" placeholder="Job Title"
 
-										style="border-bottom: 1px solid #5553b7!important;">
-
-									{{-- <div id="searchTemplateArea" style="width: 98%"></div> --}}
-
-									{{-- <input type="hidden" name="template_id" id="template_id"> --}}
-
+										> </div>
 								</div>
 								@if(auth()->check() && auth()->user()->is_company == 1)
 								@php
@@ -433,21 +417,23 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 								<div class="col-sm-6">
 
-									<label for="monthly_salary">Salary <span class="required">*</span> <span
+									<div class="d-flex align-items-center pb-3">
 
-											class="text-muted font12">(Monthly Salary)</span>
+										<label  class="m-0"  for="monthly_salary">Salary <span class="required">*</span> <span
 
+											class="text-muted font12">(Monthly Salary)</span> 
 
+									</label>
+									<div class="d-flex align-items-center">
 
 										<input type="checkbox" name="is_salary_negotiable" id="is_salary_negotiable"
 
-											value="1" class="ml-3"> <label for="is_salary_negotiable">(Salary
+										value="1" class="ml-3 mr-2"> <label class="m-0" for="is_salary_negotiable">(Salary
 
-											Negotiable)</label>
+										Negotiable)</label>
+									</div>
 
-									</label>
-
-
+									</div>
 
 									<div class="row">
 
@@ -483,7 +469,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 								<div class="col-sm-6">
 
-									<label for="email">Email <span class="required">*</span>
+									<label for="email " class=" pt-2">Email <span class="required">*</span>
 
 									</label>
 

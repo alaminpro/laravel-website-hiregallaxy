@@ -60,7 +60,7 @@ class QuestionController extends Controller
     public function create()
     {
 
-        $skills = Skill::all();
+        $skills = Skill::where('status', 1)->all();
 
         $experiences = Experience::all();
 
@@ -213,7 +213,7 @@ class QuestionController extends Controller
     public function edit(Question $question)
     {
 
-        $skills = Skill::all();
+        $skills = Skill::where('status', 1)->all();
 
         $experiences = Experience::all();
 

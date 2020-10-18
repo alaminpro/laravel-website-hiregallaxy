@@ -6,6 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>@yield('title', App\Models\Setting::first()->site_title)</title>  
 	<meta name="csrf_token" content="{!! csrf_token() !!}">
+	<!-- link to meta -->
+	@include('frontend.partials.meta')
 	<!-- link to stylesheets -->
 	@include('frontend.partials.styles')
 	@stack('stylesheets_stack')
