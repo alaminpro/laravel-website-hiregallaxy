@@ -26,7 +26,7 @@ Candidate Personality | {{ App\Models\Setting::first()->site_title }}
 
 			<div class="col-md-3"> 
 
-				<img src="{{ App\Helpers\ReturnPathHelper::getUserImage($user->id) }}" class="img img-fluid">
+				<img src="{{ App\Helpers\ReturnPathHelper::getUserImage($user->id) }}" class="img img-fluid" alt="image">
 
 				<div class="single-job-description mt-2">
 

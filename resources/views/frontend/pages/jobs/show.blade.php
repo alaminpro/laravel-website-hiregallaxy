@@ -215,7 +215,7 @@
 
 												class="btn btn-outline-success applyUpdateJobData"
 												data-auth-id="{{ Auth::id() }}" data-user-profile-cv="{{ Auth::user()->candidate ? Auth::user()->candidate->cv : '' }}"
-												data-job-id="{{ $single_job->id }}" data-currency="{{ $single_job->getCurrencyName() }}" data-company-id="{{ $job->user->id }}" >
+												data-job-id="{{ $job->id }}" data-currency="{{ $job->getCurrencyName() }}" data-company-id="{{ $job->user->id }}" >
 
 												<span class="text-success"><i class="fa fa-check"></i> Already
 
@@ -231,7 +231,7 @@
 
 														<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button m-0  mb-2 mr-3 applyJobData"
 
-														data-job-id="{{ $single_job->id }}" data-currency="{{ $single_job->getCurrencyName() }}" data-company-id="{{ $job->user->id }}"">
+														data-job-id="{{ $job->id }}" data-currency="{{ $job->getCurrencyName() }}" data-company-id="{{ $job->user->id }}"">
 
 															Apply Now
 
@@ -257,7 +257,7 @@
 
 										<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button m-0 mb-2 applyJobData"
 
-										data-job-id="{{ $single_job->id }}" data-currency="{{ $single_job->getCurrencyName() }}" data-company-id="{{ $job->user->id }}">
+										data-job-id="{{ $job->id }}" data-currency="{{ $job->getCurrencyName() }}" data-company-id="{{ $job->user->id }}">
 
 											Apply Now
 
@@ -290,7 +290,7 @@
 									
 										<a href="#apply-job-modal" data-toggle="modal" class="btn apply-now-button m-0 mb-2 applyJobData"
 
-										data-job-id="{{ $single_job->id }}" data-currency="{{ $single_job->getCurrencyName() }}" data-company-id="{{ $job->user->id }}">
+										data-job-id="{{ $job->id }}" data-currency="{{ $job->getCurrencyName() }}" data-company-id="{{ $job->user->id }}">
 
 											Apply Now
 
@@ -628,7 +628,7 @@
 
 
 
-						@foreach ($similar_jobs as $single_job)
+						@foreach ($similar_jobs as $job)
 
 						@include('frontend.pages.partials.single-job-short')
 

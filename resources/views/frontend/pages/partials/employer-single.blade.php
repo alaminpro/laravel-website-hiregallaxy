@@ -4,7 +4,7 @@
 
 	<div class="float-left">
 
-		<img src="{{ App\Helpers\ReturnPathHelper::getUserImage($single_user->id) }}">
+		<img alt="image" src="{{ App\Helpers\ReturnPathHelper::getUserImage($single_user->id) }}">
 
 	</div>
 

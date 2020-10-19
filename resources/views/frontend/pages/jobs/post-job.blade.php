@@ -439,8 +439,8 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 										<div class="col-8">
 
-											<input type="number" id="monthly_salary" name="monthly_salary"
-
+											<input type="number" id="monthly_salary" name="monthly_salary" 
+											data-parsley-required-message="Please enter interger value"
 												class="form-control" placeholder="Write your expected salary" required
 												value="{{ old('monthly_salary') }}"
 												min="1">

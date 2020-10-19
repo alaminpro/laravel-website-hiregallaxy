@@ -79,7 +79,7 @@
 
                 <td>
 
-                <img class="d-block text-center" src="{{ App\Helpers\ReturnPathHelper::getUserImage($application->user->id) }}"
+                <img alt="image" class="d-block text-center" src="{{ App\Helpers\ReturnPathHelper::getUserImage($application->user->id) }}"
 
                 style="width: 30px">
 
@@ -353,7 +353,7 @@
                             <div class="row">
 
                                 <div class="col-md-3">
-                                    <img class="d-block text-center" src="{{ App\Helpers\ReturnPathHelper::getUserImage($application->user->id) }}" style="max-width: 100% !important;">
+                                    <img alt="image" alt="image" class="d-block text-center" src="{{ App\Helpers\ReturnPathHelper::getUserImage($application->user->id) }}" style="max-width: 100% !important;">
 
                                 </div>
 

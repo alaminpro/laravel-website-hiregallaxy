@@ -3,12 +3,12 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6 px-2">
-				<h3 class="top-title  wow fadeInUp custom__title"> 
+				<h1 class="top-title  wow fadeInUp custom__title"> 
 					Simplify your hiring and job search process, get <span class="text-danger">prescreened</span> candidates to your inbox!
-				</h3>
-				<p class="top-description  wow fadeInLeft custom__description">
+				</h1>
+				<h2 class="top-description  wow fadeInLeft custom__description">
 					Discover
-				</p>
+				</h2>
 			
 				@include('frontend.pages.partials.search', ['route' => route('searches') ])
 				<div class="companies-more">

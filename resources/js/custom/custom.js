@@ -425,6 +425,7 @@ $(function(){
         });
         return queries.country 
     } 
+    console.log(getQueryParams())
      if (typeof getQueryParams() !== "undefined") {
         $.ajax({
             url: ajax_url,  
@@ -441,7 +442,7 @@ $(function(){
         
     } 
 
-    function getQueryParams(){
+    function getQueryParams_2(){
         var queries = {};
         $.each(document.location.search.substr(1).split('&'),function(c,q){
             var i = q.split('=');
@@ -454,11 +455,11 @@ $(function(){
         });
         return queries.cities 
     } 
-     if (typeof getQueryParams() !== "undefined") { 
+     if (typeof getQueryParams_2() !== "undefined") { 
 
         $.ajax({
             url: ajax_url,  
-            data: {action: 'show_city_position_select', name: Object.keys(parse(getQueryParams()))[0], _token: token},
+            data: {action: 'show_city_position_select', name: Object.keys(parse(getQueryParams_2()))[0], _token: token},
             dataType: 'JSON',
             type: 'POST',  
             success: function (res) {

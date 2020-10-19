@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 @section('title')
-{{ App\Models\Setting::first()->site_title }} | HomePage
+{{ App\Models\Setting::first()->site_title }} | home
 @endsection
 @section('stylesheets')
 @endsection
@@ -123,7 +123,7 @@
  				</p>
 				<div class="row">
 					<div class="col-lg-6 d-flex justify-content-center d-md-block"><img src="{{ asset('images/img-09.png') }}" alt="img-01" class="img-fluid"></div>
-					<div class="col-lg-6 d-flex justify-content-center d-md-block"><img src="{{ asset('images/img-08.png') }}" alt="img-01" class="img-fluid"></div> 
+					<div class="col-lg-6 d-flex justify-content-center d-md-block"><img src="{{ asset('images/img-08.png') }}" alt="img-02" class="img-fluid"></div> 
 				</div>
 			</div>
 		</div> 	

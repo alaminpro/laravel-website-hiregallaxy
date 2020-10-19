@@ -74,7 +74,7 @@ Total Applications | {{ App\Models\Setting::first()->site_title }}
 
 								@endphp
 
-								<img class="d-block text-center" src="{{ App\Helpers\ReturnPathHelper::getUserImage($application->user_id) }}"
+								<img alt="image" class="d-block text-center" src="{{ App\Helpers\ReturnPathHelper::getUserImage($application->user_id) }}"
 
 								style="width: 30px">
 

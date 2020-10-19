@@ -10,7 +10,7 @@
 
 				<div class="col-md-3">
 
-					<h3 class="footer-title text-uppercase">Company</h3>
+					<h1 class="footer-title text-uppercase">Company</h1>
 
 					 
 					<ul class="footer-links">
@@ -33,7 +33,7 @@
 					</div> 
 				<div class="col-md-3">
 
-					<h3 class="footer-title text-uppercase">Terms</h3>
+					<h1 class="footer-title text-uppercase">Terms</h1>
 
 					<ul class="footer-links">
 
@@ -55,7 +55,7 @@
 				</div> 
 				<div class="col-md-3">
 
-					<h3 class="footer-title text-uppercase">Customer</h3>
+					<h1 class="footer-title text-uppercase">Customer</h1>
 
 					<ul class="footer-links">
 
@@ -73,7 +73,7 @@
 
 				<div class="col-md-3">
 
-					<h3 class="footer-title text-uppercase">Follow</h3>
+					<h1 class="footer-title text-uppercase">Follow</h1>
 
 					<div class="footer-social">
 

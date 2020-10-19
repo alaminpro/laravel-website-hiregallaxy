@@ -13,7 +13,7 @@
 
 	<div class="container">
 
-		<h3 class="client-review-title">Great Words From Happy Clients</h3>
+		<h1 class="client-review-title">Great Words From Happy Clients</h1>
 
 		@if (Auth::check())
 
@@ -45,7 +45,7 @@
 
 				<div class="float-left">
 
-					<img src="{{ asset('images/users/'.$review->profile_picture) }}" class="client-image">
+					<img alt="image" src="{{ asset('images/users/'.$review->profile_picture) }}" class="client-image">
 
 				</div>
 

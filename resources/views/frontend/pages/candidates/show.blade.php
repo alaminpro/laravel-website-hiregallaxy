@@ -2187,7 +2187,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 										title="{{ $portfolio->title }}">
 
-										<img src="{{ asset('images/portfolios/'.$portfolio->image) }}" alt=""
+										<img src="{{ asset('images/portfolios/'.$portfolio->image) }}" alt="image"
 
 											class="img img-fluid img-thumbnail">
 
@@ -2474,7 +2474,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 														<img src="{{ asset('images/portfolios/'.$portfolio->image) }}"
 
-															alt="" class="img img-fluid">
+														alt="image" class="img img-fluid">
 
 													</div>
 
@@ -2607,7 +2607,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 					
 
-					<img src="{{ App\Helpers\ReturnPathHelper::getUserImage($user->id) }}" class="img img-fluid">
+					<img src="{{ App\Helpers\ReturnPathHelper::getUserImage($user->id) }}" alt="image" class="img img-fluid">
 
 					<div class="float-right">
 

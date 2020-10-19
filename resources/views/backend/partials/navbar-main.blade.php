@@ -46,7 +46,7 @@
 
       <img src="{{ asset('images/'.App\Models\Setting::first()->site_logo) }}"
 
-        style="width: 90px;margin-top: 0px;" class="float-left" />
+        style="width: 90px;margin-top: 0px;" class="float-left" alt="image" />
 
 
 
@@ -194,7 +194,7 @@
 
         aria-haspopup="true" aria-expanded="false" >
 
-        <img width="20" src="{{asset('/public/uploads/icon.png')}}" alt=""> &nbsp;&nbsp;Test
+        <img width="20" src="{{asset('/public/uploads/icon.png')}}" alt="image"> &nbsp;&nbsp;Test
 
       </a>
 
@@ -228,7 +228,7 @@
 
           aria-haspopup="true" aria-expanded="false" >
 
-          <img width="20" src="{{asset('/public/uploads/icon.png')}}" alt=""> &nbsp;&nbsp;Test
+          <img width="20" src="{{asset('/public/uploads/icon.png')}}" alt="image"> &nbsp;&nbsp;Test
 
         </a>
 
@@ -407,7 +407,7 @@
 
         <!--<span class="mr-2 d-none d-lg-inline text-gray-600 small" style="Display:none;">{{ Auth::guard('admin')->user()->first_name }}</span>-->
 
-        <img class="img-profile rounded-circle"
+        <img class="img-profile rounded-circle" alt="image"
 
           src="{{ App\Helpers\ReturnPathHelper::getAdminImage(Auth::guard('admin')->user()->id) }}">
 

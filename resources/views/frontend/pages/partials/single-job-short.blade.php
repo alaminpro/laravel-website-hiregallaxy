@@ -4,7 +4,7 @@
 
 		@if (!is_null($single_job->user->profile_picture))
 
-		<img src="{{ asset('images/users/'.$single_job->user->profile_picture) }}">
+		<img src="{{ asset('images/users/'.$single_job->user->profile_picture) }}" alt="image">
 
 		@else
 

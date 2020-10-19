@@ -7,7 +7,7 @@
 				<button class="fa fa-close btn btn-danger btn-close-sidebar" id="sidebar_close"></button>
 			  </label>
 			<a class="navbar-brand" href="{{ route('index') }}">
-				<img src="{{ asset('images/'.App\Models\Setting::first()->site_logo) }}"
+				<img alt="image" src="{{ asset('images/'.App\Models\Setting::first()->site_logo) }}"
 
 				style="width: 140px;margin-top: 0px;" class="float-left" />
 			</a>
@@ -24,7 +24,7 @@
 		</div>
 		@else
 		<a class="navbar-brand" href="{{ route('index') }}">
-			<img src="{{ asset('images/'.App\Models\Setting::first()->site_logo) }}"
+			<img alt="image" src="{{ asset('images/'.App\Models\Setting::first()->site_logo) }}"
 
 			style="width: 140px;margin-top: 0px;" class="float-left" />
 		</a>
@@ -86,7 +86,7 @@
 						<span class="message__hidden">	New Message</span>
 					</a>
 					<a href="#" class="dropdown-toggle  py-2" data-toggle="dropdown" id="dropdownAccountButton">
-						<img src="{{ App\Helpers\ReturnPathHelper::getUserImage(Auth::user()->id) }}" class="account-img">
+						<img alt="image" src="{{ App\Helpers\ReturnPathHelper::getUserImage(Auth::user()->id) }}" class="account-img">
 			 
 						 {{ str_limit(Auth::user()->name , $limit = 3, $end = '..') }}</a>
 					<div class="dropdown-menu dropdown-menu-account" aria-labelledby="dropdownAccountButton">

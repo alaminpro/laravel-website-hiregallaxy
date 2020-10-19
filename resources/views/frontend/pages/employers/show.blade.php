@@ -34,7 +34,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 						<div class="col-sm-3 text-center mb-4">
 
-							<img src="{{ App\Helpers\ReturnPathHelper::getUserImage($user->id) }}"
+							<img alt="image" src="{{ App\Helpers\ReturnPathHelper::getUserImage($user->id) }}"
 
 								class="img img-fluid rounded-circle">
 

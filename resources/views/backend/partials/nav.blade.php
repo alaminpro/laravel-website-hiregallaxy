@@ -320,7 +320,7 @@
 
         <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::guard('admin')->user()->first_name }}</span>
 
-        <img class="img-profile rounded-circle"
+        <img class="img-profile rounded-circle" alt="image"
 
           src="{{ App\Helpers\ReturnPathHelper::getAdminImage(Auth::guard('admin')->user()->id) }}">
 

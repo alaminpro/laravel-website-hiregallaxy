@@ -36,7 +36,7 @@ Team - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 							<img src="{{ App\Helpers\ReturnPathHelper::getUserImage($user->id) }}"
 
-								class="img img-fluid rounded-circle">
+								class="img img-fluid rounded-circle" alt="image">
 
 						</div>
 

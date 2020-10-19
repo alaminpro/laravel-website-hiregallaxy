@@ -172,7 +172,7 @@ Search Candidates | {{ App\Models\Setting::first()->site_title }}
 
 							<a href="{{ route('candidates.show', $single_user->username) }}" target="_blank"><div class="float-left">
 
-								<img class="rounded-circle" src="{{ App\Helpers\ReturnPathHelper::getUserImage($single_user->id) }}">
+								<img alt="image" class="rounded-circle" src="{{ App\Helpers\ReturnPathHelper::getUserImage($single_user->id) }}">
 
 							</div></a>
 

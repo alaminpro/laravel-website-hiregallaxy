@@ -1,7 +1,7 @@
 <div class="single-job-short single-employer"> 
 	<div class="float-left"> 
 		@if (!is_null($single_job->user->profile_picture)) 
-		<img src="{{ asset('images/users/'.$single_job->user->profile_picture) }}"> 
+		<img  alt="image" src="{{ asset('images/users/'.$single_job->user->profile_picture) }}"> 
 		@else 
 		<i class="{{ $single_job->category->icon }} job-category-icon"></i> 
 		@endif 

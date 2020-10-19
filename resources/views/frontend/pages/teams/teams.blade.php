@@ -53,7 +53,7 @@ Teams | {{ App\Models\Setting::first()->site_title }}
                                                 @endif
                                               </div>
                                           </div>
-                                          <img class="rounded-circle" src="{{ App\Helpers\ReturnPathHelper::getUserImage($user->id) }}" style="width: 70px; height: 70px">
+                                          <img alt="image" class="rounded-circle" src="{{ App\Helpers\ReturnPathHelper::getUserImage($user->id) }}" style="width: 70px; height: 70px">
                                       </div>
                                   </div>
                                 </div>

@@ -100,7 +100,7 @@
 
                   <a href="{!! asset('public/images/users/'.$user->image) !!}" target="_blank">
 
-                    <img src="{!! asset('public/images/users/'.$user->image) !!}" alt="" width="50" height="50">
+                    <img src="{!! asset('public/images/users/'.$user->image) !!}" alt="image" width="50" height="50">
 
                   </a>
 
