@@ -41,7 +41,7 @@ class CandidatesController extends Controller
 
         }
 
-        $users = User::where('status', 1)->where('is_company', 0)->paginate($paginateNumber);
+        $users = User::where('status', 1)->where('is_company', 0)->orderBy('created_at','desc')->paginate($paginateNumber);
 
         $total_user = count($users);
 
@@ -271,11 +271,9 @@ class CandidatesController extends Controller
 
             'date_of_birth' => 'required',
 
-            'career_level_id' => 'required',
-
-            'sector' => 'required|numeric',
-
+            'career_level_id' => 'required', 
             'gender' => 'required',
+            'discipline' => 'required',
 
             'profile_picture' => 'nullable|image',
 
@@ -314,16 +312,16 @@ class CandidatesController extends Controller
         }
 
         $user->save();
-
+        $discipline = implode(',', $request->discipline);
         if ($request->cv) {
-
+         
             $user->candidate->update([
 
                 'date_of_birth' => $request->date_of_birth,
 
                 'cv' => UploadHelper::update('cv', $request->file('cv'), 'cv-' . time(), 'files/cv', 'files/cv/' . $user->candidate->cv),
 
-                'sector' => $request->sector,
+                'descipline_id' => $discipline,
 
                 'gender' => $request->gender,
 
@@ -337,7 +335,7 @@ class CandidatesController extends Controller
 
                 'date_of_birth' => $request->date_of_birth,
 
-                'sector' => $request->sector,
+               'descipline_id' => $discipline,
 
                 'gender' => $request->gender,
 

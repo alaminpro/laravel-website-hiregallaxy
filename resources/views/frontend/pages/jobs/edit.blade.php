@@ -565,13 +565,13 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 								<div class="col-sm-4">
 
-									<label for="type_id">Category <span class="required">*</span>
+									<label for="type_id">Positions <span class="required">*</span>
 
 									</label>
 
 									<select name="category_id" id="category_id" class="form-control" required>
 
-										<option value="">Select a Category</option>
+										<option value="">Select a Position</option>
 
 										@foreach ($categories as $category)
 

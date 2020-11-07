@@ -265,9 +265,9 @@ Sign Up | Joblrs
 
 		<div class="form-check">
 
-			<input class="form-check-input" type="checkbox" id="employerSendMessage">
+			<input class="form-check-input" type="checkbox" id="candidate_term&codition">
 
-			<label class="form-check-label ml-3" for="employerSendMessage">
+			<label class="form-check-label ml-1 mt-1" for="candidate_term&codition">
 
 				Accept our <a href="{{ route('terms') }}" class="text-yellow">Terms and Condition</a> and <a href="{{ route('privacy') }}"  class="text-yellow">Privacy Policy</a>
 
@@ -571,7 +571,21 @@ Sign Up | Joblrs
                                 </div>
 
                             </div>
+<div class="form-group">
 
+		<div class="form-check">
+
+			<input class="form-check-input" type="checkbox" id="employer_term&codition">
+
+			<label class="form-check-label ml-1 mt-1" for="employer_term&codition">
+
+				Accept our <a href="{{ route('terms') }}" class="text-yellow">Terms and Condition</a> and <a href="{{ route('privacy') }}"  class="text-yellow">Privacy Policy</a>
+
+			</label>
+
+		</div>
+
+	</div>
                             	<div class="form-group"> 
                                 <div class="col-8 offset-2">
  

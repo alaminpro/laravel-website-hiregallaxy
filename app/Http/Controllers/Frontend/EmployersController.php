@@ -42,7 +42,7 @@ class EmployersController extends Controller
 
         }
 
-        $users = User::where('status', 1)->where('is_company', 1)->paginate($paginateNumber);
+        $users = User::where('status', 1)->where('is_company', 1)->orderBy('created_at','desc')->paginate($paginateNumber);
 
         $total_user = count($users);
 

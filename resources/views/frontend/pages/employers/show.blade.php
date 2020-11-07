@@ -409,23 +409,22 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 											target="_blank" class="badge badge-category pl-2 pr-2 mt-2">
 
-											{{ $user->company->category->name }}
+											{{ $user->company->category ? $user->company->category->name : '' }}
 
 										</a>
 
 
 
 										<br>
-
+								
 										<span class="text-dark">Sectors:</span>
-
-										@if (count($user->sectors) > 0)
-
+ 
+									@if (count($user->sectors) > 0)
 										@foreach ($user->sectors as $sector)
 
 										<span class="badge badge-category pl-2 pr-2 mt-2">
 
-											{{ $sector->sector->name }}
+											{{ $sector->sector ? $sector->sector->name :'' }}
 
 										</span>
 
@@ -443,7 +442,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 											{{ $user->location->street_address }},
 
-											{{ $user->location->country->name }}
+											{{ $user->location->country? $user->location->country->name :'' }}
 
 										</span>
 
@@ -459,11 +458,11 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 									<p>
 
-										<span class="mr-2">
+										<!-- <span class="mr-2">
 
 											<i class="fa fa-envelope"></i> {{ $user->email }}
 
-										</span>
+										</span> -->
 
 										@if (!is_null($user->phone_no))
 
@@ -550,7 +549,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 									<h6>Position</h6>
 
-									<p>{{ $user->company->category->name }}</p>
+									<p>{{ $user->company->category ? $user->company->category->name : '' }}</p>
 
 								</div>
 
@@ -636,7 +635,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 									@if ($user->company->team_member != null)
 
-									<p>{{ $user->company->team->name }}</p>
+									<p>{{ $user->company->team ? $user->company->team->name : '' }}</p>
 
 									@else
 

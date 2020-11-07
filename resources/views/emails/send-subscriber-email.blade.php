@@ -29,7 +29,6 @@
                 <tr>
 
                     <td style="border-bottom:1px solid #f6f6f6;">
-
                         <h1 style="font-size:14px; font-family:arial; margin:0px; font-weight:bold;">
 
                             Dear User,

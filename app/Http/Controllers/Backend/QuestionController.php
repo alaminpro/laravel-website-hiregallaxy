@@ -35,11 +35,11 @@ class QuestionController extends Controller
 
         if (auth()->user()->hasRole('editor')) {
 
-            $questions = Question::where('user_id', auth()->user()->id)->get();
+            $questions = Question::orderBy('created_at', 'desc')->where('user_id', auth()->user()->id)->get();
 
         } else {
 
-            $questions = Question::all();
+            $questions = Question::orderBy('created_at', 'desc')->get();
 
         }
 
@@ -60,9 +60,9 @@ class QuestionController extends Controller
     public function create()
     {
 
-        $skills = Skill::where('status', 1)->all();
+        $skills = Skill::orderBy('created_at', 'desc')->where('status', 1)->get();
 
-        $experiences = Experience::all();
+        $experiences = Experience::get();
 
         return view('backend.pages.question.create')->with(compact('skills', 'experiences'));
 
@@ -213,9 +213,9 @@ class QuestionController extends Controller
     public function edit(Question $question)
     {
 
-        $skills = Skill::where('status', 1)->all();
+        $skills = Skill::orderBy('created_at', 'desc')->where('status', 1)->get();
 
-        $experiences = Experience::all();
+        $experiences = Experience::get();
 
         return view('backend.pages.question.edit')->with(compact('skills', 'question', 'experiences'));
 

@@ -2767,21 +2767,26 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 												<div class="col-md-6">
 
-													<label for="sector">Primary Sector <span
+													<label for="discipline">Discipline <span
 
 															class="required">*</span></label>
+	
+													
+													<select name="discipline[]" id="discipline" class="form-control skill_job_post" required multiple>
 
-													<select name="sector" id="sector" class="form-control" required>
+														@foreach (App\Models\Discipline::orderBy('created_at', 'asc')->get() as
 
-														@foreach (App\Models\Category::orderBy('name', 'asc')->get() as
+														$key => $discipline)
+														@php
+														$dis = App\Models\Discipline::whereIn('id', explode(',', $user->candidate->descipline_id))->pluck('id')->toArray();
+													 
+														@endphp
+														
+														<option value="{{ $discipline->id }}"
 
-														$category)
+															 {{ in_array($discipline->id, $dis) ? 'selected':''}}>
 
-														<option value="{{ $category->id }}"
-
-															{{ $user->candidate->sector == $category->id ? 'selected' : '' }}>
-
-															{{ $category->name }}</option>
+															{{ $discipline->name }}</option>
 
 														@endforeach
 
@@ -2901,11 +2906,11 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 					</p>
 
-					<p class="text-theme"><a href="" class="text-theme">{{ $user->email }}</a></p>
+					<!-- <p class="text-theme"><a href="" class="text-theme">{{ $user->email }}</a></p> -->
 
 					<p class=""><i class="fa fa-map-marker text-theme"></i> <span
 
-							class="text-theme">{{ $user->location->country->name }}</span></p>
+							class="text-theme">{{ $user->location ? $user->location->country->name : '' }}</span></p>
 
 					<p class="text-muted">Member since {{ substr($user->created_at, 0,4) }}</p>
 
@@ -3023,7 +3028,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 							</p>
 
-							<p class="text-muted">{{ $user->candidate->career_level->name }}</p>
+							<p class="text-muted">{{ $user->candidate ? $user->candidate->career_level ? $user->candidate->career_level->name : '' : '' }}</p>
 
 						</div>
 
@@ -3039,12 +3044,19 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 							<p class="text-theme font-weight-bold font16">
 
-								Category
+								Discipline 
 
 							</p>
+							@php
+														$dis = App\Models\Discipline::whereIn('id', explode(',', $user->candidate->descipline_id))->get();
+													 
+														@endphp
 
-							<p class="text-muted">{{ $user->candidate->sector_data->name }}</p>
-
+														@foreach($dis as $d)
+							<p class="text-muted">
+							{{ $d->name  }}
+							</p>
+							@endforeach
 						</div>
 
 						<div class="clearfix"></div>
@@ -3148,10 +3160,16 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 
 @section('scripts')
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <script>
+	$("#discipline").select2()
 	window.Parsley
   .addValidator('validUrl', { 
     validateString: function(value, requirement) {

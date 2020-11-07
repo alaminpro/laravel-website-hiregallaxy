@@ -35,11 +35,11 @@ class AptitudeController extends Controller
 
         if (auth()->user()->hasRole('editor')) {
 
-            $aptitudes = Aptitude::where('user_id', auth()->user()->id)->get();
+            $aptitudes = Aptitude::orderBy('created_at', 'desc')->where('user_id', auth()->user()->id)->get();
 
         } else {
 
-            $aptitudes = Aptitude::all();
+            $aptitudes = Aptitude::get();
 
         }
 
@@ -60,9 +60,9 @@ class AptitudeController extends Controller
     public function create()
     {
 
-        $skills = Skill::where('status', 1)->all();
+        $skills = Skill::orderBy('created_at', 'desc')->where('status', 1)->get();
 
-        $experiences = Experience::all();
+        $experiences = Experience::get();
 
         return view('backend.pages.aptitude.create')->with(compact('skills', 'experiences'));
 
@@ -207,9 +207,9 @@ class AptitudeController extends Controller
     public function edit(Aptitude $aptitude)
     {
 
-        $skills = Skill::where('status', 1)->all();
+        $skills = Skill::orderBy('created_at', 'desc')->where('status', 1)->get();
 
-        $experiences = Experience::all();
+        $experiences = Experience::get();
 
         return view('backend.pages.aptitude.edit')->with(compact('skills', 'aptitude', 'experiences'));
 

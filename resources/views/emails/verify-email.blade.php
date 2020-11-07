@@ -4,13 +4,11 @@
 
         <tbody>
 
-            <tr style="background: #ededed;">
+            <tr>
 
                 <td style="vertical-align: top; padding-bottom:30px;" align="center"><a href="{{ route('index') }}" target="_blank">
 
-                    <img src="https://i.ibb.co/8rfLQCt/devs-Env-Logo.gif" alt="Joblrs" style="border: none;width: 120px;">
-
-                    <br>
+                    <img src="https://joblrs.com/images/job-email.png" alt="Joblrs" /> 
 
                 </td>
 
@@ -32,7 +30,7 @@
 
                         <h1 style="font-size:14px; font-family:arial; margin:0px; font-weight:bold;">
 
-                            Dear Developer,
+                            Dear Users,
 
                         </h1>
 
@@ -58,7 +56,7 @@
 
                         </center>
 
-                        <b>- Thanks (HireGallaxy Support Team)</b> </td>
+                        <b>- Thanks (Joblrs Support Team)</b> </td>
 
                     </tr>
 

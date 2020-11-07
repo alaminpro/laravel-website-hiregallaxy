@@ -56,7 +56,7 @@ class ExperiencesController extends Controller
 
         $userExperience->description = $request->description;
 
-        $userExperience->start_date = $request->start_date;
+        $userExperience->start_date = \Carbon\Carbon::parse($request->start_date)->format('Y-m-d');
 
         if (isset($request->is_current_job)) {
 
@@ -68,7 +68,7 @@ class ExperiencesController extends Controller
 
             $userExperience->is_current_job = 0;
 
-            $userExperience->end_date = $request->end_date;
+            $userExperience->end_date =  \Carbon\Carbon::parse($request->end_date)->format('Y-m-d');
 
         }
 
@@ -135,7 +135,7 @@ class ExperiencesController extends Controller
 
         $userExperience->description = $request->description;
 
-        $userExperience->start_date = $request->start_date;
+        $userExperience->start_date = \Carbon\Carbon::parse($request->start_date)->format('Y-m-d');
 
         if (isset($request->is_current_job)) {
 
@@ -147,7 +147,7 @@ class ExperiencesController extends Controller
 
             $userExperience->is_current_job = 0;
 
-            $userExperience->end_date = $request->end_date;
+            $userExperience->end_date = \Carbon\Carbon::parse($request->end_date)->format('Y-m-d');
 
         }
 

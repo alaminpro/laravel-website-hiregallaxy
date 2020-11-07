@@ -105,9 +105,7 @@
                 <div class="form-group">
 
                   <label id="nameLabel" class="form-label">Answer 1</label>
-
-                  <input type="text" class="form-control" name="answer_1" value="{{$aptitude->aptitudeanswers->answer_1}}" id="answer_1" placeholder="Enter answer" required>
-
+  <textarea cols="30" rows="1" class="form-control" name="answer_1" id="answer_1" placeholder="Enter answer" >{{$aptitude->aptitudeanswers->answer_1}}</textarea>  
                 </div>
 
             </div>
@@ -121,9 +119,8 @@
                     Answer 2
 
                   </label>
-
-                  <input type="text" class="form-control" name="answer_2" value="{{$aptitude->aptitudeanswers->answer_2}}" id="answer_2" placeholder="Enter answer" required>
-
+ 
+  <textarea cols="30" rows="1" class="form-control" name="answer_2" id="answer_2" placeholder="Enter answer" >{{$aptitude->aptitudeanswers->answer_2}}</textarea>  
                 </div>
 
             </div>
@@ -140,8 +137,7 @@
 
                   </label>
 
-                  <input type="text" class="form-control" name="answer_3" value="{{$aptitude->aptitudeanswers->answer_3}}" id="answer_3" placeholder="Enter answer" required>
-
+                  <textarea cols="30" rows="1" class="form-control" name="answer_3" id="answer_3" placeholder="Enter answer" >{{$aptitude->aptitudeanswers->answer_3}}</textarea>  
                 </div>
 
             </div>
@@ -156,10 +152,8 @@
 
 
 
-                  </label>
-
-                  <input type="text" class="form-control" name="answer_4" value="{{$aptitude->aptitudeanswers->answer_4}}" id="answer_4" placeholder="Enter answer" required>
-
+                  </label> 
+  <textarea cols="30" rows="1" class="form-control" name="answer_4" id="answer_4" placeholder="Enter answer" >{{$aptitude->aptitudeanswers->answer_4}}</textarea>  
                 </div>
 
             </div>
