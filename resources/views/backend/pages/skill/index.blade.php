@@ -110,7 +110,15 @@
                   </td>
 
                 <td style="Display:none;">{!! $skill->description !!}</td>
-                <td>{!! $skill->type == 0 ? 'Job': 'Candidate' !!}</td>
+                @if( $skill->type == 0)
+                <td>Job</td>
+                @elseif($skill->type == 1)
+                  <td>Candidate</td>
+
+                  @else
+                    <td>Aptitude</td>
+                @endif
+            
 
                 <td>
 
@@ -267,7 +275,16 @@
                             <input type="text" id="name" name="name" class="form-control" placeholder="eg. Web Development" required value="{{ $skill->name }}">
 
                           </div>
+ <div class="col-md-6 form-group">
 
+              <label for="type" >Type</label> 
+              <select name="type" id="" class="form-control">
+                <option value="0" @if($skill->type == 0) selected @endif>Job</option>
+                <option value="1" @if($skill->type == 1) selected @endif >Candidate</option>
+                <option value="2" @if($skill->type == 2) selected @endif >Aptitude</option>
+              </select>
+
+            </div>
                           <div class="col-md-6 form-group" style="Display:none;">
 
                             <label for="slug">skill Slug <span class="text-info required">(optional)</span></label>
@@ -398,6 +415,7 @@
               <select name="type" id="" class="form-control">
                 <option value="0">Job</option>
                 <option value="1">Candidate</option>
+                <option value="2">Aptitude</option>
               </select>
 
             </div>

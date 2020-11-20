@@ -39,7 +39,7 @@ class AptitudeController extends Controller
 
         } else {
 
-            $aptitudes = Aptitude::get();
+            $aptitudes = Aptitude::orderBy('created_at', 'desc')->get();
 
         }
 
@@ -60,7 +60,7 @@ class AptitudeController extends Controller
     public function create()
     {
 
-        $skills = Skill::orderBy('created_at', 'desc')->where('status', 1)->get();
+        $skills = Skill::orderBy('created_at', 'desc')->where('type',2)->where('status', 1)->get();
 
         $experiences = Experience::get();
 
@@ -206,8 +206,8 @@ class AptitudeController extends Controller
 
     public function edit(Aptitude $aptitude)
     {
-
-        $skills = Skill::orderBy('created_at', 'desc')->where('status', 1)->get();
+        
+        $skills = Skill::orderBy('created_at', 'desc')->where('type',2)->where('status', 1)->get();
 
         $experiences = Experience::get();
 

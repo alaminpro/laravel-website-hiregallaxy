@@ -2438,7 +2438,7 @@ var Timer = {
     fetchData: function fetchData() {
       var _this6 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/aptitude/questions/' + this.id).then(
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/candidates/aptitude/questions/' + this.id).then(
       /*#__PURE__*/
       function () {
         var _ref = _asyncToGenerator(
@@ -2551,7 +2551,7 @@ var Timer = {
         answer: this.answer,
         job_id: this.id
       };
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/aptitude/result/', data).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/candidates/aptitude/result/', data).then(function (res) {
         if (res.data.success == 'success') {
           window.location = 'https://joblrs.com/jobs/view/' + res.data.job_id.slug;
         }
@@ -2560,7 +2560,7 @@ var Timer = {
     user_finished_exam: function user_finished_exam() {
       var _this9 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/aptitude/check-status').then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/candidates/aptitude/check-status').then(function (res) {
         _this9.status = res.data;
       });
     },

@@ -128,7 +128,7 @@ Sign Up | Joblrs
 
                                     <label for="name">Name <span class="required">*</span></label>
 
-                                    <input type="text" data-parsley-pattern="^[a-zA-Z]+$"  class="form-control" name="name" id="name" placeholder="Write Your Name" required  value="{{ old('name') }}">
+                                    <input type="text"   class="form-control" name="name" id="name" placeholder="Write Your Name" required  value="{{ old('name') }}">
 
                                 </div>
 
@@ -409,7 +409,7 @@ Sign Up | Joblrs
 
                                     <label for="name">Company/Employer Name <span class="required">*</span></label>
 
-                                    <input type="text" data-parsley-pattern="^[a-zA-Z]+$"   class="form-control" name="name" id="name" placeholder="Write Name" required  value="{{ old('name') }}">
+                                    <input type="text"     class="form-control" name="name" id="name" placeholder="Write Name" required  value="{{ old('name') }}">
 
                                 </div>
 

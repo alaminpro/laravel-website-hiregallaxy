@@ -260,7 +260,7 @@ export default {
             });
         },
         fetchData() {
-            Axios.get('/aptitude/questions/' + this.id).then(async (res) => {
+            Axios.get('/candidates/aptitude/questions/' + this.id).then(async (res) => {
                 if (res.data.error == 'error') {
                     this.loading = false;
                     this.error = true;
@@ -329,14 +329,14 @@ export default {
                 answer: this.answer,
                 job_id: this.id
             }
-            Axios.post('/aptitude/result/', data).then((res) => {
+            Axios.post('/candidates/aptitude/result/', data).then((res) => {
                 if (res.data.success == 'success') {
                     window.location = 'https://joblrs.com/jobs/view/' + res.data.job_id.slug;
                 }
             });
         },
         user_finished_exam() {
-            Axios.get('/aptitude/check-status').then((res) => {
+            Axios.get('/candidates/aptitude/check-status').then((res) => {
                 this.status = res.data
             });
         },

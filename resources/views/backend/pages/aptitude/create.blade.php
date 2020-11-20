@@ -98,10 +98,10 @@
 
                 <div class="form-group">
 
-                  <label id="nameLabel" class="form-label">Answer 1</label>
+                  <label class="form-label">Answer 1</label>
 
-                  <input type="text" class="form-control" name="answer_1" id="answer_1" placeholder="Enter answer" required>
-
+                  <!-- <input type="text" class="form-control" name="answer_1" id="answer_1" placeholder="Enter answer" required> -->
+ <textarea class="form-control" name="answer_1" id="answer_1" placeholder="Enter answer" cols="30" rows="1" required></textarea>
                 </div>
 
             </div>
@@ -118,8 +118,8 @@
 
                   </label>
 
-                  <input type="text" class="form-control" name="answer_2" id="answer_2" placeholder="Enter answer" required>
-
+                  <!-- <input type="text" class="form-control" name="answer_2" id="answer_2" placeholder="Enter answer" required> -->
+ <textarea class="form-control" name="answer_2" id="answer_2" placeholder="Enter answer" cols="30" rows="1" required></textarea>
                 </div>
 
             </div>
@@ -136,7 +136,8 @@
 
                   </label>
 
-                  <input type="text" class="form-control" name="answer_3" id="answer_3" placeholder="Enter answer" required>
+                  <!-- <input type="text" class="form-control" name="answer_3" id="answer_3" placeholder="Enter answer" required> -->
+                  <textarea class="form-control" name="answer_3" id="answer_3" placeholder="Enter answer" cols="30" rows="1" required></textarea>
 
                 </div>
 
@@ -154,8 +155,8 @@
 
                   </label>
 
-                  <input type="text" class="form-control" name="answer_4" id="answer_4" placeholder="Enter answer" required>
-
+                  <!-- <input type="text" class="form-control" name="answer_4" id="answer_4" placeholder="Enter answer" required> -->
+    <textarea class="form-control" name="answer_4" id="answer_4" placeholder="Enter answer" cols="30" rows="1" required></textarea>
                 </div>
 
             </div>

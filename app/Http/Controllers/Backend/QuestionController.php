@@ -60,7 +60,7 @@ class QuestionController extends Controller
     public function create()
     {
 
-        $skills = Skill::orderBy('created_at', 'desc')->where('status', 1)->get();
+        $skills = Skill::orderBy('created_at', 'desc')->where('type',0)->where('status', 1)->get();
 
         $experiences = Experience::get();
 
@@ -213,7 +213,7 @@ class QuestionController extends Controller
     public function edit(Question $question)
     {
 
-        $skills = Skill::orderBy('created_at', 'desc')->where('status', 1)->get();
+        $skills = Skill::orderBy('created_at', 'desc')->where('type',0)->where('status', 1)->get();
 
         $experiences = Experience::get();
 

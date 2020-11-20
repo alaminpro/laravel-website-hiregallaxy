@@ -107,7 +107,7 @@ class SkillsController extends Controller
             $skill->name = $request->name;
 
             $skill->slug = $request->slug;
-
+    $skill->type = $request->type;
             $skill->description = $request->description;
 
             $skill->save();

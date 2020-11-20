@@ -55,7 +55,7 @@
                     </td>
 
                     <td>
-                        {{ $single_job->country->name }}
+                        {{ $single_job->country ? $single_job->country->name : '' }}
                     </td>
 
                     <td>

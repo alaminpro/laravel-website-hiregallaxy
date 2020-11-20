@@ -185,7 +185,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 											<div class="pr-2"><input type="search" autocomplete="off" 
 												class="text-center text-theme form-control border-0  mb-3 job__title"
 		
-												id="title" name="title" value="{{ old('title') }}" placeholder="Job Title"
+												id="title" name="title" value="{{ $job->title }}" placeholder="Job Title"
 		
 												> </div>
 
@@ -481,11 +481,11 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
                                         @foreach (App\Models\City::orderBy('name', 'asc')->get() as $country)
 										@php
-											$city =  App\Models\City::where('id',$country->city_id)->first();
+									 $city =  App\Models\Country::where('city_id',$country->id)->first();
 										@endphp
-                    					<option value="{{ $country->id }}" 	{{ $city ? $country->id == $city->id ? 'selected' : '': '' }} >
+                    					<option  value="{{ $country->id }}" 	{{ $country->id == $city->city_id ? 'selected' : '' }} >
 
-                    						{{ $country->name }}
+                    					 	{{ $country->name }}
 
                     					</option> 
                     					@endforeach

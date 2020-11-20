@@ -106,7 +106,7 @@
 
                 <td>:</td>
 
-                <td>{{$aptitude->aptitudeanswers->answer_1}}</td>
+                <td>{!! $aptitude->aptitudeanswers->answer_1 !!}</td>
 
             </tr> 
 
@@ -116,7 +116,7 @@
 
                 <td>:</td>
 
-                <td>{{$aptitude->aptitudeanswers->answer_2}}</td>
+                <td>{!! $aptitude->aptitudeanswers->answer_2 !!}</td>
 
             </tr> 
 
@@ -126,7 +126,7 @@
 
                 <td>:</td>
 
-                <td>{{$aptitude->aptitudeanswers->answer_3}}</td>
+                <td>{!! $aptitude->aptitudeanswers->answer_3 !!}</td>
 
             </tr> 
 
@@ -136,7 +136,7 @@
 
                 <td>:</td>
 
-                <td>{{$aptitude->aptitudeanswers->answer_4}}</td>
+                <td>{!! $aptitude->aptitudeanswers->answer_4 !!}</td>
 
             </tr> 
 

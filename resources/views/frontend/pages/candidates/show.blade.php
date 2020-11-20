@@ -270,7 +270,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 											<div class="row form-group">
 
-												<div class="col-md-4">
+												<!-- <div class="col-md-4">
 
 													<label for="job_location_country">Job City <span
 
@@ -294,7 +294,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 													</select>
 
-												</div>
+												</div> -->
 
 
 
@@ -604,7 +604,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 															</div>
 
-															<div class="col-md-4">
+															<!-- <div class="col-md-4">
 
 																<label for="job_location_country">Job Country <span
 
@@ -632,7 +632,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 																</select>
 
-															</div>
+															</div> -->
 
 
 
@@ -3000,7 +3000,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 						<i class="fa fa-venus-mars font30 float-left mt-2"></i>
 
-						<div class="float-left ml-3">
+						<div class="float-left ml-2">
 
 							<p class="text-theme font-weight-bold font16">
 
@@ -3020,7 +3020,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 						<i class="fa fa-paw font30 float-left mt-2"></i>
 
-						<div class="float-left ml-3">
+						<div class="float-left" style="margin-left: 12px">
 
 							<p class="text-theme font-weight-bold font16">
 
@@ -3067,7 +3067,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 						<i class="fa fa-group font30 float-left mt-2"></i>
 
-						<div class="float-left ml-3">
+						<div class="float-left ml-2">
 
 							<p class="text-theme font-weight-bold font16">
 
@@ -3089,7 +3089,7 @@ Candidate Details | {{ App\Models\Setting::first()->site_title }}
 
 						<i class="fa fa-graduation-cap font30 float-left mt-2"></i>
 
-						<div class="float-left ml-3">
+						<div class="float-left ml-1">
 
 							<p class="text-theme font-weight-bold font16">
 
