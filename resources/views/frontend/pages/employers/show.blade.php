@@ -404,8 +404,8 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 									<p class="text-yellow mb-3">
 
 										<span class="text-dark">Position:</span>
-
-										<a href="{{ route('jobs.categories.show', $user->company->category->slug) }}"
+									@if($user->company->category)
+										<a href="{{ route('jobs.categories.show',  $user->company->category->slug) }}"
 
 											target="_blank" class="badge badge-category pl-2 pr-2 mt-2">
 
@@ -413,7 +413,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 										</a>
 
-
+									@endif
 
 										<br>
 								

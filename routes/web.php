@@ -316,7 +316,7 @@ Route::get('/unsubscribe/{email}', 'Frontend\SubscriberController@unsubscribe')-
 // Route::get('/send-email-all-subscriber/{token}', 'Frontend\SubscriberController@sendEmailAsCron')->name('users.subscribe.send-email');
 
 /** Authentication Routes **/
-
+Route::post('/register/employee', 'Auth\LoginController@registerEmployee')->name('register.employee');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

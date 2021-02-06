@@ -481,9 +481,9 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
                                         @foreach (App\Models\City::orderBy('name', 'asc')->get() as $country)
 										@php
-									 $city =  App\Models\Country::where('city_id',$country->id)->first();
+									 		$city =  App\Models\Country::where('city_id', $country->id)->first();
 										@endphp
-                    					<option  value="{{ $country->id }}" 	{{ $country->id == $city->city_id ? 'selected' : '' }} >
+                    					<option  value="{{ $country->id }}" 	{{ $country->id == !empty($city) ? $city->city_id : '' ? 'selected' : '' }} >
 
                     					 	{{ $country->name }}
 

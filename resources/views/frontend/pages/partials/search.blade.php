@@ -1,5 +1,4 @@
-
-	<form action="{{ $route }}" method="get" class="search__form">
+<form action="{{ $route }}" method="get" class="search__form">
 
 		<div class="d-flex">
 			<div class="job-searchbox">  
@@ -111,5 +110,4 @@
 				</select> 
 			</div>
 		</div>
-	</form>
- 
+	</form> 

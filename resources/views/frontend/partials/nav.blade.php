@@ -1,4 +1,21 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<div class="top--nav d-flex d-lg-none">
+@guest
+			<ul class="navbar-nav w-100 flex-row" > 
+				<li class="nav-item">
+					@if (!Route::is('login'))
+						<a href="#signInModal" data-toggle="modal" class="nav-link">Login</a>
+					@endif
+				</li>
+				<li class="nav-item"> 
+					<a href="{{ route('register') }}" class="nav-link">Join Us</a>
+				</li>  
+				<li class="nav-item">
+					<a  href="{{ route('jobs.post') }}" class="nav-link" title="post job"> Post a Job</a> 
+				</li>
+			</ul>
+			@endguest
+</div>
+<nav class="new--navbar navbar navbar-expand-lg navbar-dark   sticky-top">
 	<div class="container-fluid nav-container">
 		@if (Auth::check() && Auth::user()->is_company)
 		<div class="control__nav">
@@ -52,31 +69,22 @@
 				<li class="nav-item">
 					<a class="nav-link {{ Route::is('description') || Route::is('description') ? 'nav-link-active' : '' }}" href="{{ route('description') }}">Job Description</a>
 				</li> 
-			</ul> 
-			<ul class="navbar-nav ml-auto"> 
-				@if (App\User::userCanPost(Auth::id()))
-				<li class="nav-item">
-					<a class="nav-link post-job-button" href="{{ route('jobs.post') }}" title="post job">
-						<i class="fa fa-plus"></i>
-					<span class="hidden_sm_job_text">	Post a Job</span>
-					</a>
-				</li> 
-				@endif
-			</ul> 
-
+			</ul>  
 			@guest
-			<ul class="navbar-nav ml-auto"> 
-				<li class="nav-item">
-					<a class="nav-link post-job-button" href="{{ route('jobs.post') }}" title="post job">
-						<i class="fa fa-plus"></i>
-					<span class="hidden_sm_job_text">	Post a Job</span>
-					</a>
+			<ul class="navbar-nav  ml-auto mr-5 d-md-none d-lg-flex" > 
+				<li class="nav-item"> 
+					<a href="{{ route('register') }}" class="nav-link">Join Us</a>
 				</li> 
+				<li class="nav-item">
+					@if (!Route::is('login'))
+						<a href="#signInModal" data-toggle="modal" class="nav-link">Login</a>
+					@endif
+				</li>
 			</ul>
 			@endguest
 
 			@if (Auth::check())
-			<div class="float-right">
+			<div class="">
 				<div class="top-authentication-links custom-auth-links">
 					<a class="seen--message py-2" href="javascript:void(0)">
 						<i class="fa fa-envelope"></i> 
@@ -106,12 +114,9 @@
 				</div>
 			</div>
 			@else
-			<div class="float-right">
+			<div class="d-md-none d-lg-block">
 				<div class="top-authentication-links">
-					<a href="{{ route('register') }}" class="btn-primary join__btn">Join Us</a>
-					@if (!Route::is('login'))
-					<a href="#signInModal" data-toggle="modal" class="btn-secondary login_btn">Login</a>
-					@endif
+				 	<a class="post-job-button" href="{{ route('jobs.post') }}" title="post job"> Post a Job</a> 
 				</div>
 			</div>
 			@endif

@@ -144,25 +144,20 @@ class RegisterController extends Controller
 
         $validator = \Validator::make($request->all(), [
 
-            'username' => 'required|alpha_num|max:30|unique:users',
-
-            'email' => 'required|email|unique:users',
-
-            'street_address' => 'required',
-
-            'country' => 'required',
-
-            'name' => 'required|max:30',
-
-            'password' => 'required|min:8|confirmed',
-
+            'name' => 'required|alpha|min:5',
+            'username' => 'required|max:30|unique:users', 
+            'email' => 'required|email|unique:users', 
+            'street_address' => 'required|min:5', 
+            'sector' => 'required', 
+            'country' => 'required',  
+            'city' => 'required',  
+            'term' => 'required',  
+            'password' => 'required|min:8|confirmed', 
         ],
 
             [
 
-                'username.required' => 'Please give your username',
-
-                'username.alpha_num' => 'Please give your username using alphabet and numbers',
+                'username.required' => 'Please give your username',  
 
                 'username.max' => 'Please give your username between 30 characters',
 
@@ -170,7 +165,11 @@ class RegisterController extends Controller
 
                 'street_address.required' => 'Please give your street address',
 
-                'country.required' => 'Please choose your country',
+                'country.required' => 'Please choose your city',
+
+                'city.required' => 'Please choose your country',
+
+                'sector.required' => 'Please choose your position',
 
                 'email.required' => 'Please give an email address',
 
@@ -179,6 +178,173 @@ class RegisterController extends Controller
                 'email.unique' => 'Sorry An email is already exists',
 
                 'name.required' => 'Please give your name',
+                'term.required' => 'Term & Codition is required',
+
+                'name.max' => 'Please give your name between 30 characters',
+
+                'password.min' => 'Please give your password more than 8 characters',
+
+                'password.confirmed' => 'Please confirm your password',
+
+            ]
+
+        );
+
+        if ($validator->fails()) {
+
+            if ($request->is_company == 1) {
+
+                return redirect('/register?type=employer#registration')->withInput()->withErrors($validator);
+
+            } else {
+
+                return redirect('/register?type=candidate#registration')->withInput()->withErrors($validator);
+
+            }
+
+        }
+
+        // Create location and add location ID
+
+        $location = new Location();
+
+        $location->street_address = $request->street_address;
+
+        $location->country_id = $request->country;
+
+        $location->save();
+
+        $user = new User();
+
+        $user->name = $request->name;
+
+        $user->username = $request->username;
+
+        $user->email = $request->email;
+
+        $user->location_id = $location->id;
+
+        $user->password = Hash::make($request->password);
+
+        $user->verify_token = str_random(50);
+
+        $user->api_token = bin2hex(openssl_random_pseudo_bytes(30));
+
+        $user->save();
+
+        // If User is a company
+
+        if ($request->is_company == 1) {
+
+            $user->is_company = 1;
+
+            // $user->website = $request->website;
+
+            $user->save();
+
+            // Add Company Profile
+
+            $company = new CompanyProfile();
+
+            $company->user_id = $user->id;
+
+            $company->country_id = $request->city;
+
+            $company->sector_id = implode(',', $request->sector);
+            $company->category_id = $request->category_id;
+
+            $company->save();
+
+            $message = "An Employer Profile has been created successfully Please check your email and confirm";
+
+        } else {
+
+            $user->is_company = 0;
+
+            $user->save();
+
+            $candidate = new CandidateProfile();
+
+            $candidate->career_level_id = 1; // Beginner
+
+            $candidate->user_id = $user->id;
+
+            $candidate->country_id = $request->city;
+
+            $candidate->sector = $request->sector;
+
+            $candidate->save();
+
+            $userCategory = new UserCategory();
+
+            $userCategory->user_id = $user->id;
+
+            $userCategory->category_id = $request->sector;
+
+            $userCategory->save();
+
+            $message = "A Candidate Profile has been created successfully Please check your email and confirm";
+
+        }
+
+        session()->flash('success', $message);
+
+        $user->notify(new VerifyEmailUser($user));
+
+        if ($request->is_company == 1) {
+
+            return redirect('/login');
+
+        } else {
+
+            return redirect('/login');
+
+        }
+
+    }
+    public function registerEmployee(Request $request)
+    {
+
+        $validator = \Validator::make($request->all(), [
+
+            'name' => 'required|alpha|min:5',
+            'username' => 'required|max:30|unique:users', 
+            'email' => 'required|email|unique:users', 
+            'street_address' => 'required', 
+            'category_id' => 'required', 
+            'sector' => 'required', 
+            'country' => 'required',  
+            'city' => 'required',  
+            'term' => 'required',  
+            'password' => 'required|min:8|confirmed', 
+        ],
+
+            [
+
+                'username.required' => 'Please give your username',  
+
+                'username.max' => 'Please give your username between 30 characters',
+
+                'username.unique' => 'Sorry A username is already exists',
+
+                'street_address.required' => 'Please give your street address',
+
+                'country.required' => 'Please choose your city',
+
+                'city.required' => 'Please choose your country',
+
+                'category_id.required' => 'Please choose your position',
+
+                'sector.required' => 'Please choose your Sector',
+
+                'email.required' => 'Please give an email address',
+
+                'email.email' => 'Please give a valid email address',
+
+                'email.unique' => 'Sorry An email is already exists',
+
+                'name.required' => 'Please give your name',
+                'term.required' => 'Term & Codition is required',
 
                 'name.max' => 'Please give your name between 30 characters',
 

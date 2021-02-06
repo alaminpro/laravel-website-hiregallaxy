@@ -59,7 +59,7 @@
 											<i class="fa fa-user category-icon"></i> {{ $job->user->name }}
 
 										</span>
-
+									@if($job->category)
 										<span class="mr-2">
 
 											Posted: <span
@@ -71,7 +71,7 @@
 												href="{{ route('jobs.categories.show', $job->category->slug) }}">{{ $job->category->name }}</a>
 
 										</span>
-
+									@endif
 									</p>
 
 									<p>
@@ -561,19 +561,19 @@
 						<div class="float-left  ml-2 single-job-description">
 
 							<h4>{{ $single_user->name }}</h4>
-
+						
 							<p class="text-theme mb-2">
 
 								@foreach ($single_user->categories as $catSingleUser)
-
+	@if($catSingleUser->category)
 								<a
 
 									href="{{ route('jobs.categories.show', $catSingleUser->category->slug) }}">{{ $catSingleUser->category->name }}</a>
-
+@endif
 								@endforeach
 
 							</p>
-
+		
 							<p class="text-muted">
 
 								{{ $activity->created_at->diffForHumans() }}

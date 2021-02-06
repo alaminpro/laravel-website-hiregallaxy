@@ -10,20 +10,20 @@
 
 				<div class="col-md-3">
 
-					<h1 class="footer-title text-uppercase">Company</h1>
+					<h1 class="footer-title text-capitalize">Company</h1>
 
 					 
 					<ul class="footer-links">
 
 						<li>
 
-							<a href="{{ route('about_us') }}"><i class="fa fa-caret-right"></i>About us</a>
+							<a href="{{ route('about_us') }}"> About us</a>
 
 						</li>
 
 						<li>
 
-							<a href="{{ route('contacts') }}"><i class="fa fa-caret-right"></i>Contact us</a>
+							<a href="{{ route('contacts') }}"> Contact us</a>
 
 						</li>
 						
@@ -33,19 +33,19 @@
 					</div> 
 				<div class="col-md-3">
 
-					<h1 class="footer-title text-uppercase">Terms</h1>
+					<h1 class="footer-title text-capitalize">Terms</h1>
 
 					<ul class="footer-links">
 
 						<li>
 
-							<a href="{{ route('terms') }}"><i class="fa fa-caret-right"></i>Terms of use</a>
+							<a href="{{ route('terms') }}"> Terms of use</a>
 
 						</li>
 
 						<li>
 
-							<a href="{{ route('privacy') }}"><i class="fa fa-caret-right"></i>Privacy Policy</a>
+							<a href="{{ route('privacy') }}"> Privacy Policy</a>
 
 						</li>
 						
@@ -55,13 +55,13 @@
 				</div> 
 				<div class="col-md-3">
 
-					<h1 class="footer-title text-uppercase">Customer</h1>
+					<h1 class="footer-title text-capitalize">Customer</h1>
 
 					<ul class="footer-links">
 
 						<li>
 
-							<a href="{{ route('testimonial') }}"><i class="fa fa-caret-right"></i> Testimonials</a>
+							<a href="{{ route('testimonial') }}">  Testimonials</a>
 
 						</li> 
 				
@@ -73,17 +73,17 @@
 
 				<div class="col-md-3">
 
-					<h1 class="footer-title text-uppercase">Follow</h1>
+					<h1 class="footer-title text-capitalize">Follow Us</h1>
 
 					<div class="footer-social">
 
-						<a href="{{ App\Models\Setting::first()->facebook_link ? App\Models\Setting::first()->facebook_link : '#' }}"><i class="fa fa-facebook facebook-icon"></i></a>
+						<a href="{{ App\Models\Setting::first()->facebook_link ? App\Models\Setting::first()->facebook_link : '#' }}"><i class="fa fa-facebook-square "></i></a>
 
-						<a href="{{ App\Models\Setting::first()->twitter_link ? App\Models\Setting::first()->twitter_link: '#' }}"><i class="fa fa-twitter twitter-icon"></i></a>
+						<a href="{{ App\Models\Setting::first()->twitter_link ? App\Models\Setting::first()->twitter_link: '#' }}"><i class="fa fa-twitter "></i></a>
 
-						<a href="{{ App\Models\Setting::first()->google_plus_link ? App\Models\Setting::first()->google_plus_link : '#' }}"><i class="fa fa-google-plus google-plus-icon"></i></a>
+						<a href="{{ App\Models\Setting::first()->google_plus_link ? App\Models\Setting::first()->google_plus_link : '#' }}"><i class="fa fa-google-plus-square  "></i></a>
 
-						<a href="{{ App\Models\Setting::first()->linkedin_link ? App\Models\Setting::first()->linkedin_link : '#' }}"><i class="fa fa-linkedin linkedin-icon"></i></a>
+						<a href="{{ App\Models\Setting::first()->linkedin_link ? App\Models\Setting::first()->linkedin_link : '#' }}"><i class="fa fa-linkedin-square "></i></a>
 
 					</div>
 
@@ -120,10 +120,11 @@
 
 
 <section class="footer-bottom-section">  
-	<div class="container text-center">
-
-		&copy; {{ date('Y') }} Joblrs, All rights reseved
-
+		<div class="container"> 
+		<div class="footer--new">
+			<p>&copy; {{ date('Y') }} Joblrs, All rights reseved </p>
+			<p>Design by Joblrs</p>
+		</div>
 	</div>
 
 </section>

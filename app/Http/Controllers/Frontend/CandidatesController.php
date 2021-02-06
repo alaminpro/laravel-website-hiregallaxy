@@ -18,8 +18,7 @@ use App\Models\UserSkill;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use PDF;
+use Illuminate\Support\Facades\DB; 
 
 class CandidatesController extends Controller
 {
@@ -93,20 +92,34 @@ class CandidatesController extends Controller
     public function showResume($username)
     {
 
-        $user = User::where('username', $username)->first();
+       $user = User::where('username', $username)->first();
 
-        $data = [
-
-            'user' => $user,
-
+        $data = [ 
+            'user' => $user, 
         ];
 
-        // return view('frontend.pages.candidates.show-resume', compact('data'));
 
-        $pdf = PDF::loadView('frontend.pages.candidates.show-resume', compact('data'));
+        $label = [];
+        $arr = [];
+        foreach ($user->skills as $skill) {
 
-        return $pdf->stream('candidate-resume.pdf');
+            $label[] = $skill->skill ? $skill->skill->name : '';
+            $arr[] = $skill['percentage'];
+        }
 
+
+    //     return view('frontend.pages.candidates.show-resume', compact('data'));
+      
+          
+    //     $pdf = PDF::loadView('frontend.pages.candidates.show-resume', compact('data','label', 'arr'));
+
+    //     return $pdf->stream('candidate-resume.pdf');
+            $pdf = \PDF::loadView('frontend.pages.candidates.show-resume', compact('data','label', 'arr'));
+                $pdf->setOption('enable-javascript', true);
+                $pdf->setOption('javascript-delay', 5000);
+                $pdf->setOption('enable-smart-shrinking', true);
+                $pdf->setOption('no-stop-slow-scripts', true);
+                return $pdf->download('chart.pdf');
     }
 
     public function search(Request $request)

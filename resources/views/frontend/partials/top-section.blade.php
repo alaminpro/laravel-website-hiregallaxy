@@ -2,81 +2,84 @@
 <div class="home-top header-index">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-6 px-2">
+			<div class="col-lg-12 px-2">
 				<h1 class="top-title  wow fadeInUp custom__title"> 
-					Simplify your hiring and job search process, get <span class="text-danger">prescreened</span> candidates to your inbox!
+				Simplify your search & hiring process,<br> 
+				Get prescreened candidates to your ATS Dashboard. 
 				</h1>
-				<h2 class="top-description  wow fadeInLeft custom__description">
+				<h2 class="top-description  wow fadeInLeft custom__description text-uppercase">
 					Discover
-				</h2>
-			
-				@include('frontend.pages.partials.search', ['route' => route('searches') ])
+				</h2> 
+				@include('frontend.pages.partials.search-home', ['route' => route('searches') ])
 				<div class="companies-more">
-					<div class="row">
-						<div class="wow slideInLeft col-sm-4 custom__back ">
-							<div class=" d-flex align-items-center">
-								<span class="icon">
-									<i class="fa fa-globe" aria-hidden="true"></i>
-								</span>
-								<span class="counts-more">
-									<span class="count-thing">
-										{{ count(App\Models\Country::select('id')->get()) }}
-									</span>
-									<br>
-									<span class="company-more-name">
-										Cities
-									</span>
-								</span>
+					<div class="row align-items-center">
+						<div class="col-lg-7">
+							<div class="row">
+								<div class="wow slideInLeft col-4 custom__back ">
+									<div class=" d-flex align-items-start">
+										<span class="icon pr-2">
+											<img src="{{ asset('images/new-img/location.png') }}" alt="location">
+										</span>
+										<span class="counts-more">
+										
+												<span class="company-more-name text-uppercase">
+												Cities
+											</span>  
+											<span class="count-thing">
+												{{ count(App\Models\Country::select('id')->get()) }}
+											</span>
+										</span>
+									</div>
+								</div>
+								<div class="wow slideInDown col-4 custom__back">
+									<div class="d-flex align-items-start">
+										<span class="icon pr-2">
+										<img src="{{ asset('images/new-img/busket.png') }}" alt="busket">
+										</span>
+										<span class="counts-more">
+											@php
+												$companies_count = count(App\User::where('is_company',
+												1)->where('status',
+												1)->get());
+												@endphp
+											<span class="company-more-name  text-uppercase">
+												{{ $companies_count > 1 ? 'Companies':'Company' }}
+											</span> 
+											<span class="count-thing"> 
+												{{ $companies_count }}
+											</span>
+										</span>
+									</div>
+								</div>
+								<div class="wow slideInRight col-4  custom__back">
+									<div class="d-flex align-items-start">
+										<span class="icon pr-2">
+										<img src="{{ asset('images/new-img/people.png') }}" alt="people">
+										</span>
+										<span class="counts-more">
+											@php
+												$candidate_counts = count(App\User::where('is_company',
+												0)->where('status',
+												1)->get());
+												@endphp
+											<span class="company-more-name  text-uppercase">
+												{{ $candidate_counts > 1 ? 'Candidates':'Candidate' }}
+											</span> 
+											<span class="count-thing"> 
+												{{ $candidate_counts }}
+											</span>
+											
+										</span>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="wow slideInDown col-sm-4 custom__back">
-							<div class="d-flex align-items-center">
-								<span class="icon">
-									<i class="fa fa-line-chart" aria-hidden="true"></i>
-								</span>
-								<span class="counts-more">
-									<span class="count-thing">
-										@php
-										$companies_count = count(App\User::where('is_company',
-										1)->where('status',
-										1)->get());
-										@endphp
-										{{ $companies_count }}
-									</span>
-									<br>
-									<span class="company-more-name">
-										{{ $companies_count > 1 ? 'Companies':'Company' }}
-									</span>
-								</span>
-							</div>
-						</div>
-						<div class="wow slideInRight col-sm-4  custom__back">
-							<div class="d-flex align-items-center">
-								<span class="icon">
-									<i class="fa fa-user-o" aria-hidden="true"></i>
-								</span>
-								<span class="counts-more">
-									<span class="count-thing">
-										@php
-										$candidate_counts = count(App\User::where('is_company',
-										0)->where('status',
-										1)->get());
-										@endphp
-										{{ $candidate_counts }}
-									</span>
-									<br>
-									<span class="company-more-name">
-										{{ $candidate_counts > 1 ? 'Candidates':'Candidate' }}
-									</span>
-								</span>
-							</div>
+						<div class="col-lg-5">
+							<img class="img-fluid custom-img-setting" src="{{ asset('images/new-img/banner.png') }}" alt="banners">
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-6 d-lg-flex d-none align-items-center">
-				<img src="{{ asset('images/team.png') }}" class="img-fluid" alt="team img">
-			</div>
+			</div> 
 		</div>
 	</div>
 </div>
@@ -155,7 +158,7 @@
 							</div>
 						</div> <!-- End Searchbox -->
 						<div class="advanced__search">
-							<button class="advanced__search_btn" type="button"><i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+							<button class="job--advanced-search" type="button"><i class="fa fa-ellipsis-v" aria-hidden="true"></i>
 							</button>
 						</div>
 					</div>
@@ -1053,7 +1056,7 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 
 					@elseif(Route::is('jobs.search'))
 
-					<span class="changes_dynamic_title">Search Jobs</span>
+					<span class="changes_dynamic_title">Find Your Dream Job</span>
 
 					@elseif(Route::is('candidates.search'))
 
@@ -1164,8 +1167,91 @@ Route::is('candidates.messages') || Route::is('employers.jobs.applications') || 
 
 				@elseif(Route::is('jobs.search'))
 
-				@include('frontend.pages.partials.search', ['route' => route('jobs.search') ])
+				<div class="home-top">
 
+	<div class="container">
+
+		<div class="row justify-content-center">
+
+			<div class="col-md-12"> 
+ 
+				<form action="{{ route('jobs.search') }}" method="get">
+
+					<div class="d-flex">
+						<div class="job-searchbox">  
+							<div class="input__search">
+								<input type="text" name="job" class="form-control" placeholder="Find Job: title, keywords">
+							</div>
+			
+							<div class="input__city">
+								<input type="text" name="location" class="form-control" placeholder="Where: city">
+							</div> 
+							<div class="custom__search_bar"> 
+								<div class="input__submit">
+									<button type="submit"><i class="fa fa-search"></i></button>
+								</div>
+								<div class="advanced__search_mobile">
+									<button class="advanced__search_btn" type="button"><i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+						</div> <!-- End Searchbox -->
+						<div class="advanced__search">
+							<button class="job--advanced-search" type="button"><i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+							</button>
+						</div>
+					</div>
+					<div class="advanced__seach_show">
+						<div class="job_search">
+							<select name="category" id="category" class="selectpicker" data-live-search="true">
+			
+								<option data-icon="fa fa-navicon" value="all">All Postions</option>
+				
+								@foreach (App\Models\Category::orderBy('name', 'asc')->get() as $category)
+				
+								<option value="{{ $category->slug }}">{{ $category->name }}</option>
+				
+								@endforeach
+				
+							</select>
+							<select name="experience" id="experience" class="selectpicker ml-0 ml-md-4 mt-4 mt-md-0" data-live-search="true">
+				
+								<option data-icon="fa fa-star" value="all">All Experience</option>
+				
+								@foreach (App\Models\Experience::orderBy('name', 'asc')->get() as $exp)
+				
+								<option value="{{ $exp->slug }}">{{ $exp->name }}</option>
+				
+								@endforeach
+				
+							</select>
+							<select name="type" id="type" class="selectpicker ml-0 ml-md-4 mt-4 mt-md-0" data-live-search="true">
+				
+								<option value="all">Select Type</option>
+				
+								@foreach (App\Models\JobType::orderBy('name', 'asc')->get() as $exp)
+				
+								<option value="{{ $exp->name }}">{{ $exp->name }}</option>
+				
+								@endforeach
+				
+							</select>
+							<div class="datepicker">
+								<input type="text" name="date" id="datepicker" placeholder="Posted Date">
+							</div>
+						</div>
+						 
+					</div>
+				
+				</form>
+ 
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
 				@else
 
 				<!--bye-->

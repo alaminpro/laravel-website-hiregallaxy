@@ -2,7 +2,6 @@ require('./bootstrap');
 require('./custom/custom');
 
 
-
 window.Vue = require('vue');
 
 
@@ -34,4 +33,3 @@ const app = new Vue({
     el: '#app'
 
 });
-

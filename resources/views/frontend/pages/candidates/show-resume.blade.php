@@ -665,13 +665,7 @@ $user = $data['user'];
     </div>
 
     <!-- End Skills Part -->
-
-
-
-
-
-
-
+ 
     <!-- Start Portfolios -->
 
     <div class="awards-part mt-3">

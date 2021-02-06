@@ -3,12 +3,12 @@
 		@if (!is_null($single_job->user->profile_picture)) 
 		<img  alt="image" src="{{ asset('images/users/'.$single_job->user->profile_picture) }}"> 
 		@else 
-		<i class="{{ $single_job->category->icon }} job-category-icon"></i> 
+		<i class="{{ $single_job->category ? $single_job->category->icon : '' }} job-category-icon"></i> 
 		@endif 
 	</div> 
 	<div class="float-left  ml-2 single-job-description"> 
 		<h4 class="pointer" onclick="location.href='{{ route('jobs.show', $single_job->slug) }}'">{{ $single_job->title }}</h4> 
-		<p><i class="fa fa-shopping-bag category-icon"></i> {{ $single_job->category->name }}</p> 
+		<p><i class="fa fa-shopping-bag category-icon"></i> {{ $single_job->category ? $single_job->category->name : '' }}</p> 
 		<p><i class="fa fa-map-marker location-icon"></i> 
 			@php
 				$country = \App\Models\City::where('id', $single_job->city_id)->first();

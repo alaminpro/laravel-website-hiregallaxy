@@ -25,4 +25,4 @@
 @include('frontend.partials.flash-messages') 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
 
-<script src="{{ asset('js/custom.js') }}?v={{ config('constants.asset_version') }}"></script>
+<script src="{{ asset('js/custom.js') }}"></script>

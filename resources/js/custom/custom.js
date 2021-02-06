@@ -61,6 +61,7 @@ $(function() {
         $(".job_search_candidate").hide();
         $(".job_search_company").hide();
     }
+
     function company() {
         let selector = $(".input__search .form-control");
         selector.attr("placeholder", "Find Company: name, keywords");
@@ -76,6 +77,7 @@ $(function() {
             .find(".text__alert")
             .remove();
     }
+
     function candidate() {
         let selector = $(".input__search .form-control");
         selector.attr("placeholder", "Find Candidate: name, keywords");
@@ -91,6 +93,7 @@ $(function() {
         $(".job_search_candidate .dropdown-toggle").removeClass("disabled");
         $(".job_search_candidate .dropdown-toggle").removeClass("disabled");
     }
+
     function job_description() {
         let selector = $(".input__search .form-control");
         selector.attr("placeholder", "Find job description: title, keywords");
@@ -100,6 +103,7 @@ $(function() {
         $(".input__city").addClass("input__city_description");
         $(".input__city .form-control").attr("disabled", true);
     }
+
     function hidden() {
         $(".advanced__seach_show").hide();
         $(".advanced__seach_show")
@@ -130,7 +134,7 @@ $(function() {
         var a = document.createElement("div");
         a.innerHTML = str;
 
-        for (var c = a.childNodes, i = c.length; i--; ) {
+        for (var c = a.childNodes, i = c.length; i--;) {
             if (c[i].nodeType == 1) return true;
         }
 
@@ -276,8 +280,7 @@ $(function() {
                         .html("You: " + message);
                     $(".message-box .list-messages ul").mCustomScrollbar(
                         "scrollTo",
-                        "bottom",
-                        {
+                        "bottom", {
                             scrollInertia: 0
                         }
                     );
@@ -465,6 +468,7 @@ $(function() {
             }
         });
     });
+
     function getQueryParams() {
         var queries = {};
         $.each(document.location.search.substr(1).split("&"), function(c, q) {
@@ -547,9 +551,9 @@ $(function() {
     $(document).on("click", function(e) {
         if (
             $(e.target)
-                .closest(".search__form")
-                .find(".advanced__search_btn")
-                .attr("class") != "advanced__search_btn"
+            .closest(".search__form")
+            .find(".advanced__search_btn")
+            .attr("class") != "advanced__search_btn"
         ) {
             $(".advanced__seach_show").slideUp();
         }
@@ -675,8 +679,8 @@ $(function() {
                     if (cv.length != 0) {
                         $("#oldApplyCV").html(
                             "<a href='files/cv/" +
-                                cv +
-                                "' target='blank'><i class='fa fa-download'></i> Previous CV</a>"
+                            cv +
+                            "' target='blank'><i class='fa fa-download'></i> Previous CV</a>"
                         );
                     }
                 }
@@ -752,3 +756,87 @@ $(function() {
         });
     }
 });
+
+/*
+home page tab and accordion
+*/
+
+$(document).ready(function() {
+    var token = $("meta[name=csrf_token]").attr("content");
+    $('.tab--area ul li').click(function() {
+        var tab_id = $(this).attr('data-tab');
+
+        $('.tab--area ul li').removeClass('current');
+        $('.tab-content').removeClass('current');
+
+        $(this).addClass('current');
+        $("#" + tab_id).addClass('current');
+    })
+    $(".set > a").on("click", function() {
+        if ($(this).hasClass("active")) {
+            $(this).removeClass("active");
+            $(this)
+                .siblings(".content")
+                .slideUp(200);
+            $(".set > a i")
+                .removeClass("fa-minus")
+                .addClass("fa-plus");
+        } else {
+            $(".set > a i")
+                .removeClass("fa-minus")
+                .addClass("fa-plus");
+            $(this)
+                .find("i")
+                .removeClass("fa-plus")
+                .addClass("fa-minus");
+            $(".set > a").removeClass("active");
+            $(this).addClass("active");
+            $(".content").slideUp(200);
+            $(this)
+                .siblings(".content")
+                .slideDown(200);
+        }
+    });
+    $('.job--advanced-search').click(function() {
+        $('.advanced__seach_show').toggleClass('d-block')
+    })
+
+
+
+    $('#category--form').change(function() {
+
+        var $option = $(this).find('option:selected');
+        var value = $option.val();
+        $('#main--search-name').attr('name', value)
+        if (value == 'job_description') {
+            $('#location').attr('disabled', true)
+        } else {
+            $('#location').removeAttr('disabled')
+        }
+    })
+
+    var country = { "BD": "Bangladesh", "BE": "Belgium", "BF": "Burkina Faso", "BG": "Bulgaria", "BA": "Bosnia and Herzegovina", "BB": "Barbados", "WF": "Wallis and Futuna", "BL": "Saint Barthelemy", "BM": "Bermuda", "BN": "Brunei", "BO": "Bolivia", "BH": "Bahrain", "BI": "Burundi", "BJ": "Benin", "BT": "Bhutan", "JM": "Jamaica", "BV": "Bouvet Island", "BW": "Botswana", "WS": "Samoa", "BQ": "Bonaire, Saint Eustatius and Saba ", "BR": "Brazil", "BS": "Bahamas", "JE": "Jersey", "BY": "Belarus", "BZ": "Belize", "RU": "Russia", "RW": "Rwanda", "RS": "Serbia", "TL": "East Timor", "RE": "Reunion", "TM": "Turkmenistan", "TJ": "Tajikistan", "RO": "Romania", "TK": "Tokelau", "GW": "Guinea-Bissau", "GU": "Guam", "GT": "Guatemala", "GS": "South Georgia and the South Sandwich Islands", "GR": "Greece", "GQ": "Equatorial Guinea", "GP": "Guadeloupe", "JP": "Japan", "GY": "Guyana", "GG": "Guernsey", "GF": "French Guiana", "GE": "Georgia", "GD": "Grenada", "GB": "United Kingdom", "GA": "Gabon", "SV": "El Salvador", "GN": "Guinea", "GM": "Gambia", "GL": "Greenland", "GI": "Gibraltar", "GH": "Ghana", "OM": "Oman", "TN": "Tunisia", "JO": "Jordan", "HR": "Croatia", "HT": "Haiti", "HU": "Hungary", "HK": "Hong Kong", "HN": "Honduras", "HM": "Heard Island and McDonald Islands", "VE": "Venezuela", "PR": "Puerto Rico", "PS": "Palestinian Territory", "PW": "Palau", "PT": "Portugal", "SJ": "Svalbard and Jan Mayen", "PY": "Paraguay", "IQ": "Iraq", "PA": "Panama", "PF": "French Polynesia", "PG": "Papua New Guinea", "PE": "Peru", "PK": "Pakistan", "PH": "Philippines", "PN": "Pitcairn", "PL": "Poland", "PM": "Saint Pierre and Miquelon", "ZM": "Zambia", "EH": "Western Sahara", "EE": "Estonia", "EG": "Egypt", "ZA": "South Africa", "EC": "Ecuador", "IT": "Italy", "VN": "Vietnam", "SB": "Solomon Islands", "ET": "Ethiopia", "SO": "Somalia", "ZW": "Zimbabwe", "SA": "Saudi Arabia", "ES": "Spain", "ER": "Eritrea", "ME": "Montenegro", "MD": "Moldova", "MG": "Madagascar", "MF": "Saint Martin", "MA": "Morocco", "MC": "Monaco", "UZ": "Uzbekistan", "MM": "Myanmar", "ML": "Mali", "MO": "Macao", "MN": "Mongolia", "MH": "Marshall Islands", "MK": "Macedonia", "MU": "Mauritius", "MT": "Malta", "MW": "Malawi", "MV": "Maldives", "MQ": "Martinique", "MP": "Northern Mariana Islands", "MS": "Montserrat", "MR": "Mauritania", "IM": "Isle of Man", "UG": "Uganda", "TZ": "Tanzania", "MY": "Malaysia", "MX": "Mexico", "IL": "Israel", "FR": "France", "IO": "British Indian Ocean Territory", "SH": "Saint Helena", "FI": "Finland", "FJ": "Fiji", "FK": "Falkland Islands", "FM": "Micronesia", "FO": "Faroe Islands", "NI": "Nicaragua", "NL": "Netherlands", "NO": "Norway", "NA": "Namibia", "VU": "Vanuatu", "NC": "New Caledonia", "NE": "Niger", "NF": "Norfolk Island", "NG": "Nigeria", "NZ": "New Zealand", "NP": "Nepal", "NR": "Nauru", "NU": "Niue", "CK": "Cook Islands", "XK": "Kosovo", "CI": "Ivory Coast", "CH": "Switzerland", "CO": "Colombia", "CN": "China", "CM": "Cameroon", "CL": "Chile", "CC": "Cocos Islands", "CA": "Canada", "CG": "Republic of the Congo", "CF": "Central African Republic", "CD": "Democratic Republic of the Congo", "CZ": "Czech Republic", "CY": "Cyprus", "CX": "Christmas Island", "CR": "Costa Rica", "CW": "Curacao", "CV": "Cape Verde", "CU": "Cuba", "SZ": "Swaziland", "SY": "Syria", "SX": "Sint Maarten", "KG": "Kyrgyzstan", "KE": "Kenya", "SS": "South Sudan", "SR": "Suriname", "KI": "Kiribati", "KH": "Cambodia", "KN": "Saint Kitts and Nevis", "KM": "Comoros", "ST": "Sao Tome and Principe", "SK": "Slovakia", "KR": "South Korea", "SI": "Slovenia", "KP": "North Korea", "KW": "Kuwait", "SN": "Senegal", "SM": "San Marino", "SL": "Sierra Leone", "SC": "Seychelles", "KZ": "Kazakhstan", "KY": "Cayman Islands", "SG": "Singapore", "SE": "Sweden", "SD": "Sudan", "DO": "Dominican Republic", "DM": "Dominica", "DJ": "Djibouti", "DK": "Denmark", "VG": "British Virgin Islands", "DE": "Germany", "YE": "Yemen", "DZ": "Algeria", "US": "United States", "UY": "Uruguay", "YT": "Mayotte", "UM": "United States Minor Outlying Islands", "LB": "Lebanon", "LC": "Saint Lucia", "LA": "Laos", "TV": "Tuvalu", "TW": "Taiwan", "TT": "Trinidad and Tobago", "TR": "Turkey", "LK": "Sri Lanka", "LI": "Liechtenstein", "LV": "Latvia", "TO": "Tonga", "LT": "Lithuania", "LU": "Luxembourg", "LR": "Liberia", "LS": "Lesotho", "TH": "Thailand", "TF": "French Southern Territories", "TG": "Togo", "TD": "Chad", "TC": "Turks and Caicos Islands", "LY": "Libya", "VA": "Vatican", "VC": "Saint Vincent and the Grenadines", "AE": "United Arab Emirates", "AD": "Andorra", "AG": "Antigua and Barbuda", "AF": "Afghanistan", "AI": "Anguilla", "VI": "U.S. Virgin Islands", "IS": "Iceland", "IR": "Iran", "AM": "Armenia", "AL": "Albania", "AO": "Angola", "AQ": "Antarctica", "AS": "American Samoa", "AR": "Argentina", "AU": "Australia", "AT": "Austria", "AW": "Aruba", "IN": "India", "AX": "Aland Islands", "AZ": "Azerbaijan", "IE": "Ireland", "ID": "Indonesia", "UA": "Ukraine", "QA": "Qatar", "MZ": "Mozambique" }
+
+    $.get("https://ipinfo.io", function(response) {
+        var cities = require('countries-cities').getCities(country[response.country])
+        jQuery.each(cities, function(i, val) {
+            $('#location--custom').append($("<option></option>")
+                .attr("value", val.toLowerCase())
+                .text(val));
+        });
+        $.ajax({
+            url: ajax_url,
+            data: {
+                action: "country_by_tag",
+                country: response.country,
+                _token: token
+            },
+            dataType: "JSON",
+            type: "POST",
+            success: function(res) {
+                $('.trending__tag').append(res.html)
+            },
+        });
+    }, "jsonp");
+
+})

@@ -434,4 +434,39 @@ class AjaxController extends Controller
         }
 
     }
+
+    public function country_by_tag()
+    {   
+         $city_id = City::where('name',$this->request->country)->first()->id;
+         $cate_id =  Job::where('city_id', $city_id)->get()->pluck('category_id');
+         $top_job_cate = Category::whereIn('id', $cate_id)->withCount('jobs')->orderBy('jobs_count', 'desc')->take(15)->get();
+        $html = view('frontend.pages.ajax-load.latest-tag', compact('top_job_cate'))->render();
+        return response()->json(['status' => 'success', 'html' => $html]);
+    }
+  public function check_username()
+    {
+        if ($this->request->has('username')) {
+            $check = User::where('username', $this->request->get('username'))->first();
+            if ($check) {
+                return response()->json(['status' => 'error']);
+            } else {
+                return response()->json(['status' => 'success']);
+            }
+
+        }
+        return response()->json(['status' => 'error']);
+    }
+  public function check_email()
+    {
+        if ($this->request->has('email')) {
+            $check = User::where('email', $this->request->get('email'))->first();
+            if ($check) {
+                return response()->json(['status' => 'error']);
+            } else {
+                return response()->json(['status' => 'success']);
+            }
+
+        }
+        return response()->json(['status' => 'error']);
+    }
 }
