@@ -1,0 +1,19 @@
+<svg id="Shapes" xmlns="http://www.w3.org/2000/svg" width="1493" height="485" viewBox="0 0 1493 485">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #2c2d35;
+      }
+
+      .cls-1, .cls-2 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #009bda;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M-1-145S-83.673,155.243,280,192s1184.35,19.227,1328,477V-142Z"/>
+  <path id="Shape_3_copy" data-name="Shape 3 copy" class="cls-2" d="M106-133S-2.673,248.243,361,285,1365.35,37.227,1509,495l206-625Z"/>
+</svg>
