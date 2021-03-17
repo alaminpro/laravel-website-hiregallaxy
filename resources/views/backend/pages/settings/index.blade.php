@@ -60,7 +60,7 @@ Settings | Joblrs
 
                 @include('backend.partials.message')
 
-                <form action="{!! route('admin.settings.update') !!}" method="post" enctype="multipart/form-data">
+                <form action="{!! route('admin.settings.update') !!}" data-parsley-validate method="post" enctype="multipart/form-data">
 
                     @method('PUT')
 
@@ -74,7 +74,7 @@ Settings | Joblrs
 
                             <input type="text" name="site_title" id="site_title" class="form-control"
 
-                                value="{{ $settings->site_title }}" required>
+                                value="{{ $settings->site_title }}" required minlength="5">
 
                         </div>
 
@@ -90,9 +90,9 @@ Settings | Joblrs
 
                             <input type="file" name="site_logo" id="site_logo" class="dropify"
 
-                                data-default-file="{{ asset('public/images/'.$settings->site_logo) }}"
+                                data-default-file="{{ asset('images/'.$settings->site_logo) }}"
 
-                                data-height="80" />
+                                data-height="80" >
 
                         </div>
 
@@ -104,9 +104,9 @@ Settings | Joblrs
 
                             <input type="file" name="site_favicon" id="site_favicon" class="dropify"
 
-                                data-default-file="{{ asset('public/images/'.$settings->site_favicon) }}"
+                                data-default-file="{{ asset('images/'.$settings->site_favicon) }}"
 
-                                data-height="80" />
+                                data-height="80"/>
 
                         </div>
 
@@ -122,7 +122,7 @@ Settings | Joblrs
 
                                 <div class="col-md-12">
 
-                                    <label for="name">Admin Theme <span class="text-danger required">*</span></label>
+                                    <label for="name">Admin Theme  </label>
 
                                 </div>
 
@@ -243,7 +243,7 @@ Settings | Joblrs
 
                           <label for="terms_and_service">Terms and Service Page</label>
 
-            
+
 
                           <textarea name="terms_and_service" id="terms_and_service" name="terms_and_service" rows="5" cols="80"
 
@@ -255,7 +255,7 @@ Settings | Joblrs
 
                           <label for="privacy_policy">Privacy Policy Page</label>
 
-            
+
 
                           <textarea name="privacy_policy" id="privacy_policy" name="privacy_policy" rows="5" cols="80"
 
@@ -266,7 +266,7 @@ Settings | Joblrs
 
                           <label for="about_us">About us Page</label>
 
-            
+
 
                           <textarea name="about_us" id="about_us" name="about_us" rows="5" cols="80"
 

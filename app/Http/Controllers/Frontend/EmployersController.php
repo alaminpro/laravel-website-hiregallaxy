@@ -11,6 +11,7 @@ use App\Models\City;
 use App\Models\CompanyProfile;
 use App\Models\Country;
 use App\Models\Experience;
+use App\Models\UserQualification;
 use App\Models\Job;
 use App\Models\JobActivity;
 use App\Models\Personality;
@@ -21,7 +22,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-
+use Excel;
 class EmployersController extends Controller
 {
 
@@ -217,7 +218,7 @@ class EmployersController extends Controller
 
         $user->save();
 
-        return redirect()->route('index');
+        return redirect()->route('employers.show',$user->username);
 
     }
 
@@ -288,7 +289,6 @@ class EmployersController extends Controller
 
     public function updateProfile(Request $request, $user_id)
     {
-
         if (!Auth::check() && Auth::id() != $user_id) {
 
             session()->flash('error', 'Sorry   You are not permitted to do this action');
@@ -329,8 +329,8 @@ class EmployersController extends Controller
 
         $user->linkedin_link = $request->linkedin_link;
 
-        $user->google_plus_link = $request->google_plus_link;
         $user->whatsapp = $request->whatsapp;
+        $user->google_plus_link = $request->google_plus_link;
 
         $user->phone_no = $request->phone_no;
 
@@ -860,7 +860,7 @@ class EmployersController extends Controller
 
     }
 
-    public function jobApplications($slug)
+    public function jobApplications(Request $request, $slug)
     {
 
         if (!Auth::check()) {
@@ -877,7 +877,98 @@ class EmployersController extends Controller
 
         $applicant = DB::table('job_activities')->where('user_id', $user_id)->get();
 
-        $job = Job::where('slug', $slug)->first();
+        $job = Job::where('slug', $request->slug)->first();
+
+        // Filter application
+
+        $expreience_data = Experience::all();
+
+        $filter = [];
+
+        $query = JobActivity::query();
+
+        if (isset(request()->date_from) && isset(request()->date_to)) {
+
+            $query->whereDate('created_at', '>=', request()->date_from);
+
+            $query->whereDate('created_at', '<=', request()->date_to);
+
+            $filter['date_from'] = request()->date_from;
+
+            $filter['date_to'] = request()->date_to;
+
+        }
+
+        if (isset(request()->salary_from) && isset(request()->salary_to)) {
+
+            $query->where('expected_salary', '>=', request()->salary_from);
+
+            $query->where('expected_salary', '<=', request()->salary_to);
+
+            $filter['salary_from'] = request()->salary_from;
+
+            $filter['salary_to'] = request()->salary_to;
+
+        }
+
+        //$applications = $query->where('job_id', $job->id)->get();
+
+        $applications = JobActivity::where('job_id', $job->id)->get();
+
+        $experiences = [];
+
+        $education = [];
+
+        $application_data = [];
+
+        foreach ($applications as $application) {
+
+            // Filter
+
+            if (isset(request()->exp)) {
+
+                $exp_data = CandidateProfile::with('experience')->where('experience_id', request()->exp)->where('user_id', $application->user_id)->first();
+
+                if ($exp_data) {
+
+                    $experiences[] = $exp_data;
+
+                    $education[] = UserQualification::where('user_id', $application->user_id)->first();
+
+                    $application_data[] = $application;
+
+                    $filter['exp'] = request()->exp;
+
+                }
+
+            } else {
+
+                $experiences[] = CandidateProfile::with('experience')->where('user_id', $application->user_id)->first();
+
+                $education[] = UserQualification::where('user_id', $application->user_id)->first();
+
+                $application_data[] = $application;
+
+            }
+
+        }
+
+        $education = $education ? $education[0] : [];
+
+        $experience = $experiences ? $experiences[0] : [];
+
+        // return $applications;
+
+        $applications = $application_data;
+
+        if (request()->has('export')) {
+
+            $export = new \App\Exports\JobApplicationExport($job, $applications);
+
+            return  Excel::download($export, $job->slug . '_' . time() . '.xlsx');
+
+        }
+
 
         return view('frontend.pages.employers.job-applications', compact('user', 'job', 'slug'));
     }
@@ -905,11 +996,15 @@ Dashboard icons
 
         $job = Job::where('user_id', $user_id)->first();
 
-        $slug = $job->slug;
+        if($job){
+            $slug = $job->slug;
+            $applicant = JobActivity::where('status', $status)->where('company_id', $user_id)->get();
 
-        $applicant = JobActivity::where('status', $status)->where('company_id', $user_id)->get();
+            return view('frontend.pages.employers.candidate', compact('user', 'applicant', 'status', 'slug'));
 
-        return view('frontend.pages.employers.candidate', compact('user', 'applicant', 'status', 'slug'));
+        }
+        return redirect()->back();
+
 
     }
 

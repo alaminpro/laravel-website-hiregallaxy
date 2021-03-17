@@ -1,16 +1,16 @@
-@extends('frontend.layouts.master') 
+@extends('frontend.layouts.master')
 
 @section('title')
 
 show company details | {{ App\Models\Setting::first()->site_title }}
 
 @endsection
- 
+
 @section('stylesheets')
 
 
 
-@endsection 
+@endsection
 
 @section('content')
 
@@ -27,7 +27,7 @@ show company details | {{ App\Models\Setting::first()->site_title }}
 				<h3 class="top-title wow fadeInUp mb-3">
 Show company  Details
 
-				</h3>  
+				</h3>
 
 				<div class="navbar-breadcrumb d-flex justify-content-between align-items-center">
 
@@ -38,7 +38,6 @@ Show company  Details
 						<li class="breadcrumb-item active" aria-current="page">company details</li>
 
 					</ol>
-                    <a href="{{ route('employers.dashboard') }}" class="btn btn-dark">Back</a>
 				</div>
 
 			</div>
@@ -48,28 +47,28 @@ Show company  Details
 	</div>
 
 </div>
-<section class="employer-page sec-pad pt-4" id="wrapper"> 
+<section class="employer-page sec-pad pt-4" id="wrapper">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="main-body">
 
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                  
-                      <div class="card mb-3"> 
-                        <div class="card-header py-3"> 
-                          <div class="float-left"> 
-                            <h6 class="m-0 font-weight-bold text-primary">Companies</h6> 
-                          </div> 
-                          <div class="float-right"> 
-                            <a href="{{ route('companies') }}" class="btn btn-sm btn-success shadow-sm"><i class="fa fa-arrow-left fa-sm text-white-50"></i> Back</a> 
-                          </div> 
-                          <div class="clearfix"></div> 
-                        </div> 
-                            <div class="card-body" style="overflow-x: scroll"> 
-                            @include('backend.partials.message') 
-                            
-                            <table id="dataTable" width="100%" cellspacing="0" class="table table-bordered"> 
+
+                      <div class="card mb-3">
+                        <div class="card-header py-3">
+                          <div class="float-left">
+                            <h6 class="m-0 font-weight-bold text-primary">Companies</h6>
+                          </div>
+                          <div class="float-right">
+                            <a href="{{ route('companies') }}" class="btn btn-sm btn-success shadow-sm"><i class="fa fa-arrow-left fa-sm text-white-50"></i> Back</a>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                            <div class="card-body" style="overflow-x: scroll">
+                            @include('backend.partials.message')
+
+                            <table id="dataTable" width="100%" cellspacing="0" class="table table-bordered">
                                 <tbody>
                                     <tr>
                                         <td>Company Name</td>
@@ -108,10 +107,10 @@ Show company  Details
                                     </tr>
                                 </tbody>
                               </table>
-                            </div>  
-                        </div><!-- end card--> 
-                      </div> 
-                    </div>  
+                            </div>
+                        </div><!-- end card-->
+                      </div>
+                    </div>
                   </div>
             </div>
         </div>
@@ -119,7 +118,7 @@ Show company  Details
 
 </section>
 
-@endsection 
+@endsection
 
 @section('scripts')
 

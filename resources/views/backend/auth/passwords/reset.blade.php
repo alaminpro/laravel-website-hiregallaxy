@@ -66,7 +66,7 @@
 
               @endif
 
-              <form class="user" method="POST" action="{{ route('admin.password.request') }}">
+              <form class="user" method="POST" data-parsley-validate action="{{ route('admin.password.request') }}">
 
                 @csrf
 
@@ -100,7 +100,7 @@
 
                     class="form-control form-control-user {{ $errors->has('password') ? ' is-invalid' : '' }}"
 
-                    name="password" required placeholder="New Password">
+                    name="password" id="passwordCandidate" minlength="8" data-parsley-required-message="Please write a strong password" required placeholder="New Password">
 
 
 
@@ -122,7 +122,7 @@
 
                     class="form-control form-control-user {{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}"
 
-                    name="password_confirmation" required placeholder="Confirm New Password">
+                    name="password_confirmation" minlength="8" data-parsley-required-message="Please write your confirmation password" data-parsley-equalto="#passwordCandidate" required placeholder="Confirm New Password">
 
 
 

@@ -38,7 +38,7 @@
               <tr>
                 <th width="5%">Sl</th>
                 <th width="30%">Name</th>
-                <th width="15%">Manage</th>
+                <th width="15%"  class="sortoff">Manage</th>
               </tr>
             </thead>
             <tbody>
@@ -51,11 +51,11 @@
                 </td>
 
                 <td>
-                  <a href="#editModal{{ $crawler->id }}" class="btn btn-circle btn-outline-success" title="Edit crawler"
+                  <a href="#editModal{{ $crawler->id }}" class="btn btn-circle btn-outline-success" title="Edit Site"
                     data-toggle="modal"><i class="fa fa-edit"></i></a>
 
                   <button class="btn btn-circle btn-outline-danger" data-toggle="modal"
-                    data-target="#deleteModal{{ $crawler->id }}" title="Delete crawler"><i
+                    data-target="#deleteModal{{ $crawler->id }}" title="Delete Site"><i
                       class="fa fa-fw fa-trash"></i></button>
 
                   <!-- Delete Modal-->
@@ -108,7 +108,7 @@
                         <div class="form-row">
                           <div class="col-md-12 form-group">
                             <label for="nameEdit">Job Crawler Name <span class="text-danger required">*</span></label>
-                            <input type="text" id="nameEdit" name="name" class="form-control" required
+                            <input type="text" id="nameEdit" minlength="5" name="name" class="form-control" required
                               value="{{ $crawler->name }}" placeholder="eg. Site Name">
                           </div>
                         </div>
@@ -152,12 +152,12 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="{!! route('admin.crawler_sites.store') !!}" method="post" enctype="multipart/form-data">
+        <form action="{!! route('admin.crawler_sites.store') !!}" data-parsley-validate method="post" enctype="multipart/form-data">
           @csrf
           <div class="form-row">
             <div class="col-md-12 form-group">
               <label for="name">Site Name <span class="text-danger required">*</span></label>
-              <input type="text" id="name" name="name" class="form-control" placeholder="eg. Site Name" required>
+              <input type="text" id="name" name="name" minlength="5" class="form-control" placeholder="eg. Site Name" required>
             </div>
           </div>
 

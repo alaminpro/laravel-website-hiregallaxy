@@ -34,31 +34,33 @@
       </div>
       <div class="card-body">
         @include('backend.partials.message')
-       <form class="js-validate" method="POST" action="{{route('admin.personality.submit')}}"  >
+       <form class="js-validate" method="POST" data-parsley-validate action="{{route('admin.personality.submit')}}"  >
             @csrf
           <div class="row">
             <!-- Input -->
             <div class="col-sm-12 mb-6">
                 <div class="form-group">
-                    <label id="title" class="form-label">Question</label>
-                    <input type="text" class="form-control" name="title" id="title" placeholder="Enter Personality Title" required>
+                    <label id="title" class="form-label">Question <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="title" required minlength="3" id="title" placeholder="Enter Personality Title" required>
                     <span class="text-danger">{{ $errors->has('title') ? $errors->first('title') : '' }}</span>
                  </div>
                 <div class="form-group">
-                    <label id="sub_title" class="form-label">Sub title</label>
-                    <input type="text" class="form-control" name="sub_title" id="sub_title" placeholder="Enter Personality Sub Title">
+                    <label id="sub_title" class="form-label">Sub title <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" required minlength="3" name="sub_title" id="sub_title" placeholder="Enter Personality Sub Title">
                  </div>
                 <div class="form-group">
-                    <label id="description" class="form-label">Descrition</label>
-                    <textarea name="description" id="description"  class="form-control"   cols="30" rows="5"></textarea>
+                    <label id="description" class="form-label">Descrition <span class="text-danger">*</span></label>
+                    <textarea name="description" id="description"  required minlength="3" class="form-control"   cols="30" rows="5"></textarea>
                  </div>
                 <div class="form-group">
                     <label id="strength" class="form-label">Strengths</label>
                     <textarea name="strengths" id="strength"  class="form-control"   cols="30" rows="5"></textarea>
+             <div class="pt-2" id="strength-errors"></div>
                  </div>
                 <div class="form-group">
-                    <label id="weaknesse" class="form-label">Weaknesses</label>
+                    <label id="weaknesse" class="form-label">weaknesses</label>
                     <textarea name="weaknesses" id="weaknesse"  class="form-control"   cols="30" rows="5"></textarea>
+                    <div class="pt-2" id="weaknesse-errors"></div>
                  </div>
             </div>
             <!-- End Input -->
@@ -86,9 +88,38 @@
 @section('scripts')
 <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <script type="text/javascript">
-  $(document).ready(function(){ 
+  $(document).ready(function(){
      CKEDITOR.replace('strengths');
-     CKEDITOR.replace('weaknesses'); 
+     CKEDITOR.replace('weaknesses');
+     CKEDITOR.on('instanceReady', function () {
+    let weaknessesErr =$('#weaknesse-errors');
+    let strengthsErr =$('#strength-errors');
+    $.each(CKEDITOR.instances, function (instance) {
+    CKEDITOR.instances[instance].on("change", function (e) {
+    for (instance in CKEDITOR.instances) {
+    CKEDITOR.instances[instance].updateElement();
+    if(instance == 'strength'){
+    strengthsErr.empty();
+    var strength = CKEDITOR.instances['strength'].getData();
+    if ([...strength].length > 4 && [...strength].length <= 12) { $('<span class="text-danger"></span>')
+        .html("Length must be greater than 5 characters")
+        .appendTo(strengthsErr);
+        }
+        }
+        if(instance == 'weaknesse'){
+        weaknessesErr.empty();
+        var weaknesse = CKEDITOR.instances['weaknesse'].getData();
+
+            if ([...weaknesse].length > 4 && [...weaknesse].length <= 12) { $('<span class="text-danger"></span>')
+                .html("Length must be greater than 5 characters")
+                .appendTo(weaknessesErr);
+                }
+            }
+        }
+
+             });
+        });
+    });
   });
 </script>
 

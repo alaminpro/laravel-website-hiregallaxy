@@ -853,7 +853,7 @@ class JobsController extends Controller
         }
 
         session()->flash('success', 'Job has been posted successfully  ');
-        return redirect()->route('jobs');
+        return redirect()->route('employers.jobs.posted');
 
     }
 

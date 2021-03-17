@@ -31,12 +31,16 @@
 
 				<div class="employer-detail-main">
 
-					<h5 class="text-theme mb-5">
 
-						{{ $status }} Applicants
+<div class="d-flex justify-content-between align-items-center">
+   <h5 class="text-theme mb-5">
 
-					</h5>
+        {{ $status }} Applicants
 
+    </h5>
+    <a href="{{route('employers.dashboard')}}" class="btn btn-sm btn-success shadow-sm"> <i
+            class="fa fa-arrow-left fa-sm text-white-50"></i> Back</a>
+</div>
 					<hr>
 					<div class="table-responsive">
 					<table class="table table-hover table-striped col-sm-12" id="dataTable" style="font-size: 13px !important">
@@ -55,7 +59,7 @@
 
 							<th style="padding:5px 22px 10px 6px !important">CV</th>
 
-							<th style="padding:5px 22px 10px 6px !important">Cover Letter</th>
+							<th style="padding:5px 22px 10px 6px !important" class="sortoff">Cover Letter</th>
 
 							<th style="padding:5px 22px 10px 6px !important">Status</th>
 
@@ -289,7 +293,12 @@ $personality = \App\Models\Personality::where('title', '=', $personality_res['pe
 
 <script>
 
-$("#dataTable").dataTable();
+$("#dataTable").dataTable({
+aoColumnDefs: [{
+bSortable: false,
+aTargets: ["sortoff"]
+}]
+});
 
 $(function() {
 

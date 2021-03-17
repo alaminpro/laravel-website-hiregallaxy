@@ -67,7 +67,7 @@
                                     <thead>
                                         <tr>
                                             <th width="30px">
-                                                <input type="checkbox" name="checkAll" id="checkAll">
+                                                <input type="checkbox" name="checkAll" id="checkAll" >
                                             </th>
                                             <th>Url</th>
                                         </tr>
@@ -97,7 +97,7 @@
 
                         <div class="col-md-4">
                             <div class="card card-body">
-                                <label for="site_id">Select Site to assign</label>
+                                <label for="site_id">Select Site to assign <span class="text-danger">*</span></label>
                                 <select name="site_id" id="site_id" class="form-control" required>
                                     <option value="">Select a site</option>
                                     @foreach ($sites as $site)
@@ -131,14 +131,14 @@
     });
 
     $("#checkAll").change(function(){
-        
+
         if($(this).is(':checked')){
             $(':checkbox').each(function() {
-                this.checked = true;                        
-            });    
+                this.checked = true;
+            });
         }else{
             $(':checkbox').each(function() {
-                this.checked = false;                       
+                this.checked = false;
             });
         }
     });
@@ -148,7 +148,7 @@
         //if(!$(this).is(':checked')){
         //    $("#checkAll"). prop("checked", false);
         //}
-        
+
         $('.check_single').each(function() {
             if($(this).is(':checked')){
                 if(total_not_checked != 0){
@@ -156,8 +156,8 @@
                 }
             }else{
                 total_not_checked++;
-            }   
-        });  
+            }
+        });
 
         if(total_not_checked > 0)  {
             $("#checkAll"). prop("checked", false);

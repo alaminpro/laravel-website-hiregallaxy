@@ -87,7 +87,7 @@
                 <th width="20%" style="Display:none;">Description</th>
                 <th width="20%">Type</th>
 
-                <th width="15%">Manage</th>
+                <th width="15%" class="sortoff">Manage</th>
 
               </tr>
 
@@ -118,7 +118,7 @@
                   @else
                     <td>Aptitude</td>
                 @endif
-            
+
 
                 <td>
 
@@ -184,7 +184,7 @@
 
                   </div>
 
-                  
+
 
                   <!-- Activate Modal -->
 
@@ -270,15 +270,15 @@
 
                           <div class="col-md-6 form-group">
 
-                            <label for="name">Skill Title <span class="text-danger required">*</span></label>
+                            <label for="name{{$skill->id}}">Skill Title <span class="text-danger required">*</span></label>
 
-                            <input type="text" id="name" name="name" class="form-control" placeholder="eg. Web Development" required value="{{ $skill->name }}">
+                            <input type="text" id="name{{$skill->id}}" minlength="3" name="name" class="form-control" placeholder="eg. Web Development" required value="{{ $skill->name }}">
 
                           </div>
  <div class="col-md-6 form-group">
 
-              <label for="type" >Type</label> 
-              <select name="type" id="" class="form-control">
+              <label for="type{{$skill->id}}" >Type</label>
+              <select name="type" id="type{{$skill->id}}" class="form-control">
                 <option value="0" @if($skill->type == 0) selected @endif>Job</option>
                 <option value="1" @if($skill->type == 1) selected @endif >Candidate</option>
                 <option value="2" @if($skill->type == 2) selected @endif >Aptitude</option>
@@ -287,9 +287,9 @@
             </div>
                           <div class="col-md-6 form-group" style="Display:none;">
 
-                            <label for="slug">skill Slug <span class="text-info required">(optional)</span></label>
+                            <label for="slug{{$skill->id}}">Skill Slug <span class="text-info required">(optional)</span></label>
 
-                            <input type="text" id="slug" name="slug" class="form-control" placeholder="eg. web-development"  value="{{ $skill->slug }}">
+                            <input type="text" id="slug{{$skill->id}}" name="slug" class="form-control" placeholder="eg. web-development"  value="{{ $skill->slug }}">
 
                           </div>
 
@@ -301,7 +301,7 @@
 
                             <label for="description">skill Description</label>
 
-                            
+
 
                             <textarea name="description" id="description" name="description" rows="8" cols="80" class="tinymce form-control">{{ $skill->description }}</textarea>
 
@@ -387,7 +387,7 @@
 
       <div class="modal-body">
 
-        <form action="{!! route('admin.skill.submit') !!}" method="post" enctype="multipart/form-data">
+        <form action="{!! route('admin.skill.submit') !!}" data-parsley-validate method="post" enctype="multipart/form-data">
 
           @csrf
 
@@ -397,7 +397,7 @@
 
               <label for="name">Skill Title <span class="text-danger required">*</span></label>
 
-              <input type="text" id="name" name="name" class="form-control" placeholder="eg. PHP" required>
+              <input type="text" id="name" name="name" minlength="3" class="form-control" placeholder="eg. PHP" required>
 
             </div>
 
@@ -428,7 +428,7 @@
 
               <label for="description" style="Display:none;">skill Description</label>
 
-              
+
 
               <textarea name="description" id="description" name="description" rows="8" cols="80" class="tinymce form-control"></textarea>
 

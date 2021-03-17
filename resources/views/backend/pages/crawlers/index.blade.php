@@ -38,7 +38,7 @@
               <tr>
                 <th width="5%">Sl</th>
                 <th width="30%">Url</th>
-                <th width="15%">Manage</th>
+                <th width="15%" class="sortoff">Manage</th>
               </tr>
             </thead>
             <tbody>
@@ -55,7 +55,7 @@
                     data-toggle="modal"><i class="fa fa-edit"></i></a>
 
                   <button class="btn btn-circle btn-outline-danger" data-toggle="modal"
-                    data-target="#deleteModal{{ $crawler->id }}" title="Delete crawler"><i
+                    data-target="#deleteModal{{ $crawler->id }}" title="Delete Crawler"><i
                       class="fa fa-fw fa-trash"></i></button>
 
                   <!-- Delete Modal-->
@@ -151,7 +151,7 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="{!! route('admin.crawlers.store') !!}" method="post" enctype="multipart/form-data">
+        <form action="{!! route('admin.crawlers.store') !!}" data-parsley-validate method="post" enctype="multipart/form-data">
           @csrf
           <div class="form-row">
             <div class="col-md-12 form-group">

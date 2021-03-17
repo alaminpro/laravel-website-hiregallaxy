@@ -19,6 +19,7 @@ use App\User;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PDF;
 use Illuminate\Support\Facades\DB;
 
 class CandidatesController extends Controller
@@ -110,19 +111,11 @@ class CandidatesController extends Controller
             $arr[] = $skill['percentage'];
         }
 
+ 
 
-    //     return view('frontend.pages.candidates.show-resume', compact('data'));
+        $pdf = PDF::loadView('frontend.pages.candidates.show-resume', compact('data','label', 'arr'));
 
-
-    //     $pdf = PDF::loadView('frontend.pages.candidates.show-resume', compact('data','label', 'arr'));
-
-    //     return $pdf->stream('candidate-resume.pdf');
-            $pdf = \PDF::loadView('frontend.pages.candidates.show-resume', compact('data','label', 'arr'));
-                $pdf->setOption('enable-javascript', true);
-                $pdf->setOption('javascript-delay', 5000);
-                $pdf->setOption('enable-smart-shrinking', true);
-                $pdf->setOption('no-stop-slow-scripts', true);
-                return $pdf->download('chart.pdf');
+        return $pdf->stream('candidate-resume.pdf'); 
     }
 
     public function search(Request $request)

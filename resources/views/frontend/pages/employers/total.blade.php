@@ -30,11 +30,14 @@ Total Applications | {{ App\Models\Setting::first()->site_title }}
 
 				<div class="employer-detail-main">
 
-					<h5 class="text-theme mb-5">
+					<div class="d-flex justify-content-between align-items-center">
+                        <h5 class="text-theme mb-5">
 
-						Total Applications
+                            Total Applications
 
-					</h5>
+                        </h5>
+                        <a href="{{route('employers.dashboard')}}" class="btn btn-sm btn-success shadow-sm"> <i class="fa fa-arrow-left fa-sm text-white-50"></i> Back</a>
+                    </div>
 
 					<hr>
 					<div class="table-responsive">
@@ -54,7 +57,7 @@ Total Applications | {{ App\Models\Setting::first()->site_title }}
 
 							<th style="padding:5px 22px 10px 6px !important">CV</th>
 
-							<th style="padding:5px 22px 10px 6px !important">Cover Letter</th>
+							<th style="padding:5px 22px 10px 6px !important" class="sortoff">Cover Letter</th>
 
 							<th style="padding:5px 22px 10px 6px !important">Status</th>
 
@@ -260,7 +263,12 @@ Total Applications | {{ App\Models\Setting::first()->site_title }}
 
 <script>
 
-$("#candidateTable").dataTable();
+$("#candidateTable").dataTable({
+aoColumnDefs: [{
+bSortable: false,
+aTargets: ["sortoff"]
+}]
+});
 
 </script>
 

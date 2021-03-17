@@ -35,14 +35,14 @@
                     @csrf
 
                     <div class="row form-group">
-                        <label for="url" class="col-md-2">URL</label>
-                        <input type="url" name="url" class="form-control col-md-10" placeholder="Enter URL" id="url"
+                        <label for="url"  >URL <span class="text-danger">*</span></label>
+                        <input type="url" name="url" class="form-control  " placeholder="Enter URL" id="url"
                             value="@if(isset($request->url)) {{ $request->url }}@endif" required>
                     </div>
 
                     <div class="row form-group">
-                        <label for="links" class="col-md-2">Extracted Links</label>
-                        <textarea name="links" class="form-control col-md-10" id="links"
+                        <label for="links"  >Extracted Links  <span class="text-danger">*</span></label>
+                        <textarea name="links" class="form-control  " id="links" required
                             rows="8">@if(isset($links))@foreach ($links as $link){{ $link."\n" }}@endforeach @endif</textarea>
                     </div>
 

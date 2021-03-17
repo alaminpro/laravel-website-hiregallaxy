@@ -39,7 +39,7 @@
                 @if(auth()->user()->hasRole('super-admin') or auth()->user()->hasRole('admin'))
                   <th width="30%">Editor</th>
                 @endif
-                <th width="15%">Manage</th>
+                <th width="15%" class="sortoff">Manage</th>
               </tr>
             </thead>
             <tbody>
@@ -49,20 +49,20 @@
                     <td> {{ str_limit($question->question, 30,'...')}}</td>
                     @if(auth()->user()->hasRole('super-admin') or auth()->user()->hasRole('admin'))
                     <td>
-                      @php 
+                      @php
                           $user = \App\Models\Admin::where('id', $question->user_id)->first();
                       @endphp
-                      {{ $user['username'] }}
+                      {{ $user ? $user->username: '' }}
                     </td>
                     @endif
                     <td>
-                        <a href="{{route('admin.personality.question.view',$question->id)}}" title="show Template" class="btn btn-outline-success">
+                        <a href="{{route('admin.personality.question.view',$question->id)}}" title="Show Question" class="btn btn-outline-success">
                           <i class="fa fa-eye"></i>
                         </a>
-                        <a href="{{route('admin.personality.question.edit',$question->id)}}" title="Edit Template" class="btn btn-outline-success">
+                        <a href="{{route('admin.personality.question.edit',$question->id)}}" title="Edit Question" class="btn btn-outline-success">
                           <i class="fa fa-edit"></i>
                         </a>
-                        <a href="{{route('admin.personality.question.delete',$question->id)}}" title="Edit Template" class="btn btn-outline-danger">
+                        <a href="{{route('admin.personality.question.delete',$question->id)}}" title="Edit Question" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')">
                           <i class="fa fa fa-fw fa-trash"></i>
                         </a>
                     </td>

@@ -265,7 +265,7 @@ class User extends Authenticatable
 
         $user = $this;
 
-        $birthdate = $user->candidate->date_of_birth;
+        $birthdate = $user->candidate ?  $user->candidate->date_of_birth : '';
 
         $today = date('Y-m-d');
 

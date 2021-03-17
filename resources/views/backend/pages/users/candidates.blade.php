@@ -64,13 +64,13 @@
 
                 <th width="30%">Name</th>
 
-                <th width="10%">Image</th>
+                <th width="10%" class="sortoff">Image</th>
 
                 <th width="20%">Email</th>
 
                 <th width="15%">Status</th>
 
-                <th width="15%">Manage</th>
+                <th width="15%" class="sortoff">Manage</th>
 
               </tr>
 

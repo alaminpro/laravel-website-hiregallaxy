@@ -47,7 +47,7 @@
                 <th width="5%">Sl</th>
                 <th width="30%">Name</th>
                 <th width="20%" style="Display:none;">Description</th>
-                <th width="15%">Manage</th>
+                <th width="15%" class="sortoff">Manage</th>
               </tr>
             </thead>
             <tbody>
@@ -141,14 +141,14 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                      <form action="{!! route('admin.sector.update', $sector->id) !!}" method="post"
+                      <form action="{!! route('admin.sector.update', $sector->id) !!}"   method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
                           <div class="col-md-6 form-group">
-                            <label for="name">Sector Title <span class="text-danger required">*</span></label>
-                            <input type="text" id="name" name="name" class="form-control"
-                              placeholder="eg. Web Development" required value="{{ $sector->name }}">
+                            <label for="name{{$sector->id}}">Sector Title <span class="text-danger required">*</span></label>
+                            <input type="text" id="name{{$sector->id}}" name="name" class="form-control"
+                              placeholder="eg. Web Development" minlength="5" required value="{{ $sector->name }}">
                           </div>
                           <div class="col-md-6 form-group" style="Display:none;">
                             <label for="slug">Sector Slug <span class="text-info required">(optional)</span></label>
@@ -204,12 +204,12 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="{!! route('admin.sector.submit') !!}" method="post" enctype="multipart/form-data">
+        <form action="{!! route('admin.sector.submit') !!}" method="post" enctype="multipart/form-data" data-parsley-validate>
           @csrf
           <div class="form-row">
             <div class="col-md-6 form-group">
               <label for="name">Sector Title <span class="text-danger required">*</span></label>
-              <input type="text" id="name" name="name" class="form-control" placeholder="" required>
+              <input type="text" id="name" name="name" class="form-control" placeholder="" required minlength="5">
             </div>
             <div class="col-md-6 form-group"style="Display:none;">
               <label for="slug">Sector Slug <span class="text-info required">(optional)</span></label>

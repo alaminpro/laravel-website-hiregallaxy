@@ -153,9 +153,7 @@ Employers | {{ App\Models\Setting::first()->site_title }}
 					</div>
 
 					@foreach ($users as $key => $single_user)
-
-					@include('frontend.pages.partials.employer-single')
-
+					    @include('frontend.pages.partials.employer-single')
 					@endforeach
 
 

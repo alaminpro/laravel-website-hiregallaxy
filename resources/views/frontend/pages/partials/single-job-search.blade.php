@@ -15,7 +15,7 @@
 			@endphp
 			{{ $single_job->location != null ?  $single_job->location .',' : '' }} {{ $single_job->country ?  $single_job->country->name : '' }} {{ $country ? ', '. $country->name : '' }}
 		</p>
-		<p><i class="fa fa-clock-o time-icon"></i> {{ $single_job->type->name }} </p>
+		<p><i class="fa fa-clock-o time-icon"></i> {{ $single_job->type? $single_job->type->name:'' }} </p>
 
 	</div>
 

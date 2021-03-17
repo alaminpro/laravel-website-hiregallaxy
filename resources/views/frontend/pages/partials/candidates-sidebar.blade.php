@@ -6,7 +6,7 @@
 
 		<h3>{{ $user->name }}</h3>
 
-		<p class="text-yellow mb-3"> {{ $user->candidate->sector_data ? $user->candidate->sector_data->name : '' }}</p>
+		<p class="text-yellow mb-3"> {{ $user->candidate ?$user->candidate->sector_data ? $user->candidate->sector_data->name : '' :"" }}</p>
 
 	</div>
 

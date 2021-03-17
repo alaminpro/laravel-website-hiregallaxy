@@ -12,7 +12,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 @section('stylesheets')
 
-
+<link rel="stylesheet" href="{{ asset('css/intlTelInput.min.css') }}">
 
 @endsection
 
@@ -56,7 +56,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 											<a href="#editProfileModal" class="btn btn-outline-secondary"
 
-												data-toggle="modal"><i class="fa fa-edit"></i></a>
+												data-toggle="modal"><i class="fa fa-edit" data-toggle="tooltip" title="Edit profile"></i></a>
 
 										</div>
 
@@ -104,7 +104,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 																			class="required">*</span></label>
 
-																	<input type="text" name="name" id="name"
+																	<input type="text" name="name" minlength="5" id="name"
 
 																		class="form-control" required
 
@@ -150,7 +150,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 																		<option value="{{ $category->id }}"
 
-																			{{ $user->company->category_id == $category->id ? 'selected' : '' }}>
+																			{{ $user->company ? $user->company->category_id == $category->id ? 'selected' : '' : '' }}>
 
 																			{{ $category->name }}</option>
 
@@ -220,18 +220,20 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 																<div class="col-md-4">
 
-																	<label for="phone_no">Phone No <span
+																	<label for="telephone">Phone No <span
 
 																			class="text-info font12">
 
 																			optional</span></label>
-
-																	<input type="text" name="phone_no" id="phone_no"
+<br>
+																	<input type="tel"  name="phone_no" id="telephone"
 
 																		class="form-control"
 
 																		value="{{ $user->phone_no }}" />
-
+<br>
+<div id="error-msg" class="text-danger"></div>
+<div id="valid-msg" class="text-success"></div>
 																</div>
 
 
@@ -244,11 +246,11 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 																			optional</span></label>
 
-																	<input type="date" name="establish_date"
+																	<input type="text" name="establish_date"
 
-																		id="establish_date" class="form-control"
+																		id="establish_date"  class="form-control"
 
-																		value="{{ $user->company->establish_date }}" />
+																		value="{{ $user->company ?$user->company->establish_date : '' }}" />
 
 																</div>
 
@@ -270,7 +272,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 																		<option value="{{ $team->id }}"
 
-																			{{ $user->company->team_member == $team->id ? 'selected' : '' }}>
+																			{{ $user->company ? $user->company->team_member == $team->id ? 'selected' : '' :"" }}>
 
 																			{{ $team->name }}</option>
 
@@ -361,18 +363,20 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 																</div>
 																<div class="col-md-6">
 
-																	<label for="google_plus_link">Whatsapp <span
+																	<label for="whatsapp">Whatsapp <span
 
 																			class="text-info font12">
 
 																			optional</span></label>
+                                                                        <br>
+																	<input type="tel" name="whatsapp"
 
-																	<input type="text" name="whatsapp"
+																		id="whatsapp" class="form-control"
 
-																		id="whatsup" class="form-control"
-
-																		value="{{ $user->Whatsapp }}" />
-
+																		value="{{ $user->whatsapp }}" />
+<br>
+<div id="whatsapp-error-msg" class="text-danger"></div>
+<div id="whatsapp-valid-msg" class="text-success"></div>
 																</div>
 
 															</div>
@@ -381,7 +385,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 															<p class="text-left">
 
-																<button type="submit" class="btn btn-outline-success"><i
+																<button type="submit" class="submit-btn btn btn-outline-success"><i
 
 																		class="fa fa-check"></i> Save</button>
 
@@ -402,7 +406,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 									</div>
 
 									<p class="text-yellow mb-3">
-
+                                        @if($user->company)
 										<span class="text-dark">Position:</span>
 									@if($user->company->category)
 										<a href="{{ route('jobs.categories.show',  $user->company->category->slug) }}"
@@ -414,11 +418,12 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 										</a>
 
 									@endif
+									@endif
 
 										<br>
-								
+
 										<span class="text-dark">Sectors:</span>
- 
+
 									@if (count($user->sectors) > 0)
 										@foreach ($user->sectors as $sector)
 
@@ -549,7 +554,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 									<h6>Position</h6>
 
-									<p>{{ $user->company->category ? $user->company->category->name : '' }}</p>
+									<p>{{ $user->company? $user->company->category ? $user->company->category->name : '': '' }}</p>
 
 								</div>
 
@@ -589,7 +594,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 									<h6>Viewed</h6>
 
-									<p>{{ $user->company->total_view }}</p>
+									<p>{{ $user->company ?$user->company->total_view:'' }}</p>
 
 								</div>
 
@@ -613,7 +618,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 									<h6>Since</h6>
 
-									<p>{{ $user->company->establish_year }}</p>
+									<p>{{ $user->company ?$user->company->establish_year :'' }}</p>
 
 								</div>
 
@@ -632,7 +637,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 								<div class="float-left">
 
 									<h6>Team Size</h6>
-
+                                    @if($user->company)
 									@if ($user->company->team_member != null)
 
 									<p>{{ $user->company->team ? $user->company->team->name : '' }}</p>
@@ -641,6 +646,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 									<p class="text-danger">Not Set</p>
 
+									@endif
 									@endif
 
 
@@ -671,7 +677,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 							<a href="#editAboutModal" class="btn btn-outline-secondary" data-toggle="modal"><i
 
-									class="fa fa-edit"></i></a>
+									class="fa fa-edit" data-toogle="tooltip" title="Edit description"></i></a>
 
 						</div>
 
@@ -715,8 +721,8 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 													<textarea name="about" id="aboutCompanyDescription"
 
-														class="form-control" rows="3">{!! $user->about !!}</textarea>
-
+														class="form-control textarea" required   rows="3">{!! $user->about !!}</textarea>
+                                                    <div class="error-length"></div>
 												</div>
 
 											</div>
@@ -725,7 +731,7 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 											<p class="text-left">
 
-												<button type="submit" class="btn btn-outline-success"><i
+												<button type="submit" class="btn btn-outline-success submited" ><i
 
 														class="fa fa-check"></i> Save</button>
 
@@ -848,7 +854,12 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+    integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+    crossorigin="anonymous"></script>
+<script src="{{ asset('js/intlTelInput.min.js') }}"></script>
+<script src="{{ asset('js/utils.js') }}"></script>
 <style>
 
 	.select2-container .select2-selection--single {
@@ -941,16 +952,109 @@ Employer - {{ $user->name }} | {{ App\Models\Setting::first()->site_title }}
 
 	$(".select2").select2();
 	window.Parsley
-  .addValidator('validUrl', { 
+  .addValidator('validUrl', {
     validateString: function(value, requirement) {
 		var regExp = /^(https?|s?ftp|git):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
 
 		return '' !== value ? regExp.test( value ) : false;
     },
     messages: {
-      en: 'Must be a valid strict URL %s', 
+      en: 'Must be a valid strict URL %s',
     }
-  }); 
+  });
+var year = (new Date).getFullYear();
+    var month = (new Date).getMonth();
+    var date = (new Date).getDate();
+    $('#establish_date').datepicker({
+    format: 'YYYY-MM-DD',
+    maxDate: new Date(year, month,date),
+    changeMonth: true,
+    changeYear: true
+
+    })
+
+  var input = document.querySelector("#telephone"),
+errorMsg = document.querySelector("#error-msg"),
+validMsg = document.querySelector("#valid-msg");
+submit = $(".submit-btn");
+
+// here, the index maps to the error code returned from getValidationError - see readme
+var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+// initialise plugin
+var iti = window.intlTelInput(input, {
+utilsScript: "{{asset('js/utils.js')}}"
+});
+
+var reset = function() {
+input.classList.remove("error");
+errorMsg.innerHTML = "";
+errorMsg.classList.add("hide");
+validMsg.classList.add("hide");
+submit.attr('disabled', false)
+};
+
+// on blur: validate
+input.addEventListener('blur', function(e) {
+reset();
+if (input.value.trim()) {
+if (iti.isValidNumber()) {
+validMsg.classList.remove("hide");
+} else {
+submit.attr('disabled', true)
+input.classList.add("error");
+var errorCode = iti.getValidationError();
+errorMsg.innerHTML = errorMap[errorCode];
+errorMsg.classList.remove("hide");
+}
+}
+});
+
+// on keyup / change flag: reset
+input.addEventListener('change', reset);
+input.addEventListener('keyup', reset);
+
+var whatsapp = document.querySelector("#whatsapp"),
+whatsapperrorMsg = document.querySelector("#whatsapp-error-msg"),
+whatsappvalidMsg = document.querySelector("#whatsapp-valid-msg");
+whatsappsubmit = $(".submit-btn");
+
+// here, the index maps to the error code returned from getValidationError - see readme
+var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+// initialise plugin
+var iti = window.intlTelInput(whatsapp, {
+utilsScript: "{{asset('js/utils.js')}}"
+});
+
+var reset = function() {
+whatsapp.classList.remove("error");
+whatsapperrorMsg.innerHTML = "";
+whatsapperrorMsg.classList.add("hide");
+whatsappvalidMsg.classList.add("hide");
+whatsappsubmit.attr('disabled', false)
+};
+
+// on blur: validate
+whatsapp.addEventListener('blur', function(e) {
+reset();
+if (whatsapp.value.trim()) {
+if (iti.isValidNumber()) {
+validMsg.classList.remove("hide");
+} else {
+submit.attr('disabled', true)
+whatsapp.classList.add("error");
+var errorCode = iti.getValidationError();
+whatsapperrorMsg.innerHTML = errorMap[errorCode];
+whatsapperrorMsg.classList.remove("hide");
+}
+}
+});
+
+// on keyup / change flag: reset
+whatsapp.addEventListener('change', reset);
+whatsapp.addEventListener('keyup', reset);
 </script>
- 
+
 @endsection
+

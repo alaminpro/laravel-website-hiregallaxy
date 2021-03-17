@@ -1,4 +1,9 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {
-  $('#dataTable').DataTable();
+    $("#dataTable").DataTable({
+        aoColumnDefs: [{
+            bSortable: false,
+            aTargets: ["sortoff"]
+        }]
+    });
 });

@@ -94,7 +94,7 @@ height: 150px !important;
 
                 <th width="15%">Skill</th>
 
-                <th width="15%">Exparience</th>
+                <th width="15%" class="sortoff">Exparience</th>
 
                 @if(auth()->user()->hasRole('super-admin') or auth()->user()->hasRole('admin'))
 
@@ -102,7 +102,7 @@ height: 150px !important;
 
                 @endif
 
-                <th width="15%">Manage</th>
+                <th width="15%" class="sortoff">Manage</th>
 
               </tr>
 
@@ -138,13 +138,13 @@ height: 150px !important;
 
                         <td>
 
-                          @php 
+                          @php
 
                               $user = \App\Models\Admin::where('id', $aptitude->user_id)->first();
 
                           @endphp
 
-                          {{ $user['username'] }}
+                          {{ $user ? $user->username : ''}}
 
                         </td>
 
@@ -158,13 +158,13 @@ height: 150px !important;
 
                         </a>
 
-                        <a href="{{url('admin/aptitude/'.$aptitude->id.'/edit')}}" title="Edit Template" class="btn btn-outline-success">
+                        <a href="{{url('admin/aptitude/'.$aptitude->id.'/edit')}}" title="Edit Question" class="btn btn-outline-success">
 
                           <i class="fa fa-edit"></i>
 
                         </a>
 
-                        <a href="{{url('admin/delete_aptitude/'.$aptitude->id)}}" title="Delete Template" class="btn btn-outline-danger">
+                        <a href="{{url('admin/delete_aptitude/'.$aptitude->id)}}" onclick="return confirm('Are you sure?')" title="Delete Question" class="btn btn-outline-danger">
 
                           <i class="fa fa fa-fw fa-trash"></i>
 

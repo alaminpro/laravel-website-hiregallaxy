@@ -89,7 +89,7 @@ class CategoryController extends Controller
 
         $category->save();
 
-        session()->flash('success', 'Category added successfully');
+        session()->flash('success', ' Position  Added Sucessfully');
 
         return back();
 
@@ -142,7 +142,7 @@ class CategoryController extends Controller
 
             $category->save();
 
-            session()->flash('success', 'Category updated successfully');
+            session()->flash('success', 'Position  Updated Sucessfully');
 
             return redirect()->route('admin.category.index');
 
@@ -175,7 +175,7 @@ class CategoryController extends Controller
 
                 $category->save();
 
-                session()->flash('error', 'Category trashed successfully');
+                session()->flash('error', 'Position trashed successfully');
 
             } else {
 
@@ -187,7 +187,7 @@ class CategoryController extends Controller
 
                 $category->delete();
 
-                session()->flash('error', 'Category deleted successfully');
+                session()->flash('error', ' Position Trashed Sucessfully');
 
             }
 
@@ -212,7 +212,7 @@ class CategoryController extends Controller
 
             $category->save();
 
-            session()->flash('error', 'Category Activated successfully');
+            session()->flash('error', 'Position Activated successfully');
 
             return redirect()->route('admin.category.index');
 

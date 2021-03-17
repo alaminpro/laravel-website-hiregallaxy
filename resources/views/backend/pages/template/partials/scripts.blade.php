@@ -29,21 +29,119 @@
     }
 </style>
 <script>
-    //  plugins: 'codesample code print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern',
-    //  toolbar: 'bold italic hr forecolor backcolor | codesample code autolink  | link  image | alignleft aligncenter alignright | numlist bullist | preview',
-  
-    tinymce.init({
-        selector:'.template' ,
-        plugins: 'codesample autoresize code print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern',
+
+      tinymce.init({
+
+
+
+        selector: '.template',
+
+
+
+        plugins: "{{ config('constants.tiny_plugins') }}",
+
+
+
+        toolbar: "{{ config('constants.tiny_toolbar') }}",
+
+
+
+        contextmenu: "{{ config('constants.tiny_contextmenu') }}",
+
+
+
         autoresize_bottom_margin: 0,
-        contextmenu: 'copy paste',
-        toolbar: 'bold italic hr forecolor backcolor |  autolink  link  alignleft aligncenter alignright numlist bullist code preview',
+
+
+
         image_advtab: true,
-        menubar:false,
-        setup: function(editor){
-          editor.on('keyup', function(e){
-            vm.model = editor.getContent();
-          })
+
+
+
+        menubar: false,
+
+
+
+        });
+
+
+$(".saveTemplate").click(function(e) {
+    let summery_error = $(".job-summery-error");
+    let responsibilities_error = $(".responsibilities-error");
+    let qualification_error = $(".qualification-error");
+    let certification_error = $(".certification-error");
+    let experience_error = $(".experience-error");
+    let about_error = $(".about-company-error");
+    summery_error.empty();
+    responsibilities_error.empty();
+    qualification_error.empty();
+    certification_error.empty();
+    experience_error.empty();
+    about_error.empty();
+
+    for (i = 0; i < tinyMCE.editors.length; i++) {
+        var content = tinyMCE.editors[i].getContent();
+        if (tinyMCE.editors[i].id == "job_summery") {
+            if (content.length > 4 && content.length <= 11) {
+                e.preventDefault();
+                $(".textarea .filled").hide();
+                $('<span class="text-danger pl-2"></span>')
+                    .html("Length must be greater than 5 characters")
+                    .appendTo(summery_error);
+            } else {
+                summery_error.empty();
+            }
+        } else if (tinyMCE.editors[i].id == "responsibilities") {
+            if (content.length > 4 && content.length <= 11) {
+                e.preventDefault();
+                $(".textarea .filled").hide();
+                $('<span class="text-danger pl-2"></span>')
+                    .html("Length must be greater than 5 characters")
+                    .appendTo(responsibilities_error);
+            } else {
+                responsibilities_error.empty();
+            }
+        } else if (tinyMCE.editors[i].id == "qualification") {
+            if (content.length > 4 && content.length <= 11) {
+                e.preventDefault();
+                $(".textarea .filled").hide();
+                $('<span class="text-danger pl-2"></span>')
+                    .html("Length must be greater than 5 characters")
+                    .appendTo(qualification_error);
+            } else {
+                qualification_error.empty();
+            }
+        } else if (tinyMCE.editors[i].id == "certification") {
+            if (content.length > 4 && content.length <= 11) {
+                e.preventDefault();
+                $(".textarea .filled").hide();
+                $('<span class="text-danger pl-2"></span>')
+                    .html("Length must be greater than 5 characters")
+                    .appendTo(certification_error);
+            } else {
+                certification_error.empty();
+            }
+        } else if (tinyMCE.editors[i].id == "experience") {
+            if (content.length > 4 && content.length <= 11) {
+                e.preventDefault();
+                $(".textarea .filled").hide();
+                $('<span class="text-danger pl-2"></span>')
+                    .html("Length must be greater than 5 characters")
+                    .appendTo(experience_error);
+            } else {
+                experience_error.empty();
+            }
+        } else if (tinyMCE.editors[i].id == "about_company") {
+            if (content.length > 4 && content.length <= 11) {
+                e.preventDefault();
+                $(".textarea .filled").hide();
+                $('<span class="text-danger pl-2"></span>')
+                    .html("Length must be greater than 5 characters")
+                    .appendTo(about_error);
+            } else {
+                about_error.empty();
+            }
         }
-      });
+    }
+});
 </script>

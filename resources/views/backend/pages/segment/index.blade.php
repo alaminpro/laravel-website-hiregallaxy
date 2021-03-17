@@ -47,7 +47,7 @@
                 <th width="5%">Sl</th>
                 <th width="30%">Name</th>
                 <th width="20%" style="Display:none;">Description</th>
-                <th width="15%">Manage</th>
+                <th width="15%" class="sortoff">Manage</th>
               </tr>
             </thead>
             <tbody>
@@ -67,7 +67,7 @@
 
                   @if ($segment->status == 0)
                   <a href="#activeModal{{ $segment->id }}" class="btn btn-circle btn-outline-success"
-                    title="Active segment" data-toggle="modal"><i class="fa fa-check"></i></a>
+                    title="Active employer" data-toggle="modal"><i class="fa fa-check"></i></a>
                   @endif
 
                   <button class="btn btn-circle btn-outline-danger" data-toggle="modal"
@@ -146,21 +146,21 @@
                         @csrf
                         <div class="form-row">
                           <div class="col-md-6 form-group">
-                            <label for="name">Employer Title <span class="text-danger required">*</span></label>
-                            <input type="text" id="name" name="name" class="form-control"
-                              placeholder="eg. Web Development" required value="{{ $segment->name }}">
+                            <label for="name{{$segment->id}}">Employer Title <span class="text-danger required">*</span></label>
+                            <input type="text" id="name{{$segment->id}}" name="name" class="form-control"
+                              placeholder="eg. Web Development" required value="{{ $segment->name }}" minlength="5">
                           </div>
                           <div class="col-md-6 form-group" style="Display:none;">
-                            <label for="slug">Employer Slug <span class="text-info required">(optional)</span></label>
-                            <input type="text" id="slug" name="slug" class="form-control"
+                            <label for="slug{{$segment->id}}">Employer Slug <span class="text-info required">(optional)</span></label>
+                            <input type="text" id="slug{{$segment->id}}" name="slug" class="form-control"
                               placeholder="eg. web-development" value="{{ $segment->slug }}">
                           </div>
                         </div>
                         <div class="form-row" style="Display:none;">
                           <div class="col-md-12 form-group">
-                            <label for="description">Employer Description</label>
+                            <label for="description{{$segment->id}}">Employer Description</label>
 
-                            <textarea name="description" id="description" name="description" rows="8" cols="80"
+                            <textarea name="description" id="description{{$segment->id}}" name="description" rows="8" cols="80"
                               class="tinymce form-control">{{ $segment->description }}</textarea>
                           </div>
                         </div>
@@ -204,12 +204,12 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="{!! route('admin.segment.submit') !!}" method="post" enctype="multipart/form-data">
+        <form action="{!! route('admin.segment.submit') !!}" method="post" data-parsley-validate enctype="multipart/form-data">
           @csrf
           <div class="form-row">
             <div class="col-md-6 form-group">
               <label for="name">Employer Title <span class="text-danger required">*</span></label>
-              <input type="text" id="name" name="name" class="form-control" placeholder="" required>
+              <input type="text" id="name" name="name" minlength="5" class="form-control" placeholder="" required minlength="5">
             </div>
             <div class="col-md-6 form-group" style="Display:none;">
               <label for="slug">Employer Slug <span class="text-info required">(optional)</span></label>

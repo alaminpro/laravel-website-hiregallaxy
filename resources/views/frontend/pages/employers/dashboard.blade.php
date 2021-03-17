@@ -25,7 +25,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 	<div class="container">
 
 		<div class="row">
-	
+
 			<div class="col-md-6">
 				<div class="employer-detail-main">
 
@@ -43,7 +43,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 									<i class="fa fa-bell font30"></i>
 
-									<h6>  
+									<h6>
 										{{ count($user->jobs) + $team_job_count}} Jobs
 
 									</h6>
@@ -116,9 +116,9 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 									<h6>
 
-										@php 
+										@php
 
-										$new = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'New')->get(); 
+										$new = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'New')->get();
 
 										@endphp
 
@@ -141,14 +141,14 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 								<div class="single-dashboard-link card card-default p-3 text-center"
 
 									onclick="location.href='{{ route('employers.candidate', 'Shortlisted')}}'">
- 
+
 									<i class="fa  fa-user-secret font30"></i>
 
 									<h6>
 
-										@php 
+										@php
 
-										$shortlist = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'Shortlisted')->get(); 
+										$shortlist = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'Shortlisted')->get();
 
 										@endphp
 
@@ -174,10 +174,10 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 									<i class="fa fa-user-secret  font30"></i>
 
-									<h6> 
-										@php 
+									<h6>
+										@php
 
-										$interview = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'Interview')->get(); 
+										$interview = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'Interview')->get();
 
 										@endphp
 
@@ -205,9 +205,9 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 									<h6>
 
-										@php 
+										@php
 
-										$offered = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'Offered')->get(); 
+										$offered = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'Offered')->get();
 
 										@endphp
 
@@ -235,9 +235,9 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 									<h6>
 
-										@php 
+										@php
 
-										$hired = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'Hired')->get(); 
+										$hired = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'Hired')->get();
 
 										@endphp
 
@@ -265,9 +265,9 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 									<h6>
 
-										@php 
+										@php
 
-										$reject = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'Rejected')->get(); 
+										$reject = \App\Models\JobActivity::where('company_id', $user->id)->where('status', 'Rejected')->get();
 
 										@endphp
 
@@ -290,7 +290,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 					</div>
 
 				</div>
-				<filter-component :assign="false"  team_id="" ></filter-component>	
+				<filter-component :assign="false"  team_id="" ></filter-component>
 			</div>
 
 
@@ -325,7 +325,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 							</div>
 
 						</div>
- 
+
 						<div class="col-sm-6 col-md-6 col-lg-4 mb-2 px-1">
 
 							<div class="single-dashboard-link card card-default p-3 text-center"
@@ -362,11 +362,11 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 									 Search Candidates
 
-									</h6> 
+									</h6>
 
 								</div>
 
-						</div>  
+						</div>
 						<div class="col-sm-6 col-md-6 col-lg-4 mb-2 px-1">
 
 							<div class="single-dashboard-link card card-default p-3 text-center seen--message"
@@ -385,7 +385,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 									{{ $messages }} Message{{ $messages > 1 ? 's' : '' }}
 
-								</h6> 
+								</h6>
 
 							</div>
 
@@ -394,16 +394,26 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 
 							<div class="single-dashboard-link card card-default p-3 text-center"
 
-								onclick="location.href='{{ route('teams') }}'"> 
+								onclick="location.href='{{ route('teams') }}'">
 								<i class="fa fa-users font30"></i>
-								<h6>{{ count($user->teams) }}  Team</h6>  
+								<h6>{{ count($user->teams) }}  Team</h6>
+							</div>
+
+						</div>
+						<div class="col-sm-6 col-md-6 col-lg-4 mb-2 px-1">
+
+							<div class="single-dashboard-link card card-default p-3 text-center"
+
+								onclick="location.href='{{ route('question.index') }}'">
+                                <i class="fa fa-file font30"></i>
+								<h6>Create test</h6>
 							</div>
 
 						</div>
 					</div>
 
 				</div>
-		
+
 				<div class="mt-4">
 
 					@include('frontend.pages.todo._component')
@@ -415,7 +425,7 @@ Employer Dashboard | {{ App\Models\Setting::first()->site_title }}
 		</div>
 
 	</div>
- 
+
 
 </section>
 

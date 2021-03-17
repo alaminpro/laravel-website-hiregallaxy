@@ -64,7 +64,7 @@
 
         <div class="table-responsive">
 
-          <table id="cityTable" width="100%" cellspacing="0" class="table table-bordered">
+          <table id="dataTable" width="100%" cellspacing="0" class="table table-bordered">
 
             <thead>
 
@@ -78,7 +78,7 @@
 
                 <th width="30%">State</th>
 
-                <th width="15%">Manage</th>
+                <th width="15%" class="sortoff">Manage</th>
 
               </tr>
 
@@ -105,7 +105,7 @@
                   {{ $country ? $country->name : "--" }}
 
                 </td>
-             
+
 
                 <td>
 
@@ -215,7 +215,7 @@
 
                     <div class="modal-body">
 
-                      <form action="{!! route('admin.cities.update', $city->id) !!}" method="post"
+                      <form action="{!! route('admin.cities.update', $city->id) !!}"   method="post"
 
                         enctype="multipart/form-data">
 
@@ -227,9 +227,9 @@
 
                           <div class="col-md-12 form-group">
 
-                            <label for="name">City Name <span class="text-danger required">*</span></label>
+                            <label for="name{{$city->id}}">City Name <span class="text-danger required">*</span></label>
 
-                            <input type="text" id="name" name="name" class="form-control" placeholder="eg. Alasca"
+                            <input type="text" id="name{{$city->id}}" minlength="3" name="name" class="form-control" placeholder="eg. Alasca"
 
                               required value="{{ $city->name }}">
 
@@ -241,11 +241,11 @@
 
                           <div class="col-md-12 form-group">
 
-                            <label for="staet_id">Select Country <span
+                            <label for="city_id{{$city->id}}">Select Country <span
 
                                 class="text-danger required">(required)</span></label>
 
-                            <select name="city_id" id="city_id" class="form-control" required>
+                            <select name="city_id" id="city_id{{$city->id}}" class="form-control" required>
 
                               <option value="">Select a country</option>
                               @php
@@ -268,11 +268,11 @@
 
                           <div class="col-md-12 form-group">
 
-                            <label for="staet_id">Select State <span
+                            <label for="state_id{{$city->id}}">Select State <span
 
                                 class="text-danger required">(optional)</span></label>
 
-                            <select name="state_id" id="state_id" class="form-control">
+                            <select name="state_id" id="state_id{{$city->id}}" class="form-control">
 
                               <option value="">Select a state</option>
 
@@ -370,7 +370,7 @@
 
       <div class="modal-body">
 
-        <form action="{!! route('admin.cities.store') !!}" method="post" enctype="multipart/form-data">
+        <form action="{!! route('admin.cities.store') !!}" method="post" data-parsley-validate enctype="multipart/form-data">
 
           @csrf
 
@@ -380,7 +380,7 @@
 
               <label for="name">City Name <span class="text-danger required">*</span></label>
 
-              <input type="text" id="name" name="name" class="form-control" placeholder="eg. Abbotsford" required>
+              <input type="text" id="name" name="name" minlength="3" class="form-control" placeholder="eg. Abbotsford" required>
 
             </div>
 
@@ -472,12 +472,3 @@
 
 
 
-@section('scripts')
-
-<script>
-
-  $("#cityTable").dataTable();
-
-</script>
-
-@endsection

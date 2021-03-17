@@ -70,7 +70,7 @@
 
         @include('backend.partials.message')
 
-        <form class="js-validate" method="POST" action="{{url('admin/question/'.$question->id)}}" enctype="multipart/form-data">
+        <form class="js-validate" method="POST" data-parsley-validate action="{{url('admin/question/'.$question->id)}}" enctype="multipart/form-data">
 
             @csrf
 
@@ -84,10 +84,10 @@
 
                 <div class="form-group">
 
-                  <label id="questions" class="form-label">Question</label>
+                  <label id="questions" class="form-label">Question <span class="text-danger">*</span></label>
 
-                     <textarea cols="30" rows="1" class="form-control question_editor" name="question" id="question" placeholder="Enter question" >{{$question->question}}</textarea>
-
+                     <textarea cols="30" data-parsley-errors-container="#question-errors" rows="1" class="form-control question_editor" name="question" id="question" placeholder="Enter question" >{{$question->question}}</textarea>
+<div class="pt-2" id="question-errors"></div>
                      <span class="text-danger">{{ $errors->has('question') ? $errors->first('question') : '' }}</span>
 
                 </div>
@@ -104,12 +104,12 @@
 
                 <div class="form-group">
 
-                  <label id="nameLabel" class="form-label">Answer 1</label>
+                  <label id="nameLabel" class="form-label">Answer 1 <span class="text-danger">*</span></label>
 
                   <!--<input type="text" class="form-control" name="answer_1" value="{{$question->answers->answer_1}}" id="answer_1" placeholder="Enter answer" required>-->
 
-                  <textarea cols="30" rows="1" class="form-control answer_1_editor" name="answer_1" id="answer_1" placeholder="Enter answer" >{{$question->answers->answer_1}}</textarea>
-
+                  <textarea cols="30" data-parsley-errors-container="#answer_1-errors" rows="1" class="form-control answer_1_editor" name="answer_1" id="answer_1" placeholder="Enter answer" >{{$question->answers->answer_1}}</textarea>
+<div class="pt-2" id="answer_1-errors"></div>
                </div>
 
             </div>
@@ -120,14 +120,14 @@
 
                   <label id="nameLabel" class="form-label">
 
-                    Answer 2
+                    Answer 2 <span class="text-danger">*</span>
 
                   </label>
 
                   <!--<input type="text" class="form-control" name="answer_2" value="{{$question->answers->answer_2}}" id="answer_2" placeholder="Enter answer" required>-->
 
-                  <textarea cols="30" rows="1" class="form-control answer_2_editor" name="answer_2" id="answer_2" placeholder="Enter answer" >{{$question->answers->answer_2}}</textarea>
-
+                  <textarea cols="30" rows="1" data-parsley-errors-container="#answer_2-errors" class="form-control answer_2_editor" name="answer_2" id="answer_2" placeholder="Enter answer" >{{$question->answers->answer_2}}</textarea>
+<div class="pt-2" id="answer_2-errors"></div>
                  </div>
 
             </div>
@@ -138,7 +138,7 @@
 
                   <label id="nameLabel" class="form-label">
 
-                    Answer 3
+                    Answer 3 <span class="text-danger">*</span>
 
 
 
@@ -146,8 +146,8 @@
 
                   <!--<input type="text" class="form-control" name="answer_3" value="{{$question->answers->answer_3}}" id="answer_3" placeholder="Enter answer" required>-->
 
-                  <textarea cols="30" rows="1" class="form-control answer_3_editor" name="answer_3" id="answer_3" placeholder="Enter answer" >{{$question->answers->answer_3}}</textarea>
-
+                  <textarea cols="30" data-parsley-errors-container="#answer_3-errors" rows="1" class="form-control answer_3_editor" name="answer_3" id="answer_3" placeholder="Enter answer" >{{$question->answers->answer_3}}</textarea>
+<div class="pt-2" id="answer_3-errors"></div>
                  </div>
 
             </div>
@@ -158,7 +158,7 @@
 
                   <label id="nameLabel" class="form-label">
 
-                    Answer 4
+                    Answer 4 <span class="text-danger">*</span>
 
 
 
@@ -166,8 +166,8 @@
 
                   <!--<input type="text" class="form-control" name="answer_4" value="{{$question->answers->answer_4}}" id="answer_4" placeholder="Enter answer" required>-->
 
-                  <textarea cols="30" rows="1" class="form-control answer_4_editor" name="answer_4" id="answer_4" placeholder="Enter answer" >{{$question->answers->answer_4}}</textarea>
-
+                  <textarea cols="30" rows="1" data-parsley-errors-container="#answer_4-errors" class="form-control answer_4_editor" name="answer_4" id="answer_4" placeholder="Enter answer" >{{$question->answers->answer_4}}</textarea>
+<div class="pt-2" id="answer_4-errors"></div>
                 </div>
 
             </div>
@@ -182,7 +182,7 @@
 
                   <label id="skills" class="form-label">
 
-                  Skills
+                  Skills <span class="text-danger">*</span>
 
                 </label>
 
@@ -204,7 +204,7 @@
 
                   <label id="exparience" class="form-label">
 
-                    Exparience
+                    Experience <span class="text-danger">*</span>
 
                   </label>
 
@@ -230,7 +230,7 @@
 
                   <label id="skills" class="form-label">
 
-                  Right Answer
+                  Right Answer <span class="text-danger">*</span>
 
                 </label>
 
@@ -328,7 +328,7 @@
 
 		});
 
-		
+
 
 		CKEDITOR.replace('answer_1', {
 
@@ -342,7 +342,7 @@
 
 		});
 
-		
+
 
 		CKEDITOR.replace('answer_2', {
 
@@ -356,7 +356,7 @@
 
 		});
 
-		
+
 
 		CKEDITOR.replace('answer_3', {
 
@@ -370,7 +370,7 @@
 
 		});
 
-		
+
 
 		CKEDITOR.replace('answer_4', {
 
@@ -383,10 +383,67 @@
             filebrowserUploadMethod: 'form'
 
 		});
+CKEDITOR.on('instanceReady', function () {
+$('#question').attr('required', '');
+$('#answer_1').attr('required', '');
+$('#answer_2').attr('required', '');
+$('#answer_3').attr('required', '');
+$('#answer_4').attr('required', '');
+let questionErr =$('#question-errors');
+let question1Err =$('#answer_1-errors');
+let question2Err =$('#answer_2-errors');
+let question3Err =$('#answer_3-errors');
+let question4Err =$('#answer_4-errors');
+$.each(CKEDITOR.instances, function (instance) {
+CKEDITOR.instances[instance].on("change", function (e) {
+for (instance in CKEDITOR.instances) {
+CKEDITOR.instances[instance].updateElement();
+if(instance == 'question'){
+questionErr.empty();
+var dataLength = CKEDITOR.instances['question'].getData();
+if ([...dataLength].length > 4 && [...dataLength].length <= 12) { $('<span class="text-danger"></span>')
+    .html("Length must be greater than 5 characters")
+    .appendTo(questionErr);
+    }
+    }
+    if(instance == 'answer_1'){
+    question1Err.empty();
+    var answer_1 = CKEDITOR.instances['answer_1'].getData();
 
-
-
-
+    if ([...answer_1].length > 4 && [...answer_1].length <= 12) { $('<span class="text-danger"></span>')
+        .html("Length must be greater than 5 characters")
+        .appendTo(question1Err);
+        }
+        }
+        if(instance == 'answer_2'){
+        question2Err.empty();
+        var answer_2 = CKEDITOR.instances['answer_2'].getData();
+        console.log(answer_2);
+        if ([...answer_2].length > 4 && [...answer_2].length <= 12) { $('<span class="text-danger"></span>')
+            .html("Length must be greater than 5 characters")
+            .appendTo(question2Err);
+            }
+            }
+            if(instance == 'answer_3'){
+            question3Err.empty();
+            var answer_3 = CKEDITOR.instances['answer_3'].getData();
+            if ([...answer_3].length > 4 && [...answer_3].length <= 12) { $('<span class="text-danger"></span>')
+                .html("Length must be greater than 5 characters")
+                .appendTo(question3Err);
+                }
+                }
+                if(instance == 'answer_4'){
+                question4Err.empty();
+                var answer_4 = CKEDITOR.instances['answer_4'].getData();
+                if ([...answer_4].length > 4 && [...answer_4].length <= 12) { $('<span class="text-danger"></span>')
+                    .html("Length must be greater than 5 characters")
+                    .appendTo(question4Err);
+                    }
+                    }
+                    }
+                    });
+                    });
+                    });
 
   });
 

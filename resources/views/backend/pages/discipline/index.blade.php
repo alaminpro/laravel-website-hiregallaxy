@@ -47,7 +47,7 @@
                 <th width="5%">Sl</th>
                 <th width="30%">Name</th>
                 <th width="20%" style="Display:none;">Description</th>
-                <th width="15%">Manage</th>
+                <th width="15%" class="sortoff">Manage</th>
               </tr>
             </thead>
             <tbody>
@@ -142,26 +142,26 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                      <form action="{!! route('admin.discipline.update', $discipline->id) !!}" method="post"
+                      <form action="{!! route('admin.discipline.update', $discipline->id) !!}"   method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
                           <div class="col-md-6 form-group">
-                            <label for="name">Discipline Title <span class="text-danger required">*</span></label>
-                            <input type="text" id="name" name="name" class="form-control"
-                              placeholder="eg. Web Development" required value="{{ $discipline->name }}">
+                            <label for="name{{$discipline->id}}">Discipline Title <span class="text-danger required">*</span></label>
+                            <input type="text" id="name{{$discipline->id}}" name="name" class="form-control"
+                              placeholder="eg. Web Development" required value="{{ $discipline->name }}" minlength="5">
                           </div>
                           <div class="col-md-6 form-group" style="Display:none;">
-                            <label for="slug">Discipline Slug <span class="text-info required">(optional)</span></label>
-                            <input type="text" id="slug" name="slug" class="form-control"
+                            <label for="slug{{$discipline->id}}">Discipline Slug <span class="text-info required">(optional)</span></label>
+                            <input type="text" id="slug{{$discipline->id}}" name="slug" class="form-control"
                               placeholder="eg. web-development" value="{{ $discipline->slug }}">
                           </div>
                         </div>
                         <div class="form-row" style="Display:none;">
                           <div class="col-md-12 form-group">
-                            <label for="description">Discipline Description</label>
+                            <label for="description{{$discipline->id}}">Discipline Description</label>
 
-                            <textarea name="description" id="description" name="description" rows="8" cols="80"
+                            <textarea name="description" id="description{{$discipline->id}}" name="description" rows="8" cols="80"
                               class="tinymce form-control">{{ $discipline->description }}</textarea>
                           </div>
                         </div>
@@ -205,12 +205,12 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="{!! route('admin.discipline.submit') !!}" method="post" enctype="multipart/form-data">
+        <form action="{!! route('admin.discipline.submit') !!}" method="post" data-parsley-validate enctype="multipart/form-data">
           @csrf
           <div class="form-row">
             <div class="col-md-6 form-group">
               <label for="name">Discipline Title <span class="text-danger required">*</span></label>
-              <input type="text" id="name" name="name" class="form-control" placeholder="" required>
+              <input type="text" id="name" name="name" class="form-control" placeholder="" required minlength="5">
             </div>
             <div class="col-md-6 form-group" style="Display:none;">
               <label for="slug">Discipline Slug <span class="text-info required">(optional)</span></label>

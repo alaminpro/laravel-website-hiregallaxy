@@ -60,7 +60,7 @@
 
 <!-- Page level custom scripts -->
 
-
+<script src="{{ asset('js/parsley/parsley.min.js') }}"></script>
 
 <script src="{{ asset('admin-asset/js/demo/datatables-demo.js') }}"></script>
 

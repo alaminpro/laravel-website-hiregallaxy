@@ -26,7 +26,7 @@
 
 				<th style="padding:5px 22px 10px 6px !important">Status</th>
 
-				<th style="padding:5px 22px 10px 6px !important">Actions</th>
+				<th style="padding:5px 22px 10px 6px !important" class="sortoff">Actions</th>
 
 			</thead>
 
@@ -111,13 +111,7 @@
 					</td>
 
 					<td>
-						@if (auth()->user()->id == $user->id)
-							<a href="{{ route('jobs.edit', $single_job->slug) }}" class="btn btn-outline-success" title="Edit Job">
 
-								<i class="fa fa-edit"></i>
-
-							</a>
-						@endif
 
 
 						@if(!empty($id))
@@ -141,7 +135,13 @@
 
                         </a>
 						@endif
+                        @if (auth()->user()->id == $user->id)
+                        <a href="{{ route('jobs.edit', $single_job->slug) }}" class="btn btn-outline-success" title="Edit Job">
 
+                            <i class="fa fa-edit"></i>
+
+                        </a>
+                        @endif
 						@if (auth()->user()->id == $user->id)
 							<form method="post" action="{{ route('employers.jobs.delete', $single_job->slug) }}" class="ml-1"
 

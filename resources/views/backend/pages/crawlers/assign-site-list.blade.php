@@ -42,7 +42,7 @@
                                 <td>Sl</td>
                                 <td>Url</td>
                                 <td>Assigned Site</td>
-                                <td><button class="btn btn-outline-danger"><i class="fa fa-trash"></i></button></td>
+                                <td class="sortoff"><button class="btn btn-outline-danger"><i class="fa fa-trash"></i></button></td>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,13 +56,13 @@
                                     @if(!is_null($crawler->crawlerUrl))
                                         {{ $crawler->crawlerUrl->url }}
                                     @endif
-                                    
+
                                 </td>
                                 <td>
                                     @if(!is_null($crawler->crawlerSite))
                                         {{ $crawler->crawlerSite->name }}
                                     @endif
-                                    
+
                                 </td>
                                 <td>
                                     <form action="{{ route('admin.sites.assign.delete', $crawler->id) }}" method="POST">
@@ -70,7 +70,7 @@
 
                                         <button type="submit" onclick="return confirm('Do you want to delete ?')"
                                             class="btn text-danger">
-                                            <i class="fa fa-trash"></i>
+                                            <i class="fa fa-trash" title="Delete "></i>
                                         </button>
                                         @csrf
                                     </form>

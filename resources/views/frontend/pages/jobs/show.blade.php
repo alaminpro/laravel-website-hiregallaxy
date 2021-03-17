@@ -56,7 +56,7 @@
 
 										<span class="mr-2">
 
-											<i class="fa fa-user category-icon"></i> {{ $job->user->name }}
+											<i class="fa fa-user category-icon"></i> {{ $job->user ?$job->user->name:'' }}
 
 										</span>
 									@if($job->category)
@@ -94,7 +94,7 @@
 
 											<i class="fa fa-clock-o text-yellow"></i> <span
 
-												class="text-yellow">{{ $job->type->name }}</span>
+												class="text-yellow">{{ $job->type?$job->type->name:'' }}</span>
 
 										</span>
 

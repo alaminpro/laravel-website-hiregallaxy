@@ -27,7 +27,7 @@
           @elseif(Route::is('admin.job.trash'))
             <a href="{{ route('admin.job.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-check fa-sm text-white-50"></i> Active List</a>
          @endif
-{{-- 
+{{--
           <a href="" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add New job</a> --}}
         </div>
         <div class="clearfix"></div>
@@ -42,7 +42,7 @@
                 <th width="5%">Sl</th>
                 <th width="20%">Title</th>
                 <th width="20%">Employer</th>
-                <th width="15%">Manage</th>
+                <th width="15%" class="sortoff">Manage</th>
               </tr>
             </thead>
             <tbody>
@@ -69,7 +69,7 @@
                   <button class="btn btn-circle btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ $job->id }}" title="Delete job"><i class="fa fa-fw fa-trash"></i></button>
                   @endif
 
-                  
+
                   <!-- Delete Modal-->
                   <div class="modal fade" id="deleteModal{{ $job->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -91,7 +91,7 @@
                       </div>
                     </div>
                   </div>
-                  
+
                   <!-- Activate Modal -->
                   <div class="modal fade" id="activeModal{{ $job->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">

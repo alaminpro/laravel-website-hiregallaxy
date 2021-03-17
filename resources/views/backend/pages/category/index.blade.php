@@ -48,7 +48,7 @@
                 <th width="30%">Position</th>
                 <th width="10%">Image</th>
                 <th width="20%" style="Display:none;">Sector</th>
-                <th width="15%">Manage</th>
+                <th width="15%" class="sortoff">Manage</th>
               </tr>
             </thead>
             <tbody>
@@ -57,7 +57,7 @@
               <tr>
                 <td>{{ $loop->index+1 }}</td>
                 <td>
-                  {{ $category->name }} 
+                  {{ $category->name }}
                 </td>
                 <td>
                   <a href="{!! asset('images/categories/'.$category->image) !!}" target="_blank">
@@ -151,23 +151,23 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                      <form action="{!! route('admin.category.update', $category->id) !!}" method="post"
+                      <form action="{!! route('admin.category.update', $category->id) !!}"  method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
                           <div class="col-md-4 form-group">
-                            <label for="name">Position Title <span class="text-danger required">*</span></label>
-                            <input type="text" id="name" name="name" class="form-control"
+                            <label for="name{{$category->id}}">Position Title <span class="text-danger required">*</span></label>
+                            <input type="text" minlength="5" id="name{{$category->id}}" name="name" class="form-control"
                               placeholder="eg. Web Development" required value="{{ $category->name }}">
                           </div>
                           <div class="col-md-4 form-group" style="Display:none;">
-                            <label for="slug">Position Slug <span class="text-info required">(optional)</span></label>
-                            <input type="text" id="slug" name="slug" class="form-control"
+                            <label for="slug{{$category->id}}">Position Slug <span class="text-info required">(optional)</span></label>
+                            <input type="text" id="slug{{$category->id}}" name="slug" class="form-control"
                               placeholder="eg. web-development" value="{{ $category->slug }}">
                           </div>
                           <div class="col-md-4 form-group">
-                            <label for="icon">Position Icon <span class="text-info required">(optional)</span></label>
-                            <input type="text" id="icon" name="icon" class="form-control" placeholder="fa fa-bars"
+                            <label for="icon{{$category->id}}">Position Icon <span class="text-info required">(optional)</span></label>
+                            <input type="text" id="icon{{$category->id}}" name="icon" class="form-control" placeholder="fa fa-bars"
                               value="{{ $category->icon }}">
                           </div>
                         </div>
@@ -252,12 +252,12 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="{!! route('admin.category.submit') !!}" method="post" enctype="multipart/form-data">
+        <form action="{!! route('admin.category.submit') !!}" data-parsley-validate method="post" enctype="multipart/form-data">
           @csrf
           <div class="form-row">
             <div class="col-md-4 form-group">
               <label for="name">Position Title <span class="text-danger required">*</span></label>
-              <input type="text" id="name" name="name" class="form-control" placeholder="eg. Web Development" required>
+              <input type="text" id="name" name="name" minlength="5" class="form-control" placeholder="eg. Web Development" required>
             </div>
             <div class="col-md-4 form-group" style="Display:none;">
               <label for="slug">Position Slug <span class="text-info required">(optional)</span></label>

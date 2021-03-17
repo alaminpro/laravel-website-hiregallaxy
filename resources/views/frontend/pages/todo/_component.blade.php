@@ -52,8 +52,10 @@
 
 			<div class="card-header text-dark bg-warning">
 
-				Pending Tasks 
-				<button class=" btn-add pull-right" id="createTodoBtn"> <strong>+</strong></button>
+				Pending Tasks
+				<button  id="createTodoBtn" class="btn-add pull-right" data-toggle="tooltip" title="Add new task">
+                    <strong >+</strong>
+                </button>
 
 
 
@@ -89,7 +91,7 @@
 
   <div class="modal-dialog" role="document">
 
-  	<form id="todosForm" action="{{route('todos.store')}}" method="post">
+  	<form id="todosForm" action="{{route('todos.store')}}" method="post" data-parsley-validate>
 
 	    <div class="modal-content">
 
@@ -107,7 +109,7 @@
 
 			<div class="modal-body">
 
-				
+
 
 			</div>
 
@@ -140,7 +142,7 @@
 	function initTodos() {
 		var team_id = $('.todo__team').attr('data-id')
 		if(team_id){
-			$('#createTodoBtn').remove(); 
+			$('#createTodoBtn').remove();
 		}
 		$.get('{{route('todos.getAll')}}', team_id ? {id: team_id} : '', function(data) {
 
@@ -170,14 +172,14 @@
 
 											<span class="pull-right">
 
-												<a id="editTodoBtn" data-id=${todo.id} class="btn btn-edit"><i class="fa fa-pencil-square-o"></i></a>
+												<a id="editTodoBtn" data-id=${todo.id} class="btn btn-edit" data-toggle="tooltip" title="Edit todo"><i class="fa fa-pencil-square-o" ></i></a>
 
-												<a id="deleteTodoBtn" data-id=${todo.id} class="btn btn-edit"><i class="fa fa-trash-o"></i></a>
+												<a id="deleteTodoBtn" data-id=${todo.id} class="btn btn-edit" title="Delete todo"><i class="fa fa-trash-o"></i></a>
 
 											</span>
 
 										</div>`;
-										
+
 
 					}else{
 
@@ -195,9 +197,9 @@
 
 											<span class="pull-right">
 
-												<a id="editTodoBtn" data-id=${todo.id} class="btn btn-edit"><i class="fa fa-pencil-square-o"></i></a>
+												<a id="editTodoBtn" data-id=${todo.id} class="btn btn-edit" title="Edit todo"><i class="fa fa-pencil-square-o" ></i></a>
 
-												<a id="deleteTodoBtn" data-id=${todo.id} class="btn btn-edit"><i class="fa fa-trash-o"></i></a>
+												<a id="deleteTodoBtn" data-id=${todo.id} class="btn btn-edit" data-toggle="tooltip" title="Delete todo"><i class="fa fa-trash-o"></i></a>
 
 											</span>
 
@@ -220,7 +222,7 @@
 					$('#completed_div .todo').remove();
 				$('#completed_div .pull-right').remove();
 				}
-			
+
 			}
 
 		});
@@ -325,7 +327,7 @@
 					}
 
 				});
-				
+
 
 
 

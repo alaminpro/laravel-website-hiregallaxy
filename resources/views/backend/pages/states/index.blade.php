@@ -31,13 +31,13 @@
         @include('backend.partials.message')
 
         <div class="table-responsive">
-          <table id="stateTable" width="100%" cellspacing="0" class="table table-bordered">
+          <table id="dataTable" width="100%" cellspacing="0" class="table table-bordered">
             <thead>
               <tr>
                 <th width="5%">Sl</th>
                 <th width="30%">State Name</th>
                 <th width="30%">Cities</th>
-                <th width="15%">Manage</th>
+                <th width="15%" class="sortoff">Manage</th>
               </tr>
             </thead>
             <tbody>
@@ -106,14 +106,14 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                      <form action="{!! route('admin.states.update', $state->id) !!}" method="post"
+                      <form action="{!! route('admin.states.update', $state->id) !!}"   method="post"
                         enctype="multipart/form-data">
                         @method('put')
                         @csrf
                         <div class="form-row">
                           <div class="col-md-12 form-group">
-                            <label for="name">State Name <span class="text-danger required">*</span></label>
-                            <input type="text" id="name" name="name" class="form-control" placeholder="eg. State Name"
+                            <label for="name{{$state->id}}">State Name <span class="text-danger required">*</span></label>
+                            <input type="text" id="name{{$state->id}}" name="name" minlength="3" class="form-control" placeholder="eg. State Name"
                               required value="{{ $state->name }}">
                           </div>
                         </div>
@@ -121,7 +121,7 @@
                         <button type="button" class="btn btn-danger float-right mt-1 ml-2 " data-dismiss="modal"><i
                             class="fa fa-times"></i> Cancel</button>
 
-                        <button type="submit" class="btn btn-success float-right mt-1 ">
+                        <button type="submit" class="btn btn-success float-right mt-1 " >
                           <i class="fa fa-check"></i> Update
                         </button>
 
@@ -157,12 +157,12 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="{!! route('admin.states.store') !!}" method="post" enctype="multipart/form-data">
+        <form action="{!! route('admin.states.store') !!}" method="post" data-parsley-validate enctype="multipart/form-data">
           @csrf
           <div class="form-row">
             <div class="col-md-12 form-group">
               <label for="name">State Name <span class="text-danger required">*</span></label>
-              <input type="text" id="name" name="name" class="form-control" placeholder="eg. State Name" required>
+              <input type="text" id="name" name="name" class="form-control"  minlength="3" placeholder="eg. State Name" required>
             </div>
           </div>
 
@@ -182,8 +182,4 @@
 
 @endsection
 
-@section('scripts')
-<script>
-  $("#stateTable").dataTable();
-</script>
-@endsection
+

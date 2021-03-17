@@ -182,17 +182,19 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 										<div class="@if(auth()->check() && auth()->user()->is_company == 1)col-md-4 @else col-md-8 @endif">
 
-											<div class="pr-2"><input type="search" autocomplete="off" 
+											<div class="pr-2">
+                                                <label for="title">Job title <span class="text-danger">(*)</span></label>
+                                                <input type="search" autocomplete="off"
 												class="text-center text-theme form-control border-0  mb-3 job__title"
-		
+
 												id="title" name="title" value="{{ $job->title }}" placeholder="Job Title"
-		
+
 												> </div>
 
 										</div>
 										@if(auth()->check() && auth()->user()->is_company == 1)
 										@php
-										
+
 											if(auth()->user()->is_company == 1 && auth()->user()->type == 1){
 												$companies = App\Models\Company::orderBy('created_at','desc')->where('assign_id', auth()->user()->id)->get();
 											}else{
@@ -203,10 +205,10 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 											<div class="form-group">
 												<label for="conpany_id">Company <span class="text-success">(optional)</span></label>
 												<select name="company_id" id="conpany_id" class="form-control" value="{{ old('company_id') }}">
-													<option value="">Select Company</option> 
+													<option value="">Select Company</option>
 													@foreach($companies as $company)
 														<option value="{{ $company->id }}" @if($company->id == $job->company_id) selected @endif >{{ $company->name }}</option>
-													@endforeach  
+													@endforeach
 												</select>
 											</div>
 										</div>
@@ -236,7 +238,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 											<textarea name="job_summery" id="job_summery" rows="3"
 
 												class="template form-control">{!! $job->job_summery !!}</textarea>
-
+                                        <div class="job-summery-error"></div>
 											@else
 
 											<div id="job_summery" class="ml-2">{!! $job->job_summery !!}</div>
@@ -262,7 +264,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 												name="responsibilities" rows="3"
 
 												class="template form-control">{!! $job->responsibilities !!}</textarea>
-
+                                            <div class="responsibilities-error"></div>
 										</div>
 
 									</div>
@@ -286,7 +288,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 												rows="3"
 
 												class="template form-control">{!! $job->qualification !!}</textarea>
-
+                                            <div class="qualification-error"></div>
 										</div>
 
 									</div>
@@ -306,7 +308,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 												rows="3"
 
 												class="template form-control">{!! $job->certification !!}</textarea>
-
+                                            <div class="certification-error"></div>
 										</div>
 
 									</div>
@@ -339,7 +341,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 										<label for="switch-blue" class="lbl-off">Off</label>
 										<label for="switch-blue" class="lbl-on">On</label>
 									  </div>
-								  
+
 								</div>
 							</div>
 
@@ -356,14 +358,14 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 											<textarea name="experience" id="experience" name="experience" rows="3"
 
 												class="template form-control">{!! $job->experience !!}</textarea>
-
+                                            <div class="experience-error"></div>
 										</div>
 
 									</div>
 
 								</div>
 
-							 
+
 
 								<div class="col-md-12 form-group" style="margin-bottom: -9px;">
 
@@ -378,7 +380,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 												rows="3"
 
 												class="template form-control">{!! $job->about_company !!}</textarea>
-
+                                            <div class="about-company-error"></div>
 										</div>
 
 									</div>
@@ -472,7 +474,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 							<div class="row form-group">
 
-								<div class="col-sm-4"> 
+								<div class="col-sm-4">
                                     <label for="city">Your Country <span class="required">*</span></label>
 
                                     <select name="city" id="city" class="form-control country__select" required value="{{ old('city') }}">
@@ -483,14 +485,14 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 										@php
 									 		$city =  App\Models\Country::where('city_id', $country->id)->first();
 										@endphp
-                    					<option  value="{{ $country->id }}" 	{{ $country->id == !empty($city) ? $city->city_id : '' ? 'selected' : '' }} >
+                    					<option  value="{{ $country->id }}"  @if($country->id == !empty($city) ? $city->city_id : '') selected @endif >
 
                     					 	{{ $country->name }}
 
-                    					</option> 
+                    					</option>
                     					@endforeach
 
-                                    </select>   
+                                    </select>
 								</div>
 
 
@@ -517,7 +519,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 												<option value="{{ $country->id }}"
 
-													{{ $country->id == $job->country->id ? 'selected' : '' }}>
+													{{ $country->id == $job->country ? $job->country->id ? 'selected' : '' : '' }}>
 
 													{{ $country->name }}</option>
 
@@ -714,7 +716,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 
 							</div>
-							<div class="row form-group"> 
+							<div class="row form-group">
 								<div class="col-sm-4">
 
 									<label for="deadline">Application Deadline <span class="required">*</span>
@@ -783,7 +785,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 
 
-						<button type="submit" class="btn apply-now-button pt-2 pb-2 font18">
+						<button type="submit" class="btn apply-now-button pt-2 pb-2 font18 updatedjob">
 
 							<i class="fa fa-check"></i> Save Changes
 
@@ -899,7 +901,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 
 
-	@if($enable_editing)		
+	@if($enable_editing)
 
 		tinymce.init({
 
@@ -919,7 +921,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 		  });
 
-		
+
 
 		tinymce.init({
 
@@ -939,7 +941,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 		  });
 
-		
+
 
 		tinymce.init({
 
@@ -959,7 +961,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 		  });
 
-		
+
 
 		tinymce.init({
 
@@ -979,7 +981,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 		  });
 
-		
+
 
 		tinymce.init({
 
@@ -999,7 +1001,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 		  });
 
-		
+
 
 		tinymce.init({
 
@@ -1071,7 +1073,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 	area.addClass('hidden');
 
-	
+
 
 // 	$("#title").on('input', function(){
 
@@ -1083,7 +1085,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 // 			var htmlValue = "";
 
-	
+
 
 // 			$.get(url).done(function( data ) {
 
@@ -1096,7 +1098,7 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 // 					for(var i=0; i < data.templates.length; i++){
 
 // 						htmlValue += `
-						
+
 // 						<div class='item'>
 // 							<a onClick='selectTemplate(${data.templates[i].id},  "${data.templates[i].name}")' class='pointer border-bottom'>
 // 						 ${data.templates[i].name}</a>
@@ -1116,9 +1118,9 @@ Edit Job - {{ $job->title }} | {{ App\Models\Setting::first()->site_title }}
 
 // 				}
 
-				
 
-				
+
+
 
 // 			});
 

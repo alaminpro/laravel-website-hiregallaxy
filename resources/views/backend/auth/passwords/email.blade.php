@@ -66,7 +66,7 @@
 
               @endif
 
-              <form class="user" method="POST" action="{{ route('admin.password.email') }}">
+              <form class="user" method="POST" data-parsley-validate action="{{ route('admin.password.email') }}">
 
                 @csrf
 

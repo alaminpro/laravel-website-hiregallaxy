@@ -86,7 +86,7 @@
                       </div>
                     </div>
                   </div>
-                  
+
                   <!-- Activate Modal -->
                   <div class="modal fade" id="activeModal{{ $experience->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -129,23 +129,23 @@
                         @csrf
                         <div class="form-row">
                           <div class="col-md-6 form-group">
-                            <label for="name">Experience Title <span class="text-danger required">*</span></label>
-                            <input type="text" id="name" name="name" class="form-control" placeholder="eg. 0-1 years" required value="{{ $experience->name }}">
+                            <label for="name{{$experience->id}}">Experience Title <span class="text-danger required">*</span></label>
+                            <input type="text" id="name{{$experience->id}}" name="name" class="form-control" placeholder="eg. 0-1 years" required value="{{ $experience->name }}">
                           </div>
                           <div class="col-md-6 form-group" style="Display:none;">
-                            <label for="slug">experience Slug <span class="text-info required">(optional)</span></label>
-                            <input type="text" id="slug" name="slug" class="form-control" placeholder="eg. 0-to-1-years"  value="{{ $experience->slug }}">
+                            <label for="slug{{$experience->id}}">Experience Slug <span class="text-info required">(optional)</span></label>
+                            <input type="text" id="slug{{$experience->id}}" name="slug" class="form-control" placeholder="eg. 0-to-1-years"  value="{{ $experience->slug }}">
                           </div>
                         </div>
                         <div class="form-row" style="Display:none;">
                           <div class="col-md-12 form-group">
-                            <label for="description">experience Description</label>
-                            
-                            <textarea name="description" id="description" name="description" rows="8" cols="80" class="tinymce form-control">{{ $experience->description }}</textarea>
+                            <label for="description{{$experience->id}}">Experience Description</label>
+
+                            <textarea name="description" id="description{{$experience->id}}" name="description" rows="8" cols="80" class="tinymce form-control">{{ $experience->description }}</textarea>
                           </div>
                         </div>
 
-                        <button type="button" class="btn btn-danger float-right mt-1 ml-2 " data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+                        <button type="button" class="btn btn-danger float-right mt-1 ml-2" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
 
                         <button type="submit" class="btn btn-success float-right mt-1 ">
                           <i class="fa fa-check"></i> Update
@@ -183,22 +183,21 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="{!! route('admin.experience.submit') !!}" method="post" enctype="multipart/form-data">
+        <form action="{!! route('admin.experience.submit') !!}" data-parsley-validate method="post" enctype="multipart/form-data">
           @csrf
           <div class="form-row">
             <div class="col-md-6 form-group">
               <label for="name">Experience Title <span class="text-danger required">*</span></label>
-              <input type="text" id="name" name="name" class="form-control" placeholder="eg. 0-1 Years" required>
+              <input type="text" id="name" minlength="5" name="name" class="form-control" placeholder="eg. 0-1 Years" required>
             </div>
             <div class="col-md-6 form-group" style="Display:none;">
-              <label for="slug">experience Slug <span class="text-info required">(optional)</span></label>
+              <label for="slug">Experience Slug <span class="text-info required">(optional)</span></label>
               <input type="text" id="slug" name="slug" class="form-control" placeholder="eg. o-to-1-years">
             </div>
           </div>
           <div class="form-row" style="Display:none;">
             <div class="col-md-12 form-group">
               <label for="description">Experience Description</label>
-              
               <textarea name="description" id="description" name="description" rows="8" cols="80" class="tinymce form-control"></textarea>
             </div>
           </div>

@@ -64,7 +64,7 @@
 
         <div class="table-responsive">
 
-          <table id="countryTable" width="100%" cellspacing="0" class="table table-bordered">
+          <table id="dataTable" width="100%" cellspacing="0" class="table table-bordered">
 
             <thead>
 
@@ -72,9 +72,9 @@
 
                 <th width="5%">Sl</th>
 
-                <th width="30%">Country Name</th> 
+                <th width="30%">Country Name</th>
 
-                <th width="15%">Manage</th>
+                <th width="15%" class="sortoff">Manage</th>
 
               </tr>
 
@@ -95,7 +95,7 @@
                   {{ $country->name }}
 
                 </td>
-  
+
 
                 <td>
 
@@ -209,9 +209,9 @@
 
                           <div class="col-md-12 form-group">
 
-                            <label for="name">Country Name <span class="text-danger required">*</span></label>
+                            <label for="name{{$country->id}}">Country Name <span class="text-danger required">*</span></label>
 
-                            <input type="text" id="name" name="name" class="form-control" placeholder="eg. Country Name"
+                            <input type="text" minlength="3" id="name{{$country->id}}" name="name" class="form-control" placeholder="eg. Country Name"
 
                               required value="{{ $country->name }}">
 
@@ -299,7 +299,7 @@
 
       <div class="modal-body">
 
-        <form action="{!! route('admin.country.store') !!}" method="post" enctype="multipart/form-data">
+        <form action="{!! route('admin.country.store') !!}" method="post" data-parsley-validate enctype="multipart/form-data">
 
           @csrf
 
@@ -309,7 +309,7 @@
 
               <label for="name">Country Name <span class="text-danger required">*</span></label>
 
-              <input type="text" id="name" name="name" class="form-control" placeholder="country name" required>
+              <input type="text" id="name" minlength="3" name="name" class="form-control" placeholder="country name" required>
 
             </div>
 
@@ -349,12 +349,3 @@
 
 
 
-@section('scripts')
-
-<script>
-
-  $("#countryTable").dataTable();
-
-</script>
-
-@endsection

@@ -227,10 +227,6 @@ class AjaxController extends Controller
 
         $applications = $application_data;
 
-        //dd($applications);
-
-        // Export data
-
         if (request()->has('export')) {
 
             $export = new \App\Exports\JobApplicationExport($job, $applications);

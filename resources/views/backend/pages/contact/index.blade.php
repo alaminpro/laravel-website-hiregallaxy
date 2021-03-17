@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
- 
+
 
 
 @section('content')
@@ -43,7 +43,7 @@
           <h6 class="m-0 font-weight-bold text-primary">All Contacts Messages</h6>
 
         </div>
- 
+
         <div class="clearfix"></div>
 
       </div>
@@ -62,12 +62,12 @@
 
               <tr>
 
-                <th>Sl</th> 
-                <th>Name</th> 
-                <th>Email</th> 
-                <th>Subject</th> 
-                <th style="width: 200px">Date</th> 
-                <th>Manage</th>
+                <th>Sl</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Subject</th>
+                <th style="width: 200px">Date</th>
+                <th class="sortoff">Manage</th>
 
               </tr>
 
@@ -81,11 +81,11 @@
 
                     <td>{{$key+1}}</td>
 
-                    <td> {!! $contact->name !!}</td> 
-                    <td> {!! $contact->email !!}</td> 
-                    <td> {!! $contact->subject !!}</td> 
-                    <td> {!! Carbon\Carbon::parse($contact->created_at)->format('d-m-Y') !!}</td> 
- 
+                    <td> {!! $contact->name !!}</td>
+                    <td> {!! $contact->email !!}</td>
+                    <td> {!! $contact->subject !!}</td>
+                    <td> {!! Carbon\Carbon::parse($contact->created_at)->format('d-m-Y') !!}</td>
+
 
                     <td>
 
@@ -94,9 +94,9 @@
                           <i class="fa fa-eye"></i>
 
                         </a>
- 
 
-                        <a href="{{route('admin.contact.destroy',$contact->id)}}" title="Destroy contact message" class="btn btn-outline-danger">
+
+                        <a href="{{route('admin.contact.destroy',$contact->id)}}" title="Destroy contact message" class="btn btn-outline-danger" onclick="return confirm('Are you sure!')">
 
                           <i class="fa fa fa-fw fa-trash"></i>
 

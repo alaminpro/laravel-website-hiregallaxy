@@ -26,7 +26,7 @@
 
 				href="{{ route('jobs.categories.show', $catSingleUser->category->slug) }}">{{ $catSingleUser->category->name }}</a>
 
-			 
+
 
 				@endif
 
@@ -42,11 +42,11 @@
 
 			<span class="">
 				@php
-				$country = \App\Models\City::where('id', $single_user->candidate->country_id)->first();
+				$country = \App\Models\City::where('id', $single_user->candidate?$single_user->candidate->country_id :"")->first();
 			@endphp
 				<i class="fa fa-map-marker location-icon"></i> {{ $single_user->location->street_address }},
 
-				{{ $single_user->location->country->name }}{{ $country ? ', '. $country->name : '' }} 
+				{{  $single_user->location->country ? $single_user->location->country->name: '' }}{{ $country ? ', '. $country->name : '' }}
 
 			</span>
 

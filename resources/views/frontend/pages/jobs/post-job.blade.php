@@ -136,8 +136,8 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 			<div class="row justify-content-center">
 
-				<div class="col-11"> 
-			 
+				<div class="col-11">
+
 					<form action="{{ route('jobs.store') }}" method="post" enctype="multipart/form-data"
 
 						data-parsley-validate autocomplete="off">
@@ -169,7 +169,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 								</div>
 
 								<div class="@if(auth()->check() && auth()->user()->is_company == 1)col-md-4 @else col-md-8 @endif">
-								 	<div class="pr-2"><input type="search" autocomplete="off" 
+								 	<div class="pr-2"><input type="search" autocomplete="off"
 										class="text-center text-theme form-control border-0  mb-3 job__title"
 
 										id="title" name="title" value="{{ old('title') }}" placeholder="Job Title"
@@ -178,7 +178,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 								</div>
 								@if(auth()->check() && auth()->user()->is_company == 1)
 								@php
-								
+
 									if(auth()->user()->is_company == 1 && auth()->user()->type == 1){
 										$companies = App\Models\Company::orderBy('created_at','desc')->where('assign_id', auth()->user()->id)->get();
 									}else{
@@ -189,10 +189,10 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 									<div class="form-group">
 										<label for="conpany_id">Company <span class="text-success">(optional)</span></label>
 										<select name="company_id" id="conpany_id" class="form-control" value="{{ old('company_id') }}">
-											<option value="">Select Company</option> 
+											<option value="">Select Company</option>
 											@foreach($companies as $company)
 												<option value="{{ $company->id }}" >{{ $company->name }}</option>
-											@endforeach  
+											@endforeach
 										</select>
 									</div>
 								</div>
@@ -219,7 +219,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 											<textarea name="job_summery" id="job_summery" rows="3"
 
 												class="template form-control">{{ old('job_summery') }}</textarea>
-
+<div class="job-summery-error"></div>
 											@else
 
 											<div id="job_summery" class="ml-2"></div>
@@ -249,7 +249,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 												name="responsibilities" rows="3"
 
 												class="template form-control">{{ old('responsibilities') }}</textarea>
-
+<div class="responsibilities-error"></div>
 											@else
 
 											<div id="responsibilities" class="ml-2"></div>
@@ -279,7 +279,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 											<textarea name="qualification" id="qualification" name="qualification"
 
 												rows="3" class="template form-control">{{ old('qualification') }}</textarea>
-
+<div class="qualification-error"></div>
 											@else
 
 											<div id="qualification" class="ml-2"></div>
@@ -305,7 +305,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 											<textarea name="certification" id="certification" name="certification"
 
 												rows="3" class="template form-control">{{ old('certification') }}</textarea>
-
+<div class="certification-error"></div>
 											@else
 
 											<div id="certification" class="ml-2"></div>
@@ -348,7 +348,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 										<label for="switch-blue" class="lbl-off">Off</label>
 										<label for="switch-blue" class="lbl-on">On</label>
 									  </div>
-								  
+
 								</div>
 							</div>
 
@@ -367,7 +367,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 											<textarea name="experience" id="experience" name="experience" rows="3"
 
 												class="template form-control">{{ old('experience') }}</textarea>
-
+<div class="experience-error"></div>
 											@else
 
 											<div id="experience" class="ml-2"></div>
@@ -378,7 +378,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 									</div>
 
-								</div>  
+								</div>
 								<div class="col-md-12 form-group px-2" style="margin-bottom: -9px;">
 
 									<div class="row">
@@ -392,7 +392,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 											<textarea name="about_company" id="about_company" name="about_company"
 
 												rows="3" class="template form-control">{{ old('about_company') }}</textarea>
-
+<div class="about-company-error"></div>
 											@else
 
 											<div id="about_company" class="ml-2"></div>
@@ -421,7 +421,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 										<label  class="m-0"  for="monthly_salary">Salary <span class="required">*</span> <span
 
-											class="text-muted font12">(Monthly Salary)</span> 
+											class="text-muted font12">(Monthly Salary)</span>
 
 									</label>
 									<div class="d-flex align-items-center">
@@ -439,7 +439,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 										<div class="col-8">
 
-											<input type="number" id="monthly_salary" name="monthly_salary" 
+											<input type="number" id="monthly_salary" name="monthly_salary"
 											data-parsley-required-message="Please enter interger value"
 												class="form-control" placeholder="Write your expected salary" required
 												value="{{ old('monthly_salary') }}"
@@ -487,7 +487,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 							<div class="row form-group">
 
-								<div class="col-sm-4"> 
+								<div class="col-sm-4">
                                     <label for="city">Your Country <span class="required">*</span></label>
 
                                     <select name="city" id="city" class="form-control country__select" required value="{{ old('city') }}">
@@ -500,10 +500,10 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
                     						{{ $country->name }}
 
-                    					</option> 
+                    					</option>
                     					@endforeach
 
-                                    </select>   
+                                    </select>
 								</div>
 
 								<div class="col-sm-4">
@@ -606,7 +606,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 								</div>
 
 
-								
+
 								<div class="col-sm-4">
 
 									<label for="sector_id">Job Sector <span class="required">*</span>
@@ -720,7 +720,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 								</div>
 
 							</div>
-							<div class="row form-group">  
+							<div class="row form-group">
 								<div class="col-sm-4">
 
 									<label for="deadline">Application Deadline <span class="required">*</span>
@@ -771,7 +771,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 							<div class="col-12">
 
-								<button type="submit" class="btn apply-now-button pt-2 pb-2 font18">
+								<button type="submit" class="btn apply-now-button pt-2 pb-2 font18 updatedjob">
 
 									<i class="fa fa-check"></i> Post Job
 
@@ -826,7 +826,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 
 					</form>
-				 
+
 				</div>
 
 			</div>
@@ -938,11 +938,11 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 	var month = (new Date).getMonth();
 	var date = (new Date).getDate();
 		$( "#deadline" ).datepicker({
-		format: 'YYYY-MM-DD',   
+		format: 'YYYY-MM-DD',
 		minDate: new Date(year, month,date),
 		changeMonth: true,
       changeYear: true
-    
+
 	});
 
 	});
@@ -1023,7 +1023,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 	// 				for(var i=0; i < data.templates.length; i++){
 
 	// 					htmlValue += `
-						
+
 	// 						<div class='item'>
 	// 							<a onClick='selectTemplate(${data.templates[i].id},  "${data.templates[i].name}")' class='pointer border-bottom'>
 	// 						 ${data.templates[i].name}</a>
@@ -1071,7 +1071,7 @@ Post New Job | {{ App\Models\Setting::first()->site_title }}
 
 	// 	$("#template_id").val(id);
 	// 	$("#title").val(name);
-		
+
 
 	// }
 

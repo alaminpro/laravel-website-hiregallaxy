@@ -25,7 +25,7 @@
   </div>
 
 </div>
- 
+
 
 <div class="main-body w-100">
 
@@ -75,7 +75,7 @@
 
                 <th width="15%">Discipline</th>
 
-                <th width="15%">Manage</th>
+                <th width="15%" class="sortoff">Manage</th>
 
               </tr>
 
@@ -96,9 +96,7 @@
                 <td>{{ $loop->index+1 }}</td>
 
                 <td>
-
-                   {{$template->category['name']}}
-
+{{ isset($template->category->name) ? $template->category->name : '' }}
                 </td>
 
                 <td>

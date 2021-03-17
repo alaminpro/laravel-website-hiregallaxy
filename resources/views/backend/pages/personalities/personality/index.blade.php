@@ -40,7 +40,7 @@
                 @if(auth()->user()->hasRole('super-admin') or auth()->user()->hasRole('admin'))
                 <th width="20%">Editor</th>
                 @endif
-                <th width="15%">Manage</th>
+                <th width="15%" class="sortoff">Manage</th>
               </tr>
             </thead>
             <tbody>
@@ -51,20 +51,20 @@
                     <td> {{ $personality->sub_title }}</td>
                     @if(auth()->user()->hasRole('super-admin') or auth()->user()->hasRole('admin'))
                     <td>
-                      @php 
+                      @php
                           $user = \App\Models\Admin::where('id', $personality->user_id)->first();
                       @endphp
-                      {{ $user['username'] }}
+                      {{ $user ? $user->username : ''}}
                     </td>
                     @endif
                     <td>
-                        <a href="{{route('admin.personality.view',$personality->id)}}" title="show Template" class="btn btn-outline-success">
+                        <a href="{{route('admin.personality.view',$personality->id)}}" title="show Personality" class="btn btn-outline-success">
                           <i class="fa fa-eye"></i>
                         </a>
-                        <a href="{{route('admin.personality.edit',$personality->id)}}" title="Edit Template" class="btn btn-outline-success">
+                        <a href="{{route('admin.personality.edit',$personality->id)}}" title="Edit Personality" class="btn btn-outline-success">
                           <i class="fa fa-edit"></i>
                         </a>
-                        <a href="{{route('admin.personality.delete',$personality->id)}}" title="Edit Template" class="btn btn-outline-danger">
+                        <a href="{{route('admin.personality.delete',$personality->id)}}" title="Edit Personality" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')">
                           <i class="fa fa fa-fw fa-trash"></i>
                         </a>
                     </td>

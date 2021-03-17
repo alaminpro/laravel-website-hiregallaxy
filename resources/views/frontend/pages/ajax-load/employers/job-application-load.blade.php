@@ -29,19 +29,15 @@
     </table>
 
     <form id="filter_form" class="d-flex justify-content-between align-items-center" action="{{ route('employers.jobs.applications', $job->slug) }}" method="get">
-
-        <button type="button" id="export" class="btn btn-sm btn-info">Export</button>
-        @if(!empty($id))
-            <a href="{{ route('team.dashboard', $id) }}" class="btn btn-success">Back</a>
-        @else
-            <a href="{{ route('employers.dashboard') }}" class="btn btn-success">Back</a>
-        @endif
+        <input type="hidden" name="export">
+        <button type="submit" id="export" class="btn btn-sm btn-info">Export</button>
+          <a href="{{ route('employers.jobs.posted') }}" class="btn btn-success">Back</a>
     </form>
 
     <hr>
     @if(count($applications) > 0)
     <div class="table-responsive">
-    <table class="table table-hover table-striped col-sm-12" id="dataTable" style="font-size: 13px !important">
+    <table class="table table-hover table-striped" id="dataTable" style="font-size: 13px !important">
 
         <thead>
 
@@ -61,12 +57,12 @@
 
             <th style="padding:5px 22px 10px 6px !important">CV</th>
 
-            <th style="padding:5px 22px 10px 6px !important">Cover Letter</th>
+            <th style="padding:5px 22px 10px 6px !important" class="sortoff">Cover Letter</th>
 
             <th style="padding:5px 22px 10px 6px !important">Status</th>
 
-            <th style="padding:5px 22px 10px 6px !important">Edit</th>
-            <th style="padding:5px 22px 10px 6px !important">contact</th>
+            <th style="padding:5px 22px 10px 6px !important" class="sortoff">Edit</th>
+            <th style="padding:5px 22px 10px 6px !important" class="sortoff">contact</th>
 
 
         </thead>
@@ -103,15 +99,15 @@
 
 
 
-                @php 
+                @php
 
                 $result = \App\Models\Result::where('job_id', $application->job_id)->where('user_id', $application->user_id)->first();
 
                 @endphp
 
-                @if($result != null) 
+                @if($result != null)
 
-                <td>{{ $result->result }}</td>  
+                <td>{{ $result->result }}</td>
 
                 @else
 
@@ -121,13 +117,13 @@
 
 
 
-                @php 
+                @php
 
                 $personality_result = \App\Models\PersonalityResult::where('user_id', $application->user_id)->first();
 
                 $personality = \App\Models\Personality::where('title', '=', $personality_result['personality_result'])
 
-                ->select('id','sub_title')->first(); 
+                ->select('id','sub_title')->first();
 
                 @endphp
 
@@ -135,13 +131,13 @@
 
                 <td>---</td>
 
-                @else 
+                @else
 
                 <td>{{$personality['sub_title']}}
 
-                    <div class="d-flex justify-content-center"> 
+                    <div class="d-flex justify-content-center">
 
-                        <a target="_blank" href="{{ route('public.personality', $application->user_id)}}" class="mt-1 text-center btn-sm btn btn-outline-yellow"> <i class="fa fa-eye"></i> view</a> 
+                        <a target="_blank" href="{{ route('public.personality', $application->user_id)}}" class="mt-1 text-center btn-sm btn btn-outline-yellow"> <i class="fa fa-eye"></i> view</a>
 
                     </div>
 
@@ -149,9 +145,9 @@
 
                 @endif
 
-                @php 
+                @php
 
-                $apt = \App\Models\AptitudeResult::where('user_id', $application->user_id)->first(); 
+                $apt = \App\Models\AptitudeResult::where('user_id', $application->user_id)->first();
 
                 @endphp
 
@@ -159,7 +155,7 @@
 
                 <td>---</td>
 
-                @else 
+                @else
 
                 <td>{{$apt['result']}}</td>
 
@@ -199,9 +195,9 @@
 
                     <div class="float-right">
 
-                            <a href="#editStatusModal{{ $application->id }}" class="btn btn-outline-secondary"
+                            <a href="#editStatusModal{{ $application->id }}"class="btn btn-outline-secondary"
 
-                                data-toggle="modal"><i class="fa fa-edit"></i></a>
+                                data-toggle="modal"><i class="fa fa-edit" data-toggle="tooltip"  data-placement="top" title="Edit"></i></a>
 
                         </div>
 
@@ -273,11 +269,11 @@
                     -->
 
                 </td>
-                <td> 
+                <td>
 					<span class="nav-item  " >
 						<a href="{!! route('chat',['id'=>$application->user_id]) !!}"
 							class="btn-chatter"><i class="fa fa-comment"></i> Chat Now</a>
-					</span> 
+					</span>
                 </td>
 
             </tr>
@@ -387,7 +383,7 @@
                                     <br>
                                     {{ $exp->job_title }}
                                     <br>
-                                    <span style="font-size: 12px; opacity: 0.7;">{{ $exp->start_date }} - 
+                                    <span style="font-size: 12px; opacity: 0.7;">{{ $exp->start_date }} -
                                     @if ($exp->is_current_job)
 
                                     Present
@@ -426,17 +422,17 @@
     </table>
 
     </div>
-	@else 
+	@else
     <div class="d-flex justify-content-center">
 		<p class="mt-4">
 
 			<span class="alert alert-danger">
-	
+
 				Sorry !! No data found !!
-	
+
 			</span>
-	
-		</p> 
+
+		</p>
 	</div>
 	@endif
 </div>

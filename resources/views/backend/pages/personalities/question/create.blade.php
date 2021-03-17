@@ -34,14 +34,14 @@
       </div>
       <div class="card-body">
         @include('backend.partials.message')
-       <form class="js-validate" method="POST" action="{{route('admin.personality.question.submit')}}"  enctype="multipart/form-data">
+       <form class="js-validate" method="POST" data-parsley-validate action="{{route('admin.personality.question.submit')}}"  enctype="multipart/form-data">
             @csrf
           <div class="row">
             <!-- Input -->
             <div class="col-sm-12 mb-6">
                 <div class="form-group">
-                  <label id="questions" class="form-label">Question</label>
-                  <textarea class="form-control" name="question" id="questions" placeholder="Enter question" cols="30" rows="1" ></textarea>
+                  <label id="questions" class="form-label">Question <span class="text-danger">*</span></label>
+                  <textarea class="form-control" name="question" required minlength="5" id="questions" placeholder="Enter question" cols="30" rows="1" ></textarea>
                   <span class="text-danger">{{ $errors->has('question') ? $errors->first('question') : '' }}</span>
                 </div>
             </div>
@@ -50,18 +50,18 @@
             <!-- Input -->
             <div class="col-sm-6 mb-6">
                 <div class="form-group">
-                  <label id="answer_1" class="form-label">Answer 1</label>
-                  <input type="text" class="form-control" name="answer_1" id="answer_1" placeholder="Enter answer" required>
+                  <label id="answer_1" class="form-label">Answer 1 <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="answer_1" required minlength="5" id="answer_1" placeholder="Enter answer" required>
                   <span class="text-danger">{{ $errors->has('answer_1') ? $errors->first('answer_1') : '' }}</span>
                 </div>
             </div>
             <div class="col-sm-6 mb-6">
                 <div class="form-group">
                   <label id="answer_2" class="form-label">
-                    Answer 2
+                    Answer 2 <span class="text-danger">*</span>
 
                   </label>
-                  <input type="text" class="form-control" name="answer_2" id="answer_2" placeholder="Enter answer" required>
+                  <input type="text" class="form-control" name="answer_2"  required minlength="5" id="answer_2" placeholder="Enter answer" required>
                   <span class="text-danger">{{ $errors->has('answer_2') ? $errors->first('answer_2') : '' }}</span>
                 </div>
             </div>

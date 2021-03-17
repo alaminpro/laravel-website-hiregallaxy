@@ -12,7 +12,7 @@
 
 		<h4>{{ $single_user->name }}</h4>
 
-		<p class="text-theme mb-2"> 
+		<p class="text-theme mb-2">
 
 		    @if(isset($single_user->company))
 
@@ -24,7 +24,7 @@
 
 		    @endif
 
-		    
+
 
 		    @if (count($single_user->categories) > 0)
 
@@ -42,7 +42,7 @@
 
 			@endif
 
-			
+
 
 		</p>
 
@@ -52,19 +52,19 @@
 
 			    @if(isset($single_user->location))
 				@php
-				$country = \App\Models\City::where('id', $single_user->company->country_id)->first();
+				$country = \App\Models\City::where('id', $single_user->company ?$single_user->company->country_id:"")->first();
 			@endphp
-			        <i class="fa fa-map-marker location-icon"></i> {{ $single_user->location->street_address }},  {{ $single_user->location->street_address }}, 
+			        <i class="fa fa-map-marker location-icon"></i> {{ $single_user->location->street_address }},  {{ $single_user->location->street_address }},
 
     			         @if(isset($single_user->location->country))
 
     			            {{ $single_user->location->country->name }}
 
-        			    @endif {{ $country ? ', '. $country->name : '' }} 
+        			    @endif {{ $country ? ', '. $country->name : '' }}
 
 			    @endif
 
-				
+
 
 			</span>
 
@@ -74,4 +74,4 @@
 
 	<div class="clearfix"></div>
 
-</div> 
+</div>

@@ -15,7 +15,6 @@ vm = this;
 //     }
 // });
 
-
 vm = this;
 tinymce.init({
     selector: ".tinyadvance",

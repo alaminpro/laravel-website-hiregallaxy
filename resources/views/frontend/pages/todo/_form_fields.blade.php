@@ -14,7 +14,7 @@ $_status = isset($todo) ? $todo->status : null;
 
 	<label>Title</label>
 
-	<input class="form-control" type="text" id="todo_title" maxlength="150" name="title" value="{{$_title}}">
+	<input class="form-control" type="text" id="todo_title" minlength="5" maxlength="150" name="title" value="{{$_title}}" required>
 	<span class="text-muted" style="font-size: 12px" >CHARS MAX 150</span>
 </div>
 

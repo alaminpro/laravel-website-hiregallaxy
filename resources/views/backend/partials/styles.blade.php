@@ -3,7 +3,8 @@
 <link href="{{ asset('js/dropify/dropify.css') }}" rel="stylesheet">
 
 
-
+<!-- Parsley -->
+<link rel="stylesheet" href="{{ asset('css/parsley/parsley.css') }}">
 <!-- noty -->
 
 <link href="{{ asset('css/noty/noty.css') }}" rel="stylesheet">

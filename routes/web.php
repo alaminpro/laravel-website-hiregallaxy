@@ -51,6 +51,16 @@ Route::get('testimonials', 'HomeController@Testimonial')->name('testimonial');
 /*** Employers **/
 
 Route::group(['prefix' => 'employers'], function () {
+
+    Route::post('question/{id}', 'Frontend\QuestionController@update')->name('que.update');
+    Route::get('delete_question/{question_id}', 'Frontend\QuestionController@delete_question')->name('question.delete_question');
+    Route::post('/questions/uploads', "Frontend\QuestionController@upload");
+    Route::get('question/file_browser', "Frontend\QuestionController@fileBrowser");
+    Route::get('question/view/{id}', 'Frontend\QuestionController@show')->name('question.show');
+    Route::resource('question', 'Frontend\QuestionController');
+
+
+
     Route::get('/search', 'Frontend\EmployersController@search')->name('employers.search');
     Route::get('', 'Frontend\EmployersController@index')->name('employers');
     Route::get('/view/{username}', 'Frontend\EmployersController@show')->name('employers.show');
@@ -308,6 +318,8 @@ Route::group(['prefix' => 'users'], function () {
     });
 
 });
+
+
 
 /** Subscription Routes **/
 

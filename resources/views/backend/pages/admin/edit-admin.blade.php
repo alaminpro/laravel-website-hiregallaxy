@@ -1,7 +1,11 @@
-@extends('backend.layouts.master') 
+@extends('backend.layouts.master')
 
 
+@section('stylesheets')
 
+<link rel="stylesheet" href="{{ asset('css/intlTelInput.min.css') }}">
+
+@endsection
 @section('content')
 
 
@@ -66,11 +70,11 @@
 
         @include('backend.partials.message')
 
-       <form class="js-validate" method="POST" action="{{route('admin.account.update', $edit->id)}}"  enctype="multipart/form-data">
+       <form class="js-validate" method="POST" data-parsley-validate action="{{route('admin.account.update', $edit->id)}}"  enctype="multipart/form-data">
 
             @csrf
 
-          
+
 
 
 
@@ -82,7 +86,7 @@
 
                         <label id="first_name" class="form-label">First Name <span class="text-danger">(Optional)</span></label>
 
-                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter first name" value="{{ $edit->first_name }}">
+                    <input type="text" class="form-control" minlength="2" name="first_name" id="first_name" placeholder="Enter first name" value="{{ $edit->first_name }}">
 
                     </div>
 
@@ -90,7 +94,7 @@
 
                         <label id="last_name" class="form-label">Last Name <span class="text-danger">(Optional)</span></label>
 
-                        <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter last name" value="{{ $edit->last_name }}">
+                        <input type="text" class="form-control" minlength="1" name="last_name" id="last_name" placeholder="Enter last name" value="{{ $edit->last_name }}">
 
                     </div>
 
@@ -98,7 +102,7 @@
 
                         <label id="username" class="form-label">Username <span class="text-danger">(Required)</span></label>
 
-                        <input type="text" class="form-control" name="username" id="username" placeholder="Enter username" required value="{{ $edit->username }}">
+                        <input type="text" class="form-control" minlength="5" name="username" id="username" placeholder="Enter username" required value="{{ $edit->username }}">
 
                     </div>
 
@@ -113,9 +117,11 @@
                     <div class="form-group">
 
                         <label id="phone" class="form-label">Phone <span class="text-danger">(Optional)</span></label>
-
-                        <input type="number" class="form-control" name="phone_no" id="phone" placeholder="Enter phone number" value="{{ $edit->phone_no }}">
-
+<br>
+                        <input type="number" class="form-control" name="phone_no" id="phone_no"       value="{{ $edit->phone_no }}">
+<br>
+<div id="error-msg" class="text-danger"></div>
+<div id="valid-msg" class="text-success"></div>
                     </div>
 
                     <div class="form-group">
@@ -128,7 +134,7 @@
 
                     <div class="form-group">
 
-                        <button type="submit" name="submit" class="btn btn-success">Submit</button>
+                        <button type="submit" name="submit" class="btn btn-success submit-btn">Submit</button>
 
                         <button type="button" onclick="location.href='{{ route('admin.account.index') }}'" class="btn btn-danger">Cancel</button>
 
@@ -164,7 +170,7 @@
 
                         <div class="roles">
 
-                           
+
 
                             @foreach($roles as $role)
 
@@ -184,7 +190,7 @@
 
                                 @endforeach
 
-                            @endforeach 
+                            @endforeach
 
                         </div>
 
@@ -194,9 +200,9 @@
 
             </div>
 
-       
 
-          
+
+
 
         </form>
 
@@ -213,5 +219,50 @@
 @endsection
 
 
+@section('scripts')
+<script src="{{ asset('js/intlTelInput.min.js') }}"></script>
+<script src="{{ asset('js/utils.js') }}"></script>
 
- 
+<script>
+    var input = document.querySelector("#phone_no"),
+errorMsg = document.querySelector("#error-msg"),
+validMsg = document.querySelector("#valid-msg");
+submit = $(".submit-btn");
+
+// here, the index maps to the error code returned from getValidationError - see readme
+var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+// initialise plugin
+var iti = window.intlTelInput(input, {
+utilsScript: "{{asset('js/utils.js')}}"
+});
+
+var reset = function() {
+input.classList.remove("errors");
+errorMsg.innerHTML = "";
+errorMsg.classList.add("hide");
+validMsg.classList.add("hide");
+submit.attr('disabled', false)
+};
+
+// on blur: validate
+input.addEventListener('blur', function(e) {
+reset();
+if (input.value.trim()) {
+if (iti.isValidNumber()) {
+validMsg.classList.remove("hide");
+} else {
+submit.attr('disabled', true)
+input.classList.add("errors");
+var errorCode = iti.getValidationError();
+errorMsg.innerHTML = errorMap[errorCode];
+errorMsg.classList.remove("hide");
+}
+}
+});
+
+// on keyup / change flag: reset
+input.addEventListener('change', reset);
+input.addEventListener('keyup', reset);
+</script>
+@endsection

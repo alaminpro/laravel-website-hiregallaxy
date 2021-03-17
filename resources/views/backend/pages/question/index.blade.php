@@ -96,7 +96,7 @@ height: auto !important;
 
                 <th width="10%">Skill</th>
 
-                <th width="15%">Exparience</th>
+                <th width="15%">Experience</th>
 
                 @if(auth()->user()->hasRole('super-admin') or auth()->user()->hasRole('admin'))
 
@@ -104,7 +104,7 @@ height: auto !important;
 
                 @endif
 
-                <th width="15%">Manage</th>
+                <th width="15%" class="sortoff">Manage</th>
 
               </tr>
 
@@ -140,7 +140,7 @@ height: auto !important;
 
                       <td>
 
-                        @php 
+                        @php
 
                             $user = \App\Models\Admin::where('id', $question->user_id)->first();
 
@@ -154,19 +154,19 @@ height: auto !important;
 
                     <td>
 
-                        <a href="{{url('admin/question/view/'.$question->id)}}" title="View Template" class="btn btn-outline-success">
+                        <a href="{{url('admin/question/view/'.$question->id)}}" title="View Question" class="btn btn-outline-success">
 
                           <i class="fa fa-eye"></i>
 
                         </a>
 
-                        <a href="{{url('admin/question/'.$question->id.'/edit')}}" title="Edit Template" class="btn btn-outline-success">
+                        <a href="{{url('admin/question/'.$question->id.'/edit')}}" title="Edit Question" class="btn btn-outline-success">
 
                           <i class="fa fa-edit"></i>
 
                         </a>
 
-                        <a href="{{url('admin/delete_question/'.$question->id)}}" title="Edit Template" class="btn btn-outline-danger">
+                        <a href="{{url('admin/delete_question/'.$question->id)}}" onClick="return confirm('Are you sure?')" title="Delete Question" class="btn btn-outline-danger">
 
                           <i class="fa fa fa-fw fa-trash"></i>
 

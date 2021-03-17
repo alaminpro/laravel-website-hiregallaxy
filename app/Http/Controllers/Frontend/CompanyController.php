@@ -169,7 +169,7 @@ class CompanyController extends Controller
             $company->location = $request->location;
             $company->website_url = $request->website_url;
             $company->save();
-            return redirect()->route('companies')->with('success', 'Company created successfull');
+            return redirect()->route('companies')->with('success', 'Company Updated Sucessfully');
         } else {
             return redirect()->back()->with('errors', 'Permission denied');
         }

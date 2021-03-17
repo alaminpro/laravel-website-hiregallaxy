@@ -86,7 +86,7 @@
                   <strong>Job Summary</strong>
                   <textarea name="job_summery" id="job_summery" rows="3" class="template form-control"
                     placeholder="Job Summary">{!! $template->job_summery !!}</textarea>
-
+<div class="job-summery-error"></div>
                 </div>
               </div>
             </div>
@@ -96,6 +96,7 @@
                   <strong>Responsibilities & Duties</strong>
                   <textarea name="responsibilities" id="responsibilities" name="responsibilities" rows="3"
                     class="template form-control">{!! $template->responsibilities !!}</textarea>
+                    <div class="responsibilities-error"></div>
                 </div>
               </div>
             </div>
@@ -107,6 +108,7 @@
                   <strong>Qualification</strong>
                   <textarea name="qualification" id="qualification" name="qualification" rows="3"
                     class="template form-control">{!! $template->qualification !!}</textarea>
+                    <div class="qualification-error"></div>
                 </div>
               </div>
             </div>
@@ -116,6 +118,7 @@
                   <strong>Certification</strong>
                   <textarea name="certification" id="certification" name="certification" rows="3"
                     class="template form-control">{!! $template->certification !!}</textarea>
+                    <div class="certification-error"></div>
                 </div>
               </div>
             </div>
@@ -128,6 +131,7 @@
                   <strong>Experience</strong>
                   <textarea name="experience" id="experience" name="experience" rows="3"
                     class="template form-control">{!! $template->experience !!}</textarea>
+                    <div class="experience-error"></div>
                 </div>
               </div>
             </div>
@@ -137,6 +141,7 @@
                   <strong>About Company</strong>
                   <textarea name="about_company" id="about_company" name="about_company" rows="3"
                     class="template form-control">{!! $template->about_company !!}</textarea>
+                    <div class="about-company-error"></div>
                 </div>
               </div>
             </div>
@@ -144,10 +149,10 @@
 
 
           <div class="mt-3">
-            <button type="button" class="btn btn-danger float-right mt-1 ml-2 " data-dismiss="modal"><i
-                class="fa fa-times"></i> Cancel</button>
+            <a href="{{ route('admin.templates.index') }}" class="btn btn-danger float-right mt-1 ml-2 "><i class="fa fa-times"></i>
+                Cancel</a>
 
-            <button type="submit" class="btn btn-success float-right mt-1 ">
+            <button type="submit" class="btn btn-success float-right mt-1 saveTemplate">
               <i class="fa fa-check"></i> Save Template
             </button>
 

@@ -2690,19 +2690,19 @@ minlength="5"
 
 														<option value="Male"
 
-															{{ $user->candidate->gender == "Male" ? 'selected' : '' }}>
+															{{ $user->candidate ?$user->candidate->gender == "Male" ? 'selected' : '' : ''}}>
 
 															Male</option>
 
 														<option value="Female"
 
-															{{ $user->candidate->gender == "Female" ? 'selected' : '' }}>
+															{{ $user->candidate? $user->candidate->gender == "Female" ? 'selected' : '' : ''}}>
 
 															Female</option>
 
 														<option value="Other"
 
-															{{ $user->candidate->gender == "Other" ? 'selected' : '' }}>
+															{{ $user->candidate ?$user->candidate->gender == "Other" ? 'selected' : '': '' }}>
 
 															Other</option>
 
@@ -2724,7 +2724,7 @@ minlength="5"
 
 														<option value="{{ $cLevel->id }}"
 
-															{{ $user->candidate->career_level_id == $cLevel->id ? 'selected' : '' }}>
+															{{ $user->candidate ?$user->candidate->career_level_id == $cLevel->id ? 'selected' : '' : ''}}>
 
 															{{ $cLevel->name }}</option>
 
@@ -2744,7 +2744,7 @@ minlength="5"
 
 														class="form-control date_of_birth" data-parsley-age
 
-														value="{{ $user->candidate->date_of_birth }}" required />
+														value="{{ $user->candidate?$user->candidate->date_of_birth : '' }}" required />
 
 												</div>
 
@@ -2765,7 +2765,7 @@ minlength="5"
 													<input type="file" name="cv" id="cv" class="form-control" style="padding-bottom: 35px;" />
 
 												</div>
-
+                                                @if($user->candidate)
 												<div class="col-md-6">
 
 													<label for="discipline">Discipline <span
@@ -2778,6 +2778,7 @@ minlength="5"
 														@foreach (App\Models\Discipline::orderBy('created_at', 'asc')->get() as
 
 														$key => $discipline)
+
 														@php
 														$dis = App\Models\Discipline::whereIn('id', explode(',', $user->candidate->descipline_id))->pluck('id')->toArray();
 
@@ -2794,6 +2795,7 @@ minlength="5"
 													</select>
 
 												</div>
+                                                @endif
 
 											</div>
 
@@ -2911,7 +2913,7 @@ minlength="5"
 
 					<p class=""><i class="fa fa-map-marker text-theme"></i> <span
 
-							class="text-theme">{{ $user->location ? $user->location->country->name : '' }}</span></p>
+							class="text-theme">{{ $user->location ? $user->location->country ? $user->location->country->name : '': '' }}</span></p>
 
 					<p class="text-muted">Member since {{ substr($user->created_at, 0,4) }}</p>
 
@@ -3009,7 +3011,7 @@ minlength="5"
 
 							</p>
 
-							<p class="text-muted">{{ $user->candidate->gender }}</p>
+							<p class="text-muted">{{ $user->candidate ? $user->candidate->gender : '' }}</p>
 
 						</div>
 
@@ -3049,7 +3051,7 @@ minlength="5"
 
 							</p>
 							@php
-														$dis = App\Models\Discipline::whereIn('id', explode(',', $user->candidate->descipline_id))->get();
+														$dis = App\Models\Discipline::whereIn('id', explode(',', $user->candidate ? $user->candidate->descipline_id : ''))->get();
 
 														@endphp
 
@@ -3132,7 +3134,7 @@ minlength="5"
 
 						<h5 class="text-theme">
 
-							Contact with the Employer
+							Contact with the candidates
 
 						</h5>
 
