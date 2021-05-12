@@ -27,7 +27,7 @@
         "autoprefixer": "^9.8.6",
         "browserslist": "^4.14.0",
         "caniuse-lite": "^1.0.30001118",
-        "chart.js": "^2.9.3",
+        "chart.js": "^2.9.4",
         "vue-chartjs": "^3.5.1"
     }
 }
